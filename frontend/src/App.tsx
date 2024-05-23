@@ -1,6 +1,10 @@
-import React, { useState, FC, ProfilerProps } from 'react';
+import { useState, ReactNode, createContext} from 'react';
+import {BrowserRouter} from 'react-router-dom'
 import './App.css';
 import { Button } from 'reactstrap';
+import NavBar from './components/NavBar';
+
+
 
 type Props = {
   user: {
@@ -22,7 +26,7 @@ type Props = {
 */
 
 
-function App ({user}:Props): React.ReactNode {
+function App (): ReactNode {
   const [count, setCount] = useState<number>(0);
 
   function incrCount(): void {
@@ -31,18 +35,22 @@ function App ({user}:Props): React.ReactNode {
 
   return (
     <div className="App">
+      <BrowserRouter>
+      <NavBar />
       <main>
-        <h1>Rithm React Starter</h1>
-        <p>
           <Button
               color='primary'>
-            Button
+            Login
           </Button>
-        </p>
+          <Button
+              color='primary'>
+            Signup
+          </Button>
         <p>
           Edit <code>src/App.jsx</code>
         </p>
       </main>
+      </BrowserRouter>
     </div>
   );
 };

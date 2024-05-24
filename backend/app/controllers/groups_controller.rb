@@ -11,9 +11,9 @@ class GroupsController < ApplicationController
     def create
       @group = Group.new(group_params)
       if @group.save
-        redirect_to @group, notice: 'Group was successfully created.'
+        render json: { group: @group}, status: :created
       else
-        render :new
+        render json: { errors: @group.errors.full_messages }, status: :unprocessable_entity
       end
     end
 
@@ -22,15 +22,19 @@ class GroupsController < ApplicationController
 
     def update
       if @group.update(group_params)
-        redirect_to @group, notice: 'Group was successfully updated.'
+        render json: { group: @group}, status: :ok
       else
         render :edit
       end
     end
 
     def destroy
-      @group.destroy
-      redirect_to groups_url, notice: 'Group was successfully destroyed.'
+      if @group.admin_id === @user.id
+        @group.destroy
+        render json: { errors: @group.errors.full_messages }, status: :unprocessable_entity
+      else
+        render json: { errors: "Not Authorized" }, status: :unauthorized
+
     end
 
     private

@@ -18,7 +18,10 @@ Rails.application.routes.draw do
 end
 
 Rails.application.routes.draw do
-  resources :groups, only: [:index, :show, :create, :update, :destroy]
+  resources :groups, only: [:index, :show, :create, :update, :destroy] do
+    post 'join', on: :member
+    delete 'leave', on: :member
+  end
 end
 
 

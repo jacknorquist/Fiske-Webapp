@@ -22,7 +22,7 @@ function NavBar(): React.ReactNode {
 
   return (
     <div>
-      <Navbar expand='lg'>
+      <Navbar expand='md'>
         <NavbarBrand href="/">Fiske</NavbarBrand>
         <NavbarToggler onClick={toggle} />
         <Collapse isOpen={isOpen} navbar>

@@ -1,7 +1,6 @@
-
+require_relative '../helpers/token_helper'
 
 module AuthenticationHelper
-
     include TokenService
 
     def authenticate(email, password)

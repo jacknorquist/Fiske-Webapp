@@ -17,4 +17,8 @@ Rails.application.routes.draw do
   post '/login', to: 'authentication#login'
 end
 
+Rails.application.routes.draw do
+  resources :groups, only: [:index, :show, :create, :update, :destroy]
+end
+
 

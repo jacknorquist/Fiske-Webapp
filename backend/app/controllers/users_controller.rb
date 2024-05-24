@@ -12,7 +12,7 @@ class UsersController < ApplicationController
         token = generate_token(@user.id)
         render json: { user: user_json(@user), token: token }, status: :created
       else
-        render json: { errors: user.errors.full_messages }, status: :unprocessable_entity
+        render json: { errors: @user.errors.full_messages }, status: :unprocessable_entity
       end
     end
 

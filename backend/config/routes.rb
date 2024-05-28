@@ -21,6 +21,9 @@ Rails.application.routes.draw do
   resources :groups, only: [:index, :show, :create, :update, :destroy] do
     post 'join', on: :member
     delete 'leave', on: :member
+    resources :posts, only: [:create, :index, :show, :update, :destroy] do
+      resources :comments, only: [:create]
+    end
   end
 end
 

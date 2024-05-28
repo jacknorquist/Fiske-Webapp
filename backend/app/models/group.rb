@@ -1,7 +1,8 @@
 class Group < ApplicationRecord
     belongs_to :admin, class_name: 'User'
-    has_many :memberships
+    has_many :memberships, dependent: :destroy
     has_many :members, through: :memberships, source: :user
+    has_many :posts, dependent: :destroy
 
     validates :admin, presence: true
     validates :name, presence: true, length: { maximum: 35 }, uniqueness: true

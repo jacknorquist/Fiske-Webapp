@@ -34,7 +34,6 @@ class GroupsController < ApplicationController
     end
 
     def destroy
-        puts @current_user.id, @group.admin_id
         if @group.admin_id == @current_user.id
             if @group.destroy
                 render json: { message: "Group Deleted" }, status: :ok

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_05_27_174514) do
+ActiveRecord::Schema[7.1].define(version: 2024_05_27_231624) do
   create_table "group_post_comments", force: :cascade do |t|
     t.integer "post_id", null: false
     t.integer "user_id", null: false
@@ -24,7 +24,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_27_174514) do
   create_table "group_posts", force: :cascade do |t|
     t.integer "group_id", null: false
     t.integer "user_id", null: false
-    t.text "content", limit: 500, null: false
+    t.string "title", limit: 100, null: false
+    t.text "content", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["group_id"], name: "index_group_posts_on_group_id"
@@ -51,6 +52,17 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_27_174514) do
     t.index ["user_id"], name: "index_memberships_on_user_id"
   end
 
+  create_table "posts", force: :cascade do |t|
+    t.integer "group_id", null: false
+    t.integer "user_id", null: false
+    t.string "title", limit: 100, null: false
+    t.text "content", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["group_id"], name: "index_posts_on_group_id"
+    t.index ["user_id"], name: "index_posts_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "username", limit: 25, null: false
     t.string "first_name", limit: 25, null: false
@@ -70,4 +82,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_27_174514) do
   add_foreign_key "groups", "users", column: "admin_id"
   add_foreign_key "memberships", "groups"
   add_foreign_key "memberships", "users"
+  add_foreign_key "posts", "groups"
+  add_foreign_key "posts", "users"
 end

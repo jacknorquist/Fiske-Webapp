@@ -24,7 +24,7 @@ class PostsController < ApplicationController
     def update
       if @post.user_id == @current_user.id
         if @post.update(post_update_params)
-          render json: { post: @post, comments: @post.post_comments }, status:
+          render json: { post: @post, comments: @post.post_comments }, status: :ok
         else
           render json: @post.errors, status: :unprocessable_entity
         end

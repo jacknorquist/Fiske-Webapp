@@ -7,7 +7,7 @@ class PostsController < ApplicationController
     end
 
     def show
-      render json: { post: @post }, status: :ok
+      render json: { post: @post, comments: @post.post_comments}, status: :ok
     end
 
     def create
@@ -24,7 +24,7 @@ class PostsController < ApplicationController
     def update
       if @post.user_id == @current_user.id
         if @post.update(post_update_params)
-          render json: { post: @post }, status: :ok
+          render json: { post: @post, comments: @post.post_comments }, status:
         else
           render json: @post.errors, status: :unprocessable_entity
         end

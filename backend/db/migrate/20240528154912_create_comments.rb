@@ -1,9 +1,11 @@
-class CreateGroupPostComments < ActiveRecord::Migration[6.0]
+class CreateComments < ActiveRecord::Migration[6.0]
   def change
-    create_table :group_post_comments do |t|
+    drop_table :post_comments
+    create_table :comments do |t|
       t.references :post, null: false, foreign_key: true
       t.references :user, null: false, foreign_key: true
-      t.text :content, null: false, limit: 200
+      t.text :content, null: false
+
       t.timestamps
     end
   end

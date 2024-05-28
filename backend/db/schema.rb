@@ -10,15 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_05_27_231624) do
-  create_table "group_post_comments", force: :cascade do |t|
+ActiveRecord::Schema[7.1].define(version: 2024_05_28_154912) do
+  create_table "comments", force: :cascade do |t|
     t.integer "post_id", null: false
     t.integer "user_id", null: false
-    t.text "content", limit: 200, null: false
+    t.text "content", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["post_id"], name: "index_group_post_comments_on_post_id"
-    t.index ["user_id"], name: "index_group_post_comments_on_user_id"
+    t.index ["post_id"], name: "index_comments_on_post_id"
+    t.index ["user_id"], name: "index_comments_on_user_id"
   end
 
   create_table "group_posts", force: :cascade do |t|
@@ -56,7 +56,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_27_231624) do
     t.integer "group_id", null: false
     t.integer "user_id", null: false
     t.string "title", limit: 100, null: false
-    t.text "content", null: false
+    t.text "content", limit: 500, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["group_id"], name: "index_posts_on_group_id"
@@ -75,8 +75,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_27_231624) do
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
-  add_foreign_key "group_post_comments", "posts"
-  add_foreign_key "group_post_comments", "users"
+  add_foreign_key "comments", "posts"
+  add_foreign_key "comments", "users"
   add_foreign_key "group_posts", "groups"
   add_foreign_key "group_posts", "users"
   add_foreign_key "groups", "users", column: "admin_id"

@@ -4,6 +4,9 @@ class Group < ApplicationRecord
     has_many :members, through: :memberships, source: :user
     has_many :posts, dependent: :destroy
 
+    has_many_attached :images
+    has_one_attached :header_image
+
     validates :admin, presence: true
     validates :name, presence: true, length: { maximum: 35 }, uniqueness: true
     validates :fish_species, length: { maximum: 50 }

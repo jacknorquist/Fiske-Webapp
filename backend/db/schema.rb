@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_05_28_230828) do
+ActiveRecord::Schema[7.1].define(version: 2024_05_29_152647) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -42,7 +42,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_28_230828) do
   create_table "comments", force: :cascade do |t|
     t.integer "post_id", null: false
     t.integer "user_id", null: false
-    t.text "content", null: false
+    t.text "content", limit: 200, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["post_id"], name: "index_comments_on_post_id"
@@ -68,11 +68,12 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_28_230828) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["admin_id"], name: "index_groups_on_admin_id"
+    t.index ["name"], name: "index_groups_on_name", unique: true
   end
 
   create_table "memberships", force: :cascade do |t|
-    t.integer "user_id", null: false
     t.integer "group_id", null: false
+    t.integer "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["group_id"], name: "index_memberships_on_group_id"
@@ -95,9 +96,9 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_28_230828) do
     t.string "username", limit: 25, null: false
     t.string "first_name", limit: 25, null: false
     t.string "last_name", limit: 25, null: false
-    t.text "bio", limit: 250
+    t.string "bio", limit: 250
     t.string "email", limit: 255, null: false
-    t.string "password_digest", null: false
+    t.string "password_digest"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_users_on_email", unique: true

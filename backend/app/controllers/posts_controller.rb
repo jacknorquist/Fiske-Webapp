@@ -13,11 +13,11 @@ class PostsController < ApplicationController
     def create
       @post = @group.posts.new(post_params)
       @post.user_id = @current_user.id
-      puts params[:images], 'pppppppppppp'
+      @post.images.attach(params[:images]) if params[:images].present?
 
 
       if @post.save
-        @post.image.attach(params[:images])
+        puts params[:images], 'helllllllllljlkhkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkllloooo'
         render json: { post: @post }, status: :created
       else
         render json: @post.errors, status: :unprocessable_entity
@@ -51,11 +51,12 @@ class PostsController < ApplicationController
     private
 
     def set_group
+      puts Group.find(params[:group_id]), 'hhhhhhhhhhhhhhhhhhhhhhhhhhhhh'
       @group = Group.find(params[:group_id])
     end
 
     def set_post
-      puts @group.posts
+
       @post = @group.posts.find(params[:id])
     end
 

@@ -18,26 +18,6 @@ amazon:
   group_image: groups/images/
   post_image: posts/images/
 
-# app/models/product.rb
-class Product < ApplicationRecord
-  has_one_attached :image
-end
-
-# app/views/products/show.html.erb
-<%= image_tag @product.image %>
-
-# app/controllers/products_controller.rb
-class ProductsController < ApplicationController
-  def create
-    @product = Product.new(product_params)
-    @product.image.attach(params[:image])
-    if @product.save
-      redirect_to @product, notice: 'Product was successfully created.'
-    else
-      render :new
-    end
-  end
-end
 
 
 # Use bin/rails credentials:edit to set the AWS secrets (as aws:access_key_id|secret_access_key)

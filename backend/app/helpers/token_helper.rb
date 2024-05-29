@@ -7,6 +7,7 @@ module TokenService
     end
 
     def decode_token(token)
+
       JWT.decode(token, Rails.application.credentials.secret_key_base).first
     rescue JWT::DecodeError
       nil

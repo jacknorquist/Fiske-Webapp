@@ -13,8 +13,11 @@ class PostsController < ApplicationController
     def create
       @post = @group.posts.new(post_params)
       @post.user_id = @current_user.id
+      puts params[:images], 'pppppppppppp'
+
 
       if @post.save
+        @post.image.attach(params[:images])
         render json: { post: @post }, status: :created
       else
         render json: @post.errors, status: :unprocessable_entity
@@ -61,6 +64,7 @@ class PostsController < ApplicationController
     end
 
     def post_params
-      params.require(:post).permit(:title, :content).merge(user_id: @current_user.id, group_id: params[:group_id])
+     JSON.parse(params[:post]).merge(user_id: @current_user.id, group_id: params[:group_id])
+      # params.require(:post).permit(:title, :content).merge(user_id: @current_user.id, group_id: params[:group_id])
     end
   end

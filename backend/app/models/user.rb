@@ -15,6 +15,8 @@ class User < ApplicationRecord
     has_many :groups, through: :memberships
     has_many :group_posts
     has_many :group_post_comments
+    has_one_attached :profile_image
+    has_one_attached :header_image
 
 
     # Callbacks

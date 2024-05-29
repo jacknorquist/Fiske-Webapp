@@ -6,6 +6,40 @@ local:
   service: Disk
   root: <%= Rails.root.join("storage") %>
 
+amazon:
+  service: S3
+  access_key_id: <%= Rails.application.credentials.dig(:aws, :access_key_id) %>
+  secret_access_key: <%= Rails.application.credentials.dig(:aws, :secret_access_key) %>
+  region: us-east-2
+  bucket: fiskebucket
+  user_profile_image: users/profile/
+  user_header_image: users/header/
+  group_header_image: groups/header/
+  group_image: groups/images/
+  post_image: posts/images/
+
+# app/models/product.rb
+class Product < ApplicationRecord
+  has_one_attached :image
+end
+
+# app/views/products/show.html.erb
+<%= image_tag @product.image %>
+
+# app/controllers/products_controller.rb
+class ProductsController < ApplicationController
+  def create
+    @product = Product.new(product_params)
+    @product.image.attach(params[:image])
+    if @product.save
+      redirect_to @product, notice: 'Product was successfully created.'
+    else
+      render :new
+    end
+  end
+end
+
+
 # Use bin/rails credentials:edit to set the AWS secrets (as aws:access_key_id|secret_access_key)
 # amazon:
 #   service: S3

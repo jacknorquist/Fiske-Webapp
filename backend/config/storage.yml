@@ -2,9 +2,6 @@ test:
   service: Disk
   root: <%= Rails.root.join("tmp/storage") %>
 
-local:
-  service: Disk
-  root: <%= Rails.root.join("storage") %>
 
 amazon:
   service: S3
@@ -12,12 +9,16 @@ amazon:
   secret_access_key: <%= Rails.application.credentials.dig(:aws, :secret_access_key) %>
   region: us-east-2
   bucket: fiskebucket
-  user_profile_image: users/profile/
-  user_header_image: users/header/
-  group_header_image: groups/header/
-  group_image: groups/images/
-  post_image: posts/images/
+  # upload:
+  #   user_profile_image: users/profile/
+  #   user_header_image: users/header/
+  #   group_header_image: groups/header/
+  #   group_image: groups/images/
+  #   post_image: posts/images/
 
+local:
+  service: Disk
+  root: <%= Rails.root.join("storage") %>
 
 
 # Use bin/rails credentials:edit to set the AWS secrets (as aws:access_key_id|secret_access_key)

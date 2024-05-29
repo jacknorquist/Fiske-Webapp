@@ -13,11 +13,15 @@ class PostsController < ApplicationController
     def create
       @post = @group.posts.new(post_params)
       @post.user_id = @current_user.id
-      @post.images.attach(params[:images]) if params[:images].present?
+
+      if params[:images].present?
+          images = params[:images]
+          @post.images.attach(io: images.tempfile, filename: images.original_filename, content_type: images.content_type, key: "posts/images/#{images.original_filename}")
+        # end
+      end
 
 
       if @post.save
-        puts params[:images], 'helllllllllljlkhkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkllloooo'
         render json: { post: @post }, status: :created
       else
         render json: @post.errors, status: :unprocessable_entity
@@ -51,7 +55,6 @@ class PostsController < ApplicationController
     private
 
     def set_group
-      puts Group.find(params[:group_id]), 'hhhhhhhhhhhhhhhhhhhhhhhhhhhhh'
       @group = Group.find(params[:group_id])
     end
 
@@ -65,7 +68,8 @@ class PostsController < ApplicationController
     end
 
     def post_params
-     JSON.parse(params[:post]).merge(user_id: @current_user.id, group_id: params[:group_id])
-      # params.require(:post).permit(:title, :content).merge(user_id: @current_user.id, group_id: params[:group_id])
+      post_data = JSON.parse(params[:post])
+      post_data['images'] = params[:images] if params[:images].present?
+      post_data.merge(user_id: @current_user.id, group_id: params[:group_id])
     end
   end

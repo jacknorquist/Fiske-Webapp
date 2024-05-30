@@ -13,8 +13,8 @@ amazon:
   #   user_profile_image: users/profile/
   #   user_header_image: users/header/
   #   group_header_image: groups/header/
-  #   group_image: groups/images/
-  #   post_image: posts/images/
+  # group_images: groups/images/
+  # post_images: posts/images/
 
 local:
   service: Disk

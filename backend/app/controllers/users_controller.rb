@@ -8,6 +8,14 @@ class UsersController < ApplicationController
     def create
       @user = User.new(user_params)
 
+      if params[:header_image].present?
+        @user.header_image = params[:header_image]
+      end
+
+      if params[:profile_image].present?
+        @user.profile_image = params[:profile_image]
+      end
+
       if @user.save
         token = generate_token(@user.id)
         render json: { user: user_json(@user), token: token }, status: :created
@@ -19,7 +27,8 @@ class UsersController < ApplicationController
     private
 
     def user_params
-      params.require(:user).permit(:username, :first_name, :last_name, :email, :password)
+      post_data = JSON.parse(params[:user])
+      # params.require(:user).permit(:username, :first_name, :last_name, :email, :password)
     end
     def user_json(user)
         user.as_json(only: [:id, :username, :first_name, :last_name, :email])

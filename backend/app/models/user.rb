@@ -1,3 +1,6 @@
+require "shrine"
+require "shrine/storage/s3"
+
 class User < ApplicationRecord
     has_secure_password
     # Validations
@@ -15,9 +18,9 @@ class User < ApplicationRecord
     has_many :groups, through: :memberships
     has_many :group_posts
     has_many :group_post_comments
-    has_one_attached :profile_image
-    has_one_attached :header_image
 
+    include ImageUploader[:profile_image]
+    include ImageUploader[:header_image]
 
     # Callbacks
     before_save :downcase_email

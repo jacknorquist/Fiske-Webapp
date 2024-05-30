@@ -14,8 +14,8 @@ class PostsController < ApplicationController
       @post = @group.posts.new(post_params)
       @post.user_id = @current_user.id
 
-      # if params[:images].present?
-      #   images = params[:images]
+      # if params[:image].present?
+      #   images = params[:image]
       #   key = "posts/images/#{images.original_filename}"
       #   @post.images.attach(io: images.tempfile, filename: images.original_filename, content_type: images.content_type, key: key)
       # end

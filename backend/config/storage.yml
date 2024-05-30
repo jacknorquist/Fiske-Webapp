@@ -3,18 +3,12 @@ test:
   root: <%= Rails.root.join("tmp/storage") %>
 
 
-amazon:
-  service: S3
-  access_key_id: <%= Rails.application.credentials.dig(:aws, :access_key_id) %>
-  secret_access_key: <%= Rails.application.credentials.dig(:aws, :secret_access_key) %>
-  region: us-east-2
-  bucket: fiskebucket
-  # upload:
-  #   user_profile_image: users/profile/
-  #   user_header_image: users/header/
-  #   group_header_image: groups/header/
-  # group_images: groups/images/
-  # post_images: posts/images/
+# amazon:
+#   service: S3
+#   access_key_id: <%= Rails.application.credentials.dig(:aws, :access_key_id) %>
+#   secret_access_key: <%= Rails.application.credentials.dig(:aws, :secret_access_key) %>
+#   region: us-east-2
+#   bucket: fiskebucket
 
 local:
   service: Disk

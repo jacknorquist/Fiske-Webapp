@@ -35,27 +35,27 @@ class GroupsController < ApplicationController
     end
 
     def update
-        if @group.admin_id == @current_user.id
-            if @group.update(group_params)
-                render json: { group: group_json(@group)}, status: :ok
-            else
-                render json: { errors: @group.errors.full_messages }, status: :unprocessable_entity
-            end
-        else
-            render json: { errors: "Not Authorized" }, status: :unauthorized
-        end
+      unless @group.admin_id == @current_user.id
+        return render json: { errors: "Not Authorized" }, status: :unauthorized
+      end
+
+      if @group.update(group_params)
+        render json: { group: group_json(@group)}, status: :ok
+      else
+        render json: { errors: @group.errors.full_messages }, status: :unprocessable_entity
+      end
     end
 
     def destroy
-        if @group.admin_id == @current_user.id
-            if @group.destroy
-                render json: { message: "Group Deleted" }, status: :ok
-            else
-                render json: { errors: @group.errors.full_messages }, status: :unprocessable_entityed
-            end
-        else
-            render json: { errors: "Not Authorized" }, status: :unauthorized
-        end
+      unless @group.admin_id == @current_user.id
+        return render json: { errors: "Not Authorized" }, status: :unauthorized
+      end
+
+      if @group.destroy
+        render json: { message: "Group Deleted" }, status: :ok
+      else
+        render json: { errors: @group.errors.full_messages }, status: :unprocessable_entity
+      end
     end
 
     def join
@@ -90,19 +90,6 @@ class GroupsController < ApplicationController
 
     end
 
-
-
-
-    # def group_json(group)
-    #   {
-    #     id: group.id,
-    #     name: group.name,
-    #     fish_species: group.fish_species,
-    #     area: group.area,
-    #     header_image_url: group.header_image_url,
-    #     profile_image_url: group.group_images_url
-    #   }
-    # end
 
     def group_json(group)
       group_json = group.as_json(only: [:id, :admin_id, :name, :fish_species, :area])

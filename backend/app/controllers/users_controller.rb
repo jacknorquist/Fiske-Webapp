@@ -30,27 +30,26 @@ class UsersController < ApplicationController
     end
 
     def update
-      if @user.id == @current_user.id
-          if @user.update(user_update_params)
-              render json: { user: user_json(@user)}, status: :ok
-          else
-              render json: { errors: @user.errors.full_messages }, status: :unprocessable_entity
-          end
+      unless @user.id == @current_user.id
+        return render json: { errors: "Not Authorized" }, status: :unauthorized
+      end
+      if @user.update(user_update_params)
+        render json: { user: user_json(@user)}, status: :ok
       else
-          render json: { errors: "Not Authorized" }, status: :unauthorized
+        render json: { errors: @user.errors.full_messages }, status: :unprocessable_entity
       end
     end
 
 
     def destroy
-      if @user.id == @current_user.id
-          if @user.destroy
-              render json: { message: "User Deleted" }, status: :ok
-          else
-              render json: { errors: @user.errors.full_messages }, status: :unprocessable_entityed
-          end
+      unless @user.id == @current_user.id
+        return render json: { errors: "Not Authorized" }, status: :unauthorized
+      end
+
+      if @user.destroy
+        render json: { message: "User Deleted" }, status: :ok
       else
-          render json: { errors: "Not Authorized" }, status: :unauthorized
+        render json: { errors: @user.errors.full_messages }, status: :unprocessable_entityed
       end
     end
 
@@ -63,15 +62,11 @@ class UsersController < ApplicationController
     end
 
     def user_params
-      #do validation for parameters once js react form data type is figure out --For classes
-      params.permit(:username, :first_name, :last_name, :email, :password, :header_image, :profile_image)
-      # params.require(:user).permit(:username, :first_name, :last_name, :email, :password)
+      params.(:username, :first_name, :last_name, :email, :password, :header_image, :profile_image)
     end
 
     def user_update_params
-      #do validation for parameters once js react form data type is figure out --For classes
       params.permit(:username, :first_name, :last_name, :email, :header_image, :profile_image)
-      # params.require(:user).permit(:username, :first_name, :last_name, :email, :password)
     end
 
 

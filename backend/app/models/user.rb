@@ -42,6 +42,10 @@ class User < ApplicationRecord
       return unless profile_image_attacher.file.exists?
       profile_image.url
     end
+
+    def authenticate_password(password)
+      authenticate(password) && password.present?
+    end
     private
 
 

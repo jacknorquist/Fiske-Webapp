@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_05_31_001131) do
+ActiveRecord::Schema[7.1].define(version: 2024_05_31_180411) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -90,6 +90,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_31_001131) do
     t.text "content", limit: 500, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.json "images_data", default: [], null: false
     t.index ["group_id"], name: "index_posts_on_group_id"
     t.index ["user_id"], name: "index_posts_on_user_id"
   end

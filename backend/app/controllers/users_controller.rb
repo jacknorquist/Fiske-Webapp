@@ -42,6 +42,9 @@ class UsersController < ApplicationController
 
 
     def destroy
+      unless authorized
+        return render json: { errors: "Incorrect Password" }, status: :unauthorized
+      end
       unless @user.id == @current_user.id
         return render json: { errors: "Not Authorized" }, status: :unauthorized
       end
@@ -58,11 +61,11 @@ class UsersController < ApplicationController
     def set_user
       @user = User.find(params[:id])
     rescue ActiveRecord::RecordNotFound
-        render json: { error: 'Group not found' }, status: :not_found
+        render json: { error: 'User not found' }, status: :not_found
     end
 
     def user_params
-      params.(:username, :first_name, :last_name, :email, :password, :header_image, :profile_image)
+      params.permit(:username, :first_name, :last_name, :email, :password, :header_image, :profile_image)
     end
 
     def user_update_params
@@ -82,6 +85,9 @@ class UsersController < ApplicationController
       end
 
       user_json
+    end
+    def authorized
+      @user.authenticate_password(params[:password])
     end
 
   end

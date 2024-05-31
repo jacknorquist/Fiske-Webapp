@@ -35,7 +35,7 @@ class GroupsController < ApplicationController
     end
 
     def update
-      unless @group.admin_id == @current_user.id
+      unless authorized
         return render json: { errors: "Not Authorized" }, status: :unauthorized
       end
 
@@ -47,7 +47,7 @@ class GroupsController < ApplicationController
     end
 
     def destroy
-      unless @group.admin_id == @current_user.id
+      unless authorized
         return render json: { errors: "Not Authorized" }, status: :unauthorized
       end
 
@@ -103,5 +103,8 @@ class GroupsController < ApplicationController
       end
 
       group_json
+    end
+    def authorized
+      @group.admin_id == @current_user.id
     end
   end

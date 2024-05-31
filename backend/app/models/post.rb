@@ -7,4 +7,7 @@ class Post < ApplicationRecord
 
     validates :title, presence: true, length: {maximum:100}
     validates :content, presence: true, length: {maximum:500}
+
+    include ImageUploader[:images]
+    attribute :images_data, Array
   end

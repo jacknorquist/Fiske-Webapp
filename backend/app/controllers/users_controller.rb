@@ -13,21 +13,14 @@ class UsersController < ApplicationController
       render json: { users: users }, status: :ok
     end
 
+
     def show
         render json: { User: user_json(@user)}, status: :ok
     end
 
+
     def create
       @user = User.new(user_params)
-
-      if params[:header_image].present?
-        @user.header_image = params[:header_image]
-      end
-
-      if params[:profile_image].present?
-        @user.profile_image = params[:profile_image]
-      end
-
       if @user.save
         token = generate_token(@user.id)
         render json: { user: user_json(@user), token: token }, status: :created
@@ -38,7 +31,7 @@ class UsersController < ApplicationController
 
     def update
       if @user.id == @current_user.id
-          if @user.update(user_params_without_admin_id)
+          if @user.update(user_update_params)
               render json: { user: user_json(@user)}, status: :ok
           else
               render json: { errors: @user.errors.full_messages }, status: :unprocessable_entity
@@ -71,16 +64,29 @@ class UsersController < ApplicationController
 
     def user_params
       #do validation for parameters once js react form data type is figure out --For classes
-      post_data = JSON.parse(params[:user])
+      params.permit(:username, :first_name, :last_name, :email, :password, :header_image, :profile_image)
       # params.require(:user).permit(:username, :first_name, :last_name, :email, :password)
     end
 
-    def user_params_without_admin_id
-      user_params.except(:id)
+    def user_update_params
+      #do validation for parameters once js react form data type is figure out --For classes
+      params.permit(:username, :first_name, :last_name, :email, :header_image, :profile_image)
+      # params.require(:user).permit(:username, :first_name, :last_name, :email, :password)
     end
 
+
     def user_json(user)
-        user.as_json(only: [:id, :username, :first_name, :last_name, :email])
+      user_json = user.as_json(only: [:id, :username, :first_name, :last_name, :email])
+
+      if user.profile_image
+        user_json[:profile_image_url] = user.profile_image_url
+      end
+
+      if user.header_image
+        user_json[:header_image_url] = user.header_image_url
+      end
+
+      user_json
     end
 
   end

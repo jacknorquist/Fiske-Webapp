@@ -20,8 +20,17 @@ class Group < ApplicationRecord
       return unless name_changed?
 
       if self.class.exists?(name: name)
-        errors.add(:name, 'has already been taken')
       end
+    end
+
+    def header_image_url
+      return unless header_image_attacher.file.exists?
+      header_image.url
+    end
+
+    def group_images_url
+      return unless images_attacher.file.exists?
+      images.url
     end
 
   end

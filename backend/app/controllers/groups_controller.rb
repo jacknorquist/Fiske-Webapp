@@ -14,9 +14,9 @@ class GroupsController < ApplicationController
 
       @group = Group.new(group_params)
 
-      if params[:header_image].present?
-        @group.header_image = params[:header_image]
-      end
+      # if params[:header_image].present?
+      #   @group.header_image = params[:header_image]
+      # end
 
       # if params[:images].present?
       #   params[:images].each do |image|
@@ -25,7 +25,7 @@ class GroupsController < ApplicationController
       # end
 
       if @group.save
-        render json: { group: @group}, status: :created
+        render json: { group: group_json(@group)}, status: :created
       else
         render json: { errors: @group.errors.full_messages }, status: :unprocessable_entity
       end
@@ -35,15 +35,9 @@ class GroupsController < ApplicationController
     end
 
     def update
-      puts @group.admin_id, @current_user.id, 'hhhhhhhhhhhhhhhhhhhhhhhhhhh'
         if @group.admin_id == @current_user.id
-
-          if params[:header_image].present?
-            @group.header_image = params[:header_image]
-          end
-
-            if @group.update(group_params_without_admin_id)
-                render json: { group: @group}, status: :ok
+            if @group.update(group_params)
+                render json: { group: group_json(@group)}, status: :ok
             else
                 render json: { errors: @group.errors.full_messages }, status: :unprocessable_entity
             end
@@ -92,11 +86,35 @@ class GroupsController < ApplicationController
 
 
     def group_params
-      params.permit(:name, :fish_species, :area, images: []).merge(admin_id: @current_user.id)
+      params.permit(:name, :fish_species, :area, :header_image).merge(admin_id: @current_user.id)
 
     end
 
-    def group_params_without_admin_id
-        group_params.except(:admin_id)
+
+
+
+    # def group_json(group)
+    #   {
+    #     id: group.id,
+    #     name: group.name,
+    #     fish_species: group.fish_species,
+    #     area: group.area,
+    #     header_image_url: group.header_image_url,
+    #     profile_image_url: group.group_images_url
+    #   }
+    # end
+
+    def group_json(group)
+      group_json = group.as_json(only: [:id, :admin_id, :name, :fish_species, :area])
+
+      if group.header_image
+        group_json[:header_image_url] = group.header_image_url
+      end
+
+      if group.images
+        user_json[:group_images_url] = group.group_images_url
+      end
+
+      group_json
     end
   end

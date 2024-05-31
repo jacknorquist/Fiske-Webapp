@@ -23,7 +23,6 @@ class ImageUploader < Shrine
     secret_access_key: Rails.application.credentials.dig(:aws, :secret_access_key),
     region:            "us-east-2",
     bucket:            "fiskebucket"
-
     )
 
     plugin :pretty_location

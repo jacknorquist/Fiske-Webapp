@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_05_31_180411) do
+ActiveRecord::Schema[7.1].define(version: 2024_05_31_223942) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -68,7 +68,12 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_31_180411) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.text "header_image_data"
-    t.text "images_data"
+    t.text "images_posts_data"
+    t.text "image_1_data"
+    t.text "image_2_data"
+    t.text "image_3_data"
+    t.text "image_4_data"
+    t.text "image_5_data"
     t.index ["admin_id"], name: "index_groups_on_admin_id"
     t.index ["name"], name: "index_groups_on_name", unique: true
   end
@@ -90,7 +95,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_31_180411) do
     t.text "content", limit: 500, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.json "images_data", default: [], null: false
+    t.text "images_posts_data"
     t.index ["group_id"], name: "index_posts_on_group_id"
     t.index ["user_id"], name: "index_posts_on_user_id"
   end

@@ -60,17 +60,18 @@ class PostsController < ApplicationController
     end
 
     def set_post
-
       @post = @group.posts.find(params[:id])
     end
 
     def post_update_params
-      params.permit(:title, :content)
+      params.permit(:title, :content, :images)
     end
 
     def post_params
-      post_data = JSON.parse(params[:post])
-      post_data['images'] = params[:images] if params[:images].present?
-      post_data.merge(user_id: @current_user.id, group_id: params[:group_id])
+      # post_data = JSON.parse(params[:post])
+      # post_data['images'] = params[:images] if params[:images].present?
+      # post_data.merge(user_id: @current_user.id, group_id: params[:group_id])
+
+      params.permit(:title, :content, :images).merge(user_id: params[:id], group_id: params[:group_id])
     end
   end

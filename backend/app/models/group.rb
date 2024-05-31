@@ -14,7 +14,10 @@ class Group < ApplicationRecord
     validate :unique_name, on: :update
 
     include ImageUploader[:header_image]
-    include ImageUploader[:images]
+    IMAGES_COUNT = 5
+    IMAGES_COUNT.times do |i|
+      include ImageUploader["image_#{i+1}"]
+    end
 
     def unique_name
       return unless name_changed?
@@ -28,9 +31,8 @@ class Group < ApplicationRecord
       header_image.url
     end
 
-    def group_images_url
-      return unless images_attacher.file.exists?
-      images.url
+    def group_images_url(image)
+      image.url
     end
 
   end

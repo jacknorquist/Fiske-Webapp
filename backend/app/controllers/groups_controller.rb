@@ -10,7 +10,26 @@ class GroupsController < ApplicationController
     end
 
     def create
+
+      group_params = params.permit(:name, :description, :admin_id)
+
+      puts params, 'hhhhhhhhhhhhhhhhhhh'
+
       @group = Group.new(group_params)
+
+
+      if params[:header_image].present?
+        @group.header_image = params[:header_image]
+      end
+
+      images_params.each do |image|
+        @group.images.attach(image)
+      end
+
+      # if params[:images].present?
+      #   @group.images = params[:images]
+      # end
+
       if @group.save
         render json: { group: @group}, status: :created
       else
@@ -73,8 +92,9 @@ class GroupsController < ApplicationController
 
 
     def group_params
-      params.require(:group).permit(:admin_id, :name, :fish_species, :area)
+      params.permit(:name, :fish_species, :admin_id, :area, images: [])
     end
+
     def group_params_without_admin_id
         group_params.except(:admin_id)
     end

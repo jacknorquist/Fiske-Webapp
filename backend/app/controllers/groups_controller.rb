@@ -11,23 +11,17 @@ class GroupsController < ApplicationController
 
     def create
 
-      group_params = params.permit(:name, :description, :admin_id)
-
-      puts params, 'hhhhhhhhhhhhhhhhhhh'
 
       @group = Group.new(group_params)
-
 
       if params[:header_image].present?
         @group.header_image = params[:header_image]
       end
 
-      images_params.each do |image|
-        @group.images.attach(image)
-      end
-
       # if params[:images].present?
-      #   @group.images = params[:images]
+      #   params[:images].each do |image|
+      #     @group.images.attach(image)
+      #   end
       # end
 
       if @group.save
@@ -41,7 +35,13 @@ class GroupsController < ApplicationController
     end
 
     def update
+      puts @group.admin_id, @current_user.id, 'hhhhhhhhhhhhhhhhhhhhhhhhhhh'
         if @group.admin_id == @current_user.id
+
+          if params[:header_image].present?
+            @group.header_image = params[:header_image]
+          end
+
             if @group.update(group_params_without_admin_id)
                 render json: { group: @group}, status: :ok
             else
@@ -92,7 +92,8 @@ class GroupsController < ApplicationController
 
 
     def group_params
-      params.permit(:name, :fish_species, :admin_id, :area, images: [])
+      params.permit(:name, :fish_species, :area, images: []).merge(admin_id: @current_user.id)
+
     end
 
     def group_params_without_admin_id

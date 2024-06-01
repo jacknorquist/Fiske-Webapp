@@ -11,6 +11,7 @@ class PostsController < ApplicationController
     end
 
     def create
+
       @post = @group.posts.new(post_params)
       @post.user_id = @current_user.id
 
@@ -64,14 +65,20 @@ class PostsController < ApplicationController
     end
 
     def post_update_params
-      params.permit(:title, :content, :images)
+      params.permit(:title, :content, *post_image_params)
     end
+
 
     def post_params
       # post_data = JSON.parse(params[:post])
       # post_data['images'] = params[:images] if params[:images].present?
       # post_data.merge(user_id: @current_user.id, group_id: params[:group_id])
 
-      params.permit(:title, :content, :images).merge(user_id: params[:id], group_id: params[:group_id])
+      params.permit(:title, :content, *post_image_params).merge(user_id: @current_user.id, group_id: params[:group_id])
     end
+
+    def post_image_params
+      (1..5).map { |i| "post_image_#{i}" }
+    end
+
   end

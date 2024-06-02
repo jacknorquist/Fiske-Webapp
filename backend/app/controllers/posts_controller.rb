@@ -2,15 +2,15 @@ class PostsController < ApplicationController
     before_action :set_group
     before_action :set_post, only: [:show, :update, :destroy]
 
-    def index
-      render json: { posts: @group.posts}, status: :ok
-    end
+    # def index
+    #   render json: { posts: @group.posts}, status: :ok
+    # end
 
     def index
-      users = User.all.map do |user|
-        user.as_json(only: [:id, :username, :first_name, :last_name, :email])
+      posts = @group.posts.map do |post|
+        post_json(post).merge(comments: post.comments)
       end
-      render json: { users: users }, status: :ok
+      render json: { posts: posts }, status: :ok
     end
 
 

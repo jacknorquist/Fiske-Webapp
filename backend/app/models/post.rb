@@ -14,5 +14,5 @@ class Post < ApplicationRecord
     include ImageUploader["post_image_2"]
     include ImageUploader["post_image_3"]
     include ImageUploader["post_image_4"]
-    include ImageUploader["post_image_5"]
+    include ImageUploader["post_image_"]
   end

@@ -10,9 +10,4 @@ class Post < ApplicationRecord
     IMAGES_COUNT.times do |i|
       include ImageUploader["post_image_#{i+1}"]
     end
-    # include ImageUploader["post_image_1"]
-    # include ImageUploader["post_image_2"]
-    # include ImageUploader["post_image_3"]
-    # include ImageUploader["post_image_4"]
-    # include ImageUploader["post_image_5"]
   end

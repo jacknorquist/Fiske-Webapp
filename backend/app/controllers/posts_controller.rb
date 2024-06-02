@@ -2,10 +2,6 @@ class PostsController < ApplicationController
     before_action :set_group
     before_action :set_post, only: [:show, :update, :destroy]
 
-    # def index
-    #   render json: { posts: @group.posts}, status: :ok
-    # end
-
     def index
       posts = @group.posts.map do |post|
         post_json(post).merge(comments: post.comments)
@@ -60,10 +56,14 @@ class PostsController < ApplicationController
 
     def set_group
       @group = Group.find(params[:group_id])
+    rescue ActiveRecord::RecordNotFound
+      render json: { error: "Group not found" }, status: :not_found
     end
 
     def set_post
       @post = @group.posts.find(params[:id])
+    rescue ActiveRecord::RecordNotFound
+      render json: { error: "Post not found" }, status: :not_found
     end
 
     def post_update_params

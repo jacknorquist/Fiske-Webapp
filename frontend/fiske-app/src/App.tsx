@@ -10,16 +10,14 @@ function App(): ReactNode{
   return (
     <div className="App">
       <BrowserRouter>
-        <Routes>
-          <RoutesList />
-        </Routes>
-      </BrowserRouter>
-        <main>
         <NavBar />
+        <RoutesList />
+        <main>
           <Button color='primary'>Login</Button>
           <Button color='primary'>Signup</Button>
           <p>Edit <code>src/App.jsx</code></p>
         </main>
+      </BrowserRouter>
     </div>
   );
 }

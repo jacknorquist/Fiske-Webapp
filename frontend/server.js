@@ -59,3 +59,4 @@ function getContentType(filePath) {
       return 'text/plain';
   }
 }
+

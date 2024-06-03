@@ -4,7 +4,21 @@ class FiskeAPI {
   /** Fetch list of items
    * [{id, name, description, recipe, serve}, ...]
    * */
-  static async getUsers() {
+
+  static async login(username, password) {
+    const response = await fetch(`${this.base_api_url}/login`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ username: username, password: password }),
+    });
+    const data = await response.json();
+    // Store authentication token securely (e.g., in a cookie)
+    return data.token;
+  }
+
+  static async getUsers(token) {
     const response = await fetch(`${this.base_api_url}/users`, {
       headers: {
         Authorization: 'Header eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyOX0.JJnz_XOYGoso8oCdlExqxxkY9xr3vq-z-Qnt9kP6Wg8'

@@ -10,7 +10,9 @@ function App(): ReactNode{
   return (
     <div className="App">
       <BrowserRouter>
-        <RoutesList />
+        <Routes>
+          <RoutesList />
+        </Routes>
       </BrowserRouter>
         <main>
         <NavBar />

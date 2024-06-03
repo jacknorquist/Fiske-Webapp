@@ -5,9 +5,9 @@ import App from '../App.tsx';
 
 
 
-function RoutesList(): ReactNode{
+function RoutesList(){
     return (
-        <Routes>
+        <div>
             <Route path="/profile" element={<App />} />
             <Route path="/users" element={<App />} />
             <Route path="/users/:username" element={<App />} />
@@ -16,7 +16,7 @@ function RoutesList(): ReactNode{
             <Route path="/groups/:id/:posts" element={<App/>} />
             <Route path="/groups/:id/:posts/:id" element={<App/>} />
             <Route path="/" element={<App />} />
-        </Routes>
+        </div>
     );
 }
 

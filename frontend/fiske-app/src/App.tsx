@@ -1,12 +1,29 @@
 import React from 'react';
-import { useState, ReactNode, createContext} from 'react';
+import { useState, ReactNode, useEffect} from 'react';
 import NavBar from './components/NavBar.tsx';
 import { BrowserRouter , Routes} from "react-router-dom";
 import RoutesList from './components/RoutesList.tsx';
 import { Button } from 'reactstrap';
 import './App.css';
+import FiskeAPI from '../../api.ts';
 
 function App(): ReactNode{
+
+  const [users, setUsers] = useState(
+    );
+
+  useEffect(function fetchItemsOnMount() {
+      async function fetchUsers() {
+        const users = await FiskeAPI.getUsers();
+        setUsers(
+          users
+        );
+      }
+      fetchUsers();
+    }, []);
+
+    console.log(users, 'hhhhhhhhhhhhhhhhhhhh')
+
   return (
     <div className="App">
       <BrowserRouter>

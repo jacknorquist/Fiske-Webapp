@@ -29,12 +29,12 @@ function App(): ReactNode{
     <div className="App">
       <BrowserRouter>
         <NavBar />
-        <RoutesList login={FiskeAPI.login} />
+        <RoutesList login={FiskeAPI.login} signup={FiskeAPI.signup} />
         <main>
           {!loggedIn ?
           <div>
           <Button color='primary'><Link to={'/login'}>Login</Link></Button>
-          <Button color='primary'>Signup</Button>
+          <Button color='primary'><Link to={'/signup'}>Signup</Link></Button>
           </div>:
           <p>Edit <code>src/App.jsx</code></p>}
         </main>

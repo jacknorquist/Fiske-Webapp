@@ -47,7 +47,7 @@ function LoginForm({login}): ReactNode {
             for="username"
             sm={2}
           >
-            Email
+            Username
           </Label>
           <Col sm={10}>
             <Input

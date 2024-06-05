@@ -13,6 +13,10 @@ class UsersController < ApplicationController
       render json: { users: users }, status: :ok
     end
 
+    def profile
+      render json: user_json(@current_user)
+    end
+
 
     def show
         render json: { User: user_json(@user)}, status: :ok

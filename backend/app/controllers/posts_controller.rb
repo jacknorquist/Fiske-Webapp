@@ -9,7 +9,6 @@ class PostsController < ApplicationController
       render json: { posts: posts }, status: :ok
     end
 
-
     def show
       render json: { post: post_json(@post), comments: @post.comments}, status: :ok
     end

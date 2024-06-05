@@ -11,7 +11,7 @@ import {
     Button
   } from 'reactstrap';
 
-function SignupForm({signup}): ReactNode {
+function SignupForm({handleSignup}): ReactNode {
 
     const initialState = {
         username: "",
@@ -34,7 +34,7 @@ function SignupForm({signup}): ReactNode {
 
     function handleSave(evt) {
         evt.preventDefault();
-        signup(formData);
+        handleSignup(formData);
         setFormData(initialState);
 
     }

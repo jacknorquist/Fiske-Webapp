@@ -12,7 +12,7 @@ import {
     Button
   } from 'reactstrap';
 
-function LoginForm({login}): ReactNode {
+function LoginForm({handleLogin}): ReactNode {
 
     const initialState = {
       username: "",
@@ -31,11 +31,10 @@ function LoginForm({login}): ReactNode {
   }
 
 
-    function handleSave(evt) {
+    async function handleSave(evt) {
       evt.preventDefault();
-      login(formData);
+      await handleLogin(formData)
       setFormData(initialState);
-
   }
 
 

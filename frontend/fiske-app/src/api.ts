@@ -7,7 +7,7 @@ class FiskeAPI {
 
   static async login(formData){
     const {username, password} = formData
-    console.log('hhhhhhhhhhh', username, password, 'hhhhhhhhhhhhhhhhhh')
+
     const response = await fetch(`http://localhost:3000/login`, {
       method: 'POST',
       headers: {
@@ -15,16 +15,18 @@ class FiskeAPI {
       },
       body: JSON.stringify({login:{ username: username, password: password }}),
     });
-    const data = await response.json();
-    console.log(data)
-    // Store authentication token securely (e.g., in a cookie)
-    return data.token;
+
+    if (!response.ok) {
+      const errorMessage = await response.text();
+      console.log(errorMessage)
+      throw new Error(errorMessage || 'An unknown error occurred');
+    }
+    return await response.json()
   }
 
 
   static async signup(formData) {
     const {username, email, password, first_name, last_name} = formData
-    console.log(username, email, password, first_name, last_name)
     const response = await fetch(`http://localhost:3000/users`, {
       method: 'POST',
       headers: {
@@ -39,9 +41,31 @@ class FiskeAPI {
         first_name:first_name,
         last_name:last_name}}),
     });
-    const data = await response.json();
+    if (!response.ok) {
+      const errorMessage = await response.text();
+      throw new Error(errorMessage || 'An unknown error occurred');
+    }
+    return await response.json()
+
     // Store authentication token securely (e.g., in a cookie)
-    return data.token;
+  }
+
+  static async profile(token){
+    console.log('hhhhhhhhhhhhhhhhhhh')
+    const response = await fetch(`http://localhost:3000/users/profile`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
+    });
+
+    if (!response.ok) {
+      const errorMessage = await response.text();
+      console.log(errorMessage)
+      throw new Error(errorMessage || 'An unknown error occurred');
+    }
+    return await response.json()
   }
 
   static async getUsers(token) {

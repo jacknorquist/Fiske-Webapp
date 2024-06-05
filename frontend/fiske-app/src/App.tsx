@@ -39,36 +39,14 @@ function App(): ReactNode{
     fetchUser();
   }, []);
 
-
-
-
-  // useEffect(function fetchItemsOnMount() {
-  //     async function fetchUsers() {
-  //       const users = await FiskeAPI.getUsers(token);
-  //       setUsers(
-  //         users
-  //       );
-  //     }
-  //     fetchUsers();
-  //   }, []);
-  //   console.log(users, 'hhhhhhhhhhhhhhhhhh')
-
-
   return (
 
       <div className="App">
         <BrowserRouter>
-          <NavBar />
-          <RoutesList signup={FiskeAPI.signup} />
+        {loggedIn && <NavBar />}
+          <RoutesList />
           <main>
             <GlobalError />
-            {user ? <div>Hello</div>:<div>goodbye</div>}
-            {!loggedIn ?
-            <div>
-            <Button color='primary'><Link to={'/login'}>Login</Link></Button>
-            <Button color='primary'><Link to={'/signup'}>Signup</Link></Button>
-            </div>:
-            <p>Edit <code>src/App.jsx</code></p>}
           </main>
         </BrowserRouter>
       </div>

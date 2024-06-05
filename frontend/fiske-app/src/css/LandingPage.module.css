@@ -1,0 +1,5 @@
+.container{
+  display: grid;
+  padding: 40%;
+  width: 85vw;
+}

@@ -1,6 +1,7 @@
 
 import React from "react";
 import { ReactNode, useState } from "react";
+import styles from '../../css/form.module.css'
 import {
     Form,
     FormGroup,
@@ -18,18 +19,27 @@ function SignupForm({handleSignup}): ReactNode {
         email: "",
         password:"",
         first_name: "",
-        last_name: ""
+        last_name: "",
+        profile_image: null,
+        header_image:null
     };
     const [formData, setFormData] = useState(initialState);
 
 
     function handleChange(evt) {
-        const { name, value } = evt.target;
-        setFormData(fData => ({
-            ...fData,
-            [name]: value,
-        }));
-    }
+      const { name, value, type, files } = evt.target;
+      if (type === "file") {
+          setFormData(fData => ({
+              ...fData,
+              [name]: files[0]
+          }));
+      } else {
+          setFormData(fData => ({
+              ...fData,
+              [name]: value
+          }));
+      }
+  }
 
 
     function handleSave(evt) {
@@ -39,7 +49,8 @@ function SignupForm({handleSignup}): ReactNode {
 
     }
     return (
-        <Form onSubmit={handleSave}>
+        <Form onSubmit={handleSave} className={`${styles.form} border border-primary rounded`}>
+          <h1>Signup</h1>
         <FormGroup row>
           <Label
             for="username"
@@ -126,6 +137,40 @@ function SignupForm({handleSignup}): ReactNode {
               placeholder="Last Name"
               value={formData.last_name}
               type="text"
+              onChange={handleChange}
+            />
+          </Col>
+        </FormGroup>
+        <FormGroup row>
+          <Label
+            for="profile_image"
+            sm={2}
+          >
+            Profile Image
+          </Label>
+          <Col sm={10}>
+            <Input
+              id="profile_image"
+              name="profile_image"
+              placeholder="Last Name"
+              type="file"
+              onChange={handleChange}
+            />
+          </Col>
+        </FormGroup>
+        <FormGroup row>
+          <Label
+            for="header_image"
+            sm={2}
+          >
+            Profile Image
+          </Label>
+          <Col sm={10}>
+            <Input
+              id="header_image"
+              name="header_image"
+              placeholder="Last Name"
+              type="file"
               onChange={handleChange}
             />
           </Col>

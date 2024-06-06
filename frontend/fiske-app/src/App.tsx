@@ -19,10 +19,6 @@ function App(): ReactNode{
   const {setError} = useError()
 
 
-  // if (!context) {
-  //   // Handle the case where context is undefined
-  //   return null; // Or any fallback UI you prefer
-  // }
 
   useEffect(function fetchUserWhenMounted() {
     async function fetchUser() {
@@ -30,6 +26,7 @@ function App(): ReactNode{
         try{
           const user =await FiskeAPI.profile(localStorage['fiske-token'])
           setUser(user)
+          setLoggedIn(true)
         }catch (err){
           setError('nope')
         }
@@ -37,8 +34,9 @@ function App(): ReactNode{
       }
     }
     fetchUser();
-  }, []);
+  }, [loggedIn]);
 
+console.log(loggedIn, 'appp')
   return (
 
       <div className="App">

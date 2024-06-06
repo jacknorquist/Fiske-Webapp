@@ -1,32 +1,48 @@
-import React, { createContext, useContext, useState, ReactNode} from 'react';
+import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 
+// Define the type for the context value
 interface LoggedInContextType {
-  loggedIn: boolean;
-  setLoggedIn: (loggedIn: boolean) => void;
+    loggedIn: boolean;
+    setLoggedIn: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
+// Create the context with a default value
 const LoggedInContext = createContext<LoggedInContextType | undefined>(undefined);
 
-export const useLoggedIn = () => {
-  const context = useContext(LoggedInContext);
-  if (!context) {
-    throw new Error('useLoggedIn must be used within a LoggedInProvider');
-  }
-  return context;
-};
-
-
+// Define the type for the provider's props
 interface LoggedInProviderProps {
-  children: ReactNode;
+    children: ReactNode;
 }
 
+// Provider component
+export const LoggedInProvider: React.FC<LoggedInProviderProps> = ({ children }) => {
+    const [loggedIn, setLoggedIn] = useState<boolean>(false);
 
-export const LoggedInProvider = ({ children }: LoggedInProviderProps) => {
-  const [loggedIn, setLoggedIn] = useState(false);
+    // Check login status on component mount
+    useEffect(() => {
+        const checkLoginStatus = async () => {
+            // Example: You might check login status by verifying a token in localStorage or making an API call
+            const token = localStorage.getItem('authToken');
+            if (token) {
+                setLoggedIn(true); // Set loggedIn to true if token is found
+            }
+        };
 
-  return (
-    <LoggedInContext.Provider value={{ loggedIn, setLoggedIn }}>
-      {children}
-    </LoggedInContext.Provider>
-  );
+        checkLoginStatus();
+    }, []);
+
+    return (
+        <LoggedInContext.Provider value={{ loggedIn, setLoggedIn }}>
+            {children}
+        </LoggedInContext.Provider>
+    );
+};
+
+// Custom hook to use the LoggedInContext
+export const useLoggedIn = (): LoggedInContextType => {
+    const context = useContext(LoggedInContext);
+    if (context === undefined) {
+        throw new Error('useLoggedIn must be used within a LoggedInProvider');
+    }
+    return context;
 };

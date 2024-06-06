@@ -2,6 +2,7 @@
 
 import React from "react";
 import { ReactNode, useState } from "react";
+import styles from '../../css/form.module.css'
 import {
     Form,
     FormGroup,
@@ -40,7 +41,8 @@ function LoginForm({handleLogin}): ReactNode {
 
 
     return (
-        <Form onSubmit={handleSave}>
+        <Form onSubmit={handleSave} className={`${styles.form} border border-primary rounded`}>
+          <h1>Login</h1>
         <FormGroup row>
           <Label
             for="username"

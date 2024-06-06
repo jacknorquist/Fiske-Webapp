@@ -1,9 +1,6 @@
 class FiskeAPI {
   static base_api_url = "http://localhost:3000";
 
-  /** Fetch list of items
-   * [{id, name, description, recipe, serve}, ...]
-   * */
 
   static async login(formData){
     const {username, password} = formData
@@ -26,32 +23,63 @@ class FiskeAPI {
 
 
   static async signup(formData) {
-    const {username, email, password, first_name, last_name} = formData
-    const response = await fetch(`http://localhost:3000/users`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(
-        {user:
-        {
-        username: username,
-        password: password,
-        email:email,
-        first_name:first_name,
-        last_name:last_name}}),
-    });
-    if (!response.ok) {
-      const errorMessage = await response.text();
-      throw new Error(errorMessage || 'An unknown error occurred');
-    }
-    return await response.json()
+    const { username, email, password, first_name, last_name, profile_image, header_image } = formData;
 
-    // Store authentication token securely (e.g., in a cookie)
+    const data = new FormData();
+    data.append('user[username]', username);
+    data.append('user[password]', password);
+    data.append('user[email]', email);
+    data.append('user[first_name]', first_name);
+    data.append('user[last_name]', last_name);
+    if (profile_image) {
+        data.append('user[profile_image]', profile_image);
+    }
+    if (header_image) {
+        data.append('user[header_image]', header_image);
+    }
+
+    const response = await fetch(`http://localhost:3000/users`, {
+        method: 'POST',
+        body: data,
+    });
+
+    if (!response.ok) {
+        const errorMessage = await response.text();
+        throw new Error(errorMessage || 'An unknown error occurred');
+    }
+    return await response.json();
+}
+
+static async editUser(formData, token) {
+  const { username, first_name, last_name, profile_image, header_image } = formData;
+
+  const data = new FormData();
+  data.append('user[username]', username);
+  data.append('user[first_name]', first_name);
+  data.append('user[last_name]', last_name);
+  if (profile_image) {
+      data.append('user[profile_image]', profile_image);
+  }
+  if (header_image) {
+      data.append('user[header_image]', header_image);
   }
 
+  const response = await fetch(`http://localhost:3000/users/${username}`, {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${token}`
+      },
+      body: data,
+  });
+
+  if (!response.ok) {
+      const errorMessage = await response.text();
+      throw new Error(errorMessage || 'An unknown error occurred');
+  }
+  return await response.json();
+}
+
   static async profile(token){
-    console.log('hhhhhhhhhhhhhhhhhhh')
     const response = await fetch(`http://localhost:3000/users/profile`, {
       method: 'GET',
       headers: {
@@ -62,7 +90,6 @@ class FiskeAPI {
 
     if (!response.ok) {
       const errorMessage = await response.text();
-      console.log(errorMessage)
       throw new Error(errorMessage || 'An unknown error occurred');
     }
     return await response.json()

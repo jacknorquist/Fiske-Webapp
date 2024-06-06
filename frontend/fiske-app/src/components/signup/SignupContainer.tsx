@@ -1,10 +1,11 @@
 import React from "react";
 import { ReactNode } from "react";
 import SignupForm from "./SignupForm.tsx";
-import { useError } from "../context/ErrorContext.tsx";
-import FiskeAPI from "../api.ts";
-import { useLoggedIn } from "../context/LoggedInContext.tsx";
-import { useUser } from "../context/UserContext.tsx";
+import { useError } from "../../context/ErrorContext.tsx";
+import FiskeAPI from "../../api.ts";
+import { useLoggedIn } from "../../context/LoggedInContext.tsx";
+import { useUser } from "../../context/UserContext.tsx";
+import styles from '../../css/fomContainer.module.css'
 
 
 function SignupContainer(): ReactNode {
@@ -30,7 +31,9 @@ function SignupContainer(): ReactNode {
 
 
     return (
+        <div className={styles.container}>
         <SignupForm handleSignup={handleSignup} />
+        </div>
     );
 }
 

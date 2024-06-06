@@ -1,5 +1,29 @@
 .container{
   display: grid;
-  padding: 40%;
-  width: 85vw;
+  height: 100vh;
+}
+
+.center {
+  text-align: center;
+}
+.fiskelogo {
+  width: 35vw;
+  height: auto;
+}
+
+@media (max-width: 767px) {
+  .fiskelogo {
+    width: 80vw;
+    height: auto;
+  }
+}
+
+.buttons{
+  display: block;
+}
+
+.button{
+  padding-left: 5%;
+  padding-right: 5%;
+  margin: 3%
 }

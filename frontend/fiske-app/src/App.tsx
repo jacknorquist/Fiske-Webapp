@@ -20,28 +20,28 @@ function App(): ReactNode{
 
 
 
-  useEffect(function fetchUserWhenMounted() {
-    async function fetchUser() {
-      if (localStorage.getItem('fiske-token')) {
-        try{
-          const user =await FiskeAPI.profile(localStorage['fiske-token'])
-          setUser(user)
-          setLoggedIn(true)
-        }catch (err){
-          setError('nope')
-        }
+  // useEffect(function fetchUserWhenMounted() {
+  //   async function fetchUser() {
+  //     if (localStorage.getItem('fiske-token')) {
+  //       try{
+  //         const user =await FiskeAPI.profile(localStorage['fiske-token'])
+  //         setUser(user)
+  //         setLoggedIn(true)
+  //       }catch (err){
+  //         setError('nope')
+  //       }
 
-      }
-    }
-    fetchUser();
-  }, [loggedIn]);
+  //     }
+  //   }
+  //   fetchUser();
+  // }, []);
 
-console.log(loggedIn, 'appp')
+  console.log(loggedIn, 'appp')
   return (
 
       <div className="App">
         <BrowserRouter>
-        {loggedIn && <NavBar />}
+          {loggedIn && <NavBar />}
           <RoutesList />
           <main>
             <GlobalError />

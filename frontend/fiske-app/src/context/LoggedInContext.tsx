@@ -16,13 +16,13 @@ interface LoggedInProviderProps {
 
 // Provider component
 export const LoggedInProvider: React.FC<LoggedInProviderProps> = ({ children }) => {
-    const [loggedIn, setLoggedIn] = useState<boolean>(false);
+    const [loggedIn, setLoggedIn] = useState<boolean>(localStorage['fiske-token']?true:false);
 
     // Check login status on component mount
     useEffect(() => {
         const checkLoginStatus = async () => {
             // Example: You might check login status by verifying a token in localStorage or making an API call
-            const token = localStorage.getItem('authToken');
+            const token = localStorage.getItem('fiske-token');
             if (token) {
                 setLoggedIn(true); // Set loggedIn to true if token is found
             }

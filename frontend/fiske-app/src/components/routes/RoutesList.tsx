@@ -16,10 +16,9 @@ import ProfileContainer from '../profile/ProfileContainer.tsx';
 function RoutesList(){
     return (
         <Routes>
-            {/* <Route path="/landing" element={<LoggedInProtection><LandingPage /></LoggedInProtection>} />
+            <Route path="/landing" element={<LoggedInProtection><LandingPage /></LoggedInProtection>} />
             <Route path="/login" element={<LoggedInProtection><LoginContainer /></LoggedInProtection>} />
-            <Route path="/signup" element={<LoggedInProtection><SignupContainer /></LoggedInProtection>} /> */}
-
+            <Route path="/signup" element={<LoggedInProtection><SignupContainer /></LoggedInProtection>} />
             <Route path="/profile" element={<LoggedOutProtection><ProfileContainer /></LoggedOutProtection>}/>
             <Route path="/users" element={<LoggedOutProtection><Group /></LoggedOutProtection>} />
             <Route path="/users/:username" element={<LoggedOutProtection><Group /></LoggedOutProtection>} />

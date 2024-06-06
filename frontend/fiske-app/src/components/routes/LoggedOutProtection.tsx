@@ -4,7 +4,6 @@ import { Navigate } from "react-router-dom";
 
 function LoggedOutProtection({ children }: { children: ReactNode }): ReactNode {
     const { loggedIn } = useLoggedIn();
-    console.log(children, 'loggedout', loggedIn)
     if (loggedIn === false) {
       return <Navigate to="/landing" replace />;
     }

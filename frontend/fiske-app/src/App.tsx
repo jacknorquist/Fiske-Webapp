@@ -18,6 +18,7 @@ function App(): ReactNode{
   const {user, setUser} = useUser()
   const {setError} = useError()
 
+  console.log(user, 'user at app')
 
 
   // useEffect(function fetchUserWhenMounted() {
@@ -36,7 +37,6 @@ function App(): ReactNode{
   //   fetchUser();
   // }, []);
 
-  console.log(loggedIn, 'appp')
   return (
 
       <div className="App">

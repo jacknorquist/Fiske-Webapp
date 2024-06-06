@@ -10,13 +10,13 @@ import { UserProvider } from './context/UserContext.tsx';
 
 const rootElement = document.getElementById('root');
 createRoot(rootElement).render(
-    <LoggedInProvider>
-      <ErrorProvider>
-        <UserProvider>
+  <UserProvider>
+    <ErrorProvider>
+      <LoggedInProvider>
             <App />
-        </UserProvider>
-      </ErrorProvider>
-    </LoggedInProvider>
+      </LoggedInProvider>
+    </ErrorProvider>
+  </UserProvider>
 );
 
 // If you want to start measuring performance in your app, pass a function

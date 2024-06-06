@@ -1,4 +1,8 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import { useUser } from './UserContext.tsx';
+import { useError } from './ErrorContext.tsx';
+import FiskeAPI from '../api.ts';
+
 
 // Define the type for the context value
 interface LoggedInContextType {
@@ -17,14 +21,21 @@ interface LoggedInProviderProps {
 // Provider component
 export const LoggedInProvider: React.FC<LoggedInProviderProps> = ({ children }) => {
     const [loggedIn, setLoggedIn] = useState<boolean>(localStorage['fiske-token']?true:false);
-
+    const {setUser} = useUser()
+    const {setError} = useError()
     // Check login status on component mount
     useEffect(() => {
         const checkLoginStatus = async () => {
             // Example: You might check login status by verifying a token in localStorage or making an API call
             const token = localStorage.getItem('fiske-token');
             if (token) {
-                setLoggedIn(true); // Set loggedIn to true if token is found
+                try{
+                const user =await FiskeAPI.profile(localStorage['fiske-token'])
+                setLoggedIn(true);
+                setUser(user)
+                }catch(err){
+                    setError(err.message)
+                }// Set loggedIn to true if token is found
             }
         };
 

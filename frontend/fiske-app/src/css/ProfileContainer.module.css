@@ -1,0 +1,22 @@
+.container{
+  width: 80vw;
+  margin-top: 3%;
+  padding:1%;
+  border: 1px solid black;
+  border-radius: 10px;
+}
+
+@media (max-width: 800px) {
+  .container {
+    width: 90vw;
+  }
+}
+@media (max-width: 500px) {
+  .container {
+    width: 98vw;
+    margin: auto;
+  }
+}
+
+
+

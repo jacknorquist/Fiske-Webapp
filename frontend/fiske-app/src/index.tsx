@@ -12,9 +12,7 @@ const rootElement = document.getElementById('root');
 createRoot(rootElement).render(
   <UserProvider>
     <ErrorProvider>
-      <LoggedInProvider>
             <App />
-      </LoggedInProvider>
     </ErrorProvider>
   </UserProvider>
 );

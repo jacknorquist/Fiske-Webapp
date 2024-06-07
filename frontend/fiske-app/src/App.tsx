@@ -11,43 +11,30 @@ import { LoggedInProvider } from './context/LoggedInContext.tsx';
 import { useLoggedIn } from './context/LoggedInContext.tsx';
 import { useUser } from './context/UserContext.tsx';
 import { useError } from './context/ErrorContext.tsx';
+import { UserProvider } from './context/UserContext.tsx';
+import { ErrorProvider } from './context/ErrorContext.tsx';
 
 
 function App(): ReactNode{
-  const { loggedIn, setLoggedIn } = useLoggedIn();
   const {user, setUser} = useUser()
   const {setError} = useError()
 
   console.log(user, 'user at app')
 
-
-  // useEffect(function fetchUserWhenMounted() {
-  //   async function fetchUser() {
-  //     if (localStorage.getItem('fiske-token')) {
-  //       try{
-  //         const user =await FiskeAPI.profile(localStorage['fiske-token'])
-  //         setUser(user)
-  //         setLoggedIn(true)
-  //       }catch (err){
-  //         setError('nope')
-  //       }
-
-  //     }
-  //   }
-  //   fetchUser();
-  // }, []);
-
   return (
-
+    <UserProvider>
+      <ErrorProvider>
       <div className="App">
         <BrowserRouter>
-          {loggedIn && <NavBar />}
+          {user && <NavBar />}
           <RoutesList />
           <main>
             <GlobalError />
           </main>
         </BrowserRouter>
       </div>
+      </ErrorProvider>
+    </UserProvider>
   );
 }
 

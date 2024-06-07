@@ -2,6 +2,7 @@ import React from "react";
 import { ReactNode } from "react";
 import { Button } from "reactstrap";
 import styles from '../css/LandingPage.module.css'
+import { Link } from "react-router-dom";
 
 function LandingPage(): ReactNode {
     return (
@@ -11,6 +12,7 @@ function LandingPage(): ReactNode {
             <div className={styles.buttons}>
                 <Button href="/login" className={styles.button}>Login</Button>
                 <Button href="/signup" className={styles.button}>Signup</Button>
+                <Link to="/signup"> Login </Link>
             </div>
             </div>
         </div>

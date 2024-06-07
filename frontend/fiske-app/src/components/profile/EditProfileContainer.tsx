@@ -4,19 +4,17 @@ import { useError } from "../../context/ErrorContext.tsx";
 import FiskeAPI from "../../api.ts";
 import { useLoggedIn } from "../../context/LoggedInContext.tsx";
 import { useUser } from "../../context/UserContext.tsx";
-import styles from 'src/css/fomContainer.module.css'
+import styles from '../../css//profile/EditProfileContainer.module.css'
 import EditProfileForm from "./EditProfileForm.tsx";
 import { Button } from "reactstrap";
 
 
 
-function SignupContainer(): ReactNode {
+function EditProfileContainer({toggleEditProfileForm}): ReactNode {
 
     const { setError } = useError();
-    const { setLoggedIn } = useLoggedIn();
     const {setUser} = useUser()
 
-    const [editProfileOpen, setEditProfileOpen] = useState(false)
 
 
   async function handleEdit(formData){
@@ -29,17 +27,14 @@ function SignupContainer(): ReactNode {
       }
 
   }
-  function handleEditToggle(){
-    setEditProfileOpen(!editProfileOpen)
-  }
+
 
 
     return (
-        <div className={styles.container}>
-        {editProfileOpen && <EditProfileForm  handleEdit={handleEdit}/>}
-        <Button onClick={handleEditToggle}></Button>
+        <div className={styles.editprofilecontainer}>
+        <EditProfileForm  handleEdit={handleEdit} toggleEditProfileForm={toggleEditProfileForm}/>
         </div>
     );
 }
 
-export default SignupContainer;
+export default EditProfileContainer;

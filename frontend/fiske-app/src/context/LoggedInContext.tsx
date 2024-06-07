@@ -24,23 +24,23 @@ export const LoggedInProvider: React.FC<LoggedInProviderProps> = ({ children }) 
     const {setUser} = useUser()
     const {setError} = useError()
     // Check login status on component mount
-    useEffect(() => {
-        const checkLoginStatus = async () => {
-            // Example: You might check login status by verifying a token in localStorage or making an API call
-            const token = localStorage.getItem('fiske-token');
-            if (token) {
-                try{
-                const user =await FiskeAPI.profile(localStorage['fiske-token'])
-                setLoggedIn(true);
-                setUser(user)
-                }catch(err){
-                    setError(err.message)
-                }// Set loggedIn to true if token is found
-            }
-        };
+    // useEffect(() => {
+    //     const checkLoginStatus = async () => {
+    //         // Example: You might check login status by verifying a token in localStorage or making an API call
+    //         const token = localStorage.getItem('fiske-token');
+    //         if (token) {
+    //             try{
+    //             const user =await FiskeAPI.profile(localStorage['fiske-token'])
+    //             setLoggedIn(true);
+    //             setUser(user)
+    //             }catch(err){
+    //                 setError(err.message)
+    //             }// Set loggedIn to true if token is found
+    //         }
+    //     };
 
-        checkLoginStatus();
-    }, []);
+    //     checkLoginStatus();
+    // }, []);
 
     return (
         <LoggedInContext.Provider value={{ loggedIn, setLoggedIn }}>

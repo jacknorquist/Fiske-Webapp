@@ -1,36 +1,40 @@
-import React, { createContext, useContext, useState, ReactNode, Dispatch, SetStateAction, useEffect } from 'react';
-import { User } from '../types'; // Ensure you have a User type defined in your types file
 
-// Define the type for the context value
+import React, { createContext, useContext, useState, ReactNode, Dispatch, SetStateAction, useEffect } from 'react';
+import { User } from '../types';
+import FiskeAPI from '../api.ts';
+
 interface UserContextType {
   user: User | null;
   setUser: Dispatch<SetStateAction<User | null>>;
 }
 
-// Create the context with a default value
 const UserContext = createContext<UserContextType | undefined>(undefined);
 
-// Define the type for the provider's props
 interface UserProviderProps {
   children: ReactNode;
 }
 
-// Provider component
 export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  // Example: Load user data from localStorage or make an API call to get user info
   useEffect(() => {
-    const loadUser = async () => {
-      const userData = localStorage.getItem('user-data');
-      if (userData) {
-        setUser(JSON.parse(userData));
+    const checkLoginStatus = async () => {
+      const token = localStorage.getItem('fiske-token');
+      if (token) {
+        try {
+          setIsLoading(true); // Set loading state to true before fetching user data
+          const user = await FiskeAPI.profile(token);
+          setUser(user);
+        } catch (err) {
+        } finally {
+          setIsLoading(false); // Set loading state back to false after fetching user data
+        }
       }
     };
 
-    loadUser();
+    checkLoginStatus();
   }, []);
-
   return (
     <UserContext.Provider value={{ user, setUser }}>
       {children}
@@ -38,10 +42,9 @@ export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
   );
 };
 
-// Custom hook to use the UserContext
 export const useUser = (): UserContextType => {
   const context = useContext(UserContext);
-  if (context === undefined) {
+  if (!context) {
     throw new Error('useUser must be used within a UserProvider');
   }
   return context;

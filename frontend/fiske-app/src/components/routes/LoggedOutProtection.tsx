@@ -1,10 +1,10 @@
 import React, { ReactNode } from "react";
-import { useLoggedIn } from "../../context/LoggedInContext.tsx";
 import { Navigate } from "react-router-dom";
+import { useUser } from "../../context/UserContext.tsx";
 
 function LoggedOutProtection({ children }: { children: ReactNode }): ReactNode {
-    const { loggedIn } = useLoggedIn();
-    if (loggedIn === false) {
+    const {user } = useUser();
+    if (!user) {
       return <Navigate to="/landing" replace />;
     }
     return children;

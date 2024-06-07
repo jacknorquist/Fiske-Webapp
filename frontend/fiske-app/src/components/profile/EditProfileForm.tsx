@@ -1,7 +1,7 @@
 
 import React from "react";
 import { ReactNode, useState } from "react";
-import styles from '../css/form.module.css'
+import styles from '../../css/form.module.css'
 
 import {
     Form,
@@ -10,10 +10,11 @@ import {
     Col,
     Input,
     FormText,
-    Button
+    Button,
+    CloseButton
   } from 'reactstrap';
 
-function EditProfileForm({handleEdit}): ReactNode {
+function EditProfileForm({handleEdit, toggleEditProfileForm}): ReactNode {
 
     const initialState = {
         username: "",
@@ -49,6 +50,7 @@ function EditProfileForm({handleEdit}): ReactNode {
     }
     return (
         <Form onSubmit={handleSave} className={`${styles.form} border border-primary rounded`}>
+          <CloseButton onClick={toggleEditProfileForm}/>
           <h1>Signup</h1>
         <FormGroup row>
           <Label

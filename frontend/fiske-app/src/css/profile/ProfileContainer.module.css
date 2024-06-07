@@ -8,7 +8,7 @@
 
 
 
-.overlay > *:not(.EditProfileContainer_editprofilecontainer__JP4sA) {
+.overlay > * {
   /* Styles to apply to all children of .container except .popup-form */
   /* For example, you can use opacity to create an overlay effect */
   width: 80vw;
@@ -23,12 +23,20 @@
 @media (max-width: 800px) {
   .container {
     width: 90vw;
+    margin-top: 3%;
+    padding:1%;
+    border: 1px solid black;
+    border-radius: 10px;
   }
 }
 @media (max-width: 500px) {
   .container {
     width: 98vw;
     margin: auto;
+    margin-top: 3%;
+    padding:1%;
+    border: 1px solid black;
+    border-radius: 10px;
   }
 }
 

@@ -13,7 +13,7 @@ import { Button } from "reactstrap";
 function EditProfileContainer({toggleEditProfileForm}): ReactNode {
 
     const { setError } = useError();
-    const {setUser} = useUser()
+    const {user, setUser} = useUser()
 
 
 
@@ -32,7 +32,7 @@ function EditProfileContainer({toggleEditProfileForm}): ReactNode {
 
     return (
         <div className={styles.editprofilecontainer}>
-        <EditProfileForm  handleEdit={handleEdit} toggleEditProfileForm={toggleEditProfileForm}/>
+        <EditProfileForm  handleEdit={handleEdit} toggleEditProfileForm={toggleEditProfileForm}user={user}/>
         </div>
     );
 }

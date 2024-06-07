@@ -21,7 +21,7 @@ function ProfileContainer(): ReactNode {
         <div>
             {isEditProfileOpen && <EditProfileContainer toggleEditProfileForm={toggleEditProfileForm}/>}
             <div className={isEditProfileOpen?styles.overlay:styles.container}>
-            <ProfileCard user={user} toggleEditProfileForm={toggleEditProfileForm}/>
+            <ProfileCard  toggleEditProfileForm={toggleEditProfileForm}/>
             </div>
         </div>
     );

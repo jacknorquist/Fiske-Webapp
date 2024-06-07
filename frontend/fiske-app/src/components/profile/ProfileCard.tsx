@@ -3,24 +3,25 @@ import { ReactNode, useState } from "react";
 import { CardImg, CardBody, CardTitle, CardText,Card, Button } from "reactstrap";
 import styles from '../../css/profile/ProfileCard.module.css';
 import EditProfileContainer from "./EditProfileContainer.tsx";
+import { useUser } from "../../context/UserContext.tsx";
 
 
 
 
-function ProfileCard({user, toggleEditProfileForm}): ReactNode {
+function ProfileCard({ toggleEditProfileForm}): ReactNode {
+  const {user, setUser} = useUser()
 
 
   function handleEdit(){
 
   }
-  console.log(user, 'user at profile card')
 
     return (
         <div>
           <Card className="my-2">
             <CardImg
               alt="Card image cap"
-              src={user?.header_image_url || `${process.env.PUBLIC_URL}/DefaultHeader.jpg`}
+              src={user!.header_image_url || `${process.env.PUBLIC_URL}/DefaultHeader.jpg`}
               style={{
                 height: 180
               }}
@@ -30,7 +31,7 @@ function ProfileCard({user, toggleEditProfileForm}): ReactNode {
             />
             <CardBody>
               <CardTitle tag="h5">
-                {`${user.first_name} ${user.last_name}`}
+                {`${user!.first_name} ${user!.last_name}`}
               </CardTitle>
               <CardText>
                 This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.

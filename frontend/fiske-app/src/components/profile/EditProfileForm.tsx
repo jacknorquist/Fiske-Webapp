@@ -14,14 +14,14 @@ import {
     CloseButton
   } from 'reactstrap';
 
-function EditProfileForm({handleEdit, toggleEditProfileForm}): ReactNode {
+function EditProfileForm({handleEdit, toggleEditProfileForm, user}): ReactNode {
 
     const initialState = {
-        username: "",
-        first_name: "",
-        last_name: "",
+        username: user.username,
+        first_name: user.first_name,
+        last_name: user.last_name,
         profile_image: null,
-        header_image:null
+        header_image: null
     };
     const [formData, setFormData] = useState(initialState);
 
@@ -63,7 +63,7 @@ function EditProfileForm({handleEdit, toggleEditProfileForm}): ReactNode {
             <Input
               id="username"
               name="username"
-              placeholder="username"
+              placeholder={user.username}
               value={formData.username}
               type="text"
               onChange={handleChange}
@@ -81,7 +81,7 @@ function EditProfileForm({handleEdit, toggleEditProfileForm}): ReactNode {
             <Input
               id="first_name"
               name="first_name"
-              placeholder="First Name"
+              placeholder={user.first_name}
               value={formData.first_name}
               type="text"
               onChange={handleChange}
@@ -99,7 +99,7 @@ function EditProfileForm({handleEdit, toggleEditProfileForm}): ReactNode {
             <Input
               id="last_name"
               name="last_name"
-              placeholder="Last Name"
+              placeholder={user.last_name}
               value={formData.last_name}
               type="text"
               onChange={handleChange}

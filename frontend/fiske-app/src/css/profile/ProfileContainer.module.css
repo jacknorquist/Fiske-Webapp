@@ -1,9 +1,11 @@
 .container{
-  width: 80vw;
+  position: relative;
+  width: 75vw;
   margin-top: 3%;
   padding:1%;
   border: 1px solid black;
   border-radius: 10px;
+  margin: auto;
 }
 
 
@@ -11,11 +13,12 @@
 .overlay > * {
   /* Styles to apply to all children of .container except .popup-form */
   /* For example, you can use opacity to create an overlay effect */
-  width: 80vw;
+  width: 75vw;
   margin-top: 3%;
   padding:1%;
   border: 1px solid black;
   border-radius: 10px;
+  margin:auto;
   opacity: 0.5;
   pointer-events: none; /* Prevent interaction with children */
 }

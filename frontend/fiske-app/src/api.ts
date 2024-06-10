@@ -50,7 +50,7 @@ class FiskeAPI {
     return await response.json();
 }
 
-static async editUser(formData, token) {
+static async editUser(formData, currentUsername, token) {
   const { username, first_name, last_name, profile_image, header_image } = formData;
 
   const data = new FormData();
@@ -64,8 +64,8 @@ static async editUser(formData, token) {
       data.append('user[header_image]', header_image);
   }
 
-  const response = await fetch(`http://localhost:3000/users/${username}`, {
-      method: 'POST',
+  const response = await fetch(`http://localhost:3000/users/${currentUsername}`, {
+      method: 'PATCH',
       headers: {
         'Authorization': `Bearer ${token}`
       },

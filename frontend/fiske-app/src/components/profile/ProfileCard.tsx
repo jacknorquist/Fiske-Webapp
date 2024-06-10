@@ -17,7 +17,7 @@ function ProfileCard({ toggleEditProfileForm}): ReactNode {
   }
 
     return (
-        <div>
+        <div className={styles.profilecard}>
           <Card className="my-2">
             <CardImg
               alt="Card image cap"

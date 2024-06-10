@@ -14,14 +14,17 @@ function EditProfileContainer({toggleEditProfileForm}): ReactNode {
 
     const { setError } = useError();
     const {user, setUser} = useUser()
+    const currentUserId = user!.id;
+
 
 
 
   async function handleEdit(formData){
 
       try{
-        const {user} = await FiskeAPI.editUser(formData, localStorage['fiske-token'])
+        const {user} = await FiskeAPI.editUser(formData, currentUserId , localStorage['fiske-token'])
         setUser(user)
+        toggleEditProfileForm()
       }catch (err){
         setError(err.message)
       }

@@ -5,6 +5,9 @@ import { useLoggedIn } from "../../context/LoggedInContext.tsx";
 import ProfileCard from "./ProfileCard.tsx";
 import styles from '../../css/profile/ProfileContainer.module.css'
 import EditProfileContainer from "./EditProfileContainer.tsx";
+import Fishboard from "./Fishboard.tsx";
+import UserPosts from "./UserPosts.tsx";
+import UserGroups from "./UserGroups.tsx";
 
 
 function ProfileContainer(): ReactNode {
@@ -19,10 +22,13 @@ function ProfileContainer(): ReactNode {
 
     return (
         <div>
-            <div className={isEditProfileOpen?styles.overlay:styles.container}>
+        {isEditProfileOpen && <EditProfileContainer toggleEditProfileForm={toggleEditProfileForm}/>}
+        <div className={`${styles.gridcontainer} ${isEditProfileOpen ? styles.overlay : ''}`}>
             <ProfileCard  toggleEditProfileForm={toggleEditProfileForm}/>
-            </div>
-            {isEditProfileOpen && <EditProfileContainer toggleEditProfileForm={toggleEditProfileForm}/>}
+            <UserGroups />
+            <Fishboard />
+            <UserPosts />
+        </div>
         </div>
     );
 }

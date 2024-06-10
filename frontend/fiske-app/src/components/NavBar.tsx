@@ -14,6 +14,7 @@ import {
   NavbarText,
   NavbarProps,
 } from 'reactstrap';
+import { Link } from 'react-router-dom';
 
 function NavBar(): React.ReactNode {
   const [isOpen, setIsOpen] = useState(false);

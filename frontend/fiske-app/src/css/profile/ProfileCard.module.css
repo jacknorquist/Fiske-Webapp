@@ -1,5 +1,7 @@
 
-
+.profilecard{
+  grid-row: 1/2;
+}
 
 .headerimage{
   width: 100%;

@@ -19,7 +19,6 @@ function App(): ReactNode{
   const {user, setUser} = useUser()
   const {setError} = useError()
 
-  console.log(user, 'user at app')
 
   return (
     <UserProvider>

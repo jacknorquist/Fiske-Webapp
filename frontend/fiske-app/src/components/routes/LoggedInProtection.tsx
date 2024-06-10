@@ -8,7 +8,6 @@ function LoggedInProtection({children }):ReactNode {
     if (user) {
       return <Navigate to="/" replace />;
     }
-    console.log(children, 'loggedin')
     return children
   };
 

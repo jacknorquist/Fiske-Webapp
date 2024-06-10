@@ -1,47 +1,89 @@
-.container{
+.gridcontainer {
+  display: grid;
+  grid-template-rows: 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 10px;
   position: relative;
-  width: 75vw;
+  border: 1px black solid;
+  border-radius: 10px;
+  background-color: white;
+  width: 60vw;
+  margin-top: 3%;
+  padding:1%;
+  margin:auto;
+}
+
+
+@media (max-width: 1000px) {
+  .gridcontainer {
+    display: grid;
+    grid-template-rows: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 10px;
+    position: relative;
+    border: 1px black solid;
+    border-radius: 10px;
+    background-color: white;
+    width: 75vw;
+    margin-top: 3%;
+    padding:1%;
+    margin:auto;
+  }
+}
+
+@media (max-width: 800px) {
+  .gridcontainer {
+    display: grid;
+    grid-template-rows: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 10px;
+    position: relative;
+    border: 1px black solid;
+    border-radius: 10px;
+    background-color: white;
+    width: 90vw;
+    margin-top: 3%;
+    padding:1%;
+    margin:auto;
+  }
+}
+
+@media (max-width: 500px) {
+  .gridcontainer {
+    display: grid;
+    grid-template-rows: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 10px;
+    position: relative;
+    border: 1px black solid;
+    border-radius: 10px;
+    background-color: white;
+    width: 98vw;
+    margin-top: 3%;
+    padding:1%;
+    margin:auto;
+  }
+}
+
+
+.overlay > * {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+
+.profilecontainer{
+  position: relative;
+  width: 60vw;
   margin-top: 3%;
   padding:1%;
   border: 1px solid black;
   border-radius: 10px;
   margin: auto;
+  grid-column: 1/3;
 }
 
 
-
-.overlay > * {
-  /* Styles to apply to all children of .container except .popup-form */
-  /* For example, you can use opacity to create an overlay effect */
-  width: 75vw;
-  margin-top: 3%;
-  padding:1%;
-  border: 1px solid black;
-  border-radius: 10px;
-  margin:auto;
-  opacity: 0.5;
-  pointer-events: none; /* Prevent interaction with children */
-}
-
-@media (max-width: 800px) {
-  .container {
-    width: 90vw;
-    margin-top: 3%;
-    padding:1%;
-    border: 1px solid black;
-    border-radius: 10px;
-  }
-}
-@media (max-width: 500px) {
-  .container {
-    width: 98vw;
-    margin: auto;
-    margin-top: 3%;
-    padding:1%;
-    border: 1px solid black;
-    border-radius: 10px;
-  }
-}
 
 
 

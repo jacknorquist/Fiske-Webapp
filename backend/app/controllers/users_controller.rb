@@ -62,7 +62,7 @@ class UsersController < ApplicationController
     private
 
     def set_user
-      @user = User.find(params[:username])
+      @user = User.find(params[:id])
     rescue ActiveRecord::RecordNotFound
         render json: { error: 'User not found' }, status: :not_found
     end
@@ -72,9 +72,8 @@ class UsersController < ApplicationController
     end
 
     def user_update_params
-      params.permit(:username, :first_name, :last_name, :email, :header_image, :profile_image)
+      params.require(:user).permit(:username, :first_name, :last_name, :email, :header_image, :profile_image)
     end
-
 
     def user_json(user)
       user_json = user.as_json(only: [:id, :username, :first_name, :last_name, :email])

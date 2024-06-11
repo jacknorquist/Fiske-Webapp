@@ -8,11 +8,14 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   # root "posts#index"
 end
-
 Rails.application.routes.draw do
   resources :users, only: [:create, :index, :show, :update, :destroy] do
     collection do
       get 'profile', to: 'users#profile'
+    end
+    member do
+      get 'groups', to: 'users#groups'
+      get 'posts', to: 'users#posts'
     end
   end
 end

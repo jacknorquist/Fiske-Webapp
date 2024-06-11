@@ -4,7 +4,7 @@ class UsersController < ApplicationController
     include TokenService
 
     skip_before_action :authenticate_request, only: [:create]
-    before_action :set_user, only: [:show, :update, :destroy]
+    before_action :set_user, only: [:show, :update, :destroy, :groups, :posts]
 
     def index
       users = User.all.map do |user|
@@ -57,6 +57,13 @@ class UsersController < ApplicationController
       else
         render json: { errors: @user.errors.full_messages }, status: :unprocessable_entityed
       end
+    end
+
+    def groups
+      render json: @user.groups
+    end
+    def posts
+      render json: @user.posts
     end
 
     private

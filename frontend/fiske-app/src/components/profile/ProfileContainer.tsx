@@ -6,8 +6,8 @@ import ProfileCard from "./ProfileCard.tsx";
 import styles from '../../css/profile/ProfileContainer.module.css'
 import EditProfileContainer from "./EditProfileContainer.tsx";
 import Fishboard from "./Fishboard.tsx";
-import UserPosts from "./UserPosts.tsx";
-import UserGroups from "./UserGroups.tsx";
+import UserGroups from "./UserGroupsContainer.tsx";
+import UserPostsContainer from "./UserPostsContainer.tsx";
 
 
 function ProfileContainer(): ReactNode {
@@ -25,9 +25,9 @@ function ProfileContainer(): ReactNode {
         {isEditProfileOpen && <EditProfileContainer toggleEditProfileForm={toggleEditProfileForm}/>}
         <div className={`${styles.gridcontainer} ${isEditProfileOpen ? styles.overlay : ''}`}>
             <ProfileCard  toggleEditProfileForm={toggleEditProfileForm}/>
+            <UserPostsContainer />
             <UserGroups />
             <Fishboard />
-            <UserPosts />
         </div>
         </div>
     );

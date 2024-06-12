@@ -1,0 +1,12 @@
+
+.profilecard{
+  grid-column: 1/7;
+  grid-row: 1/2;
+}
+
+.headerimage{
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  opacity: 65%;
+}

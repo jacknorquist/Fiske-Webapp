@@ -50,7 +50,7 @@ class FiskeAPI {
     return await response.json();
 }
 
-static async editUser(formData, currentUserId, token) {
+static async editUser(formData, currentUsername, token) {
   const { username, first_name, last_name, profile_image, header_image } = formData;
 
   const data = new FormData();
@@ -64,7 +64,7 @@ static async editUser(formData, currentUserId, token) {
       data.append('user[header_image]', header_image);
   }
 
-  const response = await fetch(`http://localhost:3000/users/${currentUserId}`, {
+  const response = await fetch(`http://localhost:3000/users/${currentUsername}`, {
       method: 'PATCH',
       headers: {
         'Authorization': `Bearer ${token}`
@@ -95,40 +95,6 @@ static async editUser(formData, currentUserId, token) {
     return await response.json()
   }
 
-  static async getUserGroups(currentUserId, token){
-    const response = await fetch(`http://localhost:3000/users/${currentUserId}/groups`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`
-      },
-    });
-
-    if (!response.ok) {
-      const errorMessage = await response.text();
-      throw new Error(errorMessage || 'An unknown error occurred');
-    }
-    return await response.json()
-  }
-
-
-  static async getUserPosts(currentUserId, token){
-    const response = await fetch(`http://localhost:3000/users/${currentUserId}/posts`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`
-      },
-    });
-
-    if (!response.ok) {
-      const errorMessage = await response.text();
-      throw new Error(errorMessage || 'An unknown error occurred');
-    }
-    return await response.json()
-  }
-
-
   static async getUsers(token) {
     const response = await fetch(`${this.base_api_url}/users`, {
       headers: {
@@ -137,8 +103,6 @@ static async editUser(formData, currentUserId, token) {
     });
     return await response.json();
   }
-
-
   // static async getUsers() {
   //   const response = await fetch(`${this.base_api_url}/${type}`);
   //   return await response.json();

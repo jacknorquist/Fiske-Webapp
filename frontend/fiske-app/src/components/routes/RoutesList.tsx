@@ -23,7 +23,7 @@ function RoutesList(){
             <Route path="/users" element={<LoggedOutProtection><Group /></LoggedOutProtection>} />
             <Route path="/users/:username" element={<LoggedOutProtection><Group /></LoggedOutProtection>} />
             <Route path="/groups" element={<LoggedOutProtection><Group /></LoggedOutProtection>} />
-            <Route path="/groups/:name" element={<LoggedOutProtection><Group /></LoggedOutProtection>} />
+            <Route path="/groups/:id" element={<LoggedOutProtection><Group /></LoggedOutProtection>} />
             <Route path="/groups/:id/:posts" element={<LoggedOutProtection><Group /></LoggedOutProtection>} />
             <Route path="/groups/:id/:posts/:id" element={<LoggedOutProtection><Group /></LoggedOutProtection>} />
             <Route path="/" element={<LoggedOutProtection><Homepage /></LoggedOutProtection>} />

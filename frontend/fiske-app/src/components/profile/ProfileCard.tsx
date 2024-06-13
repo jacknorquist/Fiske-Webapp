@@ -1,7 +1,7 @@
 import React from "react";
 import { ReactNode, useState } from "react";
 import { CardImg, CardBody, CardTitle, CardText,Card, Button } from "reactstrap";
-import styles from '../../css/profile/ProfileCard.module.css';
+import styles from './css/ProfileCard.module.css';
 import EditProfileContainer from "./EditProfileContainer.tsx";
 import { useUser } from "../../context/UserContext.tsx";
 

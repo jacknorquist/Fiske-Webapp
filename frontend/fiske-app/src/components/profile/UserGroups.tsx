@@ -1,6 +1,6 @@
 import React from "react";
 import { ReactNode } from "react";
-import styles from '../../css/profile/UserGroups.module.css'
+import styles from './css/UserGroupsContainer.module.css'
 
 function UserGroups(): ReactNode {
     return (

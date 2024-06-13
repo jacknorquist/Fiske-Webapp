@@ -2,16 +2,16 @@ import React from "react";
 import { ReactNode } from "react";
 import { useUser } from "../../context/UserContext.tsx";
 
-function Fishboard(): ReactNode {
+function UserGroupsContainer(): ReactNode {
     const {user} = useUser()
 
-    
+
 
     return (
         <div>
-            <h1>Fishboard</h1>
+            <h1>UserGroups</h1>
         </div>
     );
 }
 
-export default Fishboard;
+export default UserGroupsContainer;

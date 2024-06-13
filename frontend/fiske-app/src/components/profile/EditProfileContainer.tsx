@@ -4,7 +4,7 @@ import { useError } from "../../context/ErrorContext.tsx";
 import FiskeAPI from "../../api.ts";
 import { useLoggedIn } from "../../context/LoggedInContext.tsx";
 import { useUser } from "../../context/UserContext.tsx";
-import styles from '../../css//profile/EditProfileContainer.module.css'
+import styles from './css/EditProfileContainer.module.css'
 import EditProfileForm from "./EditProfileForm.tsx";
 import { Button } from "reactstrap";
 

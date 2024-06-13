@@ -29,7 +29,7 @@ function NavBar(): React.ReactNode {
         <Collapse isOpen={isOpen} navbar>
           <Nav className="me-auto" navbar>
             <NavItem>
-              <NavLink href="/components/">Components</NavLink>
+              <Link to="/groups">Groups</Link>
             </NavItem>
             <NavItem>
               <NavLink href="https://github.com/reactstrap/reactstrap">

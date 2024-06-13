@@ -4,6 +4,7 @@ import { useUser } from "../../context/UserContext.tsx";
 import ExploreGroupsContainer from "./ExploreGroupsContainer.tsx";
 import UserGroupsContainer from "./UserGroupsContainer.tsx";
 import { Button } from "reactstrap";
+import { Link } from "react-router-dom";
 
 function GroupsContainer(): ReactNode {
     const {user} = useUser()
@@ -25,6 +26,7 @@ function GroupsContainer(): ReactNode {
         <div>
             <Button onClick={openUserGroups} >My Groups</Button>
             <Button onClick={openExploreGroups}>Explore</Button>
+            <Link to='/groups/3'>Group3 </Link>
             {exploreGroupsContainerOpen? <ExploreGroupsContainer />:<UserGroupsContainer />}
         </div>
     );

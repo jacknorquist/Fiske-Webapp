@@ -17,8 +17,6 @@ function SignupContainer(): ReactNode {
 
       try{
         const {user, token} = await FiskeAPI.signup(formData)
-        setLoggedIn(true)
-        console.log(user)
         setUser(user)
         localStorage['fiske-token'] =token
       }catch (err){

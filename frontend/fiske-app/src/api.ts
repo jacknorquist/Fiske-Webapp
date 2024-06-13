@@ -95,6 +95,71 @@ static async editUser(formData, currentUsername, token) {
     return await response.json()
   }
 
+  static async getUserPosts(currentUserId, token){
+    const response = await fetch(`http://localhost:3000/users/${currentUserId}/posts`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
+    });
+
+    if (!response.ok) {
+      const errorMessage = await response.text();
+      throw new Error(errorMessage || 'An unknown error occurred');
+    }
+    return await response.json()
+  }
+
+  static async getFeed(currentUserId, token){
+    const response = await fetch(`http://localhost:3000/users/${currentUserId}/feed`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
+    });
+    if (!response.ok) {
+      const errorMessage = await response.text();
+      throw new Error(errorMessage || 'An unknown error occurred');
+    }
+    return await response.json()
+  }
+
+  static async getPosts(currentUserId, token){
+    const response = await fetch(`http://localhost:3000/users/${currentUserId}/posts`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
+    });
+    if (!response.ok) {
+      const errorMessage = await response.text();
+      throw new Error(errorMessage || 'An unknown error occurred');
+    }
+    return await response.json()
+  }
+
+  static async getExplorePosts(token){
+    const response = await fetch(`http://localhost:3000/posts`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
+    });
+    if (!response.ok) {
+      const errorMessage = await response.text();
+      throw new Error(errorMessage || 'An unknown error occurred');
+    }
+    return await response.json()
+  }
+
+
+
+
+
   static async getUsers(token) {
     const response = await fetch(`${this.base_api_url}/users`, {
       headers: {
@@ -113,26 +178,6 @@ static async editUser(formData, currentUsername, token) {
   //   return await response.json()
   // }
 
-  /**
-   * Add item to DB
-   */
-  static async addItem(item) {
-    const { type, name, description, serve, id, recipe } = item;
-    await fetch(`${this.base_api_url}/${type}`,
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          'id': name.toLowerCase(),
-          'name': name,
-          'description': description,
-          'recipe': recipe,
-          'serve': serve
-        })
-      });
-  }
 
 
 

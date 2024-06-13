@@ -1,8 +1,15 @@
 class PostsController < ApplicationController
     before_action :set_group
+    skip_before_action :set_group, only:[:index]
     before_action :set_post, only: [:show, :update, :destroy]
 
+
     def index
+      render json:  Post.all, status: :ok
+    end
+
+
+    def index_group
       posts = @group.posts.map do |post|
         post_json(post).merge(comments: post.comments)
       end

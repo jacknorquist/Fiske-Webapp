@@ -4,7 +4,7 @@ class UsersController < ApplicationController
     include TokenService
 
     skip_before_action :authenticate_request, only: [:create]
-    before_action :set_user, only: [:show, :update, :destroy, :groups, :posts]
+    before_action :set_user, only: [:show, :update, :destroy, :groups, :posts, :feed]
 
     def index
       users = User.all.map do |user|
@@ -60,11 +60,18 @@ class UsersController < ApplicationController
     end
 
     def groups
-      render json: @user.groups
+      render json: @user.groups, status: :ok
     end
     def posts
-      render json: @user.posts
+      render json: @user.posts, status: :ok
     end
+
+    def feed
+      group_ids = @user.groups.pluck(:id)
+      posts = Post.by_groups(group_ids)
+      render json: posts
+    end
+
 
     private
 

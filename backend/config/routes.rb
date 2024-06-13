@@ -16,6 +16,7 @@ Rails.application.routes.draw do
     member do
       get 'groups', to: 'users#groups'
       get 'posts', to: 'users#posts'
+      get 'feed', to: 'users#feed'
     end
   end
 end
@@ -28,12 +29,16 @@ Rails.application.routes.draw do
   resources :groups, only: [:index, :show, :create, :update, :destroy] do
     post 'join', on: :member
     delete 'leave', on: :member
-    resources :posts, only: [:create, :index, :show, :update, :destroy] do
+    resources :posts, only: [:create, :index_group, :show, :update, :destroy] do
       resources :comments, only: [:create, :index, :show, :destroy]
     end
   end
 end
 
+
+Rails.application.routes.draw do
+  resources :posts, only: [:index]
+end
 
 
 

@@ -13,7 +13,7 @@ class PostsController < ApplicationController
       posts = @group.posts.map do |post|
         post_json(post).merge(comments: post.comments)
       end
-      render json: { posts: posts }, status: :ok
+      render json:  posts , status: :ok
     end
 
     def show

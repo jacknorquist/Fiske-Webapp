@@ -6,7 +6,7 @@ class GroupsController < ApplicationController
     end
 
     def show
-        render json: { group: @group}, status: :ok
+        render json:  @group, status: :ok
     end
 
     def create

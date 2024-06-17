@@ -30,6 +30,9 @@ Rails.application.routes.draw do
     post 'join', on: :member
     delete 'leave', on: :member
     resources :posts, only: [:create, :index, :show, :update, :destroy] do
+      collection do
+        get '/', to: 'posts#index_group'
+      end
       resources :comments, only: [:create, :index, :show, :destroy]
     end
   end

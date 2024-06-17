@@ -5,7 +5,7 @@ import styles from './css/UserGroupsContainer.module.css'
 function UserGroups(): ReactNode {
     return (
         <div className={styles.container}>
-            <h1>Groups</h1>
+            <h1>Grouphgs</h1>
         </div>
     );
 }

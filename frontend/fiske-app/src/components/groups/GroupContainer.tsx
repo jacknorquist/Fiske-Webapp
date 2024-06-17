@@ -2,8 +2,8 @@ import React from "react";
 import { ReactNode, useState, useEffect} from "react";
 import { useUser } from "../../context/UserContext.tsx";
 import { useParams } from "react-router-dom";
-import Group from "../Group.tsx";
-import Post from "../Post.tsx";
+import Group from "./Group.tsx";
+import Post from "../posts/Post.tsx";
 import FiskeAPI from "../../api.ts";
 
 function GroupContainer(): ReactNode {
@@ -29,8 +29,8 @@ function GroupContainer(): ReactNode {
 
        getPosts();
      }, []);
-     console.log(group);
-     console.log(posts)
+     console.log(group, 'HEHE');
+     console.log(posts, 'HEHE')
 
 
 
@@ -38,7 +38,6 @@ function GroupContainer(): ReactNode {
         <div>
            {group ? <Group group={group}/>:""}
            {posts.length>0 ? posts.map(p=><Post key={p!.id} post={p}/>): ""}
-
         </div>
     );
 }

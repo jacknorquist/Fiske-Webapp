@@ -1,8 +1,7 @@
 import {ReactNode} from 'react';
 import React from 'react';
 import { Route, RouteObject, Routes, Link } from "react-router-dom";
-import Group from '../Group.tsx'
-import Post from '../Post.tsx'
+import Group from '../groups/Group.tsx';
 import SignupContainer from '../signup/SignupContainer.tsx';
 import NotFound from '../NotFound.tsx';
 import LoginContainer from '../login/LoginContainer.tsx';

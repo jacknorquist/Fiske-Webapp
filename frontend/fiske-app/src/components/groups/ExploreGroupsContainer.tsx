@@ -2,7 +2,7 @@ import React from "react";
 import { ReactNode } from "react";
 import { useUser } from "../../context/UserContext.tsx";
 
-function ExploreGroupsContainer(): ReactNode {
+function ExploreGroupsContainer({groups}): ReactNode {
     const {user} = useUser()
 
 

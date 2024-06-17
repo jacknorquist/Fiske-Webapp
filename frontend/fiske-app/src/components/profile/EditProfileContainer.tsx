@@ -16,9 +16,6 @@ function EditProfileContainer({toggleEditProfileForm}): ReactNode {
     const {user, setUser} = useUser()
     const currentUserId = user!.id;
 
-
-
-
   async function handleEdit(formData){
 
       try{
@@ -30,8 +27,6 @@ function EditProfileContainer({toggleEditProfileForm}): ReactNode {
       }
 
   }
-
-
 
     return (
         <div className={styles.editprofilecontainer}>

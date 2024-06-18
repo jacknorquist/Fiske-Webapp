@@ -29,8 +29,6 @@ function GroupContainer(): ReactNode {
 
        getPosts();
      }, []);
-     console.log(group, 'HEHE');
-     console.log(posts, 'HEHE')
 
 
 

@@ -51,9 +51,8 @@ function GroupsContainer(): ReactNode {
             <Button onClick={openUserGroups} >My Groups</Button>
             <Button onClick={openExploreGroups}>Explore</Button>
             <Link to='/groups/3'>Group3 </Link>
-
-            if ({userGroups.length > 0}) {
-            exploreGroupsContainerOpen? exploreGroups!.map(g=><Group group={g}/>):userGroups!.map(g=><Group group={g}/>)
+            {
+            exploreGroupsContainerOpen? exploreGroups!.map(g=><Group group={g} memberStatus={userGroups.includes(g)} />):userGroups!.map(g=><Group group={g} memberStatus={true}/>)
             }
 
         </div>

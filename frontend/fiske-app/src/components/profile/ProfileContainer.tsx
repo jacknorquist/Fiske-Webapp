@@ -1,22 +1,26 @@
 import React from "react";
-import { ReactNode, useState } from "react";
+import { ReactNode, useState, useEffect } from "react";
 import { useUser } from "../../context/UserContext.tsx";
 import { useLoggedIn } from "../../context/LoggedInContext.tsx";
 import ProfileCard from "./ProfileCard.tsx";
 import styles from './css/ProfileContainer.module.css'
 import EditProfileContainer from "./EditProfileContainer.tsx";
 import Fishboard from "./Fishboard.tsx";
-import UserPosts from "./UserPosts.tsx";
 import UserGroups from "./UserGroups.tsx";
+import FiskeAPI from "../../api.ts";
+import UserPostsContainer from "./UserPostsContainer.tsx";
 
 
 function ProfileContainer(): ReactNode {
     const [isEditProfileOpen, setIsEditProfileOpen] = useState(false)
-    const {user} = useUser()
+    const {user} = useUser();
+    const [userPosts,  setUserPosts] = useState()
+    const currentUserId = user!.id
 
     function toggleEditProfileForm(){
         setIsEditProfileOpen(!isEditProfileOpen)
       }
+
 
 
 
@@ -27,7 +31,7 @@ function ProfileContainer(): ReactNode {
             <ProfileCard  toggleEditProfileForm={toggleEditProfileForm}/>
             <UserGroups />
             <Fishboard />
-            <UserPosts />
+            <UserPostsContainer  />
         </div>
         </div>
     );

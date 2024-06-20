@@ -3,7 +3,8 @@ import { ReactNode, useEffect } from "react";
 import { useUser } from "../../context/UserContext.tsx";
 import ExplorePostsContainer from "./ExplorePostsContainer.tsx";
 import FiskeAPI from "../../api.ts";
-import Post from "./Post.tsx";
+import Post from "./PostContainer.tsx";
+import PostListItem from "./PostListItem.tsx";
 
 function UserFeedContainer(): ReactNode {
     const {user} = useUser();
@@ -33,7 +34,7 @@ function UserFeedContainer(): ReactNode {
 
     return (
         <div>
-            {posts.length>0 ? posts.map(p=><Post key={p!.id} post={p}/>): ""}
+            {posts.length>0 ? posts.map(p=><PostListItem key={p!.id} post={p}/>): ""}
         </div>
     );
 }

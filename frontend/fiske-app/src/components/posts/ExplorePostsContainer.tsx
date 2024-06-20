@@ -2,7 +2,8 @@ import React from "react";
 import { ReactNode, useEffect, useState } from "react";
 import { useUser } from "../../context/UserContext.tsx";
 import FiskeAPI from "../../api.ts";
-import Post from "./Post.tsx";
+import Post from "./PostContainer.tsx";
+import PostListItem from "./PostListItem.tsx";
 
 function ExplorePostsContainer(): ReactNode {
     const {user} = useUser()
@@ -29,7 +30,7 @@ function ExplorePostsContainer(): ReactNode {
 
     return (
         <div>
-            {posts.length>0 ? posts.map(p=><Post key={p!.title} post={p}/>): ""}
+            {posts.length>0 ? posts.map(p=><PostListItem key={p!.title} post={p}/>): ""}
         </div>
     );
 }

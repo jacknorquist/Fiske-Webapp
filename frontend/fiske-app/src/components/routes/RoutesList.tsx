@@ -12,6 +12,7 @@ import LandingPage from '../LandingPage.tsx';
 import ProfileContainer from '../profile/ProfileContainer.tsx';
 import GroupsContainer from '../groups/GroupsContainer.tsx';
 import GroupContainer from '../groups/GroupContainer.tsx';
+import PostContainer from '../posts/PostContainer.tsx';
 
 
 function RoutesList(){
@@ -26,7 +27,7 @@ function RoutesList(){
             <Route path="/groups" element={<LoggedOutProtection><GroupsContainer /></LoggedOutProtection>} />
             <Route path="/groups/:id" element={<LoggedOutProtection><GroupContainer /></LoggedOutProtection>} />
             <Route path="/groups/:id/:posts" element={<LoggedOutProtection><Group /></LoggedOutProtection>} />
-            <Route path="/groups/:id/:posts/:id" element={<LoggedOutProtection><Group /></LoggedOutProtection>} />
+            <Route path="/posts/:id" element={<LoggedOutProtection><PostContainer /></LoggedOutProtection>} />
             <Route path="/" element={<LoggedOutProtection><Homepage /></LoggedOutProtection>} />
             <Route path="*" element={<NotFound />} />
         </Routes>

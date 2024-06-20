@@ -3,9 +3,10 @@ import { ReactNode, useState, useEffect} from "react";
 import { useUser } from "../../context/UserContext.tsx";
 import { useParams } from "react-router-dom";
 import Group from "./Group.tsx";
-import Post from "../posts/Post.tsx";
+import Post from "../posts/PostContainer.tsx";
 import FiskeAPI from "../../api.ts";
 import { Button } from "reactstrap";
+import PostListItem from "../posts/PostListItem.tsx";
 
 function GroupContainer(): ReactNode {
     const {user} = useUser();
@@ -53,7 +54,7 @@ function GroupContainer(): ReactNode {
         <div>
            {group ? <Group group={group}/>:""}
            {userMember ? <Button onClick={leaveGroup}>Leave</Button>:<Button onClick={joinGroup}>Join</Button>}
-           {posts.length>0 ? posts.map(p=><Post key={p!.id} post={p}/>): ""}
+           {posts.length>0 ? posts.map(p=><PostListItem key={p!.id} post={p}/>): ""}
         </div>
     );
 }

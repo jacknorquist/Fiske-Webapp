@@ -2,7 +2,7 @@ class GroupsController < ApplicationController
     before_action :set_group, only: [:show, :edit, :update, :destroy, :join, :leave]
 
     def index
-      render json: { groups: Group.all}, status: :ok
+      render json: Group.all, status: :ok
     end
 
     def show

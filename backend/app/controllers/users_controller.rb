@@ -4,7 +4,7 @@ class UsersController < ApplicationController
     include TokenService
 
     skip_before_action :authenticate_request, only: [:create]
-    before_action :set_user, only: [:show, :update, :destroy,:groups, :posts, :feed]
+    before_action :set_user, only: [:show, :update, :destroy, :groups, :posts, :feed]
 
     def index
       users = User.all.map do |user|
@@ -69,7 +69,21 @@ class UsersController < ApplicationController
     def feed
       group_ids = @user.groups.pluck(:id)
       posts = Post.by_groups(group_ids)
-      render json: posts
+
+      # Assuming Post.by_groups(group_ids) returns an array of Post objects
+      # with associated Group objects, you can modify the posts array like this:
+      posts_with_group_names = posts.map do |post|
+        {
+          id: post.id,
+          title: post.title,
+          content: post.content,
+          created_at: post.created_at,
+          group_id: post.group.id,
+          group_name: post.group.name  # Assuming post belongs to a group
+        }
+      end
+
+      render json: posts_with_group_names
     end
 
 

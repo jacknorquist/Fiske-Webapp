@@ -185,6 +185,35 @@ static async editUser(formData, currentUsername, token) {
     }
     return await response.json()
   }
+  static async leaveGroup(token, groupId){
+    const response = await fetch(`http://localhost:3000/groups/${groupId}/leave`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
+    });
+    if (!response.ok) {
+      const errorMessage = await response.text();
+      throw new Error(errorMessage || 'An unknown error occurred');
+    }
+    return await response.json()
+  }
+
+  static async joinGroup(token, groupId){
+    const response = await fetch(`http://localhost:3000/groups/${groupId}/join`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
+    });
+    if (!response.ok) {
+      const errorMessage = await response.text();
+      throw new Error(errorMessage || 'An unknown error occurred');
+    }
+    return await response.json()
+  }
 
   static async getUserGroups(token, currentUserId){
     const response = await fetch(`http://localhost:3000/users/${currentUserId}/groups`, {
@@ -230,6 +259,7 @@ static async editUser(formData, currentUsername, token) {
     });
     return await response.json();
   }
+
   // static async getUsers() {
   //   const response = await fetch(`${this.base_api_url}/${type}`);
   //   return await response.json();

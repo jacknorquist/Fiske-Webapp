@@ -24,6 +24,7 @@ function ExplorePostsContainer(): ReactNode {
 
        getPosts();
      }, []);
+     console.log(posts, 'explore posts')
 
 
     return (

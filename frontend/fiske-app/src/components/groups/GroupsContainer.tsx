@@ -7,6 +7,7 @@ import { Button } from "reactstrap";
 import { Link } from "react-router-dom";
 import FiskeAPI from "../../api.ts";
 import Group from "./Group.tsx";
+import GroupListItem from "./GroupListItem.tsx";
 
 function GroupsContainer(): ReactNode {
     const {user} = useUser()
@@ -52,7 +53,7 @@ function GroupsContainer(): ReactNode {
             <Button onClick={openExploreGroups}>Explore</Button>
             <Link to='/groups/3'>Group3 </Link>
             {
-            exploreGroupsContainerOpen? exploreGroups!.map(g=><Group group={g} memberStatus={userGroups.includes(g)} />):userGroups!.map(g=><Group group={g} memberStatus={true}/>)
+            exploreGroupsContainerOpen? exploreGroups!.map(g=><GroupListItem group={g}/>):userGroups!.map(g=><GroupListItem group={g}/>)
             }
 
         </div>

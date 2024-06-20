@@ -32,9 +32,6 @@ function NavBar(): React.ReactNode {
               <Link to="/groups">Groups</Link>
             </NavItem>
             <NavItem>
-              <NavLink href="https://github.com/reactstrap/reactstrap">
-                GitHub
-              </NavLink>
             </NavItem>
             <UncontrolledDropdown nav inNavbar>
               <DropdownToggle nav caret>
@@ -48,6 +45,7 @@ function NavBar(): React.ReactNode {
               </DropdownMenu>
             </UncontrolledDropdown>
           </Nav>
+          <Link to="/profile">Profile</Link>
           <NavbarText>Simple Text</NavbarText>
         </Collapse>
       </Navbar>

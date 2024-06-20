@@ -5,15 +5,35 @@ class PostsController < ApplicationController
 
 
     def index
-      render json:  Post.all.order(created_at: :desc), status: :ok
+      posts = Post.includes(:group).order(created_at: :desc).map do |post|
+        {
+          id: post.id,
+          title: post.title,
+          content: post.content,  # Adjust this based on your actual Post model attributes
+          created_at: post.created_at,
+          group_id: post.group&.id,       # Safely retrieve group_id, handling nil case
+          group_name: post.group&.name    # Safely retrieve group_name, handling nil case
+        }
+      end
+
+      render json: posts, status: :ok
     end
 
 
     def index_group
       posts = @group.posts.map do |post|
-        post_json(post).merge(comments: post.comments)
+        {
+          id: post.id,
+          title: post.title,
+          content: post.content,  # Adjust this based on your actual Post model attributes
+          created_at: post.created_at,
+          group_id: @group.id,    # Group ID
+          group_name: @group.name,  # Group Name
+          comments: post.comments  # Assuming you have comments associated with posts
+        }
       end
-      render json:  posts , status: :ok
+
+      render json: posts, status: :ok
     end
 
     def show

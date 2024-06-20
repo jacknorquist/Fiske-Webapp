@@ -63,7 +63,21 @@ class UsersController < ApplicationController
       render json: @user.groups, status: :ok
     end
     def posts
-      render json: @user.posts, status: :ok
+
+      posts = @user.posts
+
+      posts_with_group_names = posts.map do |post|
+        {
+          id: post.id,
+          title: post.title,
+          content: post.content,
+          created_at: post.created_at,
+          group_id: post.group.id,
+          group_name: post.group.name  # Assuming post belongs to a group
+        }
+      end
+
+      render json: posts_with_group_names, status: :ok
     end
 
     def feed

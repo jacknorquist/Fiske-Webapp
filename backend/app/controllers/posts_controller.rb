@@ -1,6 +1,6 @@
 class PostsController < ApplicationController
     before_action :set_group
-    skip_before_action :set_group, only:[:index]
+    skip_before_action :set_group, only:[:index, :show]
     before_action :set_post, only: [:show, :update, :destroy]
 
 
@@ -87,7 +87,7 @@ class PostsController < ApplicationController
     end
 
     def set_post
-      @post = @group.posts.find(params[:id])
+      @post = Post.find(params[:id])
     rescue ActiveRecord::RecordNotFound
       render json: { error: "Post not found" }, status: :not_found
     end

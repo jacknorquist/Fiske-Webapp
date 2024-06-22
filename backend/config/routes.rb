@@ -29,7 +29,7 @@ Rails.application.routes.draw do
   resources :groups, only: [:index, :show, :create, :update, :destroy] do
     post 'join', on: :member
     delete 'leave', on: :member
-    resources :posts, only: [:create, :index, :show, :update, :destroy] do
+    resources :posts, only: [:create, :index, :update, :destroy] do
       collection do
         get '/', to: 'posts#index_group'
       end
@@ -40,7 +40,7 @@ end
 
 
 Rails.application.routes.draw do
-  resources :posts, only: [:index]
+  resources :posts, only: [:index, :show]
 end
 
 

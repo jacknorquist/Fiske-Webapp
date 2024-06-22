@@ -5,6 +5,7 @@ import { useParams } from "react-router-dom";
 import Group from "./Group.tsx";
 import Post from "../posts/PostContainer.tsx";
 import FiskeAPI from "../../api.ts";
+import CommentsContainer from "../comments/CommentsContainer.tsx";
 import { Button } from "reactstrap";
 
 function PostContainer(): ReactNode {
@@ -14,43 +15,27 @@ function PostContainer(): ReactNode {
     const currentUserId = user!.id
     const [userMember, setUserMember] = useState(false)
 
-    // useEffect(() => {
-    //     async function getPosts() {
-    //      const token = localStorage.getItem('fiske-token');
-    //      if (token) {
-    //        try {
-    //          const post = await FiskeAPI.getGroupPosts( token, id);
-    //          const group = await FiskeAPI.getGroup(token, id);
-    //          const userGroups = await FiskeAPI.getUserGroups(token, currentUserId )
+    useEffect(() => {
+        async function getPost() {
+         const token = localStorage.getItem('fiske-token');
+         if (token) {
+           try {
+             const post = await FiskeAPI.getPost( token, id);
 
-    //          setUserMember(userGroups.find(g=> g.id == id) ? true : false)
-    //          setGroup(group)
-    //          setPosts(posts)
-    //        } catch (err) {
-    //        } finally {
-    //        }
-    //      }
-    //    };
+             setPost(post)
+           } catch (err) {
+           } finally {
+           }
+         }
+       };
 
-    //    getPosts();
-    //  }, []);
-
-
-//      async function leaveGroup(){
-//         await FiskeAPI.leaveGroup(localStorage.getItem('fiske-token'), id);
-//         setUserMember(false)
-//      }
-//      async function joinGroup(){
-//       await FiskeAPI.joinGroup(localStorage.getItem('fiske-token'), id);
-//       setUserMember(true)
-//    }
-
-
-
+       getPost();
+     }, []);
 
     return (
         <div>
-            <h1>Post Container</h1>
+            {post? <h1>Title:{post.post.title}</h1>: ""}
+            {post ? <CommentsContainer post={post.post} />:""}
         </div>
     );
 }

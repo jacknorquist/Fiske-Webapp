@@ -3,7 +3,7 @@ import { ReactNode, useEffect, useState} from "react";
 import { useUser } from "../../context/UserContext.tsx";
 import Post from "../posts/PostContainer.tsx";
 import FiskeAPI from "../../api.ts";
-import PostListItem from "../groups/GroupListItem.tsx";
+import PostListItem from "../posts/PostListItem.tsx";
 
 function UserPostsContainer(): ReactNode {
 
@@ -26,7 +26,6 @@ function UserPostsContainer(): ReactNode {
 
        getPosts();
      }, []);
-     console.log(userPosts)
 
     return (
         <div>

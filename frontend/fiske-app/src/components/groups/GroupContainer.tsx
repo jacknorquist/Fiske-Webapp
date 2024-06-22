@@ -12,7 +12,7 @@ function GroupContainer(): ReactNode {
     const {user} = useUser();
     const [group, setGroup] = useState(null)
     const [posts, setPosts] = useState([])
-    const {id } = useParams();
+    const {id} = useParams();
     const currentUserId = user!.id
     const [userMember, setUserMember] = useState(false)
 

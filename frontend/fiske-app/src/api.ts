@@ -15,7 +15,6 @@ class FiskeAPI {
 
     if (!response.ok) {
       const errorMessage = await response.text();
-      console.log(errorMessage)
       throw new Error(errorMessage || 'An unknown error occurred');
     }
     return await response.json()
@@ -218,6 +217,21 @@ static async editUser(formData, currentUsername, token) {
 
   static async getExploreGroups(token){
     const response = await fetch(`http://localhost:3000/groups`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
+    });
+    if (!response.ok) {
+      const errorMessage = await response.text();
+      throw new Error(errorMessage || 'An unknown error occurred');
+    }
+    return await response.json()
+  }
+
+  static async getPost(token, postId){
+    const response = await fetch(`http://localhost:3000/posts/${postId}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',

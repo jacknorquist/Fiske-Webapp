@@ -10,7 +10,6 @@ function UserFeedContainer(): ReactNode {
     const {user} = useUser();
     const currentUserId = user!.id;
     const [posts, setPosts] = useState([])
-    console.log(posts)
 
 
 

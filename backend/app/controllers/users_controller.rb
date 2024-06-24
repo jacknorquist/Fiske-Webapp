@@ -73,7 +73,7 @@ class UsersController < ApplicationController
           content: post.content,
           created_at: post.created_at,
           group_id: post.group.id,
-          group_name: post.group.name  # Assuming post belongs to a group
+          group_name: post.group.name,
         }
       end
 

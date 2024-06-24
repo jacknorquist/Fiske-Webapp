@@ -5,12 +5,11 @@ import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { Button } from "reactstrap";
 
-function CommentsContainer({post}): ReactNode {
-    const [postComments, setPostComments] = useState(post.comments || null)
+function CommentsContainer({comments}): ReactNode {
 
     return (
         <div>
-            {postComments ? postComments.map(c=> <p className="comment">{c.content}</p>):null}
+            {comments ? comments.map(c=> <p className="comment">{c.content}</p>):null}
         </div>
     );
 }

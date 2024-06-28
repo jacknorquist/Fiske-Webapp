@@ -6,10 +6,11 @@ import { Link } from "react-router-dom";
 import { Button } from "reactstrap";
 
 function CommentsContainer({comments}): ReactNode {
+    console.log(comments, 'commmentsssss')
 
     return (
         <div>
-            {comments ? comments.map(c=> <p className="comment">{c.content}</p>):null}
+            {comments ? comments.map(c=> <p className="comment">Comment:{c.content}</p>):null}
         </div>
     );
 }

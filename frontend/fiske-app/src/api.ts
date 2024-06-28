@@ -245,6 +245,21 @@ static async editUser(formData, currentUsername, token) {
     return await response.json()
   }
 
+  static async createPost(token, postId){
+    const response = await fetch(`http://localhost:3000/posts/${postId}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'multipart/form',
+        'Authorization': `Bearer ${token}`
+      },
+    });
+    if (!response.ok) {
+      const errorMessage = await response.text();
+      throw new Error(errorMessage || 'An unknown error occurred');
+    }
+    return await response.json()
+  }
+
 
 
 

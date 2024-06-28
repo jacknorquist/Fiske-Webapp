@@ -15,11 +15,13 @@ import {
   NavbarProps,
 } from 'reactstrap';
 import { Link } from 'react-router-dom';
+import {Button} from 'reactstrap';
 
-function NavBar(): React.ReactNode {
+function NavBar({toggleCreatePost}): React.ReactNode {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggle = () => setIsOpen(!isOpen);
+
 
   return (
     <div>
@@ -46,6 +48,7 @@ function NavBar(): React.ReactNode {
             </UncontrolledDropdown>
           </Nav>
           <Link to="/profile">Profile</Link>
+          <Button onClick={toggleCreatePost}>+</Button>
           <NavbarText>Simple Text</NavbarText>
         </Collapse>
       </Navbar>

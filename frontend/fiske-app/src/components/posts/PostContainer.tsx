@@ -31,12 +31,11 @@ function PostContainer(): ReactNode {
 
        getPost();
      }, []);
-     console.log(post)
 
     return (
         <div>
             {post? <h1>Title:{post.post.title}</h1>: ""}
-            {post ? <CommentsContainer post={post.comments} />:""}
+            {post ? <CommentsContainer comments={post.comments} />:""}
         </div>
     );
 }

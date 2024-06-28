@@ -3,16 +3,17 @@ import React from 'react';
 import { Route, RouteObject, Routes, Link } from "react-router-dom";
 import Group from '../groups/Group.tsx';
 import SignupContainer from '../signup/SignupContainer.tsx';
-import NotFound from '../NotFound.tsx';
+
 import LoginContainer from '../login/LoginContainer.tsx';
 import LoggedOutProtection from './LoggedOutProtection.tsx'
 import LoggedInProtection from './LoggedInProtection.tsx';
-import Homepage from '../Homepage.tsx';
-import LandingPage from '../LandingPage.tsx';
 import ProfileContainer from '../profile/ProfileContainer.tsx';
 import GroupsContainer from '../groups/GroupsContainer.tsx';
 import GroupContainer from '../groups/GroupContainer.tsx';
 import PostContainer from '../posts/PostContainer.tsx';
+import Homepage from '../main/Homepage.tsx'
+import LandingPage from '../main/LandingPage.tsx'
+import NotFound from '../main/NotFound.tsx'
 
 
 function RoutesList(){

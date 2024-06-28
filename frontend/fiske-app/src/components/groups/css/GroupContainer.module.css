@@ -1,0 +1,8 @@
+.groupcontainer{
+  text-align: center;
+}
+
+.overlay > * {
+  opacity: 0.5;
+  pointer-events: none;
+}

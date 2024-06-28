@@ -3,7 +3,7 @@ import { createRoot } from 'react-dom/client';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { LoggedInProvider } from './context/LoggedInContext.tsx';
 import './index.css';
-import App from './App.tsx';
+import App from './components/main/App.tsx';
 import reportWebVitals from './reportWebVitals.js';
 import { ErrorProvider } from './context/ErrorContext.tsx';
 import { UserProvider } from './context/UserContext.tsx';

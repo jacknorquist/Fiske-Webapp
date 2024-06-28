@@ -1,7 +1,7 @@
 import React from "react";
 import { ReactNode } from "react";
 import { Button } from "reactstrap";
-import styles from '../css/LandingPage.module.css'
+import styles from './css/LandingPage.module.css'
 import { Link } from "react-router-dom";
 
 function LandingPage(): ReactNode {

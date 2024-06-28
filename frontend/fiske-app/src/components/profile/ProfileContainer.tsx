@@ -3,7 +3,7 @@ import { ReactNode, useState, useEffect } from "react";
 import { useUser } from "../../context/UserContext.tsx";
 import { useLoggedIn } from "../../context/LoggedInContext.tsx";
 import ProfileCard from "./ProfileCard.tsx";
-import styles from './css/ProfileContainer.module.css'
+import styles from './css/ProfileContainer.module.css';
 import EditProfileContainer from "./EditProfileContainer.tsx";
 import Fishboard from "./Fishboard.tsx";
 import UserGroups from "./UserGroups.tsx";
@@ -20,8 +20,6 @@ function ProfileContainer(): ReactNode {
     function toggleEditProfileForm(){
         setIsEditProfileOpen(!isEditProfileOpen)
       }
-
-
 
 
     return (

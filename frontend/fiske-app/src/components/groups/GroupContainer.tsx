@@ -7,7 +7,8 @@ import Post from "../posts/PostContainer.tsx";
 import FiskeAPI from "../../api.ts";
 import { Button } from "reactstrap";
 import PostListItem from "../posts/PostListItem.tsx";
-
+import CreatePostContainer from "../posts/CreatePostContainer.tsx";
+import styles from './css/GroupContainer.module.css'
 function GroupContainer(): ReactNode {
     const {user} = useUser();
     const [group, setGroup] = useState(null)
@@ -15,6 +16,9 @@ function GroupContainer(): ReactNode {
     const {id} = useParams();
     const currentUserId = user!.id
     const [userMember, setUserMember] = useState(false)
+    const [isCreatePostOpen, setIsCreatePostOpen] = useState(false)
+
+
 
     useEffect(() => {
         async function getPosts() {
@@ -47,15 +51,23 @@ function GroupContainer(): ReactNode {
       setUserMember(true)
    }
 
+   function toggleCreatePost (){
+    setIsCreatePostOpen(!isCreatePostOpen)
+  }
+
 
 
 
     return (
-        <div>
+      <div>
+           {isCreatePostOpen && <CreatePostContainer group={id} toggleCreatePost={toggleCreatePost} />}
+        <div className={`${styles.groupcontainer} ${isCreatePostOpen ? styles.overlay : ''}`}>
            {group ? <Group group={group}/>:""}
+           <Button onClick={toggleCreatePost}>+</Button>
            {userMember ? <Button onClick={leaveGroup}>Leave</Button>:<Button onClick={joinGroup}>Join</Button>}
            {posts.length>0 ? posts.map(p=><PostListItem key={p!.id} post={p}/>): ""}
         </div>
+      </div>
     );
 }
 

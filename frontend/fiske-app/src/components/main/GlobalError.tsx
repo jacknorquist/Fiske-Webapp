@@ -1,6 +1,6 @@
 import React, { useContext, ReactNode} from 'react';
 import { Alert } from 'reactstrap';
-import { useError } from '../context/ErrorContext.tsx';
+import { useError } from '../../context/ErrorContext.tsx';
 
 const GlobalError: React.FC = () => {
   const { error, clearError } = useError();

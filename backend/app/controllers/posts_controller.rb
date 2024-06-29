@@ -21,7 +21,7 @@ class PostsController < ApplicationController
 
 
     def index_group
-      posts = @group.posts.map do |post|
+      posts = @group.posts.order(created_at: :desc).map do |post|
         {
           id: post.id,
           title: post.title,

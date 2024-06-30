@@ -31,6 +31,7 @@ function PostContainer(): ReactNode {
 
        getPost();
      }, []);
+     console.log(post)
 
     return (
         <div>

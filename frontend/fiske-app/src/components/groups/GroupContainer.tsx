@@ -9,6 +9,8 @@ import { Button } from "reactstrap";
 import PostListItem from "../posts/PostListItem.tsx";
 import CreatePostContainer from "../posts/CreatePostContainer.tsx";
 import styles from './css/GroupContainer.module.css'
+
+//consider making forms that are open a state at the app level?
 function GroupContainer(): ReactNode {
     const {user} = useUser();
     const [group, setGroup] = useState(null)
@@ -54,6 +56,7 @@ function GroupContainer(): ReactNode {
    function toggleCreatePost (){
     setIsCreatePostOpen(!isCreatePostOpen)
   }
+
 
 
 

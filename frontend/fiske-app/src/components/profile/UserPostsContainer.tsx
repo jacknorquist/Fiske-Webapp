@@ -27,6 +27,8 @@ function UserPostsContainer(): ReactNode {
        getPosts();
      }, []);
 
+     console.log(userPosts)
+
     return (
         <div>
           <h1>User Posts</h1>

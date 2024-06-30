@@ -9,10 +9,12 @@ import Fishboard from "./Fishboard.tsx";
 import UserAdminGroupsContainer from "./UserAdminGroupsContainer.tsx";
 import FiskeAPI from "../../api.ts";
 import UserPostsContainer from "./UserPostsContainer.tsx";
+import CreateGroupContainer from "../groups/CreateGroupContainer.tsx";
 
 
 function ProfileContainer(): ReactNode {
-    const [isEditProfileOpen, setIsEditProfileOpen] = useState(false)
+    const [isEditProfileOpen, setIsEditProfileOpen] = useState(false);
+    const [isCreateGroupOpen, setIsCreateGroupOpen] = useState(false)
     const {user} = useUser();
     const [userPosts,  setUserPosts] = useState()
     const currentUserId = user!.id
@@ -21,13 +23,18 @@ function ProfileContainer(): ReactNode {
         setIsEditProfileOpen(!isEditProfileOpen)
       }
 
+    function toggleCreateGroup(){
+        setIsCreateGroupOpen(!isCreateGroupOpen)
+      }
+
 
     return (
         <div>
         {isEditProfileOpen && <EditProfileContainer toggleEditProfileForm={toggleEditProfileForm}/>}
-        <div className={`${styles.gridcontainer} ${isEditProfileOpen ? styles.overlay : ''}`}>
+        {isCreateGroupOpen && <CreateGroupContainer toggleCreateGroup={toggleCreateGroup}/>}
+        <div className={`${styles.gridcontainer} ${isEditProfileOpen || isCreateGroupOpen ? styles.overlay : ''}`}>
             <ProfileCard  toggleEditProfileForm={toggleEditProfileForm}/>
-            <UserAdminGroupsContainer />
+            <UserAdminGroupsContainer  toggleCreateGroup={toggleCreateGroup}/>
             <Fishboard />
             <UserPostsContainer  />
         </div>

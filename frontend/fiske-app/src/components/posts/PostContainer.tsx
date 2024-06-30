@@ -35,6 +35,7 @@ function PostContainer(): ReactNode {
     return (
         <div>
             {post? <h1>Title:{post.post.title}</h1>: ""}
+            {post ? post.post.images.map(i=> <div><img src={i} alt="" /></div>):""}
             {post ? <CommentsContainer comments={post.comments} />:""}
         </div>
     );

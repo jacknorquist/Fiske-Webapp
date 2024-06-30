@@ -13,19 +13,15 @@ import {
     CloseButton
   } from 'reactstrap';
 
-function CreatePostForm({createPost, toggleCreatePost, user, group}): ReactNode {
+function CreatePostForm({createPost, toggleCreatePost}): ReactNode {
     const [images, setImages] = useState([])
 
 
     const initialState = {
         title:"",
-        content: "",
-        group: group,
-        profile_image: null,
-        header_image: null
+        content: ""
     };
     const [formData, setFormData] = useState(initialState);
-    console.log(formData)
 
 
     function handleChange(evt) {
@@ -97,71 +93,19 @@ function CreatePostForm({createPost, toggleCreatePost, user, group}): ReactNode 
             />
           </Col>
         </FormGroup>
-        <FormGroup row>
-          <Label
-            for="last_name"
-            sm={2}
-          >
-            Last Name
-          </Label>
-          <Col sm={10}>
-            <Input
-              id="last_name"
-              name="last_name"
-              placeholder={user.last_name}
-              value={formData.last_name}
-              type="text"
-              onChange={handleChange}
-            />
-          </Col>
-        </FormGroup>
-        <FormGroup row>
-          <Label
-            for="profile_image"
-            sm={2}
-          >
-            Profile Image
-          </Label>
-          <Col sm={10}>
-            <Input
-              id="profile_image"
-              name="profile_image"
-              placeholder="Last Name"
-              type="file"
-              onChange={handleChange}
-            />
-          </Col>
-        </FormGroup>
-        <FormGroup row>
-          <Label
-            for="header_image"
-            sm={2}
-          >
-            Profile Image
-          </Label>
-          <Col sm={10}>
-            <Input
-              id="header_image"
-              name="header_image"
-              placeholder="Last Name"
-              type="file"
-              onChange={handleChange}
-            />
-          </Col>
-        </FormGroup>
         {images.map((image, index) => (
         <div key={index}>
           <FormGroup row>
           <Label
-            for={`post_image_${index}`}
+            for={`post_image_${index+1}`}
             sm={2}
           >
             Image
           </Label>
           <Col sm={10}>
             <Input
-              id={`post_image_${index}`}
-              name={`post_image_${index}`}
+              id={`post_image_${index+1}`}
+              name={`post_image_${index+1}`}
               type="file"
               onChange={handleChange}
             />

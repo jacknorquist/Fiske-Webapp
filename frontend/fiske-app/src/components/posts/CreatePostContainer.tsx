@@ -8,30 +8,25 @@ import CreatePostForm from "./CreatePostForm.tsx";
 import { Button } from "reactstrap";
 import styles from './css/CreatePostContainer.module.css'
 
-
-function CreatePostContainer({group, toggleCreatePost}): ReactNode {
+//posts = posts used to have useEffect from GroupContainer reload posts after one is made
+function CreatePostContainer({group, toggleCreatePost, posts}): ReactNode {
 
 
     const { setError } = useError();
-    const {user, setUser} = useUser()
-    const currentUserId = user!.id;
 
   async function createPost(formData){
-
       try{
-        const {user} = await FiskeAPI.editUser(formData, currentUserId , localStorage['fiske-token'])
-        setUser(user)
-        toggleCreatePost()
+       await FiskeAPI.createPost( localStorage['fiske-token'], group, formData);
+        posts=posts;
+        toggleCreatePost();
       }catch (err){
         setError(err.message)
       }
 
   }
-
-
     return (
         <div className={styles.createpostcontainer}>
-        <CreatePostForm  createPost={createPost} group= {group} toggleCreatePost={toggleCreatePost}user={user}/>
+        <CreatePostForm  createPost={createPost}  toggleCreatePost={toggleCreatePost}/>
         </div>
     );
 }

@@ -1,3 +1,5 @@
+import { Form } from "reactstrap";
+
 class FiskeAPI {
   static base_api_url = "http://localhost:3000";
 
@@ -36,7 +38,6 @@ class FiskeAPI {
     if (header_image) {
         data.append('user[header_image]', header_image);
     }
-
     const response = await fetch(`http://localhost:3000/users`, {
         method: 'POST',
         body: data,
@@ -245,20 +246,35 @@ static async editUser(formData, currentUsername, token) {
     return await response.json()
   }
 
-  static async createPost(token, postId){
-    const response = await fetch(`http://localhost:3000/posts/${postId}`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'multipart/form',
-        'Authorization': `Bearer ${token}`
-      },
-    });
-    if (!response.ok) {
-      const errorMessage = await response.text();
-      throw new Error(errorMessage || 'An unknown error occurred');
+  static async createPost(token, groupId, formData) {
+    const { title, content, post_image_1, post_image_2, post_image_3, post_image_4, post_image_5 } = formData;
+
+    const data = new FormData();
+    data.append('title', title);
+    data.append('content', content);
+    for (let i=1; i<=5; i++){
+      let postImage = eval(`post_image_${i}`);
+      if(postImage){
+        data.append(`post_image_${i}`, postImage)
+      }
     }
-    return await response.json()
+    const response = await fetch(`http://localhost:3000/groups/${groupId}/posts`, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${token}`
+        },
+        body: data,
+    });
+
+    if (!response.ok) {
+        const errorMessage = await response.text();
+        throw new Error(errorMessage || 'An unknown error occurred');
+    }
+    return await response.json();
   }
+
+
+
 
 
 

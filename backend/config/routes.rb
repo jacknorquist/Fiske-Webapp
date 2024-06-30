@@ -17,7 +17,7 @@ Rails.application.routes.draw do
       get 'groups', to: 'users#groups'
       get 'posts', to: 'users#posts'
       get 'feed', to: 'users#feed'
-      get 'admin', to: 'userss#admin_groups'
+      get 'admin', to: 'users#admin_groups'
     end
   end
 end
@@ -33,7 +33,6 @@ Rails.application.routes.draw do
     resources :posts, only: [:create, :index, :update, :destroy] do
       collection do
         get '/', to: 'posts#index_group'
-        get '/admin', to: 'groups#admin_groups'
       end
       resources :comments, only: [:create, :index, :show, :destroy]
     end

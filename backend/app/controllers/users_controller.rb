@@ -4,7 +4,7 @@ class UsersController < ApplicationController
     include TokenService
 
     skip_before_action :authenticate_request, only: [:create]
-    before_action :set_user, only: [:show, :update, :destroy, :groups, :posts, :feed]
+    before_action :set_user, only: [:show, :update, :destroy, :groups, :posts, :feed, :admin_groups]
 
     def index
       users = User.all.map do |user|
@@ -65,39 +65,60 @@ class UsersController < ApplicationController
     def posts
 
       posts = @user.posts
-
-      posts_with_group_names = posts.map do |post|
-        {
+      posts_with_group_names_and_images = posts.map do |post|
+        post_json = {
           id: post.id,
+          user_id: post.user.id,
           title: post.title,
           content: post.content,
           created_at: post.created_at,
           group_id: post.group.id,
           group_name: post.group.name,
+          comments: post.comments # Assuming post belongs to a group
         }
+
+        # Include images associated with the post
+        images = []
+        (1..5).each do |i|
+          image = post.send("post_image_#{i}")
+          images.push(image.url) if image
+        end
+        post_json['images'] = images
+
+        post_json
       end
 
-      render json: posts_with_group_names, status: :ok
+      render json: posts_with_group_names_and_images
     end
 
     def feed
       group_ids = @user.groups.pluck(:id)
       posts = Post.by_groups(group_ids)
 
-      # Assuming Post.by_groups(group_ids) returns an array of Post objects
-      # with associated Group objects, you can modify the posts array like this:
-      posts_with_group_names = posts.map do |post|
-        {
+      posts_with_group_names_and_images = posts.map do |post|
+        post_json = {
           id: post.id,
+          user_id: post.user.id,
           title: post.title,
           content: post.content,
           created_at: post.created_at,
           group_id: post.group.id,
-          group_name: post.group.name  # Assuming post belongs to a group
+          group_name: post.group.name,
+          comments: post.comments # Assuming post belongs to a group
         }
+
+        # Include images associated with the post
+        images = []
+        (1..5).each do |i|
+          image = post.send("post_image_#{i}")
+          images.push(image.url) if image
+        end
+        post_json['images'] = images
+
+        post_json
       end
 
-      render json: posts_with_group_names
+      render json: posts_with_group_names_and_images
     end
 
     def admin_groups

@@ -3,27 +3,39 @@ class PostsController < ApplicationController
     skip_before_action :set_group, only:[:index, :show]
     before_action :set_post, only: [:show, :update, :destroy]
 
-
     def index
       posts = Post.includes(:group).order(created_at: :desc).map do |post|
-        {
+        post_json = {
           id: post.id,
+          user_id: post.user.id,
           title: post.title,
           content: post.content,  # Adjust this based on your actual Post model attributes
           created_at: post.created_at,
           group_id: post.group&.id,       # Safely retrieve group_id, handling nil case
-          group_name: post.group&.name    # Safely retrieve group_name, handling nil case
+          group_name: post.group&.name ,
+          comments: post.comments   # Safely retrieve group_name, handling nil case
         }
+
+        # Include images associated with the post
+        images = []
+        (1..5).each do |i|
+          image = post.send("post_image_#{i}")
+          images.push(image.url) if image
+        end
+        post_json['images'] = images
+
+        post_json
       end
 
       render json: posts, status: :ok
     end
 
-
     def index_group
       posts = @group.posts.order(created_at: :desc).map do |post|
+        post_json=
         {
           id: post.id,
+          user_id: post.user.id,
           title: post.title,
           content: post.content,  # Adjust this based on your actual Post model attributes
           created_at: post.created_at,
@@ -31,6 +43,15 @@ class PostsController < ApplicationController
           group_name: @group.name,  # Group Name
           comments: post.comments  # Assuming you have comments associated with posts
         }
+
+        images = []
+        (1..5).each do |i|
+          image = post.send("post_image_#{i}")
+          images.push(image.url) if image
+        end
+        post_json['images'] = images
+
+        post_json
       end
 
       render json: posts, status: :ok
@@ -105,7 +126,7 @@ class PostsController < ApplicationController
     end
 
     def post_json(post)
-      post_json = post.as_json(only: [:id, :admin_id, :title, :content])
+      post_json = post.as_json(only: [:id, :user_id, :title, :content, :group_id, :created_at])
 
       images = []
       (1..5).each do |i|

@@ -107,10 +107,10 @@ class PostsController < ApplicationController
     def post_json(post)
       post_json = post.as_json(only: [:id, :admin_id, :title, :content])
 
-      images = {}
+      images = []
       (1..5).each do |i|
         image = post.send("post_image_#{i}")
-        images["post_image_#{i}"] = image.url if image
+        images.push(image.url) if image
       end
       post_json['images'] = images
 

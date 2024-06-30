@@ -100,6 +100,12 @@ class UsersController < ApplicationController
       render json: posts_with_group_names
     end
 
+    def admin_groups
+      @groups = Group.where(admin_id: @user.id)
+      render json: @groups, status: :ok
+    end
+
+
 
     private
 

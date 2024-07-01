@@ -370,6 +370,21 @@ static async editUser(formData, currentUsername, token) {
 
 
 
+  static async deleteGroup(token, groupId){
+    const response = await fetch(`http://localhost:3000/groups/${groupId}`, {
+      method: 'DELETE',
+      headers: {
+        'Authorization': `Bearer ${token}`
+      },
+    });
+    if (!response.ok) {
+      const errorMessage = await response.text();
+      throw new Error(errorMessage || 'An unknown error occurred');
+    }
+    return await response.json()
+  }
+
+
 
 
 

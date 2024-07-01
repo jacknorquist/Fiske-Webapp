@@ -8,12 +8,16 @@ import FiskeAPI from "../../api.ts";
 import { Button } from "reactstrap";
 import PostListItem from "../posts/PostListItem.tsx";
 import CreatePostContainer from "../posts/CreatePostContainer.tsx";
-import styles from './css/GroupContainer.module.css'
+import styles from './css/GroupContainer.module.css';
+import { useError } from "../../context/ErrorContext.tsx";
+import { useNavigate } from "react-router-dom";
 
 //consider making forms that are open a state at the app level?
 function GroupContainer(): ReactNode {
     const {user} = useUser();
-    const [group, setGroup] = useState(null)
+    const {setError} = useError();
+    const navigate = useNavigate()
+    const [group, setGroup] = useState({})
     const [posts, setPosts] = useState([])
     const {id} = useParams();
     const currentUserId = user!.id
@@ -57,6 +61,19 @@ function GroupContainer(): ReactNode {
     setIsCreatePostOpen(!isCreatePostOpen)
   }
 
+  function updatePosts(){
+    setPosts(posts)
+  }
+
+
+  async function deleteGroup(){
+    try{
+        await FiskeAPI.deleteGroup( localStorage['fiske-token'], group.id);
+        navigate('/')
+       }catch (err){
+         setError(err.message)
+       }
+}
 
 
 
@@ -68,7 +85,8 @@ function GroupContainer(): ReactNode {
            {group ? <Group group={group}/>:""}
            {userMember? <Button onClick={toggleCreatePost}>+</Button>:""}
            {userMember ? <Button onClick={leaveGroup}>Leave</Button>:<Button onClick={joinGroup}>Join</Button>}
-           {posts.length>0 ? posts.map(p=><PostListItem key={p!.id} post={p}/>): ""}
+           {group!.admin_id === user.id ? <Button onClick={deleteGroup}>Delete Group</Button>:""}
+           {posts.length>0 ? posts.map(p=><PostListItem key={p!.id} post={p} updatePosts={updatePosts}/>): ""}
         </div>
       </div>
     );

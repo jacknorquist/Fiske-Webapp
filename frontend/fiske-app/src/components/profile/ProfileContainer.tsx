@@ -16,6 +16,7 @@ function ProfileContainer(): ReactNode {
     const [isEditProfileOpen, setIsEditProfileOpen] = useState(false);
     const [isCreateGroupOpen, setIsCreateGroupOpen] = useState(false)
     const {user} = useUser();
+    const [userAdminGroups, setUserAdminGroups] = useState([])
     const [userPosts,  setUserPosts] = useState()
     const currentUserId = user!.id
 
@@ -27,14 +28,34 @@ function ProfileContainer(): ReactNode {
         setIsCreateGroupOpen(!isCreateGroupOpen)
       }
 
+    useEffect(() => {
+        async function getGroups() {
+         const token = localStorage.getItem('fiske-token');
+         if (token) {
+           try {
+             const groups = await FiskeAPI.getUserAdminGroups(token, currentUserId);
+             setUserAdminGroups(groups)
+           } catch (err) {
+           } finally {
+           }
+         }
+       };
+
+       getGroups();
+     }, [userAdminGroups]);
+
+     function updateUserAdminGroups(){
+        setUserAdminGroups([])
+     }
+
 
     return (
         <div>
         {isEditProfileOpen && <EditProfileContainer toggleEditProfileForm={toggleEditProfileForm}/>}
-        {isCreateGroupOpen && <CreateGroupContainer toggleCreateGroup={toggleCreateGroup}/>}
+        {isCreateGroupOpen && <CreateGroupContainer toggleCreateGroup={toggleCreateGroup} updateUserAdminGroups={updateUserAdminGroups}/>}
         <div className={`${styles.gridcontainer} ${isEditProfileOpen || isCreateGroupOpen ? styles.overlay : ''}`}>
             <ProfileCard  toggleEditProfileForm={toggleEditProfileForm}/>
-            <UserAdminGroupsContainer  toggleCreateGroup={toggleCreateGroup}/>
+            {userAdminGroups.length > 0 ? <UserAdminGroupsContainer  toggleCreateGroup={toggleCreateGroup} userAdminGroups={userAdminGroups}/> :""}
             <Fishboard />
             <UserPostsContainer  />
         </div>

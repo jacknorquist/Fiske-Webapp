@@ -7,27 +7,27 @@ import GroupListItem from "../groups/GroupListItem.tsx";
 import Group from "../groups/Group.tsx";
 import { Button } from "reactstrap";
 
-function UserAdminGroupsContainer({toggleCreateGroup}): ReactNode {
+function UserAdminGroupsContainer({toggleCreateGroup, userAdminGroups}): ReactNode {
 
     const {user} = useUser();
-    const [userAdminGroups,  setUserAdminGroups] = useState([])
+    // const [userAdminGroups,  setUserAdminGroups] = useState([])
     const currentUserId = user!.id
 
-    useEffect(() => {
-        async function getGroups() {
-         const token = localStorage.getItem('fiske-token');
-         if (token) {
-           try {
-             const groups = await FiskeAPI.getUserAdminGroups(token, currentUserId);
-             setUserAdminGroups(groups)
-           } catch (err) {
-           } finally {
-           }
-         }
-       };
+    // useEffect(() => {
+    //     async function getGroups() {
+    //      const token = localStorage.getItem('fiske-token');
+    //      if (token) {
+    //        try {
+    //          const groups = await FiskeAPI.getUserAdminGroups(token, currentUserId);
+    //          setUserAdminGroups(groups)
+    //        } catch (err) {
+    //        } finally {
+    //        }
+    //      }
+    //    };
 
-       getGroups();
-     }, []);
+    //    getGroups();
+    //  }, []);
 
 
     return (

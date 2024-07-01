@@ -1,6 +1,6 @@
 .gridcontainer {
   display: grid;
-  grid-template-rows: 1fr 1fr 1fr;
+  grid-template-rows: repeat(8, 1fr);
   grid-template-columns: repeat(8, 1fr);
   gap: 10px;
   position: relative;
@@ -8,6 +8,7 @@
   border-radius: 10px;
   background-color: white;
   width: 60vw;
+  height: 100%;
   margin-top: 3%;
   padding:1%;
   margin:auto;
@@ -17,14 +18,15 @@
 @media (max-width: 1000px) {
   .gridcontainer {
     display: grid;
-    grid-template-rows: 1fr 1fr 1fr;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: repeat(8, 1fr);
+    grid-template-columns: repeat(8, 1fr);
     gap: 10px;
     position: relative;
     border: 1px black solid;
     border-radius: 10px;
     background-color: white;
     width: 75vw;
+    height: 100vh;
     margin-top: 3%;
     padding:1%;
     margin:auto;
@@ -34,14 +36,15 @@
 @media (max-width: 800px) {
   .gridcontainer {
     display: grid;
-    grid-template-rows: 1fr 1fr 1fr;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: repeat(8, 1fr);
+    grid-template-columns: repeat(8, 1fr);
     gap: 10px;
     position: relative;
     border: 1px black solid;
     border-radius: 10px;
     background-color: white;
     width: 90vw;
+    height: 100vh;
     margin-top: 3%;
     padding:1%;
     margin:auto;
@@ -51,14 +54,15 @@
 @media (max-width: 500px) {
   .gridcontainer {
     display: grid;
-    grid-template-rows: 1fr 1fr 1fr;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: repeat(8, 1fr);
+    grid-template-columns: repeat(8, 1fr);
     gap: 10px;
     position: relative;
     border: 1px black solid;
     border-radius: 10px;
     background-color: white;
     width: 98vw;
+    height: 100vh;
     margin-top: 3%;
     padding:1%;
     margin:auto;

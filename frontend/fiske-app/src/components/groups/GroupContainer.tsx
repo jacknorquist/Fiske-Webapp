@@ -83,7 +83,7 @@ function GroupContainer(): ReactNode {
            {isCreatePostOpen && <CreatePostContainer group={id} toggleCreatePost={toggleCreatePost} posts={posts}/>}
         <div className={`${styles.groupcontainer} ${isCreatePostOpen ? styles.overlay : ''}`}>
            {group ? <Group group={group}/>:""}
-           {userMember? <Button onClick={toggleCreatePost}>+</Button>:""}
+           {userMember ? <Button onClick={toggleCreatePost}>+</Button>:""}
            {userMember ? <Button onClick={leaveGroup}>Leave</Button>:<Button onClick={joinGroup}>Join</Button>}
            {group!.admin_id === user.id ? <Button onClick={deleteGroup}>Delete Group</Button>:""}
            {posts.length>0 ? posts.map(p=><PostListItem key={p!.id} post={p} updatePosts={updatePosts}/>): ""}

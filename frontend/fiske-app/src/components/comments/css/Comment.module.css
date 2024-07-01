@@ -1,0 +1,9 @@
+.nameTrash{
+  display: flex;
+  justify-content: space-between;
+}
+.icon{
+  cursor: pointer;
+  color: #787879;
+  margin: 0;
+}

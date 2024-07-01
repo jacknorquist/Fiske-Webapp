@@ -8,6 +8,7 @@ import CommentsContainer from "../comments/CommentsContainer.tsx";
 import CreateCommentForm from "../comments/CreateCommentForm.tsx";
 import FiskeAPI from "../../api.ts";
 import { useError } from "../../context/ErrorContext.tsx";
+import styles from './css/PostListItem.module.css'
 
 function PostListItem({post, updatePosts}): ReactNode {
     const {user} = useUser()
@@ -47,15 +48,18 @@ function PostListItem({post, updatePosts}): ReactNode {
 
 
     return (
-        <div style={{border:'1px solid black'}}>
-            <h2>Title:{postState.title}</h2>
-            <Link to={`/groups/${postState.group_id}`}><h6>Group:{postState.group_name}</h6></Link>
-            <h3>{postState.content}</h3>
-            <h3>{postState.created_at}</h3>
-            {post.user_id === user.id ? <Button onClick={deletePost}>Delete Post</Button>:"" }
+        <div className={styles.container}>
+            <Link to={`/groups/${postState.group_id}`} className={styles.grouplink}><h6>Group:{postState.group_name}</h6></Link>
+            <h5 className={styles.title}>{postState.title}</h5>
+            <i className={styles.createdat}>{postState.created_at}</i>
+            <p className={styles.content}>{postState.content}</p>
             {postState.images.length > 0 ? postState.images.map(i=><img src={i}/>):""}
             <CreateCommentForm createComment={createComment} updatePost={updatePost}/>
-            {isCommentsOpen ? <CommentsContainer comments={postState.comments} updatePost={updatePost}/>:<Button onClick={toggleComments}><p>Comments</p></Button>}
+            <div className={styles.buttonscontainer}>
+            {post.user_id === user.id ? <span onClick={deletePost} className={`${styles.icon} bi bi-trash`}></span>:"" }
+            {!isCommentsOpen ? <p onClick={toggleComments} className={styles.icon}>Comments</p>: ""}
+            </div>
+            {isCommentsOpen ? <CommentsContainer comments={postState.comments} updatePost={updatePost}/>:""}
         </div>
     );
 }

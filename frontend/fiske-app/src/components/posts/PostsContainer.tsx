@@ -4,6 +4,7 @@ import { useUser } from "../../context/UserContext.tsx";
 import ExplorePostsContainer from "./ExplorePostsContainer.tsx";
 import UserPostsContainer from "./UserPostsContainer.tsx";
 import { Button } from "reactstrap";
+import styles from './css/PostsContainer.module.css'
 
 function PostsContainer(): ReactNode {
     const {user} = useUser()
@@ -21,7 +22,7 @@ function PostsContainer(): ReactNode {
 
 
     return (
-        <div>
+        <div className={styles.container}>
             <Button onClick={openUserPosts} >My Posts</Button>
             <Button onClick={openExplorePosts}>Explore</Button>
             {explorePostsContainerOpen? <ExplorePostsContainer />:<UserPostsContainer />}

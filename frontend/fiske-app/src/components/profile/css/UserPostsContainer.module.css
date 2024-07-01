@@ -1,4 +1,4 @@
 .container{
   grid-column: 1/7;
-  border: 2px, black, solid;
+  grid-row: 4/8;
 }

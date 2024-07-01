@@ -19,11 +19,6 @@ import styles from './css/App.module.css'
 function App(): ReactNode{
   const {user, setUser} = useUser()
   const {setError} = useError()
-  const [isCreatePostOpen, setIsCreatePostOpen] = useState(false)
-
-  function toggleCreatePost (){
-    setIsCreatePostOpen(!isCreatePostOpen)
-  }
 
 
 
@@ -32,9 +27,8 @@ function App(): ReactNode{
     <UserProvider>
       <ErrorProvider>
         <BrowserRouter>
-          {isCreatePostOpen && <CreatePostContainer toggleCreatePost={toggleCreatePost} />}
-      <div className={`${styles.app} ${isCreatePostOpen ? styles.overlay : ''}`}>
-          {user && <NavBar toggleCreatePost={toggleCreatePost}/>}
+      <div className={styles.app}>
+          {user && <NavBar/>}
           <RoutesList />
           <main>
             <GlobalError />

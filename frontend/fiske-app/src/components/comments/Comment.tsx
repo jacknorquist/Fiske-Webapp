@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import { Button } from "reactstrap";
 import FiskeAPI from "../../api.ts";
 import { useError } from "../../context/ErrorContext.tsx";
+import styles from './css/Comment.module.css'
 
 function Comment({comment, updatePost}): ReactNode {
 
@@ -26,10 +27,12 @@ function Comment({comment, updatePost}): ReactNode {
 
 
     return (
-        <div >
-            <p>{comment.username}</p>
-            <p>{comment.content}</p>
-            {user.id === comment.user_id ? <Button onClick={deleteComment}>Delete</Button>:""}
+        <div>
+            <div className={styles.nameTrash}>
+                <i>{comment.username}</i>
+                {user.id === comment.user_id ? <span onClick={deleteComment} className={`${styles.icon} bi bi-trash`}></span>:""}
+            </div>
+                <p>{comment.content}</p>
         </div>
     );
 }

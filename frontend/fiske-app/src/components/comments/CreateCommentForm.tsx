@@ -1,5 +1,7 @@
 import React from "react";
 import { ReactNode, useState } from "react";
+import styles from './css/CreateCommentForm.module.css'
+
 
 import {
     Form,
@@ -40,15 +42,9 @@ function CreateCommentForm({createComment, updatePost}): ReactNode {
 
 
     return (
-        <div>
-        <Form onSubmit={handleSave} className='border border-primary rounded' >
+        <div className={styles.container}>
+        <Form onSubmit={handleSave} className={styles.form} >
         <FormGroup row>
-          <Label
-            for="title"
-            sm={2}
-          >
-            Content
-          </Label>
           <Col sm={10}>
             <Input
               id="content"

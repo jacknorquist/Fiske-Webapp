@@ -1,0 +1,5 @@
+.container{
+  grid-column: 1/7;
+  grid-row: 3/4;
+  border: 2px, black, solid;
+}

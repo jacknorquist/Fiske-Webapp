@@ -4,6 +4,7 @@ import { useUser } from "../../context/UserContext.tsx";
 import Post from "../posts/PostContainer.tsx";
 import FiskeAPI from "../../api.ts";
 import PostListItem from "../posts/PostListItem.tsx";
+import styles from './css/UserPostsContainer.module.css';
 
 function UserPostsContainer(): ReactNode {
 
@@ -32,8 +33,8 @@ function UserPostsContainer(): ReactNode {
     }
 
     return (
-        <div>
-          <h1>User Posts</h1>
+        <div className={styles.container}>
+          <h1 >User Posts</h1>
             {userPosts.length>0? userPosts.map(p=> <PostListItem post={p} updatePosts={updatePosts}/>): ""}
         </div>
     );

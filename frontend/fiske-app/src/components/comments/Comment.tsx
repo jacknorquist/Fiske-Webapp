@@ -7,7 +7,7 @@ import { Button } from "reactstrap";
 import FiskeAPI from "../../api.ts";
 import { useError } from "../../context/ErrorContext.tsx";
 
-function Comment({comment}): ReactNode {
+function Comment({comment, updatePost}): ReactNode {
 
     const {user} = useUser();
     const {setError} = useError()
@@ -15,6 +15,7 @@ function Comment({comment}): ReactNode {
     async function deleteComment(){
         try{
          await FiskeAPI.deleteComment( localStorage['fiske-token'], comment.group_id, comment.post_id, comment.id);
+         updatePost()
         }catch (err){
           setError(err.message)
         }
@@ -25,7 +26,7 @@ function Comment({comment}): ReactNode {
 
 
     return (
-        <div>
+        <div >
             <p>{comment.username}</p>
             <p>{comment.content}</p>
             {user.id === comment.user_id ? <Button onClick={deleteComment}>Delete</Button>:""}

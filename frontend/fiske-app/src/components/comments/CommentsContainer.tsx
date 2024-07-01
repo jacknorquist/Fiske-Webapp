@@ -9,26 +9,15 @@ import FiskeAPI from "../../api.ts";
 import { useError } from "../../context/ErrorContext.tsx";
 
 
-function CommentsContainer({comments}): ReactNode {
-
-    const [commentsState, setCommentsState] = useState();
-    const {setError} = useError();
-
-    const {user} = useUser()
+function CommentsContainer({comments, updatePost}): ReactNode {
 
 
-    async function deleteComment(groupId, postId, commentId){
-        try{
-         await FiskeAPI.deleteComment( localStorage['fiske-token'], groupId, postId, commentId);
-        }catch (err){
-          setError(err.message)
-        }
 
-    }
+
 
     return (
         <div>
-            {comments.map(c=> <Comment comment={c} deleteComment={deleteComment}/>)}
+            {comments.map(c=> <Comment comment={c} updatePost={updatePost}/>)}
         </div>
     );
 }

@@ -12,7 +12,7 @@ import {
     CloseButton
   } from 'reactstrap';
 
-function CreateCommentForm({createComment}): ReactNode {
+function CreateCommentForm({createComment, updatePost}): ReactNode {
 
 
     const initialState = {
@@ -34,6 +34,7 @@ function CreateCommentForm({createComment}): ReactNode {
         evt.preventDefault();
         createComment(formData);
         setFormData(initialState);
+        updatePost()
 
     }
 

@@ -28,6 +28,7 @@ function UserFeedContainer(): ReactNode {
 
     getPosts();
   }, []);
+  console.log(posts)
 
 
 

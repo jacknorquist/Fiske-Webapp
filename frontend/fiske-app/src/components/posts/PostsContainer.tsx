@@ -19,7 +19,6 @@ function PostsContainer(): ReactNode {
         setExplorePostsContainer(false)
     }
 
-    
 
     return (
         <div>

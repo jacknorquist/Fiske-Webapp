@@ -24,12 +24,15 @@ function ExplorePostsContainer(): ReactNode {
        };
 
        getPosts();
-     }, []);
-     console.log(posts)
+     }, [posts]);
+
+     function updatePosts(){
+      setPosts([])
+     }
 
     return (
         <div>
-            {posts.length>0 ? posts.map(p=><PostListItem key={p!.title} post={p}/>): ""}
+            {posts.length>0 ? posts.map(p=><PostListItem key={p!.title} post={p} updatePosts={updatePosts}/>): ""}
         </div>
     );
 }

@@ -9,7 +9,8 @@ import CreateCommentForm from "../comments/CreateCommentForm.tsx";
 import FiskeAPI from "../../api.ts";
 import { useError } from "../../context/ErrorContext.tsx";
 
-function PostListItem({post}): ReactNode {
+function PostListItem({post, updatePosts}): ReactNode {
+    const {user} = useUser()
     const {setError} = useError();
     const[postState, setPostState] = useState(post);
     const [isCommentsOpen, setIsCommentsOpen] = useState(false);
@@ -34,12 +35,24 @@ function PostListItem({post}): ReactNode {
         }
 
     }
+
+    async function deletePost(){
+        try{
+            await FiskeAPI.deletePost( localStorage['fiske-token'], post.group_id, post.id);
+            updatePosts()
+           }catch (err){
+             setError(err.message)
+           }
+    }
+
+
     return (
         <div style={{border:'1px solid black'}}>
             <h2>Title:{postState.title}</h2>
             <Link to={`/groups/${postState.group_id}`}><h6>Group:{postState.group_name}</h6></Link>
             <h3>{postState.content}</h3>
             <h3>{postState.created_at}</h3>
+            {post.user_id === user.id ? <Button onClick={deletePost}>Delete Post</Button>:"" }
             {postState.images.length > 0 ? postState.images.map(i=><img src={i}/>):""}
             <CreateCommentForm createComment={createComment} updatePost={updatePost}/>
             {isCommentsOpen ? <CommentsContainer comments={postState.comments} updatePost={updatePost}/>:<Button onClick={toggleComments}><p>Comments</p></Button>}

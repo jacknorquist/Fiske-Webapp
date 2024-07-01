@@ -325,7 +325,6 @@ static async editUser(formData, currentUsername, token) {
     const response = await fetch(`http://localhost:3000/groups/${groupId}/posts/${postId}`, {
       method: 'DELETE',
       headers: {
-        'Content-Type': 'application/json',
         'Authorization': `Bearer ${token}`
       },
     });
@@ -368,6 +367,8 @@ static async editUser(formData, currentUsername, token) {
     }
     return await response.json()
   }
+
+
 
 
 

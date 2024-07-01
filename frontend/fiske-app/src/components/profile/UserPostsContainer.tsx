@@ -25,14 +25,16 @@ function UserPostsContainer(): ReactNode {
        };
 
        getPosts();
-     }, []);
+     }, [userPosts]);
 
-     console.log(userPosts)
+    function updatePosts(){
+      setUserPosts([])
+    }
 
     return (
         <div>
           <h1>User Posts</h1>
-            {userPosts.length>0? userPosts.map(p=> <PostListItem post={p}/>): ""}
+            {userPosts.length>0? userPosts.map(p=> <PostListItem post={p} updatePosts={updatePosts}/>): ""}
         </div>
     );
 }

@@ -27,15 +27,19 @@ function UserFeedContainer(): ReactNode {
     };
 
     getPosts();
-  }, []);
-  console.log(posts)
+  }, [posts]);
+
+  function updatePosts(){
+    setPosts([])
+  }
+
 
 
 
 
     return (
         <div>
-            {posts.length>0 ? posts.map(p=><PostListItem key={p!.id} post={p}/>): ""}
+            {posts.length>0 ? posts.map(p=><PostListItem key={p!.id} post={p} updatePosts={updatePosts}/>): ""}
         </div>
     );
 }

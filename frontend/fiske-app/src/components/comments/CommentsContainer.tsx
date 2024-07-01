@@ -6,7 +6,6 @@ import { Link } from "react-router-dom";
 import { Button } from "reactstrap";
 
 function CommentsContainer({comments}): ReactNode {
-    console.log(comments, 'commmentsssss')
 
     return (
         <div>

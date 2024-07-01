@@ -321,7 +321,7 @@ static async editUser(formData, currentUsername, token) {
     return await response.json();
   }
 
-  static async getDeletePost(token, groupId, postId){
+  static async deletePost(token, groupId, postId){
     const response = await fetch(`http://localhost:3000/groups/${groupId}/posts/${postId}`, {
       method: 'DELETE',
       headers: {
@@ -335,6 +335,25 @@ static async editUser(formData, currentUsername, token) {
     }
     return await response.json()
   }
+
+  static async createComment(token, groupId, postId, formData){
+    const {content} = formData
+    const data = new FormData()
+    data.append('comment[content]', content)
+    const response = await fetch(`http://localhost:3000/groups/${groupId}/posts/${postId}/comments`, {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${token}`
+      },
+      body: data,
+    });
+    if (!response.ok) {
+      const errorMessage = await response.text();
+      throw new Error(errorMessage || 'An unknown error occurred');
+    }
+    return await response.json()
+  }
+
 
 
 

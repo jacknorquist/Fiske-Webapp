@@ -34,7 +34,7 @@ Rails.application.routes.draw do
       collection do
         get '/', to: 'posts#index_group'
       end
-      resources :comments, only: [:create, :index, :show, :destroy]
+      resources :comments, only: [:create, :show, :destroy]
     end
   end
 end

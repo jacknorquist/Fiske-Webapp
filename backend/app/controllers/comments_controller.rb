@@ -33,6 +33,7 @@ class CommentsController < ApplicationController
     private
 
     def set_post
+      puts 'post_id', params[:post_id]
       @post = Post.find(params[:post_id])
     rescue ActiveRecord::RecordNotFound
       render json: { error: "Post not found" }, status: :not_found

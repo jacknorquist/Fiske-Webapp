@@ -74,7 +74,17 @@ class UsersController < ApplicationController
           created_at: post.created_at,
           group_id: post.group.id,
           group_name: post.group.name,
-          comments: post.comments # Assuming post belongs to a group
+          comments: post.comments.map do |comment|
+            {
+              id: comment.id,
+              content: comment.content,
+              user_id: comment.user_id,
+              username: comment.user.username,  # Assuming 'username' is the attribute in User model
+              created_at: comment.created_at,
+              group_id: comment.post.group.id,
+              post_id: post.id
+            }
+          end #
         }
 
         # Include images associated with the post
@@ -104,7 +114,17 @@ class UsersController < ApplicationController
           created_at: post.created_at,
           group_id: post.group.id,
           group_name: post.group.name,
-          comments: post.comments # Assuming post belongs to a group
+          comments: post.comments.map do |comment|
+            {
+              id: comment.id,
+              content: comment.content,
+              user_id: comment.user_id,
+              username: comment.user.username,  # Assuming 'username' is the attribute in User model
+              created_at: comment.created_at,
+              group_id: comment.post.group.id,
+              post_id: post.id
+            }
+          end # Assuming post belongs to a group
         }
 
         # Include images associated with the post

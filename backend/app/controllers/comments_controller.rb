@@ -13,7 +13,6 @@ class CommentsController < ApplicationController
       end
     end
 
-    # GET /groups/:group_id/posts/:post_id/comments/:id
     def show
       render json: @comment
     end
@@ -33,7 +32,6 @@ class CommentsController < ApplicationController
     private
 
     def set_post
-      puts 'post_id', params[:post_id]
       @post = Post.find(params[:post_id])
     rescue ActiveRecord::RecordNotFound
       render json: { error: "Post not found" }, status: :not_found

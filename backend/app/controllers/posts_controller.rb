@@ -13,7 +13,17 @@ class PostsController < ApplicationController
           created_at: post.created_at,
           group_id: post.group&.id,       # Safely retrieve group_id, handling nil case
           group_name: post.group&.name ,
-          comments: post.comments   # Safely retrieve group_name, handling nil case
+          comments: post.comments.map do |comment|
+            {
+              id: comment.id,
+              content: comment.content,
+              user_id: comment.user_id,
+              username: comment.user.username,  # Assuming 'username' is the attribute in User model
+              created_at: comment.created_at,
+              group_id: comment.post.group.id,
+              post_id: post.id
+            }
+          end #
         }
 
         # Include images associated with the post
@@ -41,7 +51,17 @@ class PostsController < ApplicationController
           created_at: post.created_at,
           group_id: @group.id,    # Group ID
           group_name: @group.name,  # Group Name
-          comments: post.comments  # Assuming you have comments associated with posts
+          comments: post.comments.map do |comment|
+            {
+              id: comment.id,
+              content: comment.content,
+              user_id: comment.user_id,
+              username: comment.user.username,  # Assuming 'username' is the attribute in User model
+              created_at: comment.created_at,
+              group_id: comment.post.group.id,
+              post_id: post.id
+            }
+          end #
         }
 
         images = []

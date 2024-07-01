@@ -100,7 +100,6 @@ class PostsController < ApplicationController
         images: []  # Initialize images array
       }
 
-      # Populate images array
       (1..5).each do |i|
         image_url = @post.send("post_image_#{i}")&.url
         post[:images] << image_url if image_url

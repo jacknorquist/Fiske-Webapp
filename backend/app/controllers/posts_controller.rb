@@ -78,8 +78,37 @@ class PostsController < ApplicationController
     end
 
     def show
-      render json: { post: post_json(@post), comments: @post.comments}, status: :ok
+      post = {
+        id: @post.id,
+        user_id: @post.user.id,
+        title: @post.title,
+        content: @post.content,
+        created_at: @post.created_at,
+        group_id: @post.group.id,
+        group_name: @post.group.name,
+        comments: @post.comments.map do |comment|
+          {
+            id: comment.id,
+            content: comment.content,
+            user_id: comment.user_id,
+            username: comment.user.username,
+            created_at: comment.created_at,
+            group_id: comment.post.group.id,
+            post_id: @post.id
+          }
+        end,
+        images: []  # Initialize images array
+      }
+
+      # Populate images array
+      (1..5).each do |i|
+        image_url = @post.send("post_image_#{i}")&.url
+        post[:images] << image_url if image_url
+      end
+
+      render json: post, status: :ok
     end
+
 
     def create
       @post = @group.posts.new(post_params)

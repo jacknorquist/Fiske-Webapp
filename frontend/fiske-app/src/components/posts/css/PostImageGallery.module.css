@@ -1,0 +1,32 @@
+.container{
+  grid-column: 1/8;
+  grid-row: 4/7;
+  height: 30rem;
+  position: relative;
+}
+.postImage{
+  height: 95%;
+  width: 100%;
+  object-fit: cover;
+}
+
+.leftArrow {
+  position: absolute; /* Absolute positioning relative to the parent container */
+  left: 10px; /* Adjust distance from the left edge of container */
+  top: 50%; /* Align vertically centered */
+  transform: translateY(-50%); /* Adjust vertical position */
+  cursor: pointer; /* Provide cursor feedback on hover */
+  font-size: 1.5rem; /* Adjust size of arrow icons */
+  color: #333; /* Adjust color of arrow icons */
+}
+
+
+.rightArrow {
+  position: absolute; /* Absolute positioning relative to the parent container */
+  right: 10px; /* Adjust distance from the right edge of container */
+  top: 50%; /* Align vertically centered */
+  transform: translateY(-50%); /* Adjust vertical position */
+  cursor: pointer; /* Provide cursor feedback on hover */
+  font-size: 1.5rem; /* Adjust size of arrow icons */
+  color: #333; /* Adjust color of arrow icons */
+}

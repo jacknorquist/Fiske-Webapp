@@ -8,9 +8,10 @@ import Comment from "./Comment.tsx";
 import FiskeAPI from "../../api.ts";
 import { useError } from "../../context/ErrorContext.tsx";
 import styles from './css/CommentsContainer.module.css'
+import CreateCommentForm from "./CreateCommentForm.tsx";
 
 
-function CommentsContainer({comments, updatePost}): ReactNode {
+function CommentsContainer({comments, updatePost, createComment}): ReactNode {
 
 
 
@@ -18,7 +19,8 @@ function CommentsContainer({comments, updatePost}): ReactNode {
 
     return (
         <div className={styles.container}>
-            {comments.length > 0 ? comments.map(c=> <Comment comment={c} updatePost={updatePost}/>): <i>No comments yet.</i>}
+            <CreateCommentForm createComment={createComment} updatePost={updatePost}/>
+            {comments.length > 0 ? comments.map(c=> <Comment comment={c} updatePost={updatePost}/>): <i style={{ marginLeft: '.5rem' }}>No comments yet.</i>}
         </div>
     );
 }

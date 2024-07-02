@@ -44,21 +44,22 @@ function CreateCommentForm({createComment, updatePost}): ReactNode {
     return (
         <div className={styles.container}>
         <Form onSubmit={handleSave} className={styles.form} >
-        <FormGroup row>
-          <Col sm={10}>
+        <FormGroup row style={{width:'100%'}}>
+          <Col sm={10} style={{width:'100%'}}>
             <Input
               id="content"
               name="content"
               value={formData.content}
               type="text"
+              placeholder="add a comment"
               onChange={handleChange}
             />
           </Col>
         </FormGroup>
-
         <Button>
-        Submit
+        Post
       </Button>
+
 
       </Form>
       </div>

@@ -1,9 +1,23 @@
+.comment{
+  background-color: #ededf0;
+  /* margin-left: .5rem;
+  margin-right: .5rem; */
+}
+
+
+
 .nameTrash{
   display: flex;
   justify-content: space-between;
+  margin-left: .5rem;
+  margin-right: .5rem;
+}
+
+.content{
+  margin-left:.5rem;
 }
 .icon{
   cursor: pointer;
-  color: #787879;
+  color: #050505;
   margin: 0;
 }

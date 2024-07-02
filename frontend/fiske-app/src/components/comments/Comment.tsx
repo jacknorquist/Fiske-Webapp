@@ -27,12 +27,12 @@ function Comment({comment, updatePost}): ReactNode {
 
 
     return (
-        <div>
+        <div className={styles.comment}>
             <div className={styles.nameTrash}>
                 <i>{comment.username}</i>
                 {user.id === comment.user_id ? <span onClick={deleteComment} className={`${styles.icon} bi bi-trash`}></span>:""}
             </div>
-                <p>{comment.content}</p>
+                <p className={styles.content}>{comment.content}</p>
         </div>
     );
 }

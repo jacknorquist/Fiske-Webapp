@@ -9,12 +9,14 @@ import CreateCommentForm from "../comments/CreateCommentForm.tsx";
 import FiskeAPI from "../../api.ts";
 import { useError } from "../../context/ErrorContext.tsx";
 import styles from './css/PostListItem.module.css'
+import PostImageGallery from "./PostImageGallery.tsx";
 
 function PostListItem({post, updatePosts}): ReactNode {
     const {user} = useUser()
     const {setError} = useError();
     const[postState, setPostState] = useState(post);
     const [isCommentsOpen, setIsCommentsOpen] = useState(false);
+    const[isButtonsOpen, setIsButtonsOpen] = useState(false)
     function toggleComments(){
         setIsCommentsOpen(true)
     }
@@ -46,20 +48,29 @@ function PostListItem({post, updatePosts}): ReactNode {
            }
     }
 
+    function toggleButtons(){
+        setIsButtonsOpen(!isButtonsOpen)
+    }
+
 
     return (
         <div className={styles.container}>
-            <Link to={`/groups/${postState.group_id}`} className={styles.grouplink}><h6>Group:{postState.group_name}</h6></Link>
+            <Link to={`/groups/${postState.group_id}`} className={styles.grouplink}><h6>{postState.group_name}</h6></Link>
+            {isButtonsOpen ?
+             <div className={styles.buttonscontainer}>
+             {post.user_id === user.id ? <span onClick={deletePost} className={`${styles.icon} bi bi-trash`}></span>:"" }
+             </div> : ""
+             }
             <h5 className={styles.title}>{postState.title}</h5>
             <i className={styles.createdat}>{postState.created_at}</i>
             <p className={styles.content}>{postState.content}</p>
-            {postState.images.length > 0 ? postState.images.map(i=><img src={i}/>):""}
-            <CreateCommentForm createComment={createComment} updatePost={updatePost}/>
-            <div className={styles.buttonscontainer}>
-            {post.user_id === user.id ? <span onClick={deletePost} className={`${styles.icon} bi bi-trash`}></span>:"" }
+            {postState.images.length > 0 ? <PostImageGallery  images={postState.images}/>:""}
+             <div className={styles.socialContainer}>
             {!isCommentsOpen ? <p onClick={toggleComments} className={styles.icon}>Comments</p>: ""}
             </div>
-            {isCommentsOpen ? <CommentsContainer comments={postState.comments} updatePost={updatePost}/>:""}
+            <span onClick={toggleButtons}className={`${styles.openButtonsIcon} bi bi-three-dots-vertical`}></span>
+
+            {isCommentsOpen ? <CommentsContainer comments={postState.comments} updatePost={updatePost} createComment={createComment}/>:""}
         </div>
     );
 }

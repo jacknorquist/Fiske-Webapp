@@ -2,10 +2,11 @@
   display: flex;
   width: 100%;
   grid-column: 1/8;
-  grid-row: 4/5;
+  grid-row: 5/6;
 }
 
 .form{
   display: flex;
   align-items: flex-start;
+  width: 100%;
 }

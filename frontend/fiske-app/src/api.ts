@@ -127,7 +127,7 @@ static async editUser(formData, currentUsername, token) {
   }
 
 
-  static async getExplorePosts(token){
+  static async getExplorePosts(userId, token){
     const response = await fetch(`http://localhost:3000/posts`, {
       method: 'GET',
       headers: {

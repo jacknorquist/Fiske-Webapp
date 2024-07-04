@@ -58,7 +58,7 @@ function PostListItem({post, updatePosts}): ReactNode {
             <Link to={`/groups/${postState.group_id}`} className={styles.grouplink}><h6>{postState.group_name}</h6></Link>
             {isButtonsOpen ?
              <div className={styles.buttonscontainer}>
-             {post.user_id === user.id ? <span onClick={deletePost} className={`${styles.icon} bi bi-trash`}></span>:"" }
+             {post.user_id === user.id ? <span onClick={deletePost} className={`${styles.icon} bi bi-trash icon`}></span>:"" }
              </div> : ""
              }
             <h5 className={styles.title}>{postState.title}</h5>

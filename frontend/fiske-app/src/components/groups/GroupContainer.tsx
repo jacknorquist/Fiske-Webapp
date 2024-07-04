@@ -11,6 +11,7 @@ import CreatePostContainer from "../posts/CreatePostContainer.tsx";
 import styles from './css/GroupContainer.module.css';
 import { useError } from "../../context/ErrorContext.tsx";
 import { useNavigate } from "react-router-dom";
+import PostsContainer from "../posts/PostsContainer.tsx";
 
 //consider making forms that are open a state at the app level?
 function GroupContainer(): ReactNode {
@@ -45,7 +46,7 @@ function GroupContainer(): ReactNode {
        };
 
        getPosts();
-     }, [posts]);
+     }, [userMember]);
 
 
      async function leaveGroup(){
@@ -62,7 +63,7 @@ function GroupContainer(): ReactNode {
   }
 
   function updatePosts(){
-    setPosts(posts)
+    setUserMember(!userMember)
   }
 
 
@@ -75,18 +76,25 @@ function GroupContainer(): ReactNode {
        }
 }
 
-
+console.log(group)
 
 
     return (
       <div>
-           {isCreatePostOpen && <CreatePostContainer group={id} toggleCreatePost={toggleCreatePost} posts={posts}/>}
-        <div className={`${styles.groupcontainer} ${isCreatePostOpen ? styles.overlay : ''}`}>
-           {group ? <Group group={group}/>:""}
+           {isCreatePostOpen && <CreatePostContainer group={id} toggleCreatePost={toggleCreatePost} updatePosts={updatePosts}/>}
+        <div className={`${styles.container} ${isCreatePostOpen ? styles.overlay : ''}`}>
+           {group ?
+           <div className={styles.header}>
+            <img src={user!.header_image_url || `${process.env.PUBLIC_URL}/DefaultHeader.jpg`} className={styles.headerImage} alt="" />
+            <p>{group!.area}</p>
+            <p>{group!.fish_species}</p>
            {userMember ? <Button onClick={toggleCreatePost}>+</Button>:""}
            {userMember ? <Button onClick={leaveGroup}>Leave</Button>:<Button onClick={joinGroup}>Join</Button>}
            {group!.admin_id === user.id ? <Button onClick={deleteGroup}>Delete Group</Button>:""}
+           </div>:""}
+           <div className={styles.postContainer}>
            {posts.length>0 ? posts.map(p=><PostListItem key={p!.id} post={p} updatePosts={updatePosts}/>): ""}
+           </div>
         </div>
       </div>
     );

@@ -22,7 +22,7 @@ function PostImageGallery({images}): ReactNode {
 
     function moveImageLeft(){
         console.log(imagesState)
-        if(imagesState-1 === 0){
+        if(imagesState === 0){
             setImages(images.length-1)
         }else{
             setImages(imagesState-1)

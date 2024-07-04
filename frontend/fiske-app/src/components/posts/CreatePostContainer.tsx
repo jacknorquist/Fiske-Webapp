@@ -9,7 +9,7 @@ import { Button } from "reactstrap";
 import styles from './css/CreatePostContainer.module.css'
 
 //posts = posts used to have useEffect from GroupContainer reload posts after one is made
-function CreatePostContainer({group, toggleCreatePost, posts}): ReactNode {
+function CreatePostContainer({group, toggleCreatePost, updatePosts}): ReactNode {
 
 
     const { setError } = useError();
@@ -17,7 +17,7 @@ function CreatePostContainer({group, toggleCreatePost, posts}): ReactNode {
   async function createPost(formData){
       try{
        await FiskeAPI.createPost( localStorage['fiske-token'], group, formData);
-        posts=posts;
+        updatePosts();
         toggleCreatePost();
       }catch (err){
         setError(err.message)

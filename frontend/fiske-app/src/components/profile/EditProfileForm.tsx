@@ -89,6 +89,7 @@ function EditProfileForm({handleEdit, toggleEditProfileForm, user}): ReactNode {
             />
           </Col>
         </FormGroup>
+
         <FormGroup row>
           <Label
             for="last_name"

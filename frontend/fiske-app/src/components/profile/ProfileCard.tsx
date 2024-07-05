@@ -39,6 +39,7 @@ function ProfileCard({ toggleEditProfileForm, profileIsUser, profileUser}): Reac
               <CardText>
                 {`${profileUser!.bio}`}
               </CardText>
+
               <CardText>
                 <small className="text-muted">
                   Last updated 3 mins ago

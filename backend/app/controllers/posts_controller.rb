@@ -8,6 +8,7 @@ class PostsController < ApplicationController
         post_json = {
           id: post.id,
           user_id: post.user.id,
+          username: post.user.username,
           title: post.title,
           content: post.content,  # Adjust this based on your actual Post model attributes
           created_at: post.created_at,
@@ -46,6 +47,8 @@ class PostsController < ApplicationController
         {
           id: post.id,
           user_id: post.user.id,
+          username: post.user.username,
+          user_profile_image: post.user.profile_image_url,
           title: post.title,
           content: post.content,  # Adjust this based on your actual Post model attributes
           created_at: post.created_at,
@@ -81,6 +84,7 @@ class PostsController < ApplicationController
       post = {
         id: @post.id,
         user_id: @post.user.id,
+        user_profile_image: post.user.profile_image_url,
         title: @post.title,
         content: @post.content,
         created_at: @post.created_at,

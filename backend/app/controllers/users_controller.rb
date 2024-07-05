@@ -69,6 +69,8 @@ class UsersController < ApplicationController
         post_json = {
           id: post.id,
           user_id: post.user.id,
+          username: post.user.username,
+          user_profile_image: post.user&.profile_image_url,
           title: post.title,
           content: post.content,
           created_at: post.created_at,
@@ -109,6 +111,8 @@ class UsersController < ApplicationController
         post_json = {
           id: post.id,
           user_id: post.user.id,
+          username: post.user.username,
+          user_profile_image: post.user&.profile_image_url,
           title: post.title,
           content: post.content,
           created_at: post.created_at,

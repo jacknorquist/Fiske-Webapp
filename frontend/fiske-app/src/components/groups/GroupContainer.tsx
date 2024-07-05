@@ -12,10 +12,12 @@ import styles from './css/GroupContainer.module.css';
 import { useError } from "../../context/ErrorContext.tsx";
 import { useNavigate } from "react-router-dom";
 import PostsContainer from "../posts/PostsContainer.tsx";
+import EditGroupContainer from "./EditGroupContainer.tsx";
 
 //consider making forms that are open a state at the app level?
 function GroupContainer(): ReactNode {
     const {user} = useUser();
+    const{groupId} = useParams()
     const {setError} = useError();
     const navigate = useNavigate()
     const [group, setGroup] = useState({})
@@ -23,7 +25,9 @@ function GroupContainer(): ReactNode {
     const {id} = useParams();
     const currentUserId = user!.id
     const [userMember, setUserMember] = useState(false)
-    const [isCreatePostOpen, setIsCreatePostOpen] = useState(false)
+    const [isCreatePostOpen, setIsCreatePostOpen] = useState(false);
+    const [isEditGroupOpen, setIsEditGroupOpen] = useState(false);
+
 
 
 
@@ -62,7 +66,16 @@ function GroupContainer(): ReactNode {
     setIsCreatePostOpen(!isCreatePostOpen)
   }
 
+  function toggleEditGroup(){
+    setIsEditGroupOpen(!isEditGroupOpen)
+  }
+
+
   function updatePosts(){
+    setUserMember(!userMember)
+  }
+
+  function updateGroup(){
     setUserMember(!userMember)
   }
 
@@ -76,20 +89,21 @@ function GroupContainer(): ReactNode {
        }
 }
 
-console.log(group)
 
 
     return (
       <div>
            {isCreatePostOpen && <CreatePostContainer group={id} toggleCreatePost={toggleCreatePost} updatePosts={updatePosts}/>}
+           {isEditGroupOpen && <EditGroupContainer  toggleEditGroup={toggleEditGroup} groupId={groupId} updateGroup={updateGroup}/>}
         <div className={`${styles.container} ${isCreatePostOpen ? styles.overlay : ''}`}>
            {group ?
            <div className={styles.header}>
-            <img src={user!.header_image_url || `${process.env.PUBLIC_URL}/DefaultHeader.jpg`} className={styles.headerImage} alt="" />
+            <img src={group!.header_image_url || `${process.env.PUBLIC_URL}/DefaultHeader.jpg`} className={styles.headerImage} alt="" />
             <p>{group!.area}</p>
             <p>{group!.fish_species}</p>
            {userMember ? <Button onClick={toggleCreatePost}>+</Button>:""}
            {userMember ? <Button onClick={leaveGroup}>Leave</Button>:<Button onClick={joinGroup}>Join</Button>}
+           {user!.id === group!.admin_id ? <Button onClick={toggleEditGroup}>Edit</Button>:""}
            {group!.admin_id === user.id ? <Button onClick={deleteGroup}>Delete Group</Button>:""}
            </div>:""}
            <div className={styles.postContainer}>

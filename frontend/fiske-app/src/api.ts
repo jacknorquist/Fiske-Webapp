@@ -339,6 +339,39 @@ static async editUser(formData, currentUsername, token) {
     return await response.json();
   }
 
+  static async editGroup(token, formData, groupId) {
+    const { name, fish_species, area, header_image, image_1, image_2, image_3, image_4, image_5} = formData;
+    console.log(groupId)
+
+    const data = new FormData();
+    data.append('name', name);
+    data.append('fish_species', fish_species);
+    data.append('area', area);
+
+    if(header_image){
+      data.append('header_image', header_image)
+      }
+    for (let i=1; i<=5; i++){
+      let image = eval(`image_${i}`);
+      if(image){
+        data.append(`image_${i}`, image)
+      }
+    }
+
+    const response = await fetch(`http://localhost:3000/groups/${groupId}`, {
+        method: 'PATCH',
+        headers: {
+          'Authorization': `Bearer ${token}`
+        },
+        body: data,
+    });
+    if (!response.ok) {
+        const errorMessage = await response.text();
+        throw new Error(errorMessage || 'An unknown error occurred');
+    }
+    return await response.json();
+  }
+
   static async deletePost(token, groupId, postId){
     const response = await fetch(`http://localhost:3000/groups/${groupId}/posts/${postId}`, {
       method: 'DELETE',

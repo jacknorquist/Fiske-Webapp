@@ -81,7 +81,7 @@ function ProfileContainer(): ReactNode {
 }
             {profileUser ?
             <div className={styles.rightContainer}>
-              {userAdminGroups.length > 0 ? <UserAdminGroupsContainer  toggleCreateGroup={toggleCreateGroup} userAdminGroups={userAdminGroups}/> :""}
+              {userAdminGroups ? <UserAdminGroupsContainer  toggleCreateGroup={toggleCreateGroup} userAdminGroups={userAdminGroups}/> :""}
               <UserGroupsContainer />
             </div>:""
 }

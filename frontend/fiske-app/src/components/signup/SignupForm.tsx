@@ -20,6 +20,7 @@ function SignupForm({handleSignup}): ReactNode {
         password:"",
         first_name: "",
         last_name: "",
+        bio_:"",
         profile_image: null,
         header_image:null
     };
@@ -136,6 +137,24 @@ function SignupForm({handleSignup}): ReactNode {
               name="last_name"
               placeholder="Last Name"
               value={formData.last_name}
+              type="text"
+              onChange={handleChange}
+            />
+          </Col>
+        </FormGroup>
+        <FormGroup row>
+          <Label
+            for="bio"
+            sm={2}
+          >
+            Bio
+          </Label>
+          <Col sm={10}>
+            <Input
+              id="bio"
+              name="bio"
+              placeholder="Bio"
+              value={formData.bio}
               type="text"
               onChange={handleChange}
             />

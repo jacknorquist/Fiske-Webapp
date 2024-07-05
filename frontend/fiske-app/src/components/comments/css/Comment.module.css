@@ -1,23 +1,54 @@
 .comment{
-  background-color: #ededf0;
-  /* margin-left: .5rem;
-  margin-right: .5rem; */
+  display: grid;
+  width: 100%;
+  grid-template-columns: repeat(20, 1fr);
+  grid-template-rows: auto;
+  padding-top: .4rem;
+  padding-bottom: .4rem;
 }
 
 
 
-.nameTrash{
-  display: flex;
-  justify-content: space-between;
-  margin-left: .5rem;
-  margin-right: .5rem;
+.grayBackGround{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: auto;
+  background-color: rgb(218, 218, 218);
+  grid-column: 2/20;
+  border-radius: .7rem;
 }
-
 .content{
-  margin-left:.5rem;
+  grid-column: 1/15;
+  grid-row: 2/3;
+  padding-left: .4rem;
+  text-wrap: wrap;
 }
-.icon{
+.trashIcon{
   cursor: pointer;
   color: #050505;
   margin: 0;
+  grid-column: 3/4;
+  grid-row: 1/2;
+  margin-left: auto;
+  padding-right: .4rem;
+  padding-top: .2rem;
+}
+
+
+.profileImage {
+
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 50%; /* Ensure circular profile image */
+  object-fit: cover;
+  z-index: 100;
+  grid-column: 1/2;
+  grid-row: 1/3;
+}
+
+.username{
+  color: black;
+  grid-column: 1/3;
+  grid-row: 1/2;
+  padding-left: .4rem;
 }

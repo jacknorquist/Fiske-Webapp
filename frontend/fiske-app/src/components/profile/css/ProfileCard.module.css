@@ -32,5 +32,6 @@
   border-radius: 50%; /* Ensure circular profile image */
   object-fit: cover;
   z-index: 100;
-  margin-left: 1rem; /* Maintain aspect ratio */
+  margin-left: 1rem;
+  border: 1px black solid; /* Maintain aspect ratio */
 }

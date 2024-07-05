@@ -20,6 +20,7 @@ function EditProfileForm({handleEdit, toggleEditProfileForm, user}): ReactNode {
         username: user.username,
         first_name: user.first_name,
         last_name: user.last_name,
+        bio: user.bio,
         profile_image: null,
         header_image: null
     };
@@ -101,6 +102,24 @@ function EditProfileForm({handleEdit, toggleEditProfileForm, user}): ReactNode {
               name="last_name"
               placeholder={user.last_name}
               value={formData.last_name}
+              type="text"
+              onChange={handleChange}
+            />
+          </Col>
+        </FormGroup>
+        <FormGroup row>
+          <Label
+            for="bio"
+            sm={2}
+          >
+            Bio
+          </Label>
+          <Col sm={10}>
+            <Input
+              id="bio"
+              name="bio"
+              placeholder={user.bio}
+              value={formData.bio}
               type="text"
               onChange={handleChange}
             />

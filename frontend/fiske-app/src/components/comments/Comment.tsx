@@ -28,11 +28,16 @@ function Comment({comment, updatePost}): ReactNode {
 
     return (
         <div className={styles.comment}>
-            <div className={styles.nameTrash}>
-                <i>{comment.username}</i>
-                {user.id === comment.user_id ? <span onClick={deleteComment} className={`${styles.icon} bi bi-trash`}></span>:""}
-            </div>
+            <Link to={`/profile/${comment.user_id}`}>
+                <img src={comment.user_profile_image || `${process.env.PUBLIC_URL}/DefaultHeader.jpg`} alt="" className={styles.profileImage} />
+            </Link>
+            <div className={styles.grayBackGround}>
+            <Link to={`/profile/${comment.user_id}`}>
+                <i className={styles.username}>{comment.username}</i>
+            </Link>
                 <p className={styles.content}>{comment.content}</p>
+                {user.id === comment.user_id ? <span onClick={deleteComment} className={`${styles.trashIcon} bi bi-trash`}></span>:""}
+            </div>
         </div>
     );
 }

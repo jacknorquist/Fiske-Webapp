@@ -10,6 +10,7 @@ import FiskeAPI from "../../api.ts";
 import { useError } from "../../context/ErrorContext.tsx";
 import styles from './css/PostListItem.module.css'
 import PostImageGallery from "./PostImageGallery.tsx";
+import timeAgo from "../../helpers/timgeAgo.ts";
 
 function PostListItem({post, updatePosts}): ReactNode {
     const {user} = useUser()
@@ -61,13 +62,10 @@ function PostListItem({post, updatePosts}): ReactNode {
                 </Link>
                 <div className={styles.groupUser}>
                 <Link to={`/groups/${postState.group_id}`} className={styles.grouplink}><h6>{postState.group_name}</h6></Link>
-                <span>
                 <Link to={`/profile/${postState.user_id}`}>
                 <i className={styles.username}>{postState.username}</i>
-
                 </Link>
-                <i>{postState.created_at}</i>
-                </span>
+                <i style={{color:'gray'}}> posted {timeAgo(postState.created_at)}</i>
                 </div>
             </div>
             {isButtonsOpen ?
@@ -75,7 +73,6 @@ function PostListItem({post, updatePosts}): ReactNode {
              {post.user_id === user.id ? <span onClick={deletePost} className={`${styles.icon} bi bi-trash icon`}></span>:"" }
              </div> : ""
              }
-            <i className={styles.createdat}>{postState.created_at}</i>
             <p className={styles.content}>{postState.content}</p>
             {postState.images.length > 0 ? <PostImageGallery  images={postState.images}/>:""}
              <div className={styles.socialContainer}>

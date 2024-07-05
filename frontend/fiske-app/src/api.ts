@@ -24,12 +24,13 @@ class FiskeAPI {
 
 
   static async signup(formData) {
-    const { username, email, password, first_name, last_name, profile_image, header_image } = formData;
+    const { username, email, password, first_name, last_name, bio,  profile_image, header_image } = formData;
 
     const data = new FormData();
     data.append('user[username]', username);
     data.append('user[password]', password);
     data.append('user[email]', email);
+    data.append('user[bio]', bio);
     data.append('user[first_name]', first_name);
     data.append('user[last_name]', last_name);
     if (profile_image) {
@@ -51,11 +52,12 @@ class FiskeAPI {
 }
 
 static async editUser(formData, currentUsername, token) {
-  const { username, first_name, last_name, profile_image, header_image } = formData;
+  const { username, first_name, last_name, bio, profile_image, header_image } = formData;
 
   const data = new FormData();
   data.append('user[username]', username);
   data.append('user[first_name]', first_name);
+  data.append('user[bio]', bio);
   data.append('user[last_name]', last_name);
   if (profile_image) {
       data.append('user[profile_image]', profile_image);

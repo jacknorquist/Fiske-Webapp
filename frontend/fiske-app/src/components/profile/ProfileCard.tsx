@@ -37,7 +37,7 @@ function ProfileCard({ toggleEditProfileForm, profileIsUser, profileUser}): Reac
                 </div>
               </CardTitle>
               <CardText>
-              I live near lake superior and love fishing for trout (steelhead, brown trout, splake, brook trout). I grew up near a plethora of natural lakes and love walleye and crappie fishing too!
+                {`${profileUser!.bio}`}
               </CardText>
               <CardText>
                 <small className="text-muted">

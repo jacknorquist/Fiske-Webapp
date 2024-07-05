@@ -4,28 +4,34 @@ class PostsController < ApplicationController
     before_action :set_post, only: [:show, :update, :destroy]
 
     def index
-      posts = Post.includes(:group).order(created_at: :desc).map do |post|
-        post_json = {
+      posts = Post.includes(:group, :user, :comments).order(created_at: :desc).map do |post|
+
+
+        post_json=
+        {
           id: post.id,
           user_id: post.user.id,
           username: post.user.username,
+          user_profile_image: post.user&.profile_image_url,
           title: post.title,
           content: post.content,  # Adjust this based on your actual Post model attributes
           created_at: post.created_at,
-          group_id: post.group&.id,       # Safely retrieve group_id, handling nil case
-          group_name: post.group&.name ,
+          group_id: post.group.id,    # Group ID
+          group_name: post.group.name,  # Group Name
           comments: post.comments.map do |comment|
             {
               id: comment.id,
               content: comment.content,
               user_id: comment.user_id,
-              username: comment.user.username,  # Assuming 'username' is the attribute in User model
+              username: comment.user.username,
+              user_profile_image: post.user&.profile_image_url, # Assuming 'username' is the attribute in User model
               created_at: comment.created_at,
               group_id: comment.post.group.id,
               post_id: post.id
             }
           end #
         }
+
 
         # Include images associated with the post
         images = []
@@ -48,7 +54,7 @@ class PostsController < ApplicationController
           id: post.id,
           user_id: post.user.id,
           username: post.user.username,
-          user_profile_image: post.user.profile_image_url,
+          user_profile_image: post.user&.profile_image_url,
           title: post.title,
           content: post.content,  # Adjust this based on your actual Post model attributes
           created_at: post.created_at,
@@ -59,7 +65,8 @@ class PostsController < ApplicationController
               id: comment.id,
               content: comment.content,
               user_id: comment.user_id,
-              username: comment.user.username,  # Assuming 'username' is the attribute in User model
+              username: comment.user.username,
+              user_profile_image: post.user&.profile_image_url, # Assuming 'username' is the attribute in User model
               created_at: comment.created_at,
               group_id: comment.post.group.id,
               post_id: post.id
@@ -84,7 +91,7 @@ class PostsController < ApplicationController
       post = {
         id: @post.id,
         user_id: @post.user.id,
-        user_profile_image: post.user.profile_image_url,
+        user_profile_image: @post.user&.profile_image_url,
         title: @post.title,
         content: @post.content,
         created_at: @post.created_at,
@@ -96,6 +103,7 @@ class PostsController < ApplicationController
             content: comment.content,
             user_id: comment.user_id,
             username: comment.user.username,
+            user_profile_image: @post.user&.profile_image_url,
             created_at: comment.created_at,
             group_id: comment.post.group.id,
             post_id: @post.id

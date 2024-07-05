@@ -35,12 +35,12 @@ class User < ApplicationRecord
     end
 
     def header_image_url
-      return unless header_image_attacher.file.exists?
+      return unless header_image_attacher&.file&.exists?
       header_image.url
     end
 
     def profile_image_url
-      return unless profile_image_attacher.file.exists?
+      return unless profile_image_attacher&.file&.exists?
       profile_image.url
     end
 

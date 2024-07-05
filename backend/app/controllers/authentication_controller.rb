@@ -21,7 +21,7 @@ class AuthenticationController < ApplicationController
     end
 
     def user_json(user)
-      user_json = user.as_json(only: [:id, :username, :first_name, :last_name, :email])
+      user_json = user.as_json(only: [:id, :username, :first_name, :last_name, :email, :bio])
 
       if user.profile_image
         user_json[:profile_image_url] = user.profile_image_url

@@ -8,7 +8,7 @@ class UsersController < ApplicationController
 
     def index
       users = User.all.map do |user|
-        user.as_json(only: [:id, :username, :first_name, :last_name, :email])
+        user.as_json(only: [:id, :username, :first_name, :last_name, :email, :bio])
       end
       render json: { users: users }, status: :ok
     end
@@ -81,7 +81,8 @@ class UsersController < ApplicationController
               id: comment.id,
               content: comment.content,
               user_id: comment.user_id,
-              username: comment.user.username,  # Assuming 'username' is the attribute in User model
+              username: comment.user.username,
+              user_profile_image: post.user&.profile_image_url,
               created_at: comment.created_at,
               group_id: comment.post.group.id,
               post_id: post.id
@@ -123,7 +124,8 @@ class UsersController < ApplicationController
               id: comment.id,
               content: comment.content,
               user_id: comment.user_id,
-              username: comment.user.username,  # Assuming 'username' is the attribute in User model
+              username: comment.user.username,
+              user_profile_image: post.user&.profile_image_url,
               created_at: comment.created_at,
               group_id: comment.post.group.id,
               post_id: post.id
@@ -161,15 +163,15 @@ class UsersController < ApplicationController
     end
 
     def user_params
-      params.require(:user).permit(:username, :password, :email, :first_name, :last_name, :header_image, :profile_image)
+      params.require(:user).permit(:username, :password, :email, :first_name, :last_name, :header_image, :profile_image, :bio)
     end
 
     def user_update_params
-      params.require(:user).permit(:username, :first_name, :last_name, :email, :header_image, :profile_image)
+      params.require(:user).permit(:username, :first_name, :last_name, :email, :header_image, :profile_image, :bio)
     end
 
     def user_json(user)
-      user_json = user.as_json(only: [:id, :username, :first_name, :last_name, :email])
+      user_json = user.as_json(only: [:id, :username, :first_name, :last_name, :email, :bio])
 
       if user.profile_image
         user_json[:profile_image_url] = user.profile_image_url

@@ -17,7 +17,6 @@ import EditGroupContainer from "./EditGroupContainer.tsx";
 //consider making forms that are open a state at the app level?
 function GroupContainer(): ReactNode {
     const {user} = useUser();
-    const{groupId} = useParams()
     const {setError} = useError();
     const navigate = useNavigate()
     const [group, setGroup] = useState({})
@@ -94,7 +93,7 @@ function GroupContainer(): ReactNode {
     return (
       <div>
            {isCreatePostOpen && <CreatePostContainer group={id} toggleCreatePost={toggleCreatePost} updatePosts={updatePosts}/>}
-           {isEditGroupOpen && <EditGroupContainer  toggleEditGroup={toggleEditGroup} groupId={groupId} updateGroup={updateGroup}/>}
+           {isEditGroupOpen && <EditGroupContainer  toggleEditGroup={toggleEditGroup} updateGroup={updateGroup}/>}
         <div className={`${styles.container} ${isCreatePostOpen ? styles.overlay : ''}`}>
            {group ?
            <div className={styles.header}>

@@ -8,12 +8,14 @@ import CreatePostForm from "./CreateGroupForm.tsx";
 import { Button } from "reactstrap";
 import styles from './css/EditGroupContainer.module.css'
 import EditGroupForm from "./EditGroupForm.tsx";
+import { useParams } from "react-router-dom";
 
 //posts = posts used to have useEffect from GroupContainer reload posts after one is made
-function EditGroupContainer({toggleEditGroup, groupId, updateGroup}): ReactNode {
+function EditGroupContainer({toggleEditGroup,updateGroup}): ReactNode {
 
 
     const { setError } = useError();
+    const groupId = useParams().id
 
   async function editGroup(formData){
       try{

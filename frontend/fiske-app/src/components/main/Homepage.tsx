@@ -6,6 +6,7 @@ import PostsContainer from "../posts/PostsContainer.tsx";
 import Post from "./Post.tsx";
 import { useState } from "react";
 import { Button } from "reactstrap";
+import styles from './css/Homepage.module.css'
 
 function Homepage(): ReactNode {
 
@@ -21,8 +22,8 @@ function Homepage(): ReactNode {
     return (
         <div>
             <h1>Home</h1>
-            <Button onClick={setPostsToUserFeed} >My Posts</Button>
-            <Button onClick={setPostsToExplore}>Explore</Button>
+            <Button className={styles.button} onClick={setPostsToUserFeed} >My Posts</Button>
+            <Button  className={styles.button}onClick={setPostsToExplore}>Explore</Button>
             <PostsContainer typeOfPosts={typeOfPosts} />
         </div>
     );

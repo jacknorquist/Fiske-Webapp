@@ -95,6 +95,22 @@ static async editUser(formData, currentUsername, token) {
     return await response.json()
   }
 
+  static async getUser(token, id){
+    const response = await fetch(`http://localhost:3000/users/${id}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
+    });
+
+    if (!response.ok) {
+      const errorMessage = await response.text();
+      throw new Error(errorMessage || 'An unknown error occurred');
+    }
+    return await response.json()
+  }
+
   static async getUserPosts(currentUserId, token){
     const response = await fetch(`http://localhost:3000/users/${currentUserId}/posts`, {
       method: 'GET',
@@ -127,7 +143,7 @@ static async editUser(formData, currentUsername, token) {
   }
 
 
-  static async getExplorePosts(userId, token){
+  static async getExplorePosts(userId,token){
     const response = await fetch(`http://localhost:3000/posts`, {
       method: 'GET',
       headers: {

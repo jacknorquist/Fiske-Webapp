@@ -22,7 +22,7 @@ function RoutesList(){
             <Route path="/landing" element={<LoggedInProtection><LandingPage /></LoggedInProtection>} />
             <Route path="/login" element={<LoggedInProtection><LoginContainer /></LoggedInProtection>} />
             <Route path="/signup" element={<LoggedInProtection><SignupContainer /></LoggedInProtection>} />
-            <Route path="/profile" element={<LoggedOutProtection><ProfileContainer /></LoggedOutProtection>}/>
+            <Route path="/profile/:id" element={<LoggedOutProtection><ProfileContainer /></LoggedOutProtection>}/>
             <Route path="/users" element={<LoggedOutProtection><Group /></LoggedOutProtection>} />
             <Route path="/users/:username" element={<LoggedOutProtection><Group /></LoggedOutProtection>} />
             <Route path="/groups" element={<LoggedOutProtection><GroupsContainer /></LoggedOutProtection>} />

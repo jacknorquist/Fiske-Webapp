@@ -8,33 +8,36 @@ import { useUser } from "../../context/UserContext.tsx";
 
 
 
-function ProfileCard({ toggleEditProfileForm}): ReactNode {
+function ProfileCard({ toggleEditProfileForm, profileIsUser, profileUser}): ReactNode {
   const {user, setUser} = useUser()
-
-
   function handleEdit(){
 
   }
 
+  console.log(profileIsUser)
+
     return (
-        <div className={styles.profilecard}>
-          <Card className="my-2">
+        <div >
+          <Card className={`${styles.profileCard} my-2`}>
             <CardImg
               alt="Card image cap"
-              src={user!.header_image_url || `${process.env.PUBLIC_URL}/DefaultHeader.jpg`}
+              src={profileUser!.header_image_url || `${process.env.PUBLIC_URL}/DefaultHeader.jpg`}
               style={{
                 height: 180
               }}
-              className={styles.headerimage}
+              className={styles.headerImage}
               top
               width="100%"
             />
-            <CardBody>
+            <img src={user!.profile_image_url || `${process.env.PUBLIC_URL}/DefaultHeader.jpg`} className={styles.profileImage} alt="" />
+            <CardBody className={styles.cardBody}>
               <CardTitle tag="h5">
-                {`${user!.first_name} ${user!.last_name}`}
+                <div>
+                {`${profileUser!.first_name} ${profileUser!.last_name}`} <span className={styles.userName}><i>{`${profileUser!.username}`}</i></span>
+                </div>
               </CardTitle>
               <CardText>
-                This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.
+              I live near lake superior and love fishing for trout (steelhead, brown trout, splake, brook trout). I grew up near a plethora of natural lakes and love walleye and crappie fishing too!
               </CardText>
               <CardText>
                 <small className="text-muted">
@@ -42,7 +45,9 @@ function ProfileCard({ toggleEditProfileForm}): ReactNode {
                 </small>
               </CardText>
             </CardBody>
+            {profileIsUser ?
             <Button onClick={toggleEditProfileForm}>Edit Profile</Button>
+:""}
           </Card>
         </div>
     );

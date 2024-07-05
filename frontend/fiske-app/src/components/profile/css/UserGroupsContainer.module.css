@@ -1,5 +1,6 @@
 .container{
   grid-column: 7/9;
-  grid-row: 1/2;
-  border: 2px, black, solid;
+  grid-row: 2/3;
+  border: 2px,#466780, solid;
+  background-color: #cfe0e4;
 }

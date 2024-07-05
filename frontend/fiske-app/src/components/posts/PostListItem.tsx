@@ -2,7 +2,7 @@ import React from "react";
 import { ReactNode , useState} from "react";
 import { useUser } from "../../context/UserContext.tsx";
 import { useParams } from "react-router-dom";
-import { Link } from "react-router-dom";
+import { Link} from "react-router-dom";
 import { Button } from "reactstrap";
 import CommentsContainer from "../comments/CommentsContainer.tsx";
 import CreateCommentForm from "../comments/CreateCommentForm.tsx";
@@ -55,13 +55,26 @@ function PostListItem({post, updatePosts}): ReactNode {
 
     return (
         <div className={styles.container}>
-            <Link to={`/groups/${postState.group_id}`} className={styles.grouplink}><h6>{postState.group_name}</h6></Link>
+            <div className={styles.header}>
+                <Link to={`/profile/${postState.user_id}`}>
+                <img src={postState.user_profile_image || `${process.env.PUBLIC_URL}/DefaultHeader.jpg`} alt="" className={styles.profileImage}/>
+                </Link>
+                <div className={styles.groupUser}>
+                <Link to={`/groups/${postState.group_id}`} className={styles.grouplink}><h6>{postState.group_name}</h6></Link>
+                <span>
+                <Link to={`/profile/${postState.user_id}`}>
+                <i className={styles.username}>{postState.username}</i>
+
+                </Link>
+                <i>{postState.created_at}</i>
+                </span>
+                </div>
+            </div>
             {isButtonsOpen ?
              <div className={styles.buttonscontainer}>
              {post.user_id === user.id ? <span onClick={deletePost} className={`${styles.icon} bi bi-trash icon`}></span>:"" }
              </div> : ""
              }
-            <h5 className={styles.title}>{postState.title}</h5>
             <i className={styles.createdat}>{postState.created_at}</i>
             <p className={styles.content}>{postState.content}</p>
             {postState.images.length > 0 ? <PostImageGallery  images={postState.images}/>:""}

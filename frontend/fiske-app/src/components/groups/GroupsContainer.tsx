@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 import FiskeAPI from "../../api.ts";
 import Group from "./Group.tsx";
 import GroupListItem from "./GroupListItem.tsx";
+import styles from './css/GroupsContainer.module.css'
 
 function GroupsContainer(): ReactNode {
     const {user} = useUser()
@@ -48,7 +49,7 @@ function GroupsContainer(): ReactNode {
 
 
     return (
-        <div>
+        <div className={styles.container}>
             <Button onClick={openUserGroups} >My Groups</Button>
             <Button onClick={openExploreGroups}>Explore</Button>
             {exploreGroupsContainerOpen? exploreGroups!.map(g=><GroupListItem group={g}/>):userGroups!.map(g=><GroupListItem group={g}/>)}

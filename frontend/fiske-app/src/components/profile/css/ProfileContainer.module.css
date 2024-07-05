@@ -1,13 +1,11 @@
 .gridcontainer {
   display: grid;
-  grid-template-rows: repeat(8, 1fr);
-  grid-template-columns: repeat(8, 1fr);
+  grid-template-rows: auto;
+  grid-template-columns: repeat(9, 1fr);
   gap: 10px;
   position: relative;
-  border: 1px black solid;
   border-radius: 10px;
-  background-color: white;
-  width: 60vw;
+  width: 100%;
   height: 100%;
   margin-top: 3%;
   padding:1%;
@@ -70,18 +68,24 @@
 }
 
 
+
+
 .overlay > * {
   opacity: 0.5;
   pointer-events: none;
 }
 
 
-.profilecontainer{
+
+
+
+.profileContainer{
   position: relative;
-  width: 60vw;
+  width: 70vw;
   margin-top: 3%;
   padding:1%;
   border: 1px solid black;
+  background-color: rgb(33, 79, 49);
   border-radius: 10px;
   margin: auto;
 }
@@ -93,12 +97,26 @@
     margin-top: 3%;
     padding:1%;
     border: 1px solid black;
+    background-color: rgb(33, 79, 49);
     border-radius: 10px;
     margin: auto;
     grid-column: 3/3;
   }
 
 
+}
+
+.leftContainer{
+  grid-column: 1/7;
+  background-color: #466780;
+}
+
+.rightContainer{
+  background-color: white;
+  position: sticky;
+  display: grid;
+  grid-column: 7/9;
+  margin-left: 3rem;
 }
 
 

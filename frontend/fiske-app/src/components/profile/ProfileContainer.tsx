@@ -10,12 +10,16 @@ import UserAdminGroupsContainer from "./UserAdminGroupsContainer.tsx";
 import FiskeAPI from "../../api.ts";
 import UserPostsContainer from "./UserPostsContainer.tsx";
 import CreateGroupContainer from "../groups/CreateGroupContainer.tsx";
+import UserGroupsContainer from "./UserGroupsContainer.tsx";
+import { useParams } from "react-router-dom";
 
 
 function ProfileContainer(): ReactNode {
     const [isEditProfileOpen, setIsEditProfileOpen] = useState(false);
-    const [isCreateGroupOpen, setIsCreateGroupOpen] = useState(false)
+    const [isCreateGroupOpen, setIsCreateGroupOpen] = useState(false);
+    const [profileUser, setProfileUser] = useState()
     const {user} = useUser();
+    const {id} = useParams()
     const [userAdminGroups, setUserAdminGroups] = useState([])
     const [userPosts,  setUserPosts] = useState()
     const currentUserId = user!.id
@@ -33,8 +37,10 @@ function ProfileContainer(): ReactNode {
          const token = localStorage.getItem('fiske-token');
          if (token) {
            try {
-             const groups = await FiskeAPI.getUserAdminGroups(token, currentUserId);
-             setUserAdminGroups(groups)
+             const groups = await FiskeAPI.getUserAdminGroups(token, id);
+             const user = await FiskeAPI.getUser(token, id )
+             setUserAdminGroups(groups);
+             setProfileUser(user.User)
            } catch (err) {
            } finally {
            }
@@ -42,23 +48,45 @@ function ProfileContainer(): ReactNode {
        };
 
        getGroups();
-     }, [userAdminGroups]);
+     }, []);
 
      function updateUserAdminGroups(){
-        setUserAdminGroups([])
+      async function getGroups() {
+        const token = localStorage.getItem('fiske-token');
+        if (token) {
+          try {
+            const groups = await FiskeAPI.getUserAdminGroups(token, id);
+            setUserAdminGroups(groups)
+          } catch (err) {
+          } finally {
+          }
+        }
+      };
+
+      getGroups();
      }
 
-
+     const profileIsUser = currentUserId === Number(useParams().id)
     return (
-        <div>
-        {isEditProfileOpen && <EditProfileContainer toggleEditProfileForm={toggleEditProfileForm}/>}
-        {isCreateGroupOpen && <CreateGroupContainer toggleCreateGroup={toggleCreateGroup} updateUserAdminGroups={updateUserAdminGroups}/>}
-        <div className={`${styles.gridcontainer} ${isEditProfileOpen || isCreateGroupOpen ? styles.overlay : ''}`}>
-            <ProfileCard  toggleEditProfileForm={toggleEditProfileForm}/>
-            {userAdminGroups.length > 0 ? <UserAdminGroupsContainer  toggleCreateGroup={toggleCreateGroup} userAdminGroups={userAdminGroups}/> :""}
-            <Fishboard />
-            <UserPostsContainer  />
-        </div>
+        <div className={styles.profileContainer}>
+          {isEditProfileOpen && <EditProfileContainer toggleEditProfileForm={toggleEditProfileForm}/>}
+          {isCreateGroupOpen && <CreateGroupContainer toggleCreateGroup={toggleCreateGroup} updateUserAdminGroups={updateUserAdminGroups}/>}
+          <div className={`${styles.gridcontainer} ${isEditProfileOpen || isCreateGroupOpen ? styles.overlay : ''}`}>
+            {profileUser ?
+            <div className={styles.leftContainer}>
+              <ProfileCard  toggleEditProfileForm={toggleEditProfileForm} profileIsUser={profileIsUser} profileUser={profileUser}/>
+              <Fishboard />
+              <UserPostsContainer  profileUser={profileUser}/>
+            </div> :""
+}
+            {profileUser ?
+            <div className={styles.rightContainer}>
+              {userAdminGroups.length > 0 ? <UserAdminGroupsContainer  toggleCreateGroup={toggleCreateGroup} userAdminGroups={userAdminGroups}/> :""}
+              <UserGroupsContainer />
+            </div>:""
+}
+
+          </div >
         </div>
     );
 }

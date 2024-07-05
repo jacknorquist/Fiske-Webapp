@@ -1,11 +1,12 @@
 import React from "react";
 import { ReactNode, useState, useEffect } from "react";
 import { useUser } from "../../context/UserContext.tsx";
-import styles from './css/UserGroupsContainer.module.css'
+import styles from './css/UserAdminGroupsContainer.module.css'
 import FiskeAPI from "../../api.ts";
 import GroupListItem from "../groups/GroupListItem.tsx";
 import Group from "../groups/Group.tsx";
 import { Button } from "reactstrap";
+import { Link } from "react-router-dom";
 
 function UserAdminGroupsContainer({toggleCreateGroup, userAdminGroups}): ReactNode {
 
@@ -31,6 +32,7 @@ function UserAdminGroupsContainer({toggleCreateGroup, userAdminGroups}): ReactNo
 
 
     return (
+
         <div className={styles.container}>
             <h1>Admin Groups</h1>
             {userAdminGroups.length > 0 ? userAdminGroups.map(g => <GroupListItem group={g} />): ""}

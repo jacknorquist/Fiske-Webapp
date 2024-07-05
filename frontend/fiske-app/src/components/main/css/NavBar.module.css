@@ -1,0 +1,27 @@
+/* NavBar.module.css */
+.navbarWrapper {
+  background-color: #fff; /* Navbar background color */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  position: -webkit-sticky; /* Optional: Add shadow for depth */
+}
+
+.navbar {
+  padding: 10px 20px;
+  width: 100%;/* Adjust padding as needed */
+}
+
+.navbar-brand {
+  font-weight: bold; /* Optional: Adjust font styles */
+}
+
+.profileImage {
+  width: 40px; /* Adjust profile image size as needed */
+  height: 40px;
+  border-radius: 50%; /* Ensure circular profile image */
+  object-fit: cover; /* Maintain aspect ratio */
+}
+
+.sticky-top {
+  position: sticky;
+  top: 0;
+}

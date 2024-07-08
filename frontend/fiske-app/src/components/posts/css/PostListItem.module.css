@@ -65,14 +65,15 @@
   z-index: 2;
   background-color: white;
 }
-
+/*
 
 .postImage{
   grid-column: 1/8;
   grid-row: 4/8;
   width: 100%;
   object-fit: cover;
-  }
+  border-radius: .5rem;
+  } */
 
   .socialContainer{
     display: flex;

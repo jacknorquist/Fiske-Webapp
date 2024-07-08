@@ -18,6 +18,7 @@ function PostListItem({post, updatePosts}): ReactNode {
     const[postState, setPostState] = useState(post);
     const [isCommentsOpen, setIsCommentsOpen] = useState(false);
     const[isButtonsOpen, setIsButtonsOpen] = useState(false)
+    const [isExpanded, setIsExpanded] = useState(false);
     function toggleComments(){
         setIsCommentsOpen(true)
     }
@@ -53,6 +54,10 @@ function PostListItem({post, updatePosts}): ReactNode {
         setIsButtonsOpen(!isButtonsOpen)
     }
 
+    function toggleExpand(){
+        setIsExpanded(true)
+    }
+
 
     return (
         <div className={styles.container}>
@@ -73,7 +78,12 @@ function PostListItem({post, updatePosts}): ReactNode {
              {post.user_id === user.id ? <span onClick={deletePost} className={`${styles.icon} bi bi-trash icon`}></span>:"" }
              </div> : ""
              }
-            <p className={styles.content}>{postState.content}</p>
+            <div className={styles.content}>
+
+
+            {!isExpanded && postState.content.length>100? <div><p>{postState.content.slice(0,100)}</p><i onClick={toggleExpand}>Read More</i></div>:""}
+            {isExpanded ? <p>{postState.content}</p>:""}
+            </div>
             {postState.images.length > 0 ? <PostImageGallery  images={postState.images}/>:""}
              <div className={styles.socialContainer}>
             {!isCommentsOpen ? <p onClick={toggleComments} className={styles.icon}>Comments</p>: ""}

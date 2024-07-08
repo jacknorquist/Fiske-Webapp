@@ -97,16 +97,22 @@ function Homepage(): ReactNode {
         setTypeOfPosts('explore')
     }
     return (
-        <div className={styles.container}>
+        <div>
         <div className={styles.nav}>
                 <div className={styles.buttons}>
-                    <p className={typeOfPosts === 'userFeed' ? `${styles.activeButton} ${styles.button}`:styles.button} style={{margin:'1rem'}} onClick={setPostsToUserFeed} >My Posts</p>
-                    <p className={typeOfPosts === 'userFeed' ? styles.button : `${styles.activeButton} ${styles.button}`} style={{marginLeft:'1rem'}} onClick={setPostsToExplore}>Explore</p>
+                    <div className={styles.buttonBox}>
+                        <p className={typeOfPosts === 'userFeed' ? `${styles.activeButton} ${styles.button}`:styles.button} style={{margin:'1rem'}} onClick={setPostsToUserFeed} >My Posts</p>
+                    </div>
+                    <div className={styles.buttonBox}>
+                        <p className={typeOfPosts === 'userFeed' ? styles.button : `${styles.activeButton} ${styles.button}`} style={{margin:'1rem'}} onClick={setPostsToExplore}>Explore</p>
+                    </div>
                 </div>
             </div>
+        <div className={styles.container}>
             <div className={styles.postContainer}>
             {posts.length>0 ? posts.map(p=><PostListItem key={p!.id} post={p} updatePosts={updatePosts}/>): ""}
             </div>
+        </div>
         </div>
     );
 }

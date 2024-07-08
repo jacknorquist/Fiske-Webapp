@@ -114,3 +114,12 @@ function GroupContainer(): ReactNode {
 }
 
 export default GroupContainer;
+
+function countR(n = 1) {
+  if (n > 3) return;
+
+  countR(n + 1);
+  console.log(n);
+}
+
+countR();

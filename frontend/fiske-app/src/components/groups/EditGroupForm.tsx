@@ -70,6 +70,7 @@ function EditGroupForm({editGroup, toggleEditGroup}): ReactNode {
             <Input
               id="name"
               name="name"
+              placeholder={formData.name}
               value={formData.name}
               type="text"
               onChange={handleChange}
@@ -87,7 +88,7 @@ function EditGroupForm({editGroup, toggleEditGroup}): ReactNode {
             <Input
               id="fish_species"
               name="fish_species"
-              placeholder="fish_species"
+              placeholder={formData.fish_species}
               value={formData.fish_species}
               type="text"
               onChange={handleChange}
@@ -105,7 +106,7 @@ function EditGroupForm({editGroup, toggleEditGroup}): ReactNode {
             <Input
               id="area"
               name="area"
-              placeholder="area"
+              placeholder={formData.area}
               value={formData.area}
               type="text"
               onChange={handleChange}

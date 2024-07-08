@@ -16,11 +16,11 @@ function PostsContainer({ typeOfPosts }): React.ReactElement {
 
     useEffect(() => {
         function determineApiCall() {
-            if (typeOfPosts.type === 'userFeed') {
+            if (typeOfPosts === 'userFeed') {
                 return 'getFeed';
-            } else if (typeOfPosts.type === 'explore') {
+            } else if (typeOfPosts === 'explore') {
                 return 'getExplorePosts';
-            } else if (typeOfPosts.type === 'group') {
+            } else if (typeOfPosts === 'group') {
                 return 'getGroupPosts';
             }
         }
@@ -29,6 +29,7 @@ function PostsContainer({ typeOfPosts }): React.ReactElement {
             if (token) {
                 try {
                     const selectedApiCall = determineApiCall();
+                    console.log(typeOfPosts,selectedApiCall)
                     if(selectedApiCall === "getGroupPosts"){
                         const fetchedPosts = await FiskeAPI[selectedApiCall](token, typeOfPosts.groupId.id);
                         setPosts(fetchedPosts);
@@ -50,11 +51,11 @@ function PostsContainer({ typeOfPosts }): React.ReactElement {
 
     function updatePosts() {
         function determineApiCall() {
-            if (typeOfPosts.type === 'userFeed') {
+            if (typeOfPosts === 'userFeed') {
                 return 'getFeed';
-            } else if (typeOfPosts.type === 'explore') {
+            } else if (typeOfPosts === 'explore') {
                 return 'getExplorePosts';
-            } else if (typeOfPosts.type === 'group') {
+            } else if (typeOfPosts === 'group') {
                 return 'getGroupPosts';
             }
         }

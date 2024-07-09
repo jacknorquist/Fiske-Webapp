@@ -1,10 +1,9 @@
 .container{
   text-align: left;
   border: 1px solid black;
-  border-radius: 3%;
+  border-radius: .3rem;
   margin: 1%;
-  padding: .5rem;
-  grid-template-columns: repeat(6, 1fr);
+  grid-template-columns: repeat(8, 1fr);
   grid-template-rows: auto; /* Set to auto to adjust height dynamically */
   height: auto;
   display: grid;
@@ -21,7 +20,6 @@
 }
 
 .grouplink{
-
   color: inherit;
 }
 
@@ -44,8 +42,9 @@
 }
 
 .openButtonsIcon{
-  grid-column: 7/8;
+  grid-column: 8/9;
   grid-row: 1/2;
+  margin-left: auto;
 }
 
 
@@ -53,13 +52,27 @@
 .content{
   grid-column: 1/8;
   grid-row: 3/4;
-  margin:1rem;
-
+  text-align: left;
+  margin-left: .5rem;
 }
 
+.contentText{
+  line-height: 1rem;
+  max-height: 1rem;
+  overflow: hidden;
+  overflow-wrap: break-word;
+}
+
+.contentTextExpanded{
+  line-height: 1rem;
+  overflow-wrap: break-word;
+}
+
+
+
 .buttonscontainer{
-  grid-column: 6/8;
-  grid-row: 2/6;
+  grid-column: 8/9;
+  grid-row: 1/6;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
   text-align: center;
   z-index: 2;
@@ -77,11 +90,10 @@
 
   .socialContainer{
     display: flex;
-    margin: ;
+    margin-left: .5rem;
     grid-column: 1/8;
     grid-row: 8/9;
     border-top: .2px solid black;
-
   }
 .icon{
   cursor: pointer;

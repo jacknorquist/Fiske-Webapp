@@ -1,5 +1,5 @@
 import React from "react";
-import { ReactNode , useState} from "react";
+import { ReactNode , useState, useRef} from "react";
 import { useUser } from "../../context/UserContext.tsx";
 import { useParams } from "react-router-dom";
 import { Link} from "react-router-dom";
@@ -19,6 +19,7 @@ function PostListItem({post, updatePosts}): ReactNode {
     const [isCommentsOpen, setIsCommentsOpen] = useState(false);
     const[isButtonsOpen, setIsButtonsOpen] = useState(false)
     const [isExpanded, setIsExpanded] = useState(false);
+
     function toggleComments(){
         setIsCommentsOpen(true)
     }
@@ -57,6 +58,7 @@ function PostListItem({post, updatePosts}): ReactNode {
     function toggleExpand(){
         setIsExpanded(true)
     }
+    console.log(postState.content.length)
 
 
     return (
@@ -73,22 +75,23 @@ function PostListItem({post, updatePosts}): ReactNode {
                 <i style={{color:'gray'}}> posted {timeAgo(postState.created_at)}</i>
                 </div>
             </div>
+            <span onClick={toggleButtons}className={`${styles.openButtonsIcon} bi bi-three-dots-vertical`}></span>
             {isButtonsOpen ?
              <div className={styles.buttonscontainer}>
              {post.user_id === user.id ? <span onClick={deletePost} className={`${styles.icon} bi bi-trash icon`}></span>:"" }
              </div> : ""
              }
-            <div className={styles.content}>
+
+             <div className={styles.content}>
+                {isExpanded? <div className={styles.contentTextExpanded}><p>{postState.content}</p></div>: <div className={styles.contentText}><p>{postState.content}</p></div>}
+                {!isExpanded ? <i onClick={toggleExpand}>Read More</i>:""}
+             </div>
 
 
-            {!isExpanded && postState.content.length>100? <div><p>{postState.content.slice(0,100)}</p><i onClick={toggleExpand}>Read More</i></div>:""}
-            {isExpanded ? <p>{postState.content}</p>:""}
-            </div>
             {postState.images.length > 0 ? <PostImageGallery  images={postState.images}/>:""}
              <div className={styles.socialContainer}>
             {!isCommentsOpen ? <p onClick={toggleComments} className={styles.icon}>Comments</p>: ""}
             </div>
-            <span onClick={toggleButtons}className={`${styles.openButtonsIcon} bi bi-three-dots-vertical`}></span>
 
             {isCommentsOpen ? <CommentsContainer comments={postState.comments} updatePost={updatePost} createComment={createComment}/>:""}
         </div>

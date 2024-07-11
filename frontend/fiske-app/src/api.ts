@@ -219,8 +219,8 @@ static async editUser(formData, currentUsername, token) {
     return await response.json()
   }
 
-  static async getUserGroups(token, currentUserId){
-    const response = await fetch(`http://localhost:3000/users/${currentUserId}/groups`, {
+  static async getUserGroups(token, userId){
+    const response = await fetch(`http://localhost:3000/users/${userId}/groups`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -445,6 +445,30 @@ static async editUser(formData, currentUsername, token) {
       headers: {
         'Authorization': `Bearer ${token}`
       },
+    });
+    if (!response.ok) {
+      const errorMessage = await response.text();
+      throw new Error(errorMessage || 'An unknown error occurred');
+    }
+    return await response.json()
+  }
+
+
+  static async createFish(token, fishBoardId, fishBoardType, userId, formData){
+    const {species, length, image } = formData
+    const data = new FormData()
+    data.append('species', species)
+    data.append('length', length)
+    data.append('image', image)
+    data.append('user_id', userId)
+    data.append('fishboard_id', fishBoardId)
+    data.append('fishboard_type', fishBoardType)
+    const response = await fetch(`http://localhost:3000/fishes/`, {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${token}`
+      },
+      body: data,
     });
     if (!response.ok) {
       const errorMessage = await response.text();

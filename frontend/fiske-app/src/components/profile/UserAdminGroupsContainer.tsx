@@ -8,7 +8,7 @@ import Group from "../groups/Group.tsx";
 import { Button } from "reactstrap";
 import { Link } from "react-router-dom";
 
-function UserAdminGroupsContainer({toggleCreateGroup, userAdminGroups}): ReactNode {
+function UserAdminGroupsContainer({toggleCreateGroup, userAdminGroups, profileIsUser}): ReactNode {
 
     const {user} = useUser();
     // const [userAdminGroups,  setUserAdminGroups] = useState([])
@@ -36,7 +36,7 @@ function UserAdminGroupsContainer({toggleCreateGroup, userAdminGroups}): ReactNo
         <div className={styles.container}>
             <h1>Admin Groups</h1>
             {userAdminGroups.length > 0 ? userAdminGroups.map(g => <GroupListItem group={g} />): ""}
-            <Button onClick={toggleCreateGroup}>Create Group</Button>
+            {profileIsUser ?  <Button onClick={toggleCreateGroup}>Create Group</Button>:""}
         </div>
     );
 }

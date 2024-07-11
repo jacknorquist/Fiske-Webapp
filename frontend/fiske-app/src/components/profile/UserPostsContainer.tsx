@@ -5,19 +5,21 @@ import Post from "../posts/PostContainer.tsx";
 import FiskeAPI from "../../api.ts";
 import PostListItem from "../posts/PostListItem.tsx";
 import styles from './css/UserPostsContainer.module.css';
+import { v4 as uuidv4 } from 'uuid';
+
 
 function UserPostsContainer({profileUser}): ReactNode {
 
     const {user} = useUser();
     const [userPosts,  setUserPosts] = useState([])
-    const currentUserId = user!.id
+    const currentUserId = user.id
 
     useEffect(() => {
         async function getPosts() {
          const token = localStorage.getItem('fiske-token');
          if (token) {
            try {
-             const posts = await FiskeAPI.getUserPosts(profileUser.id, token );
+             const posts = await FiskeAPI.getUserPosts(profileUser.user.id, token );
              setUserPosts(posts)
            } catch (err) {
            } finally {
@@ -26,14 +28,14 @@ function UserPostsContainer({profileUser}): ReactNode {
        };
 
        getPosts();
-     }, []);
+     }, [profileUser]);
 
     function updatePosts(){
       async function getPosts() {
         const token = localStorage.getItem('fiske-token');
         if (token) {
           try {
-            const posts = await FiskeAPI.getUserPosts(currentUserId, token );
+            const posts = await FiskeAPI.getUserPosts(profileUser.user.id, token );
             setUserPosts(posts)
           } catch (err) {
           } finally {
@@ -47,7 +49,7 @@ function UserPostsContainer({profileUser}): ReactNode {
     return (
         <div className={styles.container}>
           <h1 >User Posts</h1>
-            {userPosts.length>0? userPosts.map(p=> <PostListItem post={p} updatePosts={updatePosts}/>): ""}
+            {userPosts.length>0? userPosts.map(p=> <PostListItem key={uuidv4()} post={p} updatePosts={updatePosts}/>): ""}
         </div>
     );
 }

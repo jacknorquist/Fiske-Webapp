@@ -58,7 +58,6 @@ function PostListItem({post, updatePosts}): ReactNode {
     function toggleExpand(){
         setIsExpanded(true)
     }
-    console.log(postState.content.length)
 
 
     return (

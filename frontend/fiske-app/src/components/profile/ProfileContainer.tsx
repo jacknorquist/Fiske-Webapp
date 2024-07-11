@@ -12,17 +12,18 @@ import UserPostsContainer from "./UserPostsContainer.tsx";
 import CreateGroupContainer from "../groups/CreateGroupContainer.tsx";
 import UserGroupsContainer from "./UserGroupsContainer.tsx";
 import { useParams } from "react-router-dom";
+import FishboardContainer from "../Fishboard/FishboardContainer.tsx";
 
 
 function ProfileContainer(): ReactNode {
     const [isEditProfileOpen, setIsEditProfileOpen] = useState(false);
     const [isCreateGroupOpen, setIsCreateGroupOpen] = useState(false);
-    const [profileUser, setProfileUser] = useState()
+    const [profileUser, setProfileUser] = useState();
+    const { id } = useParams();
     const {user} = useUser();
-    const {id} = useParams()
     const [userAdminGroups, setUserAdminGroups] = useState([])
-    const [userPosts,  setUserPosts] = useState()
-    const currentUserId = user!.id
+    console.log(profileUser)
+    const currentUserId = user.id
 
     function toggleEditProfileForm(){
         setIsEditProfileOpen(!isEditProfileOpen)
@@ -32,6 +33,7 @@ function ProfileContainer(): ReactNode {
         setIsCreateGroupOpen(!isCreateGroupOpen)
       }
 
+      console.log(id, 'id at profile container')
     useEffect(() => {
         async function getGroups() {
          const token = localStorage.getItem('fiske-token');
@@ -40,7 +42,7 @@ function ProfileContainer(): ReactNode {
              const groups = await FiskeAPI.getUserAdminGroups(token, id);
              const user = await FiskeAPI.getUser(token, id )
              setUserAdminGroups(groups);
-             setProfileUser(user.User)
+             setProfileUser(user)
            } catch (err) {
            } finally {
            }
@@ -48,7 +50,25 @@ function ProfileContainer(): ReactNode {
        };
 
        getGroups();
-     }, []);
+     }, [id]);
+
+
+     function updateProfileUser(){
+      async function getUser() {
+        const token = localStorage.getItem('fiske-token');
+        if (token) {
+          try {
+            const user = await FiskeAPI.getUser(token, id )
+            setProfileUser(user)
+          } catch (err) {
+          } finally {
+          }
+        }
+      };
+
+      getUser();
+     }
+
 
      function updateUserAdminGroups(){
       async function getGroups() {
@@ -66,23 +86,23 @@ function ProfileContainer(): ReactNode {
       getGroups();
      }
 
-     const profileIsUser = currentUserId === Number(useParams().id)
+     let profileIsUser = currentUserId === Number(useParams().id)
     return (
         <div className={styles.profileContainer}>
-          {isEditProfileOpen && <EditProfileContainer toggleEditProfileForm={toggleEditProfileForm}/>}
+          {isEditProfileOpen && <EditProfileContainer toggleEditProfileForm={toggleEditProfileForm} updateProfileUser={updateProfileUser} />}
           {isCreateGroupOpen && <CreateGroupContainer toggleCreateGroup={toggleCreateGroup} updateUserAdminGroups={updateUserAdminGroups}/>}
           <div className={`${styles.gridcontainer} ${isEditProfileOpen || isCreateGroupOpen ? styles.overlay : ''}`}>
             {profileUser ?
             <div className={styles.leftContainer}>
               <ProfileCard  toggleEditProfileForm={toggleEditProfileForm} profileIsUser={profileIsUser} profileUser={profileUser}/>
-              <Fishboard />
-              <UserPostsContainer  profileUser={profileUser}/>
+              <FishboardContainer fishboard={profileUser.fishboard}  fishBoardType={'UserFishboard'}/>
+              <UserPostsContainer  profileUser={profileUser} />
             </div> :""
 }
             {profileUser ?
             <div className={styles.rightContainer}>
-              {userAdminGroups ? <UserAdminGroupsContainer  toggleCreateGroup={toggleCreateGroup} userAdminGroups={userAdminGroups}/> :""}
-              <UserGroupsContainer />
+              {userAdminGroups ? <UserAdminGroupsContainer  toggleCreateGroup={toggleCreateGroup} userAdminGroups={userAdminGroups} profileIsUser={profileIsUser}/> :""}
+              <UserGroupsContainer profileUser={profileUser} />
             </div>:""
 }
 

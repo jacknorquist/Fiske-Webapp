@@ -25,7 +25,7 @@ function GroupListItem({group}): ReactNode {
        const token = localStorage.getItem('fiske-token');
        if (token) {
          try {
-           const groups = await FiskeAPI.getUserGroups( token, user.id);
+           const groups = await FiskeAPI.getUserGroups( token, user.user.id);
            setIsUserMemeber(groups.find(g=> g.id == group.id) ? true : false)
          } catch (err) {
          } finally {

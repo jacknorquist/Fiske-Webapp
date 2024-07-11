@@ -38,7 +38,6 @@ function Homepage(): ReactNode {
             if (token) {
                 try {
                     const selectedApiCall = determineApiCall();
-                    console.log(typeOfPosts,selectedApiCall)
                     if(selectedApiCall === "getGroupPosts"){
                         const fetchedPosts = await FiskeAPI[selectedApiCall](token, typeOfPosts.groupId.id);
                         setPosts(fetchedPosts);

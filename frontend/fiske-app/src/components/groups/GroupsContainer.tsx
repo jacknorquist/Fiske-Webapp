@@ -16,7 +16,7 @@ function GroupsContainer(): ReactNode {
     const [userGroups, setUserGroups] =useState([])
     const [exploreGroups, setExploreGroups] = useState([])
     const [exploreGroupsContainerOpen, setExploreGroupsContainer] = useState(false)
-    const currentUserId = user!.id;
+    const currentUserId = user.id;
 
     function openExploreGroups(){
         if (exploreGroupsContainerOpen) return

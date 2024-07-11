@@ -10,16 +10,17 @@ import { Button } from "reactstrap";
 
 
 
-function EditProfileContainer({toggleEditProfileForm}): ReactNode {
+function EditProfileContainer({toggleEditProfileForm, updateProfileUser}): ReactNode {
 
     const { setError } = useError();
     const {user, setUser} = useUser()
-    const currentUserId = user!.id;
+    const currentUserId = user.id;
 
   async function handleEdit(formData){
 
       try{
-        const {user} = await FiskeAPI.editUser(formData, currentUserId , localStorage['fiske-token'])
+        const {user} = await FiskeAPI.editUser(formData, currentUserId , localStorage['fiske-token']);
+        updateProfileUser()
         setUser(user)
         toggleEditProfileForm()
       }catch (err){

@@ -6,19 +6,18 @@ import FiskeAPI from "../../api.ts";
 import GroupListItem from "../groups/GroupListItem.tsx";
 import styles from './css/UserGroupsContainer.module.css';
 
-function UserGroupsContainer(): ReactNode {
+function UserGroupsContainer({profileUser}): ReactNode {
 
     const {user} = useUser();
-    const [userGroups,  setUserGroups] = useState([])
-    const currentUserId = user!.id
+    const [userGroups,  setUserGroups] = useState([]);
 
     useEffect(() => {
         async function getGroups() {
          const token = localStorage.getItem('fiske-token');
          if (token) {
            try {
-             const Groups = await FiskeAPI.getUserGroups( token, currentUserId);
-             setUserGroups(Groups)
+             const groups = await FiskeAPI.getUserGroups( token, profileUser.user.id);
+             setUserGroups(groups)
            } catch (err) {
            } finally {
            }
@@ -26,14 +25,14 @@ function UserGroupsContainer(): ReactNode {
        };
 
        getGroups();
-     }, []);
+     }, [profileUser]);
 
     function updateGroups(){
       async function getGroups() {
         const token = localStorage.getItem('fiske-token');
         if (token) {
           try {
-            const Groups = await FiskeAPI.getUserGroups( token, currentUserId);
+            const Groups = await FiskeAPI.getUserGroups( token,  profileUser.user.id);
             setUserGroups(Groups)
           } catch (err) {
           } finally {

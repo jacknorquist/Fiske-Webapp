@@ -8,7 +8,7 @@ import PostListItem from "./PostListItem.tsx";
 
 function UserFeedContainer(): ReactNode {
     const {user} = useUser();
-    const currentUserId = user!.id;
+    const currentUserId = user.id;
     const [posts, setPosts] = useState([])
 
 
@@ -18,6 +18,7 @@ function UserFeedContainer(): ReactNode {
       const token = localStorage.getItem('fiske-token');
       if (token) {
         try {
+          
           const posts = await FiskeAPI.getFeed(currentUserId, token );
           setPosts(posts)
         } catch (err) {

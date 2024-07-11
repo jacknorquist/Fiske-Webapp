@@ -34,7 +34,7 @@ function PostsContainer({ typeOfPosts }): React.ReactElement {
                         const fetchedPosts = await FiskeAPI[selectedApiCall](token, typeOfPosts.groupId.id);
                         setPosts(fetchedPosts);
                     }else{
-                    const fetchedPosts = await FiskeAPI[selectedApiCall](user.id, token);
+                    const fetchedPosts = await FiskeAPI[selectedApiCall](user.user.id, token);
                     setPosts(fetchedPosts);
                     }
                 } catch (err) {
@@ -68,7 +68,7 @@ function PostsContainer({ typeOfPosts }): React.ReactElement {
                         const fetchedPosts = await FiskeAPI[selectedApiCall](token, typeOfPosts.groupId.id);
                         setPosts(fetchedPosts);
                     }else{
-                    const fetchedPosts = await FiskeAPI[selectedApiCall](user.id, token);
+                    const fetchedPosts = await FiskeAPI[selectedApiCall](user.user.id, token);
                     setPosts(fetchedPosts);
                     }
                 } catch (err) {

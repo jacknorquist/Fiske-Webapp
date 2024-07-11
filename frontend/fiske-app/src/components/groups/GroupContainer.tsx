@@ -19,7 +19,7 @@ function GroupContainer(): ReactNode {
     const {user} = useUser();
     const {setError} = useError();
     const navigate = useNavigate()
-    const [group, setGroup] = useState({})
+    const [group, setGroup] = useState(null)
     const [posts, setPosts] = useState([])
     const {id} = useParams();
     const currentUserId = user!.id
@@ -38,6 +38,7 @@ function GroupContainer(): ReactNode {
              const posts = await FiskeAPI.getGroupPosts( token, id);
              const group = await FiskeAPI.getGroup(token, id);
              const userGroups = await FiskeAPI.getUserGroups(token, currentUserId )
+             console.log(group, 'helllo')
 
              setUserMember(userGroups.find(g=> g.id == id) ? true : false)
              setGroup(group)
@@ -81,13 +82,14 @@ function GroupContainer(): ReactNode {
 
   async function deleteGroup(){
     try{
-        await FiskeAPI.deleteGroup( localStorage['fiske-token'], group.id);
+        await FiskeAPI.deleteGroup( localStorage['fiske-token'], group.group.id);
         navigate('/')
        }catch (err){
          setError(err.message)
        }
 }
 
+console.log(group)
 
 
     return (
@@ -97,14 +99,14 @@ function GroupContainer(): ReactNode {
         <div className={`${styles.container} ${isCreatePostOpen ? styles.overlay : ''}`}>
            {group ?
            <div className={styles.header}>
-            <img src={group!.header_image_url || `${process.env.PUBLIC_URL}/DefaultHeader.jpg`} className={styles.headerImage} alt="" />
-            <p>{group!.description}</p>
-            <p>{group!.area}</p>
-            <p>{group!.fish_species}</p>
+            <img src={group!.group!.header_image_url || `${process.env.PUBLIC_URL}/DefaultHeader.jpg`} className={styles.headerImage} alt="" />
+            <p>{group.group!.description}</p>
+            <p>{group.group!.area}</p>
+            <p>{group.group!.fish_species}</p>
            {userMember ? <Button onClick={toggleCreatePost}>+</Button>:""}
            {userMember ? <Button onClick={leaveGroup}>Leave</Button>:<Button onClick={joinGroup}>Join</Button>}
-           {user!.id === group!.admin_id ? <Button onClick={toggleEditGroup}>Edit</Button>:""}
-           {group!.admin_id === user.id ? <Button onClick={deleteGroup}>Delete Group</Button>:""}
+           {user!.id === group.group!.admin_id ? <Button onClick={toggleEditGroup}>Edit</Button>:""}
+           {group.group!.admin_id === user.id ? <Button onClick={deleteGroup}>Delete Group</Button>:""}
            </div>:""}
            <div className={styles.postContainer}>
            {posts.length>0 ? posts.map(p=><PostListItem key={p!.id} post={p} updatePosts={updatePosts}/>): ""}
@@ -115,12 +117,3 @@ function GroupContainer(): ReactNode {
 }
 
 export default GroupContainer;
-
-function countR(n = 1) {
-  if (n > 3) return;
-
-  countR(n + 1);
-  console.log(n);
-}
-
-countR();

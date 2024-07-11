@@ -9,6 +9,7 @@ import FiskeAPI from "../../api.ts";
 import GroupListItem from "./GroupListItem.tsx";
 import SearchGroupsForm from "./SearchGroupsForm.tsx";
 import styles from './css/SearchGroupsContainer.module.css'
+import { v4 as uuidv4 } from 'uuid';
 
 function SearchGroupsContainer(): ReactNode {
 
@@ -59,7 +60,7 @@ function SearchGroupsContainer(): ReactNode {
             <h6>Find Groups</h6>
             <SearchGroupsForm updateGroups={updateGroups}/>
           </div>
-            {groups.length>0 ? groups.map(g=> <GroupListItem group={g}/>):<p>No Groups Found</p>}
+            {groups.length>0 ? groups.map(g=> <GroupListItem key={uuidv4()} group={g}/>):<p>No Groups Found</p>}
         </div>
 
       );

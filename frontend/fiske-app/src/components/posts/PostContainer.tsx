@@ -12,7 +12,7 @@ function PostContainer(): ReactNode {
     const {user} = useUser();
     const [post, setPost] = useState(null)
     const {id } = useParams();
-    const currentUserId = user!.id
+    const currentUserId = user.id
     const [userMember, setUserMember] = useState(false)
 
     useEffect(() => {

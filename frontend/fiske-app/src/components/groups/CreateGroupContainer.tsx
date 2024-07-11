@@ -6,10 +6,12 @@ import { useLoggedIn } from "../../context/LoggedInContext.tsx";
 import { useUser } from "../../context/UserContext.tsx";
 import CreatePostForm from "./CreateGroupForm.tsx";
 import { Button } from "reactstrap";
-import styles from './css/CreateGroupContainer.module.css'
+import styles from './css/CreateGroupContainer.module.css';
 
 //posts = posts used to have useEffect from GroupContainer reload posts after one is made
 function CreateGroupContainer({toggleCreateGroup, updateUserAdminGroups}): ReactNode {
+
+  const {user} = useUser()
 
 
     const { setError } = useError();

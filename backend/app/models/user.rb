@@ -20,6 +20,7 @@ class User < ApplicationRecord
     has_many :posts, dependent: :destroy # Add this line
     has_many :group_posts
     has_many :group_post_comments
+    has_one :fishboard, dependent: :destroy
 
     include ImageUploader[:header_image]
     include ImageUploader[:profile_image]

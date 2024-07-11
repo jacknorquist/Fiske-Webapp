@@ -14,6 +14,7 @@ class Group < ApplicationRecord
     validate :unique_name, on: :update
 
     validates :description, presence: true
+    has_one :fishboard, dependent: :destroy
 
     include ImageUploader[:header_image]
     IMAGES_COUNT = 5

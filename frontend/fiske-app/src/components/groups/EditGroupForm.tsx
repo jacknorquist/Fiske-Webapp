@@ -20,7 +20,8 @@ function EditGroupForm({editGroup, toggleEditGroup}): ReactNode {
     const initialState = {
         name:"",
         fish_species: "",
-        area:""
+        area:"",
+        description:"",
     };
     const [formData, setFormData] = useState(initialState);
 
@@ -72,6 +73,24 @@ function EditGroupForm({editGroup, toggleEditGroup}): ReactNode {
               name="name"
               placeholder={formData.name}
               value={formData.name}
+              type="text"
+              onChange={handleChange}
+            />
+          </Col>
+        </FormGroup>
+        <FormGroup row>
+          <Label
+            for="description"
+            sm={2}
+          >
+            Description
+          </Label>
+          <Col sm={10}>
+            <Input
+              id="description"
+              name="description"
+              placeholder={formData.description}
+              value={formData.description}
               type="text"
               onChange={handleChange}
             />

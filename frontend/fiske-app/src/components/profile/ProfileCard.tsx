@@ -14,8 +14,6 @@ function ProfileCard({ toggleEditProfileForm, profileIsUser, profileUser}): Reac
 
   }
 
-  console.log(profileIsUser)
-
     return (
         <div >
           <Card className={`${styles.profileCard} my-2`}>

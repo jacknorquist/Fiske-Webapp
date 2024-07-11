@@ -98,6 +98,7 @@ function GroupContainer(): ReactNode {
            {group ?
            <div className={styles.header}>
             <img src={group!.header_image_url || `${process.env.PUBLIC_URL}/DefaultHeader.jpg`} className={styles.headerImage} alt="" />
+            <p>{group!.description}</p>
             <p>{group!.area}</p>
             <p>{group!.fish_species}</p>
            {userMember ? <Button onClick={toggleCreatePost}>+</Button>:""}

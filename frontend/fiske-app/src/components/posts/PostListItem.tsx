@@ -64,7 +64,7 @@ function PostListItem({post, updatePosts}): ReactNode {
     return (
         <div className={styles.container}>
             <div className={styles.header}>
-                <Link to={`/profile/${postState.user_id}`}>
+                <Link to={`/profile/${postState.user_id}`} >
                 <img src={postState.user_profile_image || `${process.env.PUBLIC_URL}/DefaultHeader.jpg`} alt="" className={styles.profileImage}/>
                 </Link>
                 <div className={styles.groupUser}>
@@ -84,7 +84,7 @@ function PostListItem({post, updatePosts}): ReactNode {
 
              <div className={styles.content}>
                 {isExpanded? <div className={styles.contentTextExpanded}><p>{postState.content}</p></div>: <div className={styles.contentText}><p>{postState.content}</p></div>}
-                {!isExpanded ? <i onClick={toggleExpand}>Read More</i>:""}
+                {!isExpanded ? <i style={{cursor:'pointer'}}onClick={toggleExpand}>Read More</i>:""}
              </div>
 
 

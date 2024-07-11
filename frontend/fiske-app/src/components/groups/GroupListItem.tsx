@@ -5,10 +5,14 @@ import { useParams } from "react-router-dom";
 import { NavLink } from "react-router-dom";
 import { Button } from "reactstrap";
 import styles from './css/GroupListItem.module.css'
+import { useEffect } from "react";
+import FiskeAPI from "../../api.ts";
 
 function GroupListItem({group}): ReactNode {
 
-    const {user} = useUser()
+    const {user} = useUser();
+    const [isUserMember, setIsUserMemeber] = useState(false)
+
 
     const[isButtonsOpen, setIsButtonsOpen] = useState(false)
     function toggleButtons(e){
@@ -16,21 +20,52 @@ function GroupListItem({group}): ReactNode {
         setIsButtonsOpen(!isButtonsOpen)
     }
 
+    useEffect(() => {
+      async function getGroups() {
+       const token = localStorage.getItem('fiske-token');
+       if (token) {
+         try {
+           const groups = await FiskeAPI.getUserGroups( token, user.id);
+           setIsUserMemeber(groups.find(g=> g.id == group.id) ? true : false)
+         } catch (err) {
+         } finally {
+         }
+       }
+     };
+
+     getGroups();
+   }, []);
+
+
+   async function leaveGroup(e){
+    e.preventDefault();
+    await FiskeAPI.leaveGroup(localStorage.getItem('fiske-token'), group.id);
+    setIsUserMemeber(false)
+ }
+ async function joinGroup(e){
+  e.preventDefault();
+  await FiskeAPI.joinGroup(localStorage.getItem('fiske-token'), group.id);
+  setIsUserMemeber(true)
+}
+
+
+
 
     return (
         <NavLink to={`/groups/${group.id}`} className={styles.link}>
           <div className={styles.container}>
-            <h2 className={styles.name}>{group.name}</h2>
+            <div className={styles.header}>
+              <img src={group.header_image_url || `${process.env.PUBLIC_URL}/DefaultHeader.jpg`} className={styles.headerImage}alt="" />
+              <h2 className={styles.name}>{group.name}</h2>
+            </div>
             {isButtonsOpen && (
               <div className={styles.buttonscontainer}>
-                {group!.admin_id === user.id ? (
-                  <span className={`${styles.icon} bi bi-trash icon`}></span>
-                ) : (
-                  ""
-                )}
+                {!isUserMember ? < i onClick={joinGroup}>Join</i> : <i onClick={leaveGroup}>Leave</i>}
               </div>
             )}
-            <h5 className={styles.area}>{group.area}</h5>
+            <div className={styles.area}>
+            <h6>Area:</h6><p>  {group.area}</p>
+            </div>
             <i className={styles.fishSpecies}>{group.fish_species}</i>
             <span
               onClick={toggleButtons}

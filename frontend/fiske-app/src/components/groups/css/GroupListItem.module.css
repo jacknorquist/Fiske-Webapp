@@ -9,6 +9,7 @@
   height: auto;
   display: grid;
   transition: height 0.3s ease;
+  font-size: 1rem;
 }
 
 .grouplink{
@@ -27,15 +28,44 @@
   z-index: 5;
 }
 
-.name{
-  grid-column: 1/6;
+.header{
+  grid-column: 1/8;
   grid-row: 1/2;
+  display: grid;
+  width: 100%;
+  grid-template-columns: repeat(8, 1fr);
+  grid-template-rows: auto;
 }
+.name{
+  text-align: left;
+  grid-column: 2/6;
+  grid-row: 1/2;
+  font-size: .8rem;
+  padding-top: .6rem;
+}
+.name:hover{
+  grid-column: 2/6;
+  grid-row: 1/2;
+  font-size: .8rem;
+  padding-top: .6rem;
+  color: blue;
+}
+
+.headerImage{
+  border-radius: 50%;
+  object-fit: cover;
+  width: 2rem;
+  height: 2rem;
+}
+
+
 
 
 .area{
   grid-column: 1/8;
   grid-row: 2/3;
+  font-size: 1rem;
+  display: flex;
 
 }
 
@@ -50,7 +80,7 @@
   grid-row: 2/6;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
   text-align: center;
-  z-index: 2;
+  z-index: 3;
   background-color: white;
 }
 

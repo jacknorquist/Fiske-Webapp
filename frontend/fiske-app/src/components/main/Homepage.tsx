@@ -11,6 +11,7 @@ import FiskeAPI from "../../api.ts";
 import { useEffect } from "react";
 import PostListItem from "../posts/PostListItem.tsx";
 import { useUser } from "../../context/UserContext.tsx";
+import SearchGroupsContainer from "../groups/SearchGroupsContainer.tsx";
 
 function Homepage(): ReactNode {
 
@@ -100,15 +101,18 @@ function Homepage(): ReactNode {
         <div>
         <div className={styles.nav}>
                 <div className={styles.buttons}>
-                    <div className={styles.buttonBox}>
-                        <p className={typeOfPosts === 'userFeed' ? `${styles.activeButton} ${styles.button}`:styles.button} style={{margin:'1rem'}} onClick={setPostsToUserFeed} >My Posts</p>
+                    <div className={styles.buttonBox} onClick={setPostsToUserFeed}>
+                        <p className={typeOfPosts === 'userFeed' ? `${styles.activeButton} ${styles.button}`:styles.button} style={{margin:'1rem'}} >My Posts</p>
                     </div>
-                    <div className={styles.buttonBox}>
-                        <p className={typeOfPosts === 'userFeed' ? styles.button : `${styles.activeButton} ${styles.button}`} style={{margin:'1rem'}} onClick={setPostsToExplore}>Explore</p>
+                    <div className={styles.buttonBox} onClick={setPostsToExplore}>
+                        <p className={typeOfPosts === 'userFeed' ? styles.button : `${styles.activeButton} ${styles.button}`} style={{margin:'1rem'}}>Explore</p>
                     </div>
                 </div>
             </div>
         <div className={styles.container}>
+            <div className={styles.searchGroupsContainer}>
+                <SearchGroupsContainer />
+            </div>
             <div className={styles.postContainer}>
             {posts.length>0 ? posts.map(p=><PostListItem key={p!.id} post={p} updatePosts={updatePosts}/>): ""}
             </div>

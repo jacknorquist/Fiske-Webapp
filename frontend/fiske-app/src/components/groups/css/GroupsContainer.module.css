@@ -1,7 +1,70 @@
 .container{
   width: 60vw;
-  background-color: white;
-  border: .5px solid black;
   margin: auto;
-  height: 100vh;
+  display: grid;
+  grid-template-columns: repeat(11, 1fr);
+  grid-template-rows: auto;
+  height: 100%;
+  position: relative;
+  gap: 1rem;
+  top: 2rem;
+  gap: 1rem;
 }
+
+.nav{
+  width: 100%;
+  border: .2px solid rgb(236, 236, 236);
+  background-color: white;
+  position: sticky;
+  top: 4.5rem;
+  z-index: 100;
+}
+
+.buttons{
+  display: flex;
+  margin: auto;
+  justify-content: center;
+  align-items: center;
+
+}
+
+.buttonBox:hover{
+  background-color: rgb(206, 206, 206);
+}
+
+.button{
+  margin-top: 1rem;
+}
+
+.button:hover{
+  margin-top: 1rem;
+  cursor: pointer;
+  border-radius: 1rem;
+}
+
+.activeButton{
+  margin-top: 1rem;
+  text-decoration: underline;
+}
+
+.searchGroupsContainer{
+  top: 11em;
+  position: sticky;
+  align-self: flex-start;
+  grid-column: 1/4;
+  grid-row: 1/6;
+  background-color: white;
+  height: 80vh;
+  overflow-y: auto; /* Enables vertical scrolling */
+  border: 1px solid #ccc;
+  border-radius: .5rem;
+  overflow-x: hidden;
+  scrollbar-width: thin;
+}
+
+.groupsContainer{
+  grid-column: 4/9;
+  background-color: white;
+  border-radius: .5rem;
+}
+

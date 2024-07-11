@@ -2,7 +2,9 @@
 .navbarWrapper {
   background-color: #fff; /* Navbar background color */
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  position: -webkit-sticky; /* Optional: Add shadow for depth */
+  position: sticky;
+  top: 0;
+  z-index: 100; /* Optional: Add shadow for depth */
 }
 
 .navbar {

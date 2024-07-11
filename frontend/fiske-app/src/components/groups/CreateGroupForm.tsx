@@ -20,7 +20,8 @@ function CreateGroupForm({createGroup, toggleCreateGroup}): ReactNode {
     const initialState = {
         name:"",
         fish_species: "",
-        area:""
+        area:"",
+        description:"",
     };
     const [formData, setFormData] = useState(initialState);
 
@@ -78,6 +79,23 @@ function CreateGroupForm({createGroup, toggleCreateGroup}): ReactNode {
         </FormGroup>
         <FormGroup row>
           <Label
+            for="description"
+            sm={2}
+          >
+            Description
+          </Label>
+          <Col sm={10}>
+            <Input
+              id="description"
+              name="description"
+              value={formData.description}
+              type="text"
+              onChange={handleChange}
+            />
+          </Col>
+        </FormGroup>
+        <FormGroup row>
+          <Label
             for="fish_species"
             sm={2}
           >
@@ -87,7 +105,6 @@ function CreateGroupForm({createGroup, toggleCreateGroup}): ReactNode {
             <Input
               id="fish_species"
               name="fish_species"
-              placeholder="fish_species"
               value={formData.fish_species}
               type="text"
               onChange={handleChange}
@@ -105,7 +122,6 @@ function CreateGroupForm({createGroup, toggleCreateGroup}): ReactNode {
             <Input
               id="area"
               name="area"
-              placeholder="area"
               value={formData.area}
               type="text"
               onChange={handleChange}

@@ -1,5 +1,6 @@
 .container{
-  grid-column: 1/8;
+  grid-column: 1/10;
+  margin: .5rem;
   grid-row: 4/7;
   height: 30rem;
   position: relative;

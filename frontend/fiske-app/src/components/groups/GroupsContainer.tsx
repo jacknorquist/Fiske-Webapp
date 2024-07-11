@@ -9,6 +9,7 @@ import FiskeAPI from "../../api.ts";
 import Group from "./Group.tsx";
 import GroupListItem from "./GroupListItem.tsx";
 import styles from './css/GroupsContainer.module.css'
+import SearchGroupsContainer from "./SearchGroupsContainer.tsx";
 
 function GroupsContainer(): ReactNode {
     const {user} = useUser()
@@ -49,12 +50,26 @@ function GroupsContainer(): ReactNode {
 
 
     return (
+      <div>
+        <div className={styles.nav}>
+                <div className={styles.buttons}>
+                    <div className={styles.buttonBox} onClick={openUserGroups}>
+                        <p className={!exploreGroupsContainerOpen ? `${styles.activeButton} ${styles.button}`:styles.button} style={{margin:'1rem'}} >My Groups</p>
+                    </div>
+                    <div className={styles.buttonBox} onClick={openExploreGroups}>
+                        <p className={exploreGroupsContainerOpen ? styles.button : `${styles.activeButton} ${styles.button}`} style={{margin:'1rem'}}>Explore</p>
+                    </div>
+                </div>
+            </div>
         <div className={styles.container}>
-            <Button onClick={openUserGroups} >My Groups</Button>
-            <Button onClick={openExploreGroups}>Explore</Button>
+            <div className={styles.searchGroupsContainer}>
+              <SearchGroupsContainer />
+            </div >
+            <div className={styles.groupsContainer}>
             {exploreGroupsContainerOpen? exploreGroups!.map(g=><GroupListItem group={g}/>):userGroups!.map(g=><GroupListItem group={g}/>)}
-
+            </div>
         </div>
+      </div>
     );
 }
 

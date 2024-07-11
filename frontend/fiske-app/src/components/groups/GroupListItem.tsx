@@ -43,6 +43,7 @@ function GroupListItem({group}): ReactNode {
     setIsUserMemeber(false)
  }
  async function joinGroup(e){
+
   e.preventDefault();
   await FiskeAPI.joinGroup(localStorage.getItem('fiske-token'), group.id);
   setIsUserMemeber(true)

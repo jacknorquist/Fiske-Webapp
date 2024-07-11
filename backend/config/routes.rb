@@ -30,6 +30,9 @@ Rails.application.routes.draw do
   resources :groups, only: [:index, :show, :create, :update, :destroy] do
     post 'join', on: :member
     delete 'leave', on: :member
+    collection do
+      get 'search', to: 'groups#search'
+    end
     resources :posts, only: [:create, :index, :update, :destroy] do
       collection do
         get '/', to: 'posts#index_group'

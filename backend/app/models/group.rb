@@ -13,6 +13,8 @@ class Group < ApplicationRecord
     validates :area, length:{ maximum: 50 }
     validate :unique_name, on: :update
 
+    validates :description, presence: true
+
     include ImageUploader[:header_image]
     IMAGES_COUNT = 5
     IMAGES_COUNT.times do |i|

@@ -64,6 +64,12 @@ class GroupsController < ApplicationController
         end
       end
 
+    def search
+      @query = params[:query] # Retrieve search query from params
+      @groups = Group.where("name LIKE ? OR area LIKE ? OR fish_species LIKE ?", "%#{@query}%", "%#{@query}%", "%#{@query}%").limit(10)
+      render json:  @groups, status: :ok
+    end
+
     private
 
     def set_group
@@ -72,8 +78,9 @@ class GroupsController < ApplicationController
         render json: { error: 'Group not found' }, status: :not_found
     end
 
+
     def group_params
-      params.permit(:name, :fish_species, :area, :header_image, *image_params)
+      params.permit(:name, :fish_species, :area, :header_image, :description, *image_params)
       .merge(admin_id: @current_user.id)
 
     end
@@ -83,7 +90,7 @@ class GroupsController < ApplicationController
     end
 
     def group_json(group)
-      group_json = group.as_json(only: [:id, :admin_id, :name, :fish_species, :area])
+      group_json = group.as_json(only: [:id, :admin_id, :name, :fish_species, :area, :description])
 
       if group.header_image
         group_json[:header_image_url] = group.header_image_url

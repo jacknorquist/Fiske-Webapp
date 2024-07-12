@@ -7,19 +7,22 @@ import { Button } from "reactstrap";
 import Fish from "./Fish.tsx";
 import FiskeAPI from "../../api.ts";
 import FishboardForm from "./FishboardForm.tsx";
+import style from './css/FishboardFormContainer.module.css'
 
-function FishboardFormContainer({fishboard, fishBoardType, toggleCreateFish}): ReactNode {
+function FishboardFormContainer({updateFishboard, fishboard, fishBoardType, toggleCreateFish}): ReactNode {
+
+    const {user} = useUser()
 
     async function createFish(formData){
         try{
-            await FiskeAPI.createFish(localStorage['fiske-token'], fishboard.id, fishBoardType, user.id,  formData)
+            await FiskeAPI.createFish(localStorage['fiske-token'], fishboard.id, fishBoardType, user.id,  formData);
         }catch(err){
 
         }
     }
 
     return (
-        <div>
+        <div className={style.container}>
             <FishboardForm  createFish={createFish} toggleCreateFish={toggleCreateFish}/>
         </div>
     );

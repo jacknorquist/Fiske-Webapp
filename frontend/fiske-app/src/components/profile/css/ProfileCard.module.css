@@ -2,7 +2,6 @@
 .profileCard{
   display: grid;
   grid-template-columns: repeat(9, 1fr);
-  grid-row: auto;
   grid-template-rows: auto;
 }
 

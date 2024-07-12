@@ -33,7 +33,6 @@ function ProfileContainer(): ReactNode {
         setIsCreateGroupOpen(!isCreateGroupOpen)
       }
 
-      console.log(id, 'id at profile container')
     useEffect(() => {
         async function getGroups() {
          const token = localStorage.getItem('fiske-token');
@@ -95,7 +94,9 @@ function ProfileContainer(): ReactNode {
             {profileUser ?
             <div className={styles.leftContainer}>
               <ProfileCard  toggleEditProfileForm={toggleEditProfileForm} profileIsUser={profileIsUser} profileUser={profileUser}/>
-              <FishboardContainer fishboard={profileUser.fishboard}  fishBoardType={'UserFishboard'}/>
+              <div className={styles.fishboardContainer}>
+              <FishboardContainer fishboard={profileUser.fishboard}  fishBoardType={'UserFishboard'} profileIsUser={profileIsUser}/>
+              </div>
               <UserPostsContainer  profileUser={profileUser} />
             </div> :""
 }

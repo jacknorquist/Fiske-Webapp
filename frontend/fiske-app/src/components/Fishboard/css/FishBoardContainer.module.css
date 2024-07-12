@@ -1,0 +1,14 @@
+.container{
+  width:100%;
+  height: 100%;
+  padding-bottom: 2rem;
+  background-color: beige;
+}
+
+.fishContainer{
+  height: 90%;
+  display: flex;
+  white-space: nowrap;
+  overflow-x: scroll;
+  overflow-y: hidden;
+}

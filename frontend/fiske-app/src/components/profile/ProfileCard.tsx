@@ -15,8 +15,8 @@ function ProfileCard({ toggleEditProfileForm, profileIsUser, profileUser}): Reac
   }
 
     return (
-        <div >
-          <Card className={`${styles.profileCard} my-2`}>
+        <div>
+          <Card className={styles.profileCard}>
             <CardImg
               alt="Card image cap"
               src={profileUser.user!.header_image_url || `${process.env.PUBLIC_URL}/DefaultHeader.jpg`}

@@ -1,6 +1,7 @@
 
 import React from "react";
 import { ReactNode, useState } from "react";
+import styles from './css/FishboardForm.module.css'
 
 import {
     Form,
@@ -42,22 +43,18 @@ function FishboardForm({createFish, toggleCreateFish}): ReactNode {
 
     function handleSave(evt) {
         evt.preventDefault();
-        createFish(formData)
+        createFish(formData);
+        toggleCreateFish()
         setFormData(initialState);
 
     }
 
-    const handleAddImage = () => {
-        if (images.length < 5) {
-          setImages([...images, null]);
-        }
-      };
 
     return (
         <div>
         <Form onSubmit={handleSave} className={`${styles.form} border border-primary rounded`} >
           <CloseButton onClick={toggleCreateFish}/>
-          <h1>Edit Group</h1>
+          <h1>What'd you catch? Is it big enough to go on the fishboard?</h1>
         <FormGroup row>
           <Label
             for="species"
@@ -68,7 +65,7 @@ function FishboardForm({createFish, toggleCreateFish}): ReactNode {
           <Col sm={10}>
             <Input
               id="species"
-              name="name"
+              name="species"
               placeholder={formData.species}
               value={formData.species}
               type="text"
@@ -89,7 +86,7 @@ function FishboardForm({createFish, toggleCreateFish}): ReactNode {
               name="length"
               placeholder={formData.length}
               value={formData.length}
-              type="text"
+              type="number"
               onChange={handleChange}
             />
           </Col>
@@ -116,7 +113,6 @@ function FishboardForm({createFish, toggleCreateFish}): ReactNode {
       </Button>
 
       </Form>
-      <Button onClick={handleAddImage}>+</Button>
       </div>
 
     );

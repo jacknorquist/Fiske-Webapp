@@ -5,7 +5,7 @@
   gap: 10px;
   position: relative;
   border-radius: 10px;
-  width: 100%;
+  width: 60%;
   height: auto;
   margin-top: 3%;
   padding:1%;
@@ -78,18 +78,6 @@
 
 
 
-
-.profileContainer{
-  position: relative;
-  width: 70vw;
-  margin-top: 3%;
-  padding:1%;
-  border: 1px solid black;
-  background-color: rgb(33, 79, 49);
-  border-radius: 10px;
-  margin: auto;
-}
-
 @media (max-width: 500px) {
   .profilecontainer{
     position: relative;
@@ -107,10 +95,26 @@
 }
 
 .leftContainer{
+  height: 100%;
   grid-column: 1/7;
   background-color: #466780;
 }
 
+
+
+.profileCard{
+  grid-column: 1/9;
+  grid-row: 1/3;
+}
+
+.fishboardContainer{
+  grid-column: 1/9;
+  height: 50vh;
+}
+
+.userPosts{
+  grid-column: 1/9;
+}
 .rightContainer{
   height: 90vh;
   background-color: white;

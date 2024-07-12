@@ -8,7 +8,7 @@ class AuthenticationController < ApplicationController
       user = User.find_by(username: login_params[:username])
       if user && user.authenticate(login_params[:password])
         token = generate_token(user.id)
-        render json: { user: user_json(user), token: token }, status: :ok
+        render json: {user: user_json(user), token: token}, status: :ok
       else
         render json: { error: 'Invalid useranem or password' }, status: :unauthorized
       end

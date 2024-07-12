@@ -49,6 +49,11 @@ Rails.application.routes.draw do
 end
 
 
+Rails.application.routes.draw do
+  resources :fishes, only:[:index, :create]
+end
+
+
 
 
 

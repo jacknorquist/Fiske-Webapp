@@ -6,7 +6,10 @@ class GroupsController < ApplicationController
     end
 
     def show
-        render json:  @group, status: :ok
+        render json:  {
+         group: @group,
+         fishboard: @group.group_fishboard.as_json(include: :fish)
+        }
     end
 
     def create

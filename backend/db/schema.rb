@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_07_11_142216) do
+ActiveRecord::Schema[7.1].define(version: 2024_07_11_224032) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -50,12 +50,16 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_11_142216) do
   end
 
   create_table "fish", force: :cascade do |t|
+    t.string "fishboard_type", null: false
+    t.integer "fishboard_id", null: false
     t.string "species"
     t.float "length"
-    t.integer "fishboard_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["fishboard_id"], name: "index_fish_on_fishboard_id"
+    t.integer "user_id"
+    t.text "image_data"
+    t.index ["fishboard_type", "fishboard_id"], name: "index_fish_on_fishboard"
+    t.index ["user_id"], name: "index_fish_on_user_id"
   end
 
   create_table "fishboards", force: :cascade do |t|
@@ -65,6 +69,13 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_11_142216) do
     t.datetime "updated_at", null: false
     t.index ["group_id"], name: "index_fishboards_on_group_id"
     t.index ["user_id"], name: "index_fishboards_on_user_id"
+  end
+
+  create_table "group_fishboards", force: :cascade do |t|
+    t.integer "group_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["group_id"], name: "index_group_fishboards_on_group_id"
   end
 
   create_table "group_posts", force: :cascade do |t|
@@ -92,7 +103,9 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_11_142216) do
     t.text "image_4_data"
     t.text "image_5_data"
     t.text "description"
+    t.integer "group_fishboard_id"
     t.index ["admin_id"], name: "index_groups_on_admin_id"
+    t.index ["group_fishboard_id"], name: "index_groups_on_group_fishboard_id"
     t.index ["name"], name: "index_groups_on_name", unique: true
   end
 
@@ -123,6 +136,13 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_11_142216) do
     t.index ["user_id"], name: "index_posts_on_user_id"
   end
 
+  create_table "user_fishboards", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_user_fishboards_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "username", limit: 25, null: false
     t.string "first_name", limit: 25, null: false
@@ -134,21 +154,27 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_11_142216) do
     t.datetime "updated_at", null: false
     t.text "profile_image_data"
     t.text "header_image_data"
+    t.integer "user_fishboard_id"
     t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["user_fishboard_id"], name: "index_users_on_user_fishboard_id"
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "comments", "posts"
   add_foreign_key "comments", "users"
-  add_foreign_key "fish", "fishboards"
+  add_foreign_key "fish", "users"
   add_foreign_key "fishboards", "groups"
   add_foreign_key "fishboards", "users"
+  add_foreign_key "group_fishboards", "groups"
   add_foreign_key "group_posts", "groups"
   add_foreign_key "group_posts", "users"
+  add_foreign_key "groups", "group_fishboards"
   add_foreign_key "groups", "users", column: "admin_id"
   add_foreign_key "memberships", "groups"
   add_foreign_key "memberships", "users"
   add_foreign_key "posts", "groups"
   add_foreign_key "posts", "users"
+  add_foreign_key "user_fishboards", "users"
+  add_foreign_key "users", "user_fishboards"
 end

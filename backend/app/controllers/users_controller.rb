@@ -14,12 +14,16 @@ class UsersController < ApplicationController
     end
 
     def profile
-      render json: user_json(@current_user)
+      render json:
+        user_json(@current_user)
+
     end
 
-
     def show
-        render json: { User: user_json(@user)}, status: :ok
+      render json: {
+        user: user_json(@user),
+        fishboard: @user.user_fishboard.as_json(include: { fish: { methods: :image_url } })
+      }
     end
 
     def create
@@ -37,7 +41,7 @@ class UsersController < ApplicationController
         return render json: { errors: "Not Authorized" }, status: :unauthorized
       end
       if @user.update(user_update_params)
-        render json: { user: user_json(@user)}, status: :ok
+        render json: { user: user_json(@user), fishboard: @user.user_fishboard.as_json(include: :fish)}, status: :ok
       else
         render json: { errors: @user.errors.full_messages }, status: :unprocessable_entity
       end
@@ -171,7 +175,7 @@ class UsersController < ApplicationController
     end
 
     def user_json(user)
-      user_json = user.as_json(only: [:id, :username, :first_name, :last_name, :email, :bio])
+      user_json = user.as_json(only: [:id, :username, :first_name, :last_name, :email, :bio, :user_fishboard])
 
       if user.profile_image
         user_json[:profile_image_url] = user.profile_image_url

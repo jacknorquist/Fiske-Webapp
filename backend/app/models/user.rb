@@ -21,7 +21,8 @@ class User < ApplicationRecord
     has_many :group_posts
     has_many :group_post_comments
     has_one :user_fishboard, dependent: :destroy
-    after_create :create_user_fishboard
+    after_create :create_user_fishboard;
+    has_many :fishes
 
     include ImageUploader[:header_image]
     include ImageUploader[:profile_image]

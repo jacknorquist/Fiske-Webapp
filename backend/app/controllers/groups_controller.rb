@@ -8,7 +8,7 @@ class GroupsController < ApplicationController
     def show
         render json:  {
          group: @group,
-         fishboard: @group.group_fishboard.as_json(include: :fish)
+         fishboard: @group.group_fishboard.as_json(include: { fish: { methods: :image_url } })
         }
     end
 

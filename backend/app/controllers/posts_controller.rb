@@ -13,7 +13,6 @@ class PostsController < ApplicationController
           user_id: post.user.id,
           username: post.user.username,
           user_profile_image: post.user&.profile_image_url,
-          title: post.title,
           content: post.content,  # Adjust this based on your actual Post model attributes
           created_at: post.created_at,
           group_id: post.group.id,    # Group ID
@@ -55,7 +54,6 @@ class PostsController < ApplicationController
           user_id: post.user.id,
           username: post.user.username,
           user_profile_image: post.user&.profile_image_url,
-          title: post.title,
           content: post.content,  # Adjust this based on your actual Post model attributes
           created_at: post.created_at,
           group_id: @group.id,    # Group ID

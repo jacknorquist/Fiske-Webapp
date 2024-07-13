@@ -22,7 +22,7 @@ class UsersController < ApplicationController
     def show
       render json: {
         user: user_json(@user),
-        fishboard: @user.user_fishboard.as_json(include: { fish: { methods: :image_url } })
+        fishboard: @user.user_fishboard.as_json(include: { fish: { methods: :image_url }})
       }
     end
 
@@ -75,7 +75,6 @@ class UsersController < ApplicationController
           user_id: post.user.id,
           username: post.user.username,
           user_profile_image: post.user&.profile_image_url,
-          title: post.title,
           content: post.content,
           created_at: post.created_at,
           group_id: post.group.id,
@@ -118,7 +117,6 @@ class UsersController < ApplicationController
           user_id: post.user.id,
           username: post.user.username,
           user_profile_image: post.user&.profile_image_url,
-          title: post.title,
           content: post.content,
           created_at: post.created_at,
           group_id: post.group.id,

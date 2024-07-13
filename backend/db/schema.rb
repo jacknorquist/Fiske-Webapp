@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_07_11_224032) do
+ActiveRecord::Schema[7.1].define(version: 2024_07_12_223547) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -122,7 +122,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_11_224032) do
   create_table "posts", force: :cascade do |t|
     t.integer "group_id", null: false
     t.integer "user_id", null: false
-    t.string "title", limit: 100, null: false
     t.text "content", limit: 500, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

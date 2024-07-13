@@ -13,15 +13,16 @@ import {
     CloseButton
   } from 'reactstrap';
 
-function EditGroupForm({editGroup, toggleEditGroup}): ReactNode {
+function EditGroupForm({editGroup, toggleEditGroup, group}): ReactNode {
+  console.log(group, 'group at edit')
     const [images, setImages] = useState([])
 
 
     const initialState = {
-        name:"",
-        fish_species: "",
-        area:"",
-        description:"",
+        name:group.group.name,
+        fish_species: group.group.fish_species,
+        area:group.group.area,
+        description:group?.group.description,
     };
     const [formData, setFormData] = useState(initialState);
 

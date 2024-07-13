@@ -11,7 +11,7 @@ import EditGroupForm from "./EditGroupForm.tsx";
 import { useParams } from "react-router-dom";
 
 //posts = posts used to have useEffect from GroupContainer reload posts after one is made
-function EditGroupContainer({toggleEditGroup,updateGroup}): ReactNode {
+function EditGroupContainer({toggleEditGroup,updateGroup, group}): ReactNode {
 
 
     const { setError } = useError();
@@ -29,7 +29,7 @@ function EditGroupContainer({toggleEditGroup,updateGroup}): ReactNode {
   }
     return (
         <div className={styles.editgroupcontainer}>
-        <EditGroupForm editGroup={editGroup}  toggleEditGroup={toggleEditGroup}/>
+        <EditGroupForm group={group} editGroup={editGroup}  toggleEditGroup={toggleEditGroup}/>
         </div>
     );
 }

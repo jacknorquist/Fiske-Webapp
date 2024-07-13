@@ -87,21 +87,28 @@ function GroupContainer(): ReactNode {
          setError(err.message)
        }
 }
-
+  console.log(group)
 
     return (
       <div className={styles.container}>
-           {isEditGroupOpen && <EditGroupContainer  toggleEditGroup={toggleEditGroup} updateGroup={updateGroup}/>}
+           {isEditGroupOpen && <EditGroupContainer group={group} toggleEditGroup={toggleEditGroup} updateGroup={updateGroup}/>}
         <div className={styles.leftContainer}>
            {group ?
            <div className={styles.header}>
             <img src={group!.group!.header_image_url || `${process.env.PUBLIC_URL}/DefaultHeader.jpg`} className={styles.headerImage} alt="" />
+            <div style={{display:'flex', alignContent:'center'}}>
+            <h3>{group?.group.name}</h3>
+           {group.group!.admin_id === user.id ? <i className={`${styles.icon} bi bi-trash`} onClick={deleteGroup}></i>:""}
+           {user!.id === group.group!.admin_id ? <i  className={`${styles.icon} bi bi-pen`}onClick={toggleEditGroup}></i>:""}
+            </div>
+            <div style={{display:'flex'}}>
+            <p><b>Area: </b>{group.group!.area}</p>
+            </div>
+            <div style={{display:'flex'}}>
+            <p><b>Target Species: </b>{group.group!.fish_species}</p>
+            </div>
             <p>{group.group!.description}</p>
-            <p>{group.group!.area}</p>
-            <p>{group.group!.fish_species}</p>
            {userMember ? <Button className={styles.leaveButton} onClick={leaveGroup}>Leave</Button>:<Button className={styles.joinButton} onClick={joinGroup}>Join</Button>}
-           {user!.id === group.group!.admin_id ? <Button onClick={toggleEditGroup}>Edit</Button>:""}
-           {group.group!.admin_id === user.id ? <Button onClick={deleteGroup}>Delete Group</Button>:""}
             {(userMember  || group?.group?.admin_id === user.id)&& !isCreatePostOpen  ? <button style={{width:'100%'}}onClick={toggleCreatePost}>Make a Post</button>:""}
            </div>:""}
              {isCreatePostOpen && <CreatePostContainer group={id} toggleCreatePost={toggleCreatePost} updatePosts={updatePosts}/>}

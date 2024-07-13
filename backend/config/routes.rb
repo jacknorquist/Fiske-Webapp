@@ -53,6 +53,15 @@ Rails.application.routes.draw do
   resources :fishes, only:[:index, :create]
 end
 
+Rails.application.routes.draw do
+  resources :user_fishboards, only:[:show]
+end
+
+
+Rails.application.routes.draw do
+  resources :group_fishboards, only:[:show]
+end
+
 
 
 

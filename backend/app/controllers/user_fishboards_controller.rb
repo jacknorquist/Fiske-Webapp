@@ -3,7 +3,7 @@ class UserFishboardsController < ApplicationController
 
     # GET /user_fishboards/:id
     def show
-      render json: @user_fishboard
+      render json: @user_fishboard.as_json(include: { fish: { methods: :image_url }})
     end
 
     # POST /user_fishboards

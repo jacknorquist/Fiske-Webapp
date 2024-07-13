@@ -4,7 +4,9 @@
   width: 100%;
   height: auto;
   background-color: white;
-  padding: .5rem;
+  border: .5px solid grey;
+  border-radius: .5rem;
+  padding: 1rem;
 }
 
 @media (max-width: 800px) {
@@ -30,3 +32,4 @@
 .submitButton{
   width: 100%;
 }
+

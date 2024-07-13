@@ -4,7 +4,18 @@
   padding: .5rem;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: auto;
+  grid-template-rows:auto;
+  border: .5px solid grey;
+  border-radius: .5rem;
+}
+
+.topRow{
+  grid-column: 1/5;
+  grid-row: 1/;
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 @media (max-width: 800px) {
@@ -23,13 +34,28 @@
 }
 
 .closeButton{
-  grid-column: 4/5;
-  grid-row: 1/2;
   right: 0;
 }
 
 .contentInput{
-  grid-column: 1/5;
+  grid-column: 1/7;
+  grid-row: 2/7;
+  height: 100%;
+
+  padding-top: .2rem;
+  padding-bottom: .4rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+.iconContainer{
+  text-align: left;
+  grid-column: 1/7;
+  margin-left: .5rem;
+  grid-row:7/8;
+}
+.imageInput{
+  grid-column: 1/7;
+  margin-left: .5rem;
 }
 
 .icon{
@@ -44,10 +70,11 @@
 }
 
 .profileImage{
-  width: 3rem;
-  height: 3rem;
+  width: 2rem;
+  height: 2rem;
   border-radius: 50%;
   object-fit: cover;
+  margin-top: .6rem;
 }
 
 
@@ -56,7 +83,17 @@
   margin-top: .5rem;
 }
 
+.bottomRow{
+  grid-column: 1/7;
+  border-top: .5px solid gray;
+  text-align: right;
+}
+
+.submitButton{
+  margin-top: .5rem;
+}
+/*
 .textArea{
   margin: 0;
   height: 135px;
-}
+} */

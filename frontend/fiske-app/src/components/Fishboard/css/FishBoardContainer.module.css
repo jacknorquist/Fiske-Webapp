@@ -27,8 +27,22 @@
 }
 
 
-.addAFish{
-  cursor: pointer;
+
+
+.addAFishButton{
   width: 100%;
+  text-align: center;
   background-color: white;
+  border-top: .5px solid gray;
+  cursor: pointer;
+  margin-top: 1rem;
+}
+
+.addAFishButton:hover{
+  width: 100%;
+  text-align: center;
+  background-color: rgb(248, 244, 239);
+  border-top: .5px solid gray;
+  cursor: pointer;
+  margin-top: 1rem;
 }

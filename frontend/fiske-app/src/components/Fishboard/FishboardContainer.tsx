@@ -61,7 +61,7 @@ function FishboardContainer({fishboard, fishBoardType, profileIsUser}): ReactNod
             {fishboardState?.fish.length > 0?  fishboardState?.fish.map(f => <Fish key={uuidv4()} fishBoardType={fishBoardType}fish={f}/>): <p style={{marginLeft:'.5rem'}}>No Fish Yet...</p>}
             </div>
             {((profileIsUser && fishBoardType==='UserFishboard') || fishBoardType==='GroupFishboard') && !isCreateFishOpen
-            ? <button className={style.addAFish} onClick={toggleCreateFish}>Add A Fish</button>
+            ? <div className={style.addAFishButton} onClick={toggleCreateFish}>Add A Fish</div>
             :""}
             {isCreateFishOpen ?
             <FishboardFormContainer fishboard={fishboardState} fishBoardType={fishBoardType} toggleCreateFish={toggleCreateFish} updateFishboard={updateFishboard}/>

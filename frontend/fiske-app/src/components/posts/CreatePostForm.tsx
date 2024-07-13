@@ -57,11 +57,13 @@ function CreatePostForm({createPost, toggleCreatePost}): ReactNode {
     return (
         <div>
         <Form onSubmit={handleSave} className={styles.form} >
-        <FormGroup row className={styles.contentInput}>
+          <div className={styles.topRow}>
           <img className={styles.profileImage} src={user?.profile_image_url || `${process.env.PUBLIC_URL}/DefaultHeader.jpg`}/>
-          <Col sm={10} className={styles.contentInput}>
+          <CloseButton className={styles.closeButton} onClick={toggleCreatePost}/>
+          </div>
+        <FormGroup row className={styles.contentInput}>
             <Input
-              className={styles.textArea}
+            style={{width:'100%', height:'100%'}}
               id="content"
               name="content"
               placeholder="Craft your post..."
@@ -69,18 +71,13 @@ function CreatePostForm({createPost, toggleCreatePost}): ReactNode {
               type="textarea"
               onChange={handleChange}
             />
-          </Col>
-          <CloseButton onClick={toggleCreatePost}/>
         </FormGroup>
+        <div className={styles.iconContainer}>
+        <i className={`${styles.icon} bi bi-images`} onClick={handleAddImage}></i>
+        </div>
         {images.map((image, index) => (
-          <div key={index}>
+          <div key={index} className={styles.imageInput}>
           <FormGroup row>
-          <Label
-            for={`post_image_${index+1}`}
-            sm={2}
-          >
-            Image
-          </Label>
           <Col sm={10}>
             <Input
               id={`post_image_${index+1}`}
@@ -92,12 +89,12 @@ function CreatePostForm({createPost, toggleCreatePost}): ReactNode {
         </FormGroup>
         </div>
       ))}
-      <div className={styles.bottomFlex}>
-      <i className={`${styles.icon} bi bi-images`} onClick={handleAddImage}></i>
-        <Button>
+      <div className={styles.bottomRow}>
+      <Button className={styles.submitButton}>
         Submit
       </Button>
       </div>
+
 
       </Form>
       </div>

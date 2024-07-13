@@ -63,14 +63,17 @@
   border-radius: .5rem;
   text-align: left;
 }
-.header *{
-margin: 0;
+
+.content{
+  margin: .5rem;
 }
+
 .headerImage {
   width: 100%;
   height: 23vh;
   object-fit: cover;
   opacity: 65%;
+  margin-left: 0;
 }
 .icon{
   cursor: pointer;
@@ -94,4 +97,22 @@ margin: 0;
 
 .leaveButton{
   background-color: blue;
+}
+
+.createPostButton{
+  width: 100%;
+  text-align: center;
+  background-color: white;
+  border-top: .5px solid gray;
+  cursor: pointer;
+  margin-top: 1rem;
+}
+
+.createPostButton:hover{
+  width: 100%;
+  text-align: center;
+  background-color: rgb(248, 244, 239);
+  border-top: .5px solid gray;
+  cursor: pointer;
+  margin-top: 1rem;
 }

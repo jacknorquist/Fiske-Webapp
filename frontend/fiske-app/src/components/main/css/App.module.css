@@ -1,9 +1,11 @@
 .app {
   text-align: center;
-  background-color: #a15804;
+  background-color: #ececec;
   min-height: 150vh;
-
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
+
+
 
 .App-logo {
   height: 40vmin;

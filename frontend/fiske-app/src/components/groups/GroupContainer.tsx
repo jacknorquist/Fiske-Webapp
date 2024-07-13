@@ -13,6 +13,7 @@ import { useError } from "../../context/ErrorContext.tsx";
 import { useNavigate } from "react-router-dom";
 import PostsContainer from "../posts/PostsContainer.tsx";
 import EditGroupContainer from "./EditGroupContainer.tsx";
+import FishboardContainer from "../Fishboard/FishboardContainer.tsx";
 
 //consider making forms that are open a state at the app level?
 function GroupContainer(): ReactNode {
@@ -38,8 +39,6 @@ function GroupContainer(): ReactNode {
              const posts = await FiskeAPI.getGroupPosts( token, id);
              const group = await FiskeAPI.getGroup(token, id);
              const userGroups = await FiskeAPI.getUserGroups(token, currentUserId )
-             console.log(group, 'helllo')
-
              setUserMember(userGroups.find(g=> g.id == id) ? true : false)
              setGroup(group)
              setPosts(posts)
@@ -89,25 +88,28 @@ function GroupContainer(): ReactNode {
        }
 }
 
-console.log(group)
-
 
     return (
-      <div>
-           {isCreatePostOpen && <CreatePostContainer group={id} toggleCreatePost={toggleCreatePost} updatePosts={updatePosts}/>}
+      <div className={styles.container}>
            {isEditGroupOpen && <EditGroupContainer  toggleEditGroup={toggleEditGroup} updateGroup={updateGroup}/>}
-        <div className={`${styles.container} ${isCreatePostOpen ? styles.overlay : ''}`}>
+        <div className={styles.leftContainer}>
            {group ?
            <div className={styles.header}>
             <img src={group!.group!.header_image_url || `${process.env.PUBLIC_URL}/DefaultHeader.jpg`} className={styles.headerImage} alt="" />
             <p>{group.group!.description}</p>
             <p>{group.group!.area}</p>
             <p>{group.group!.fish_species}</p>
-           {userMember ? <Button onClick={toggleCreatePost}>+</Button>:""}
-           {userMember ? <Button onClick={leaveGroup}>Leave</Button>:<Button onClick={joinGroup}>Join</Button>}
+           {userMember ? <Button className={styles.leaveButton} onClick={leaveGroup}>Leave</Button>:<Button className={styles.joinButton} onClick={joinGroup}>Join</Button>}
            {user!.id === group.group!.admin_id ? <Button onClick={toggleEditGroup}>Edit</Button>:""}
            {group.group!.admin_id === user.id ? <Button onClick={deleteGroup}>Delete Group</Button>:""}
+            {(userMember  || group?.group?.admin_id === user.id)&& !isCreatePostOpen  ? <button style={{width:'100%'}}onClick={toggleCreatePost}>Make a Post</button>:""}
            </div>:""}
+             {isCreatePostOpen && <CreatePostContainer group={id} toggleCreatePost={toggleCreatePost} updatePosts={updatePosts}/>}
+           <div className={styles.fishboardContainer}>
+            {group ?
+            <FishboardContainer fishboard={group.fishboard} fishBoardType={'GroupFishboard'} profileIsUser={false}/>
+            :""}
+           </div>
            <div className={styles.postContainer}>
            {posts.length>0 ? posts.map(p=><PostListItem key={p!.id} post={p} updatePosts={updatePosts}/>): ""}
            </div>

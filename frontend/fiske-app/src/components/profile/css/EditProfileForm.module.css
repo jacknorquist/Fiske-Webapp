@@ -1,0 +1,26 @@
+
+
+
+
+.form{
+  width: 100%;
+  text-align: left;
+  padding:.5rem
+}
+
+.header{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.name{
+  display: flex;
+}
+.input{
+  width: 100%;
+}
+
+label{
+  white-space: nowrap;
+}

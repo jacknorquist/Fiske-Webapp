@@ -1,13 +1,10 @@
 
 
 .form {
-  width: 35vw;
+  width: 100%;
   height: auto;
-  background-color: rgb(247, 234, 229);
-  padding-top: 6%;
-  padding-bottom: 6%;
-  padding-left:3%;
-  padding-right:3%;
+  background-color: white;
+  padding: .5rem;
 }
 
 @media (max-width: 800px) {
@@ -23,4 +20,13 @@
     width: 85vw;
     height: auto;
   }
+}
+
+
+.input{
+  width: 100%;
+}
+
+.submitButton{
+  width: 100%;
 }

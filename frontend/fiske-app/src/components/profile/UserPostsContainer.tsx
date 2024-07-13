@@ -47,8 +47,7 @@ function UserPostsContainer({profileUser}): ReactNode {
     }
 
     return (
-        <div className={styles.container}>
-          <h1 >User Posts</h1>
+        <div>
             {userPosts.length>0? userPosts.map(p=> <PostListItem key={uuidv4()} post={p} updatePosts={updatePosts}/>): ""}
         </div>
     );

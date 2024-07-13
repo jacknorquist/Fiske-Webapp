@@ -1,14 +1,34 @@
 .container{
   width:100%;
   height: 100%;
-  padding-bottom: 2rem;
-  background-color: beige;
+  box-shadow: .5px .5px .5px .5px black;
+  text-align: left;
+  margin-top: .5rem;
+  margin-bottom: .5rem;
+  border-radius: .5rem;
+  background-color: white;
 }
 
 .fishContainer{
   height: 90%;
   display: flex;
   white-space: nowrap;
-  overflow-x: scroll;
+  overflow-x: auto;
   overflow-y: hidden;
+}
+
+.header{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-left: .5rem;
+  margin-right: .5rem;
+  font-family:cursive;
+}
+
+
+.addAFish{
+  cursor: pointer;
+  width: 100%;
+  background-color: white;
 }

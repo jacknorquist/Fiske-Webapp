@@ -113,7 +113,7 @@ function Homepage(): ReactNode {
                 <SearchGroupsContainer />
             </div>
             <div className={styles.postContainer}>
-            {posts.length>0 ? posts.map(p=><PostListItem key={p!.id} post={p} updatePosts={updatePosts}/>): ""}
+            {posts.length>0 ? posts.map(p=><PostListItem key={p!.id} post={p} updatePosts={updatePosts}/>): <p>Hmm. no posts yet. Join a group to get started!</p>}
             </div>
         </div>
         </div>

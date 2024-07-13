@@ -1,6 +1,7 @@
 .container{
   text-align: left;
   border: 1px solid black;
+  background-color: white;
   border-radius: .3rem;
   margin: 1%;
   grid-template-columns: repeat(8, 1fr);

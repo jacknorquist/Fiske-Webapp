@@ -20,9 +20,7 @@
     grid-template-columns: repeat(8, 1fr);
     gap: 10px;
     position: relative;
-    border: 1px black solid;
     border-radius: 10px;
-    background-color: white;
     width: 75vw;
     height: 100vh;
     margin-top: 3%;
@@ -38,9 +36,7 @@
     grid-template-columns: repeat(8, 1fr);
     gap: 10px;
     position: relative;
-    border: 1px black solid;
     border-radius: 10px;
-    background-color: white;
     width: 90vw;
     height: 100vh;
     margin-top: 3%;
@@ -56,9 +52,7 @@
     grid-template-columns: repeat(8, 1fr);
     gap: 10px;
     position: relative;
-    border: 1px black solid;
     border-radius: 10px;
-    background-color: white;
     width: 98vw;
     height: 100vh;
     margin-top: 3%;
@@ -97,7 +91,6 @@
 .leftContainer{
   height: 100%;
   grid-column: 1/7;
-  background-color: #466780;
 }
 
 
@@ -109,11 +102,11 @@
 
 .fishboardContainer{
   grid-column: 1/9;
-  height: 50vh;
 }
 
 .userPosts{
   grid-column: 1/9;
+  background-color: white;
 }
 .rightContainer{
   height: 90vh;

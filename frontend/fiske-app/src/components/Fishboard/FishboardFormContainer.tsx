@@ -9,7 +9,7 @@ import FiskeAPI from "../../api.ts";
 import FishboardForm from "./FishboardForm.tsx";
 import style from './css/FishboardFormContainer.module.css'
 
-function FishboardFormContainer({updateFishboard, fishboard, fishBoardType, toggleCreateFish}): ReactNode {
+function FishboardFormContainer({fishboard, fishBoardType, toggleCreateFish}): ReactNode {
 
     const {user} = useUser()
 

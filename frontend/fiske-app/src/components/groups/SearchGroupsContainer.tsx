@@ -55,7 +55,7 @@ function SearchGroupsContainer(): ReactNode {
 
     return (
 
-        <div>
+        <div className={styles.container}>
           <div className={styles.sticky}>
             <h6>Find Groups</h6>
             <SearchGroupsForm updateGroups={updateGroups}/>

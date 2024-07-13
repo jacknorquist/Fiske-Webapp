@@ -16,7 +16,6 @@ import FishboardContainer from "../Fishboard/FishboardContainer.tsx";
 
 
 function ProfileContainer(): ReactNode {
-    const [isEditProfileOpen, setIsEditProfileOpen] = useState(false);
     const [isCreateGroupOpen, setIsCreateGroupOpen] = useState(false);
     const [profileUser, setProfileUser] = useState();
     const { id } = useParams();
@@ -25,9 +24,6 @@ function ProfileContainer(): ReactNode {
     console.log(profileUser)
     const currentUserId = user.id
 
-    function toggleEditProfileForm(){
-        setIsEditProfileOpen(!isEditProfileOpen)
-      }
 
     function toggleCreateGroup(){
         setIsCreateGroupOpen(!isCreateGroupOpen)
@@ -88,12 +84,11 @@ function ProfileContainer(): ReactNode {
      let profileIsUser = currentUserId === Number(useParams().id)
     return (
         <div className={styles.profileContainer}>
-          {isEditProfileOpen && <EditProfileContainer toggleEditProfileForm={toggleEditProfileForm} updateProfileUser={updateProfileUser} />}
           {isCreateGroupOpen && <CreateGroupContainer toggleCreateGroup={toggleCreateGroup} updateUserAdminGroups={updateUserAdminGroups}/>}
-          <div className={`${styles.gridcontainer} ${isEditProfileOpen || isCreateGroupOpen ? styles.overlay : ''}`}>
+          <div className={`${styles.gridcontainer} ${ isCreateGroupOpen ? styles.overlay : ''}`}>
             {profileUser ?
             <div className={styles.leftContainer}>
-              <ProfileCard  toggleEditProfileForm={toggleEditProfileForm} profileIsUser={profileIsUser} profileUser={profileUser}/>
+              <ProfileCard  updateProfileUser= {updateProfileUser} profileIsUser={profileIsUser} profileUser={profileUser}/>
               <div className={styles.fishboardContainer}>
               <FishboardContainer fishboard={profileUser.fishboard}  fishBoardType={'UserFishboard'} profileIsUser={profileIsUser}/>
               </div>

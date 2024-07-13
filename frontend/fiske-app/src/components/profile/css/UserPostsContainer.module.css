@@ -1,4 +1,7 @@
-.container{
-  grid-column: 1/7;
-  grid-row: 3/8;
+
+
+.header{
+  text-align: left;
+  font-family: cursive;
+  margin-left: .5rem;
 }

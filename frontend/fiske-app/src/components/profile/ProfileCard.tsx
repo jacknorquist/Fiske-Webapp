@@ -8,14 +8,16 @@ import { useUser } from "../../context/UserContext.tsx";
 
 
 
-function ProfileCard({ toggleEditProfileForm, profileIsUser, profileUser}): ReactNode {
+function ProfileCard({ profileIsUser, profileUser, updateProfileUser}): ReactNode {
   const {user, setUser} = useUser()
-  function handleEdit(){
+  const [isEditProfileOpen, setIsEditProfileOpen] = useState(false)
 
+  function toggleEditProfile(){
+    setIsEditProfileOpen(!isEditProfileOpen)
   }
 
     return (
-        <div>
+        <div  >
           <Card className={styles.profileCard}>
             <CardImg
               alt="Card image cap"
@@ -31,23 +33,17 @@ function ProfileCard({ toggleEditProfileForm, profileIsUser, profileUser}): Reac
             <CardBody className={styles.cardBody}>
               <CardTitle tag="h5">
                 <div>
-                {`${profileUser.user!.first_name} ${profileUser.user!.last_name}`} <span className={styles.userName}><i>{`${profileUser.user!.username}`}</i></span>
+                {`${profileUser.user!.first_name} ${profileUser.user!.last_name}`} <span className={styles.userName}><i>{`${profileUser.user!.username}`}</i></span> {profileIsUser ?
+            <i onClick={toggleEditProfile} className={`${styles.editButton} bi bi-pen`}></i>
+:""}
                 </div>
               </CardTitle>
               <CardText>
                 {`${profileUser.user!.bio}`}
               </CardText>
-
-              <CardText>
-                <small className="text-muted">
-                  Last updated 3 mins ago
-                </small>
-              </CardText>
             </CardBody>
-            {profileIsUser ?
-            <Button onClick={toggleEditProfileForm}>Edit Profile</Button>
-:""}
           </Card>
+          {isEditProfileOpen ? <EditProfileContainer updateProfileUser={updateProfileUser}  toggleEditProfileForm={toggleEditProfile}/> :""}
         </div>
     );
 }

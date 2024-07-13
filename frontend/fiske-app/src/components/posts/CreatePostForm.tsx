@@ -1,6 +1,7 @@
 import React from "react";
 import { ReactNode, useState } from "react";
 import styles from './css/CreatePostForm.module.css'
+import { useUser } from "../../context/UserContext.tsx";
 
 import {
     Form,
@@ -14,11 +15,11 @@ import {
   } from 'reactstrap';
 
 function CreatePostForm({createPost, toggleCreatePost}): ReactNode {
+   const {user} = useUser()
     const [images, setImages] = useState([])
 
 
     const initialState = {
-        title:"",
         content: ""
     };
     const [formData, setFormData] = useState(initialState);
@@ -55,46 +56,24 @@ function CreatePostForm({createPost, toggleCreatePost}): ReactNode {
 
     return (
         <div>
-        <Form onSubmit={handleSave} className={`${styles.form} border border-primary rounded`} >
-          <CloseButton onClick={toggleCreatePost}/>
-          <h1>reate Post</h1>
-        <FormGroup row>
-          <Label
-            for="title"
-            sm={2}
-          >
-            Title
-          </Label>
-          <Col sm={10}>
+        <Form onSubmit={handleSave} className={styles.form} >
+        <FormGroup row className={styles.contentInput}>
+          <img className={styles.profileImage} src={user?.profile_image_url || `${process.env.PUBLIC_URL}/DefaultHeader.jpg`}/>
+          <Col sm={10} className={styles.contentInput}>
             <Input
-              id="title"
-              name="title"
-              value={formData.title}
-              type="text"
-              onChange={handleChange}
-            />
-          </Col>
-        </FormGroup>
-        <FormGroup row>
-          <Label
-            for="first_name"
-            sm={2}
-          >
-            Content
-          </Label>
-          <Col sm={10}>
-            <Input
+              className={styles.textArea}
               id="content"
               name="content"
-              placeholder="content"
+              placeholder="Craft your post..."
               value={formData.content}
-              type="text"
+              type="textarea"
               onChange={handleChange}
             />
           </Col>
+          <CloseButton onClick={toggleCreatePost}/>
         </FormGroup>
         {images.map((image, index) => (
-        <div key={index}>
+          <div key={index}>
           <FormGroup row>
           <Label
             for={`post_image_${index+1}`}
@@ -113,13 +92,14 @@ function CreatePostForm({createPost, toggleCreatePost}): ReactNode {
         </FormGroup>
         </div>
       ))}
-
+      <div className={styles.bottomFlex}>
+      <i className={`${styles.icon} bi bi-images`} onClick={handleAddImage}></i>
         <Button>
         Submit
       </Button>
+      </div>
 
       </Form>
-      <Button onClick={handleAddImage}>+</Button>
       </div>
 
     );

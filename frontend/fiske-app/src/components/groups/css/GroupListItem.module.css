@@ -1,7 +1,7 @@
 .container{
   text-align: left;
-  border: 1px solid black;
-  border-radius: 3%;
+  /* border: 1px solid black; */
+  border-radius: .5rem;
   margin: 1%;
   padding: .5rem;
   grid-template-columns: repeat(6, 1fr);
@@ -12,10 +12,25 @@
   font-size: 1rem;
 }
 
-.grouplink{
+.container:hover{
+  background-color: rgb(216, 217, 218);
+  text-align: left;
+  /* border: 1px solid black; */
+  border-radius: .5rem;
+  margin: 1%;
+  padding: .5rem;
+  grid-template-columns: repeat(6, 1fr);
+  grid-template-rows: auto; /* Set to auto to adjust height dynamically */
+  height: auto;
+  display: grid;
+  transition: height 0.3s ease;
+  font-size: 1rem;
+}
+
+/* .grouplink{
   grid-column: 1/4;
   grid-row: 1/2;
-}
+} */
 
 .link{
   text-decoration: none; /* Remove underline */
@@ -40,14 +55,14 @@
   text-align: left;
   grid-column: 2/6;
   grid-row: 1/2;
-  font-size: .8rem;
-  padding-top: .6rem;
+  font-size: 1.2rem;
+  padding-top: .2rem;
 }
 .name:hover{
   grid-column: 2/6;
   grid-row: 1/2;
-  font-size: .8rem;
-  padding-top: .6rem;
+  font-size: 1.2rem;
+  padding-top: .2rem;
   color: blue;
 }
 
@@ -61,17 +76,27 @@
 
 
 
+.area > p{
+  margin: 0;
+  font-size: 1rem;
+}
+
 .area{
   grid-column: 1/8;
   grid-row: 2/3;
-  font-size: 1rem;
   display: flex;
 
 }
 
-.fishSpecies{
+.species{
   grid-column: 1/8;
   grid-row: 3/4;
+
+}
+
+
+.species > p{
+margin-bottom: .5rem;
 
 }
 

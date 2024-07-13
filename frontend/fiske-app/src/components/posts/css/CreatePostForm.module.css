@@ -1,13 +1,10 @@
 
 
 .form {
-  width: 35vw;
-  height: auto;
-  background-color: rgb(247, 234, 229);
-  padding-top: 6%;
-  padding-bottom: 6%;
-  padding-left:3%;
-  padding-right:3%;
+  padding: .5rem;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: auto;
 }
 
 @media (max-width: 800px) {
@@ -23,4 +20,43 @@
     width: 85vw;
     height: auto;
   }
+}
+
+.closeButton{
+  grid-column: 4/5;
+  grid-row: 1/2;
+  right: 0;
+}
+
+.contentInput{
+  grid-column: 1/5;
+}
+
+.icon{
+  cursor: pointer;
+}
+
+.bottomFlex{
+  grid-column: 1/5;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.profileImage{
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+
+.contentInput{
+  display: flex;
+  margin-top: .5rem;
+}
+
+.textArea{
+  margin: 0;
+  height: 135px;
 }

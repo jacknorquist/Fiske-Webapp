@@ -1,9 +1,6 @@
 .createpostcontainer{
-  padding-top: 15vh;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 2;
+  width: 100%;
+  background-color: white;
+  border: .5px solid black;
 }
 

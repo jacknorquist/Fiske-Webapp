@@ -52,21 +52,19 @@ function FishboardForm({createFish, toggleCreateFish}): ReactNode {
 
     return (
         <div>
-        <Form onSubmit={handleSave} className={`${styles.form} border border-primary rounded`} >
+        <Form onSubmit={handleSave} className={styles.form} >
           <CloseButton onClick={toggleCreateFish}/>
-          <h1>What'd you catch? Is it big enough to go on the fishboard?</h1>
-        <FormGroup row>
+        <FormGroup row >
           <Label
             for="species"
             sm={2}
           >
-            Species
           </Label>
-          <Col sm={10}>
+          <Col sm={10} className={styles.input}>
             <Input
               id="species"
               name="species"
-              placeholder={formData.species}
+              placeholder='Species (Walleye, Perch, Black Crappie, etc..) '
               value={formData.species}
               type="text"
               onChange={handleChange}
@@ -78,13 +76,12 @@ function FishboardForm({createFish, toggleCreateFish}): ReactNode {
             for="length"
             sm={2}
           >
-            Length
           </Label>
-          <Col sm={10}>
+          <Col sm={10} className={styles.input}>
             <Input
               id="length"
               name="length"
-              placeholder={formData.length}
+              placeholder='Length (in inches)'
               value={formData.length}
               type="number"
               onChange={handleChange}
@@ -108,7 +105,7 @@ function FishboardForm({createFish, toggleCreateFish}): ReactNode {
           </Col>
         </FormGroup>
 
-        <Button>
+        <Button className={styles.submitButton}>
         Submit
       </Button>
 

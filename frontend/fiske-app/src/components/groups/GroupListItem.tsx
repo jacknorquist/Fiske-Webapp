@@ -25,7 +25,7 @@ function GroupListItem({group}): ReactNode {
        const token = localStorage.getItem('fiske-token');
        if (token) {
          try {
-           const groups = await FiskeAPI.getUserGroups( token, user.user.id);
+           const groups = await FiskeAPI.getUserGroups( token, user.id);
            setIsUserMemeber(groups.find(g=> g.id == group.id) ? true : false)
          } catch (err) {
          } finally {
@@ -65,9 +65,11 @@ function GroupListItem({group}): ReactNode {
               </div>
             )}
             <div className={styles.area}>
-            <h6>Area:</h6><p>  {group.area}</p>
+            <p><b>Area:</b>{' '}{group.area}</p>
             </div>
-            <i className={styles.fishSpecies}>{group.fish_species}</i>
+            <div className={styles.species}>
+            <p><b>Species:</b>{' '}{group.fish_species}</p>
+            </div>
             <span
               onClick={toggleButtons}
               className={`${styles.openButtonsIcon} bi bi-three-dots-vertical`}

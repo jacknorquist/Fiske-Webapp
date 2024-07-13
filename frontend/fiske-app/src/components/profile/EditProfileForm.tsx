@@ -1,7 +1,7 @@
 
 import React from "react";
 import { ReactNode, useState } from "react";
-import styles from '../../css/form.module.css'
+import styles from './css/EditProfileForm.module.css'
 
 import {
     Form,
@@ -50,9 +50,48 @@ function EditProfileForm({handleEdit, toggleEditProfileForm, user}): ReactNode {
 
     }
     return (
-        <Form onSubmit={handleSave} className={`${styles.form} border border-primary rounded`}>
+        <Form onSubmit={handleSave} className={styles.form}>
+          <div className={styles.header}>
           <CloseButton onClick={toggleEditProfileForm}/>
-          <h1>Update Profile</h1>
+          </div>
+        <div className={styles.name}>
+        <FormGroup row>
+          <Label
+            for="first_name"
+            sm={2}
+          >
+            First Name
+          </Label>
+          <Col sm={10} className={styles.input}>
+            <Input
+              id="first_name"
+              name="first_name"
+              placeholder={user.first_name}
+              value={formData.first_name}
+              type="text"
+              onChange={handleChange}
+            />
+          </Col>
+        </FormGroup>
+        <FormGroup row>
+          <Label
+            for="last_name"
+            sm={2}
+          >
+            Last Name
+          </Label>
+          <Col sm={10} className={styles.input}>
+            <Input
+              id="last_name"
+              name="last_name"
+              placeholder={user.last_name}
+              value={formData.last_name}
+              type="text"
+              onChange={handleChange}
+            />
+          </Col>
+        </FormGroup>
+        </div>
         <FormGroup row>
           <Label
             for="username"
@@ -60,7 +99,7 @@ function EditProfileForm({handleEdit, toggleEditProfileForm, user}): ReactNode {
           >
             Username
           </Label>
-          <Col sm={10}>
+          <Col sm={10} className={styles.input}>
             <Input
               id="username"
               name="username"
@@ -73,49 +112,12 @@ function EditProfileForm({handleEdit, toggleEditProfileForm, user}): ReactNode {
         </FormGroup>
         <FormGroup row>
           <Label
-            for="first_name"
-            sm={2}
-          >
-            First Name
-          </Label>
-          <Col sm={10}>
-            <Input
-              id="first_name"
-              name="first_name"
-              placeholder={user.first_name}
-              value={formData.first_name}
-              type="text"
-              onChange={handleChange}
-            />
-          </Col>
-        </FormGroup>
-
-        <FormGroup row>
-          <Label
-            for="last_name"
-            sm={2}
-          >
-            Last Name
-          </Label>
-          <Col sm={10}>
-            <Input
-              id="last_name"
-              name="last_name"
-              placeholder={user.last_name}
-              value={formData.last_name}
-              type="text"
-              onChange={handleChange}
-            />
-          </Col>
-        </FormGroup>
-        <FormGroup row>
-          <Label
             for="bio"
             sm={2}
           >
             Bio
           </Label>
-          <Col sm={10}>
+          <Col sm={10} className={styles.input}>
             <Input
               id="bio"
               name="bio"
@@ -133,7 +135,7 @@ function EditProfileForm({handleEdit, toggleEditProfileForm, user}): ReactNode {
           >
             Profile Image
           </Label>
-          <Col sm={10}>
+          <Col sm={10} className={styles.input}>
             <Input
               id="profile_image"
               name="profile_image"
@@ -150,7 +152,7 @@ function EditProfileForm({handleEdit, toggleEditProfileForm, user}): ReactNode {
           >
             Header Image
           </Label>
-          <Col sm={10}>
+          <Col sm={10} className={styles.input}>
             <Input
               id="header_image"
               name="header_image"
@@ -161,7 +163,7 @@ function EditProfileForm({handleEdit, toggleEditProfileForm, user}): ReactNode {
           </Col>
         </FormGroup>
         <Button>
-        Submit
+        Update Profile
       </Button>
 
       </Form>

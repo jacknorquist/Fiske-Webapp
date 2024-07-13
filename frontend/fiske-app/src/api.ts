@@ -281,10 +281,9 @@ static async editUser(formData, currentUsername, token) {
   }
 
   static async createPost(token, groupId, formData) {
-    const { title, content, post_image_1, post_image_2, post_image_3, post_image_4, post_image_5 } = formData;
+    const { content, post_image_1, post_image_2, post_image_3, post_image_4, post_image_5 } = formData;
 
     const data = new FormData();
-    data.append('title', title);
     data.append('content', content);
     for (let i=1; i<=5; i++){
       let postImage = eval(`post_image_${i}`);

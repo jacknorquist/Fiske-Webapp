@@ -29,7 +29,14 @@
   width: 100%;
 }
 
+.bottomRow{
+  border-top: .5px solid gray;
+  text-align: right;
+
+}
+
 .submitButton{
-  width: 100%;
+  margin-right: .5rem;
+  margin-top: .5rem;
 }
 

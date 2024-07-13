@@ -53,7 +53,6 @@
   align-self: flex-start;
   grid-column: 1/4;
   grid-row: 1/6;
-  background-color: white;
   height: 80vh;
   overflow-y: auto; /* Enables vertical scrolling */
   border: 1px solid #ccc;
@@ -64,7 +63,6 @@
 
 .groupsContainer{
   grid-column: 4/9;
-  background-color: white;
   border-radius: .5rem;
 }
 

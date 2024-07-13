@@ -104,10 +104,11 @@ function FishboardForm({createFish, toggleCreateFish}): ReactNode {
             />
           </Col>
         </FormGroup>
-
+        <div className={styles.bottomRow}>
         <Button className={styles.submitButton}>
-        Submit
+        Add Fish
       </Button>
+      </div>
 
       </Form>
       </div>

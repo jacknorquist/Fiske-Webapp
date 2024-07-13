@@ -5,7 +5,9 @@
 .form{
   width: 100%;
   text-align: left;
-  padding:.5rem
+  padding:.5rem;
+  border: .5px solid gray;
+  border-radius: .5rem;
 }
 
 .header{

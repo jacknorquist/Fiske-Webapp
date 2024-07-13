@@ -91,7 +91,7 @@ function CreatePostForm({createPost, toggleCreatePost}): ReactNode {
       ))}
       <div className={styles.bottomRow}>
       <Button className={styles.submitButton}>
-        Submit
+        Post
       </Button>
       </div>
 

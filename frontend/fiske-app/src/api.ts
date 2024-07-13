@@ -477,6 +477,35 @@ static async editUser(formData, currentUsername, token) {
   }
 
 
+  static async getUserFishboard(token, fishboardId){
+    const response = await fetch(`http://localhost:3000/user_fishboards/${fishboardId}`, {
+      method: 'GET',
+      headers: {
+        'Authorization': `Bearer ${token}`
+      },
+    });
+    if (!response.ok) {
+      const errorMessage = await response.text();
+      throw new Error(errorMessage || 'An unknown error occurred');
+    }
+    return await response.json()
+  }
+
+  static async getGroupFishboard(token, fishboardId){
+    const response = await fetch(`http://localhost:3000/group_fishboards/${fishboardId}`, {
+      method: 'GET',
+      headers: {
+        'Authorization': `Bearer ${token}`
+      },
+    });
+    if (!response.ok) {
+      const errorMessage = await response.text();
+      throw new Error(errorMessage || 'An unknown error occurred');
+    }
+    return await response.json()
+  }
+
+
 
 
 

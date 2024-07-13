@@ -9,17 +9,19 @@ import FiskeAPI from "../../api.ts";
 import FishboardForm from "./FishboardForm.tsx";
 import style from './css/FishboardFormContainer.module.css'
 
-function FishboardFormContainer({fishboard, fishBoardType, toggleCreateFish}): ReactNode {
+function FishboardFormContainer({fishboard, fishBoardType, toggleCreateFish, updateFishboard}): ReactNode {
 
     const {user} = useUser()
 
     async function createFish(formData){
         try{
             await FiskeAPI.createFish(localStorage['fiske-token'], fishboard.id, fishBoardType, user.id,  formData);
+            updateFishboard()
         }catch(err){
 
         }
     }
+
 
     return (
         <div className={style.container}>

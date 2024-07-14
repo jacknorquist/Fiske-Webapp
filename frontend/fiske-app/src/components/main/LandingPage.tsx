@@ -12,7 +12,6 @@ function LandingPage(): ReactNode {
             <div className={styles.buttons}>
                 <Button href="/login" className={styles.button}>Login</Button>
                 <Button href="/signup" className={styles.button}>Signup</Button>
-                <Link to="/signup"> Login </Link>
             </div>
             </div>
         </div>

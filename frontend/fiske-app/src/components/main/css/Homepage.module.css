@@ -13,14 +13,14 @@
 @media (max-width: 480px)  {
   .container{
     display: grid;
-    top: 2rem;
-    gap: 1rem;
-    grid-template-rows: auto;
     grid-template-columns: repeat(11, 1fr);
-    position: relative;
+    grid-template-rows: auto;
     width: 100vw;
     height: 100%;
     margin:auto;
+    position: relative;
+    top: 2rem;
+    gap: 1rem;
   }
 
 }

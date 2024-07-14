@@ -2,7 +2,7 @@
 
 import React from "react";
 import { ReactNode, useState } from "react";
-import styles from '../../css/form.module.css'
+import styles from './css/LoginForm.module.css'
 import {
     Form,
     FormGroup,

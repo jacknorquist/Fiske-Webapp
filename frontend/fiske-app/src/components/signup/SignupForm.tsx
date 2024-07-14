@@ -1,7 +1,7 @@
 
 import React from "react";
 import { ReactNode, useState } from "react";
-import styles from '../../css/form.module.css'
+import styles from './css/SignupForm.module.css'
 import {
     Form,
     FormGroup,
@@ -51,7 +51,7 @@ function SignupForm({handleSignup}): ReactNode {
     }
     return (
         <Form onSubmit={handleSave} className={`${styles.form} border border-primary rounded`}>
-          <h1>Signup</h1>
+          <h1 style={{textAlign:'center'}}>Signup</h1>
         <FormGroup row>
           <Label
             for="username"

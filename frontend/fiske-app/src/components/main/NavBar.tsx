@@ -20,7 +20,6 @@ import { useUser } from '../../context/UserContext.tsx';
 import styles from './css/NavBar.module.css'
 
 function NavBar(): React.ReactNode {
-  const [isOpen, setIsOpen] = useState(false);
   const {user} = useUser()
 
   const toggle = () => setIsOpen(!isOpen);
@@ -32,23 +31,14 @@ function NavBar(): React.ReactNode {
       {user ?
     <Navbar expand='sm' className={`${styles.navbar} sticky-top`}>
       <NavbarBrand href='/'>Fiske</NavbarBrand>
-      <NavbarToggler onClick={toggle} />
-      <Collapse isOpen={isOpen} navbar>
-        <Nav className='mx-auto' navbar>
-          <NavItem>
-            <NavLink tag={Link} to='/'>
+      <div className={styles.icons}>
+            <NavLink tag={Link} className={styles.houseIcon} to='/'>
               <span className='bi bi-house'></span>
             </NavLink>
-          </NavItem>
-          <NavItem>
-            <NavLink tag={Link} to='/groups'>
+            <NavLink tag={Link} className={styles.groupsIcon} to='/groups'>
               <span className='bi bi-people'></span>
             </NavLink>
-          </NavItem>
-          {/* Add more NavItems for additional navigation items */}
-        </Nav>
-        <Nav className='ml-auto' navbar>
-          <NavItem>
+        </div>
             <NavLink tag={Link} to={`/profile/${user!.id}`}>
               <img
                 src={
@@ -59,9 +49,6 @@ function NavBar(): React.ReactNode {
                 className={styles.profileImage}
               />
             </NavLink>
-          </NavItem>
-        </Nav>
-      </Collapse>
     </Navbar>:""
 }
   </div>

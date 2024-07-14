@@ -43,12 +43,6 @@ function FishboardContainer({fishboard, fishBoardType, profileIsUser}): ReactNod
         }
 
     }
-
-    console.log(fishboardState, 'fishboardState')
-
-
-
-
     return (
         <div className={style.container}>
             <div onClick={toggleIsExpanded}className={style.header}>

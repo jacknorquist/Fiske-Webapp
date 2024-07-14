@@ -1,0 +1,23 @@
+.form {
+  width: 35vw;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  padding: .5rem;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+}
+
+@media (max-width:480px){
+  .form{
+    background-color: white;
+    margin: auto;
+    width: 100vw;
+    padding: .5rem;
+    margin-top: 5rem ;
+    text-align: left;
+  }
+}
+

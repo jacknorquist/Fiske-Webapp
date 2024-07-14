@@ -4,7 +4,8 @@ import LoginForm from "./LoginForm.tsx";
 import { useError } from "../../context/ErrorContext.tsx";
 import FiskeAPI from "../../api.ts";
 import { useUser } from "../../context/UserContext.tsx";
-import styles from '../../css/fomContainer.module.css'
+import styles from './css/LoginContainer.module.css'
+import { Button } from "reactstrap";
 
 function LoginContainer(): ReactNode {
 
@@ -28,6 +29,7 @@ function LoginContainer(): ReactNode {
     return (
       <div className={styles.container}>
         <LoginForm handleLogin={handleLogin} />
+        <Button href="/signup" className={styles.button}>Go to signup</Button>
       </div>
     );
 }

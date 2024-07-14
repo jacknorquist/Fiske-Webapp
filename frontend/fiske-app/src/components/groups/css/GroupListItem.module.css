@@ -11,6 +11,7 @@
   display: grid;
   transition: height 0.3s ease;
   font-size: 1rem;
+  overflow: hidden;
 }
 
 .container:hover{

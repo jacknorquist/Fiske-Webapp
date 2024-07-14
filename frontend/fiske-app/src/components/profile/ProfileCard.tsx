@@ -16,6 +16,8 @@ function ProfileCard({ profileIsUser, profileUser, updateProfileUser}): ReactNod
     setIsEditProfileOpen(!isEditProfileOpen)
   }
 
+  console.log(profileUser)
+
     return (
         <div  >
           <Card className={styles.profileCard}>
@@ -33,7 +35,7 @@ function ProfileCard({ profileIsUser, profileUser, updateProfileUser}): ReactNod
             <CardBody className={styles.cardBody}>
               <CardTitle tag="h5">
                 <div>
-                {`${profileUser.user!.first_name} ${profileUser.user!.last_name}`} <span className={styles.userName}><i>{`${profileUser.user!.username}`}</i></span> {profileIsUser ?
+                {`${profileUser.user!.first_name} ${profileUser.user!.last_name}`} <span className={styles.userName}><i>{`${profileUser.user!.username}`}</i></span><span className={styles.fishboardPoints}><i className='fas fa-fish'><i style={{marginLeft:'.5rem'}}>{profileUser.user.fishboard_points}</i></i></span> {profileIsUser ?
             <i onClick={toggleEditProfile} className={`${styles.editButton} bi bi-pen`}></i>
 :""}
                 </div>

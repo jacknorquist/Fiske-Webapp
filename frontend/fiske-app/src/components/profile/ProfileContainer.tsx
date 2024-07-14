@@ -21,7 +21,6 @@ function ProfileContainer(): ReactNode {
     const { id } = useParams();
     const {user} = useUser();
     const [userAdminGroups, setUserAdminGroups] = useState([])
-    console.log(profileUser)
     const currentUserId = user.id
 
 

@@ -41,3 +41,11 @@
   margin-left: 1rem;
   border: 1px black solid; /* Maintain aspect ratio */
 }
+
+.fishboardPoints{
+  border: .2px solid gray;
+  border-radius: .5rem;
+  padding-left: .2rem;
+  padding-right: .2rem;
+  margin: 1rem;
+}

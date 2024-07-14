@@ -18,6 +18,16 @@
   align-items: center;
 }
 
+.user{
+  display: flex;
+  align-items: center;
+}
+
+.userName{
+  margin-top: 1rem;
+}
+
+
 @media (max-width: 800px) {
   .form {
     width: 70vw;
@@ -70,8 +80,8 @@
 }
 
 .profileImage{
-  width: 2rem;
-  height: 2rem;
+  width: 3rem;
+  height: 3rem;
   border-radius: 50%;
   object-fit: cover;
   margin-top: .6rem;

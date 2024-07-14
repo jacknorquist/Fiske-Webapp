@@ -112,15 +112,15 @@ function GroupContainer(): ReactNode {
             <p style={{margin:'0'}}>{group.group!.description}</p>
             {(userMember  || group?.group?.admin_id === user.id)&& !isCreatePostOpen  ? <div className={styles.createPostButton}onClick={toggleCreatePost}>Make a Post</div>:""}
             </div>
-           </div>:""}
              {isCreatePostOpen && <CreatePostContainer group={id} toggleCreatePost={toggleCreatePost} updatePosts={updatePosts}/>}
+           </div>:""}
            <div className={styles.fishboardContainer}>
             {group ?
             <FishboardContainer fishboard={group.fishboard} fishBoardType={'GroupFishboard'} profileIsUser={false}/>
             :""}
            </div>
            <div className={styles.postContainer}>
-           {posts.length>0 ? posts.map(p=><PostListItem key={p!.id} post={p} updatePosts={updatePosts}/>): ""}
+           {posts.length>0 ? posts.map(p=><PostListItem key={p!.id} post={p} updatePosts={updatePosts}/>): <p>No Posts Yet..</p>}
            </div>
         </div>
       </div>

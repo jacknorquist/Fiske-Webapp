@@ -90,13 +90,23 @@
   grid-row:5/9;
 }
 
+.joinButton{
+  margin-left: .5rem;
+}
+
 .joinButton:hover{
+  margin-left: .5rem;
   background-color: blue;
 }
 
 
 .leaveButton{
+  margin-left: .5rem;
   background-color: blue;
+}
+
+.leaveButton:hover{
+  margin-left: .5rem;
 }
 
 .createPostButton{

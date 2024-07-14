@@ -57,7 +57,6 @@ function SearchGroupsContainer(): ReactNode {
 
         <div className={styles.container}>
           <div className={styles.sticky}>
-            <h6>Find Groups</h6>
             <SearchGroupsForm updateGroups={updateGroups}/>
           </div>
             {groups.length>0 ? groups.map(g=> <GroupListItem key={uuidv4()} group={g}/>):<p>No Groups Found</p>}

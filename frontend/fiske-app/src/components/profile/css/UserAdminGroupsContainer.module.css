@@ -1,6 +1,24 @@
 .container{
-  grid-column: 7/9;
-  grid-row: 1/2;
-  background-color: #466780;
-  border: 2px, rgb(255, 255, 255), solid;
+  padding-top: 1rem;
+}
+
+.header{
+  background-color: white;
+  box-shadow: .5px .5px .5px .5px black;
+  border-radius: .5rem;
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem;
+}
+
+.groups{
+  max-height: 50vh;
+  overflow-y: auto;
+}
+
+.addIcon:hover{
+  background-color: rgb(221, 218, 218);
+  cursor: pointer;
+  padding-left:.5rem;
+  padding-right:.5rem;
 }

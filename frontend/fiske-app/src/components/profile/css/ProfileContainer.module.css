@@ -109,13 +109,7 @@
   background-color: white;
 }
 .rightContainer{
-  height: 90vh;
-  background-color: white;
-  position: sticky;
-  top: 5em;
-  display: grid;
   grid-column: 7/9;
-  margin-left: 3rem;
 }
 
 

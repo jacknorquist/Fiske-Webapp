@@ -58,12 +58,15 @@ function CreatePostForm({createPost, toggleCreatePost}): ReactNode {
         <div>
         <Form onSubmit={handleSave} className={styles.form} >
           <div className={styles.topRow}>
+            <div className={styles.user}>
           <img className={styles.profileImage} src={user?.profile_image_url || `${process.env.PUBLIC_URL}/DefaultHeader.jpg`}/>
+          <p className={styles.userName}>{user?.first_name} {user?.last_name}</p>
+          </div>
           <CloseButton className={styles.closeButton} onClick={toggleCreatePost}/>
           </div>
         <FormGroup row className={styles.contentInput}>
             <Input
-            style={{width:'100%', height:'100%'}}
+            style={{width:'100%', height:'100%', border:'0px'}}
               id="content"
               name="content"
               placeholder="Craft your post..."

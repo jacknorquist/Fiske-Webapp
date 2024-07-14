@@ -10,6 +10,7 @@ function UserGroupsContainer({profileUser}): ReactNode {
 
     const {user} = useUser();
     const [userGroups,  setUserGroups] = useState([]);
+    const [isGroupsOpen, setIsGroupsOpen] = useState(false)
 
     useEffect(() => {
         async function getGroups() {
@@ -43,10 +44,20 @@ function UserGroupsContainer({profileUser}): ReactNode {
       getGroups();
     }
 
+    function toggleIsGroupsOpen(){
+      setIsGroupsOpen(!isGroupsOpen)
+    }
+
     return (
         <div className={styles.container}>
-          <h1 >User Groups</h1>
+          <div onClick={toggleIsGroupsOpen} className={styles.header}>
+          <h6 >User Groups</h6>
+          {isGroupsOpen? <i className="bi bi-arrow-up"></i> : <i className="bi bi-arrow-down"></i>}
+          </div>
+          {isGroupsOpen ?
+          <div className={styles.groups}>
             {userGroups.length>0? userGroups.map(g=> <GroupListItem group={g}/>): ""}
+          </div> :""}
         </div>
     );
 }

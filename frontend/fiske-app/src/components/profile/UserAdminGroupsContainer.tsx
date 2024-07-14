@@ -10,6 +10,8 @@ import { Link } from "react-router-dom";
 
 function UserAdminGroupsContainer({toggleCreateGroup, userAdminGroups, profileIsUser}): ReactNode {
 
+    const[isGroupsOpen ,setIsGroupsOpen] = useState(false)
+
     const {user} = useUser();
     // const [userAdminGroups,  setUserAdminGroups] = useState([])
     const currentUserId = user!.id
@@ -31,12 +33,20 @@ function UserAdminGroupsContainer({toggleCreateGroup, userAdminGroups, profileIs
     //  }, []);
 
 
+    function toggleGroupsOpen(){
+        setIsGroupsOpen(!isGroupsOpen)
+    }
+
+
     return (
 
-        <div className={styles.container}>
-            <h1>Admin Groups</h1>
-            {userAdminGroups.length > 0 ? userAdminGroups.map(g => <GroupListItem group={g} />): ""}
-            {profileIsUser ?  <Button onClick={toggleCreateGroup}>Create Group</Button>:""}
+        <div onClick={toggleGroupsOpen} className={styles.container}>
+            <div onClick={toggleGroupsOpen}  className={styles.header}>
+            <h6>Admin Groups</h6>
+            {profileIsUser ?  <p className={styles.addIcon} onClick={toggleCreateGroup}>+</p>:""}
+            {isGroupsOpen? <i className="bi bi-arrow-up"></i> : <i className="bi bi-arrow-down"></i>}
+            </div>
+            {isGroupsOpen ? <div className={styles.groups}> {userAdminGroups.length > 0 ? userAdminGroups.map(g => <GroupListItem group={g} />): ""}</div>:""}
         </div>
     );
 }

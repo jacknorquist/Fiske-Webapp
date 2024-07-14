@@ -4,7 +4,7 @@
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   position: sticky;
   top: 0;
-  z-index: 100; /* Optional: Add shadow for depth */
+  z-index: 1000; /* Optional: Add shadow for depth */
 }
 
 .navbar {

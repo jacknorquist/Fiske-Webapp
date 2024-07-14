@@ -13,10 +13,26 @@ class FishesController < ApplicationController
     def create
         @fish = Fish.new(fish_params)
 
-        if @fish.save
-          render json: fish_json_with_image_url(@fish), status: :created
+        existing_fish = Fish.where(
+          species: @fish.species,
+          fishboard_id: @fish.fishboard_id,
+          fishboard_type: @fish.fishboard_type
+        ).first
+
+        if existing_fish
+          if @fish.length > existing_fish.length
+            existing_fish.destroy
+            @fish.save
+            render json: fish_json_with_image_url(@fish), status: :created
+          else
+            render json: { error: 'Fish not created: another fish of the same species is longer or equal.' }, status: :unprocessable_entity
+          end
         else
-          render json: @fish.errors, status: :unprocessable_entity
+          if @fish.save
+            render json: fish_json_with_image_url(@fish), status: :created
+          else
+            render json: @fish.errors, status: :unprocessable_entity
+          end
         end
       end
 

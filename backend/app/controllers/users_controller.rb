@@ -173,7 +173,7 @@ class UsersController < ApplicationController
     end
 
     def user_json(user)
-      user_json = user.as_json(only: [:id, :username, :first_name, :last_name, :email, :bio, :user_fishboard])
+      user_json = user.as_json(only: [:id, :username, :first_name, :last_name, :email, :bio, :fishboard_points, :user_fishboard])
 
       if user.profile_image
         user_json[:profile_image_url] = user.profile_image_url

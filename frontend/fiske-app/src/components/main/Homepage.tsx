@@ -19,6 +19,8 @@ function Homepage(): ReactNode {
     const [posts, setPosts] = useState([])
     const {user} = useUser();
 
+    console.log('user at homepage', user)
+
 
 
 

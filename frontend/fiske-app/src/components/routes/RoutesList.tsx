@@ -20,14 +20,11 @@ function RoutesList(){
     return (
         <Routes>
             <Route path="/landing" element={<LoggedInProtection><LandingPage /></LoggedInProtection>} />
-            <Route path="/login" element={<LoggedInProtection><LoginContainer /></LoggedInProtection>} />
+            <Route path="/login" element={<LoggedInProtection><LoginContainer  /></LoggedInProtection>} />
             <Route path="/signup" element={<LoggedInProtection><SignupContainer /></LoggedInProtection>} />
             <Route path="/profile/:id" element={<LoggedOutProtection><ProfileContainer /></LoggedOutProtection>}/>
-            <Route path="/users" element={<LoggedOutProtection><Group /></LoggedOutProtection>} />
-            <Route path="/users/:username" element={<LoggedOutProtection><Group /></LoggedOutProtection>} />
             <Route path="/groups" element={<LoggedOutProtection><GroupsContainer /></LoggedOutProtection>} />
             <Route path="/groups/:id" element={<LoggedOutProtection><GroupContainer /></LoggedOutProtection>} />
-            <Route path="/groups/:id/:posts" element={<LoggedOutProtection><Group /></LoggedOutProtection>} />
             <Route path="/posts/:id" element={<LoggedOutProtection><PostContainer /></LoggedOutProtection>} />
             <Route path="/" element={<LoggedOutProtection><Homepage /></LoggedOutProtection>} />
             <Route path="*" element={<NotFound />} />

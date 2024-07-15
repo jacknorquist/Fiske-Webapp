@@ -12,31 +12,28 @@ import { useUser } from '../../context/UserContext.tsx';
 import { useError } from '../../context/ErrorContext.tsx';
 import { UserProvider } from '../../context/UserContext.tsx';
 import { ErrorProvider } from '../../context/ErrorContext.tsx';
-import CreatePostContainer from '../posts/CreatePostContainer.tsx';
 import styles from './css/App.module.css'
 
 
 function App(): ReactNode{
-  const {user, setUser} = useUser()
-  const {setError} = useError()
+  const {user} = useUser();
+  const {setError} = useError();
 
 
 
   return (
     <div >
-    <UserProvider>
       <ErrorProvider>
         <BrowserRouter>
       <div className={styles.app}>
+          <main>
           {user && <NavBar/>}
           <RoutesList />
-          <main>
-            <GlobalError />
+          <GlobalError />
           </main>
       </div>
         </BrowserRouter>
       </ErrorProvider>
-    </UserProvider>
     </div>
   );
 }

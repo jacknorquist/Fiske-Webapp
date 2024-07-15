@@ -148,6 +148,7 @@ GEM
     nio4r (2.7.3)
     nokogiri (1.16.5-x86_64-linux)
       racc (~> 1.4)
+    pg (1.5.6)
     psych (5.1.2)
       stringio
     public_suffix (5.0.5)
@@ -223,6 +224,7 @@ DEPENDENCIES
   debug
   fastimage
   jwt
+  pg
   puma (>= 5.0)
   rack-cors
   rails (~> 7.1.3, >= 7.1.3.3)

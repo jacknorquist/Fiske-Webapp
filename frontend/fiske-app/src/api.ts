@@ -1,13 +1,13 @@
 import { Form } from "reactstrap";
 
 class FiskeAPI {
-  static base_api_url = "http://localhost:3000";
+  static base_api_url = "https://fiske-backend.onrender.com";
 
 
   static async login(formData){
     const {username, password} = formData
 
-    const response = await fetch(`http://localhost:3000/login`, {
+    const response = await fetch(`https://fiske-backend.onrender.com/login`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -39,7 +39,7 @@ class FiskeAPI {
     if (header_image) {
         data.append('user[header_image]', header_image);
     }
-    const response = await fetch(`http://localhost:3000/users`, {
+    const response = await fetch(`https://fiske-backend.onrender.com/users`, {
         method: 'POST',
         body: data,
     });
@@ -66,7 +66,7 @@ static async editUser(formData, currentUsername, token) {
       data.append('user[header_image]', header_image);
   }
 
-  const response = await fetch(`http://localhost:3000/users/${currentUsername}`, {
+  const response = await fetch(`https://fiske-backend.onrender.com/users/${currentUsername}`, {
       method: 'PATCH',
       headers: {
         'Authorization': `Bearer ${token}`
@@ -82,7 +82,7 @@ static async editUser(formData, currentUsername, token) {
 }
 
   static async profile(token){
-    const response = await fetch(`http://localhost:3000/users/profile`, {
+    const response = await fetch(`https://fiske-backend.onrender.com/users/profile`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -98,7 +98,7 @@ static async editUser(formData, currentUsername, token) {
   }
 
   static async getUser(token, id){
-    const response = await fetch(`http://localhost:3000/users/${id}`, {
+    const response = await fetch(`https://fiske-backend.onrender.com/users/${id}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -114,7 +114,7 @@ static async editUser(formData, currentUsername, token) {
   }
 
   static async getUserPosts(currentUserId, token){
-    const response = await fetch(`http://localhost:3000/users/${currentUserId}/posts`, {
+    const response = await fetch(`https://fiske-backend.onrender.com/users/${currentUserId}/posts`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -130,7 +130,7 @@ static async editUser(formData, currentUsername, token) {
   }
 
   static async getFeed(currentUserId, token){
-    const response = await fetch(`http://localhost:3000/users/${currentUserId}/feed`, {
+    const response = await fetch(`https://fiske-backend.onrender.com/users/${currentUserId}/feed`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -146,7 +146,7 @@ static async editUser(formData, currentUsername, token) {
 
 
   static async getExplorePosts(userId,token){
-    const response = await fetch(`http://localhost:3000/posts`, {
+    const response = await fetch(`https://fiske-backend.onrender.com/posts`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -161,7 +161,7 @@ static async editUser(formData, currentUsername, token) {
   }
 
   static async getGroup(token, groupId){
-    const response = await fetch(`http://localhost:3000/groups/${groupId}`, {
+    const response = await fetch(`https://fiske-backend.onrender.com/groups/${groupId}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -176,7 +176,7 @@ static async editUser(formData, currentUsername, token) {
   }
 
   static async getGroupPosts(token, groupId){
-    const response = await fetch(`http://localhost:3000/groups/${groupId}/posts`, {
+    const response = await fetch(`https://fiske-backend.onrender.com/groups/${groupId}/posts`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -190,7 +190,7 @@ static async editUser(formData, currentUsername, token) {
     return await response.json()
   }
   static async leaveGroup(token, groupId){
-    const response = await fetch(`http://localhost:3000/groups/${groupId}/leave`, {
+    const response = await fetch(`https://fiske-backend.onrender.com/groups/${groupId}/leave`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
@@ -205,7 +205,7 @@ static async editUser(formData, currentUsername, token) {
   }
 
   static async joinGroup(token, groupId){
-    const response = await fetch(`http://localhost:3000/groups/${groupId}/join`, {
+    const response = await fetch(`https://fiske-backend.onrender.com/groups/${groupId}/join`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -220,7 +220,7 @@ static async editUser(formData, currentUsername, token) {
   }
 
   static async getUserGroups(token, userId){
-    const response = await fetch(`http://localhost:3000/users/${userId}/groups`, {
+    const response = await fetch(`https://fiske-backend.onrender.com/users/${userId}/groups`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -235,7 +235,7 @@ static async editUser(formData, currentUsername, token) {
   }
 
   static async getExploreGroups(token){
-    const response = await fetch(`http://localhost:3000/groups`, {
+    const response = await fetch(`https://fiske-backend.onrender.com/groups`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -251,7 +251,7 @@ static async editUser(formData, currentUsername, token) {
 
   static async searchGroups(token, formData){
     const {search} = formData
-    const response = await fetch(`http://localhost:3000/groups/search?query=${encodeURIComponent(search)}`, {
+    const response = await fetch(`https://fiske-backend.onrender.com/groups/search?query=${encodeURIComponent(search)}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -266,7 +266,7 @@ static async editUser(formData, currentUsername, token) {
   }
 
   static async getPost(token, postId){
-    const response = await fetch(`http://localhost:3000/posts/${postId}`, {
+    const response = await fetch(`https://fiske-backend.onrender.com/posts/${postId}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -291,7 +291,7 @@ static async editUser(formData, currentUsername, token) {
         data.append(`post_image_${i}`, postImage)
       }
     }
-    const response = await fetch(`http://localhost:3000/groups/${groupId}/posts`, {
+    const response = await fetch(`https://fiske-backend.onrender.com/groups/${groupId}/posts`, {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${token}`
@@ -307,7 +307,7 @@ static async editUser(formData, currentUsername, token) {
   }
 
   static async getUserAdminGroups(token, currentUserId){
-    const response = await fetch(`http://localhost:3000/users/${currentUserId}/admin`, {
+    const response = await fetch(`https://fiske-backend.onrender.com/users/${currentUserId}/admin`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -341,7 +341,7 @@ static async editUser(formData, currentUsername, token) {
       }
     }
 
-    const response = await fetch(`http://localhost:3000/groups`, {
+    const response = await fetch(`https://fiske-backend.onrender.com/groups`, {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${token}`
@@ -375,7 +375,7 @@ static async editUser(formData, currentUsername, token) {
       }
     }
 
-    const response = await fetch(`http://localhost:3000/groups/${groupId}`, {
+    const response = await fetch(`https://fiske-backend.onrender.com/groups/${groupId}`, {
         method: 'PATCH',
         headers: {
           'Authorization': `Bearer ${token}`
@@ -390,7 +390,7 @@ static async editUser(formData, currentUsername, token) {
   }
 
   static async deletePost(token, groupId, postId){
-    const response = await fetch(`http://localhost:3000/groups/${groupId}/posts/${postId}`, {
+    const response = await fetch(`https://fiske-backend.onrender.com/groups/${groupId}/posts/${postId}`, {
       method: 'DELETE',
       headers: {
         'Authorization': `Bearer ${token}`
@@ -407,7 +407,7 @@ static async editUser(formData, currentUsername, token) {
     const {content} = formData
     const data = new FormData()
     data.append('comment[content]', content)
-    const response = await fetch(`http://localhost:3000/groups/${groupId}/posts/${postId}/comments`, {
+    const response = await fetch(`https://fiske-backend.onrender.com/groups/${groupId}/posts/${postId}/comments`, {
       method: 'POST',
       headers: {
         'Authorization': `Bearer ${token}`
@@ -423,7 +423,7 @@ static async editUser(formData, currentUsername, token) {
 
 
   static async deleteComment(token, groupId, postId, commentId){
-    const response = await fetch(`http://localhost:3000/groups/${groupId}/posts/${postId}/comments/${commentId}`, {
+    const response = await fetch(`https://fiske-backend.onrender.com/groups/${groupId}/posts/${postId}/comments/${commentId}`, {
       method: 'DELETE',
       headers: {
         'Authorization': `Bearer ${token}`
@@ -439,7 +439,7 @@ static async editUser(formData, currentUsername, token) {
 
 
   static async deleteGroup(token, groupId){
-    const response = await fetch(`http://localhost:3000/groups/${groupId}`, {
+    const response = await fetch(`https://fiske-backend.onrender.com/groups/${groupId}`, {
       method: 'DELETE',
       headers: {
         'Authorization': `Bearer ${token}`
@@ -462,7 +462,7 @@ static async editUser(formData, currentUsername, token) {
     data.append('user_id', userId)
     data.append('fishboard_id', fishBoardId)
     data.append('fishboard_type', fishBoardType)
-    const response = await fetch(`http://localhost:3000/fishes/`, {
+    const response = await fetch(`https://fiske-backend.onrender.com/fishes/`, {
       method: 'POST',
       headers: {
         'Authorization': `Bearer ${token}`
@@ -478,7 +478,7 @@ static async editUser(formData, currentUsername, token) {
 
 
   static async getUserFishboard(token, fishboardId){
-    const response = await fetch(`http://localhost:3000/user_fishboards/${fishboardId}`, {
+    const response = await fetch(`https://fiske-backend.onrender.com/user_fishboards/${fishboardId}`, {
       method: 'GET',
       headers: {
         'Authorization': `Bearer ${token}`
@@ -492,7 +492,7 @@ static async editUser(formData, currentUsername, token) {
   }
 
   static async getGroupFishboard(token, fishboardId){
-    const response = await fetch(`http://localhost:3000/group_fishboards/${fishboardId}`, {
+    const response = await fetch(`https://fiske-backend.onrender.com/group_fishboards/${fishboardId}`, {
       method: 'GET',
       headers: {
         'Authorization': `Bearer ${token}`

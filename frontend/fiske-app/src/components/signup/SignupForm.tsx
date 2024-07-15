@@ -182,7 +182,7 @@ function SignupForm({handleSignup}): ReactNode {
             for="header_image"
             sm={2}
           >
-            Profile Image
+            Header Image
           </Label>
           <Col sm={10}>
             <Input

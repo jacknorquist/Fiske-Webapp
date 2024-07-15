@@ -22,4 +22,5 @@ test:
 
 production:
   <<: *default
-  database: db/proj_production.sqlite3
+  adapter: sqlite3
+  database: sqlitecloud://cap4e13lsz.sqlite.cloud:8860?apikey=th1V1SUaDFpf91kN1vg2GyZEJ7EQijFoaeUZNeMBAsw

@@ -19,6 +19,7 @@ function Fish({fish, fishBoardType}): ReactNode {
     }
 
 
+
     return (
         <div className={styles.container}>
             <img className={styles.img} src={fish.image_url} />

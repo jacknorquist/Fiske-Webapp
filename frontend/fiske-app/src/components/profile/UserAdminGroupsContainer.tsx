@@ -47,7 +47,9 @@ function UserAdminGroupsContainer({toggleCreateGroup, userAdminGroups, profileIs
             {profileIsUser ?  <p className={styles.addIcon} onClick={toggleCreateGroup}>+</p>:""}
             {isGroupsOpen? <i className="bi bi-arrow-up"></i> : <i className="bi bi-arrow-down"></i>}
             </div>
-            {isGroupsOpen ? <div className={styles.groups}> {userAdminGroups.length > 0 ? userAdminGroups.map(g => <GroupListItem key={uuidv4()} group={g} />): ""}</div>: <p>You haven't created any groups yet.</p>}
+            {isGroupsOpen ?
+            <div className={styles.groups}> {userAdminGroups.length > 0 ? userAdminGroups.map(g => <GroupListItem key={uuidv4()} group={g} />):<p>You haven't created any groups yet.</p>}
+            </div>:""}
         </div>
     );
 }

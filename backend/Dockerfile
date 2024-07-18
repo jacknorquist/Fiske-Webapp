@@ -42,6 +42,10 @@ RUN apt-get update -qq && \
     apt-get install --no-install-recommends -y curl libsqlite3-0 libvips && \
     rm -rf /var/lib/apt/lists /var/cache/apt/archives
 
+RUN apt-get update \
+    && apt-get install -y postgresql-client libpq-dev \
+    && rm -rf /var/lib/apt/lists/*
+
 # Copy built artifacts: gems, application
 COPY --from=build /usr/local/bundle /usr/local/bundle
 COPY --from=build /rails /rails

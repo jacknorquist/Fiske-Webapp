@@ -2,6 +2,7 @@ require_relative '../helpers/token_helper'
 
 class UsersController < ApplicationController
     include TokenHelper
+    include ApplicationHelper
 
     skip_before_action :authenticate_request, only: [:create]
     before_action :set_user, only: [:show, :update, :destroy, :groups, :posts, :feed, :admin_groups]

@@ -1,13 +1,16 @@
 require 'shrine'
 require 'shrine/storage/s3'
 require "shrine/plugins/activerecord"
+require 'fastimage'
+
+Shrine.plugin :determine_mime_type, analyzer: :fastimage
 
 
 s3_options = {
   bucket: 'fiskebucket',
   region: 'us-east-2',             # e.g. "us-east-1"
-  access_key_id: Rails.application.credentials.dig(:aws, :access_key_id),
-  secret_access_key: Rails.application.credentials.dig(:aws, :secret_access_key),
+  access_key_id: ENV['access_key_id'],
+  secret_access_key: ENV['secret_access_key'],
 }
 
 Shrine.storages = {

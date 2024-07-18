@@ -19,8 +19,8 @@ class ImageUploader < Shrine
 
 
   storages[:store] = Shrine::Storage::S3.new(
-    access_key_id:     Rails.application.credentials.dig(:aws, :access_key_id),
-    secret_access_key: Rails.application.credentials.dig(:aws, :secret_access_key),
+    access_key_id: ENV['access_key_id'],
+    secret_access_key: ENV['secret_access_key'],
     region:            "us-east-2",
     bucket:            "fiskebucket"
     )

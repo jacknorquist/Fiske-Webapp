@@ -1,4 +1,6 @@
 class UserFishboardsController < ApplicationController
+   include ApplicationHelper
+
     before_action :set_user_fishboard, only: [:show, :update, :destroy]
 
     # GET /user_fishboards/:id

@@ -64,8 +64,10 @@ class UsersController < ApplicationController
     end
 
     def groups
-      render json: @user.groups, status: :ok
+      @groups = @user.groups
+      render json: @groups.map { |group| group_json(group) }, status: :ok
     end
+
     def posts
 
       posts = @user.posts
@@ -151,7 +153,7 @@ class UsersController < ApplicationController
 
     def admin_groups
       @groups = Group.where(admin_id: @user.id)
-      render json: @groups, status: :ok
+      render json: @groups.map { |group| group_json(group) }, status: :ok
     end
 
 

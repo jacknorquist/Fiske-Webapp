@@ -145,7 +145,6 @@ function CreateGroupForm({createGroup, toggleCreateGroup}): ReactNode {
       </Button>
 
       </Form>
-      <Button onClick={handleAddImage}>+</Button>
       </div>
 
     );

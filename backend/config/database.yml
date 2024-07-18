@@ -16,7 +16,7 @@ development:
   database: fiske
   # pool: 5
   # username: jacknorquist
-  password: <%= ENV[local_key] %>
+  password: <%= ENV['local_key'] %>
   host: localhost
 
 # Warning: The database defined as "test" will be erased and
@@ -29,5 +29,5 @@ development:
 production:
   <<: *default
   adapter: postgresql
-  password: <%= ENV[prod_key] %>
+  password: <%= ENV['prod_key'] %>
   database: postgres://ztxaldlq:M42-RaZNPPtrrodVz21ZQPPN1FVmdXZR@bubble.db.elephantsql.com/ztxaldlq

@@ -2,7 +2,7 @@
 
 
 module AuthenticationConcern
-    include TokenService
+    include TokenHelper
 
     def current_user
       return unless token = request.headers['Authorization']&.split(' ')&.last

@@ -21,8 +21,8 @@ class ImageUploader < Shrine
   storages[:store] = Shrine::Storage::S3.new(
     access_key_id: ENV['access_key_id'],
     secret_access_key: ENV['secret_access_key'],
-    region:            "us-east-2",
-    bucket:            "fiskebucket"
+    region:"us-east-2",
+    bucket:"fiskebucket"
     )
 
     plugin :pretty_location

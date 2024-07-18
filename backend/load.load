@@ -1,4 +1,0 @@
-LOAD DATABASE
-     FROM sqlite:///db/development.sqlite3
-     INTO postgresql://jacknorquist:RoundLake34round@localhost/fiske
- WITH data only, create tables;

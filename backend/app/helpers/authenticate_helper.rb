@@ -1,7 +1,7 @@
 require_relative '../helpers/token_helper'
 
-module AuthenticationHelper
-    include TokenService
+module AuthenticateHelper
+    include TokenHelper
 
     def authenticate(email, password)
       user = User.find_by(email: email)

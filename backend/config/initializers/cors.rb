@@ -7,7 +7,7 @@
 
 Rails.application.config.middleware.insert_before 0, Rack::Cors do
   allow do
-    origins "localhost:3001", "http://localhost:3002"
+    origins "localhost:3001", "http://localhost:3002", "https://rails-react-fwtd.onrender.com"
 
     resource "*",
       headers: :any,

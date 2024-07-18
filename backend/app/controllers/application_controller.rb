@@ -2,7 +2,7 @@ require_relative '../helpers/token_helper'
 
 class ApplicationController < ActionController::API
 
-    include TokenService
+    include TokenHelper
 
     before_action :authenticate_request
 

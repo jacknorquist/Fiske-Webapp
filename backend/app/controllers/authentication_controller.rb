@@ -1,7 +1,7 @@
 require_relative '../helpers/token_helper'
 
 class AuthenticationController < ApplicationController
-    include TokenService
+    include TokenHelper
     skip_before_action :authenticate_request, only: [:login]
 
     def login

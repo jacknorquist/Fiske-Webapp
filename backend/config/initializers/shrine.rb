@@ -18,5 +18,6 @@ Shrine.storages = {
   store: Shrine::Storage::S3.new(prefix: 'store', **s3_options),
 }
 
+puts "Access Key ID from ENV: #{ENV['access_key_id']}"
 Shrine.plugin :activerecord           # If using ActiveRecord
 Shrine.plugin :cached_attachment_data # For retaining cached file across form redisplays/

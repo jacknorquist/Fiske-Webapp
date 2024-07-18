@@ -27,6 +27,7 @@
 .editButton{
 
   cursor: pointer;
+  margin: 1rem;
 
 }
 
@@ -48,4 +49,59 @@
   padding-left: .2rem;
   padding-right: .2rem;
   margin: 1rem;
+}
+
+.createGroupButton{
+  border: .2px solid gray;
+  border-radius: .5rem;
+  padding-left: .2rem;
+  padding-right: .2rem;
+
+}
+
+
+.createGroupButton:hover{
+  border: .2px solid gray;
+  border-radius: .5rem;
+  cursor: pointer;
+}
+
+
+@media (max-width:480px){
+  .userName{
+    color: rgb(33, 79, 49);
+    padding-left: .2rem;
+  }
+  .createGroupButton{
+    font-size: .9rem;
+    padding-left: .2rem;
+    padding-right: .2rem;
+    border: .2px solid gray;
+    border-radius: .5rem;
+    margin: 0rem;
+  }
+  .createGroupButton:hover{
+    font-size: .9rem;
+    border: .2px solid gray;
+    border-radius: .5rem;
+    color: blue;
+    padding-left: .2rem;
+    padding-right: .2rem;
+  }
+  .fishboardPoints{
+    border: .2px solid gray;
+    border-radius: .5rem;
+    padding-left: .2rem;
+    padding-right: .2rem;
+    font-size: .9rem;
+    margin: .1rem;
+    margin-left: .3rem;
+  }
+  .editButton{
+    cursor: pointer;
+    font-size: .9rem;
+    margin: .1rem;
+    margin-left: .5rem;
+  }
+
 }

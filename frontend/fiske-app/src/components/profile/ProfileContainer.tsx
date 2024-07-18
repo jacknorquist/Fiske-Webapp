@@ -87,7 +87,7 @@ function ProfileContainer(): ReactNode {
           <div className={`${styles.gridcontainer} ${ isCreateGroupOpen ? styles.overlay : ''}`}>
             {profileUser ?
             <div className={styles.leftContainer}>
-              <ProfileCard  updateProfileUser= {updateProfileUser} profileIsUser={profileIsUser} profileUser={profileUser}/>
+              <ProfileCard  updateProfileUser= {updateProfileUser} profileIsUser={profileIsUser} profileUser={profileUser} toggleCreateGroup={toggleCreateGroup}/>
               <div className={styles.fishboardContainer}>
               <FishboardContainer fishboard={profileUser.fishboard}  fishBoardType={'UserFishboard'} profileIsUser={profileIsUser}/>
               </div>

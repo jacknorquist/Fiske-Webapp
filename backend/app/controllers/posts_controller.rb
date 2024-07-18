@@ -90,7 +90,6 @@ class PostsController < ApplicationController
         id: @post.id,
         user_id: @post.user.id,
         user_profile_image: @post.user&.profile_image_url,
-        title: @post.title,
         content: @post.content,
         created_at: @post.created_at,
         group_id: @post.group.id,

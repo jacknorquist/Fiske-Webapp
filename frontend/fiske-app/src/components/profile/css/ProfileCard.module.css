@@ -104,4 +104,8 @@
     margin-left: .5rem;
   }
 
+  .userProfileButtons{
+    display: block;
+  }
+
 }

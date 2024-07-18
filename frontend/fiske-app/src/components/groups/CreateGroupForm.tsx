@@ -14,7 +14,6 @@ import {
   } from 'reactstrap';
 
 function CreateGroupForm({createGroup, toggleCreateGroup}): ReactNode {
-    const [images, setImages] = useState([])
 
 
     const initialState = {
@@ -22,6 +21,7 @@ function CreateGroupForm({createGroup, toggleCreateGroup}): ReactNode {
         fish_species: "",
         area:"",
         description:"",
+        header_image:null
     };
     const [formData, setFormData] = useState(initialState);
 
@@ -49,12 +49,6 @@ function CreateGroupForm({createGroup, toggleCreateGroup}): ReactNode {
         setFormData(initialState);
 
     }
-
-    const handleAddImage = () => {
-        if (images.length < 5) {
-          setImages([...images, null]);
-        }
-      };
 
     return (
         <div>
@@ -129,26 +123,22 @@ function CreateGroupForm({createGroup, toggleCreateGroup}): ReactNode {
             />
           </Col>
         </FormGroup>
-        {images.map((image, index) => (
-        <div key={index}>
-          <FormGroup row>
+        <FormGroup row>
           <Label
-            for={`image_${index+1}`}
+            for="header_image"
             sm={2}
           >
-            Image
+            Header Image
           </Label>
           <Col sm={10}>
             <Input
-              id={`image_${index+1}`}
-              name={`image_${index+1}`}
+              id="header_image"
+              name="header_image"
               type="file"
               onChange={handleChange}
             />
           </Col>
         </FormGroup>
-        </div>
-      ))}
 
         <Button>
         Submit

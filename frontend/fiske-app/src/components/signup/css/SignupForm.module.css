@@ -11,13 +11,10 @@
 }
 
 @media (max-width:480px){
-  .form{
+  .form {
+    width: 98vw;
     background-color: white;
-    margin: auto;
-    width: 100vw;
-    padding: .5rem;
-    margin-top: 5rem ;
-    text-align: left;
+    margin-top: 10rem;
   }
 }
 

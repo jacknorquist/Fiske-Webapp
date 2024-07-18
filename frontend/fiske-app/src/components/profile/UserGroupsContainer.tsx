@@ -5,6 +5,7 @@ import Post from "../posts/PostContainer.tsx";
 import FiskeAPI from "../../api.ts";
 import GroupListItem from "../groups/GroupListItem.tsx";
 import styles from './css/UserGroupsContainer.module.css';
+import { v4 as uuidv4 } from 'uuid';
 
 function UserGroupsContainer({profileUser}): ReactNode {
 
@@ -56,7 +57,7 @@ function UserGroupsContainer({profileUser}): ReactNode {
           </div>
           {isGroupsOpen ?
           <div className={styles.groups}>
-            {userGroups.length>0? userGroups.map(g=> <GroupListItem group={g}/>): ""}
+            {userGroups.length>0? userGroups.map(g=> <GroupListItem key={uuidv4()} group={g}/>): <p>You haven't joined any groups yet.</p>}
           </div> :""}
         </div>
     );

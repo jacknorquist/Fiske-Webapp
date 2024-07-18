@@ -10,6 +10,7 @@ import Group from "./Group.tsx";
 import GroupListItem from "./GroupListItem.tsx";
 import styles from './css/GroupsContainer.module.css'
 import SearchGroupsContainer from "./SearchGroupsContainer.tsx";
+import { v4 as uuidv4 } from 'uuid';
 
 function GroupsContainer(): ReactNode {
     const {user} = useUser()
@@ -66,7 +67,9 @@ function GroupsContainer(): ReactNode {
               <SearchGroupsContainer />
             </div >
             <div className={styles.groupsContainer}>
-            {exploreGroupsContainerOpen? exploreGroups!.map(g=><GroupListItem group={g}/>):userGroups!.map(g=><GroupListItem group={g}/>)}
+            {exploreGroupsContainerOpen? exploreGroups!.map(g=><GroupListItem key={uuidv4()} group={g}/>):""}
+            {!exploreGroupsContainerOpen && userGroups.length <=0 ? <p>You haven't joined any groups yet.</p>:"" }
+            {!exploreGroupsContainerOpen && userGroups.length > 0 ? userGroups!.map(g=><GroupListItem key={uuidv4()} group={g}/>):"" }
             </div>
         </div>
       </div>

@@ -329,7 +329,8 @@ static async editUser(formData, currentUsername, token) {
     data.append('name', name);
     data.append('fish_species', fish_species);
     data.append('area', area);
-    data.append('description', description)
+    data.append('description', description);
+    console.log(header_image, 'header image at create')
 
     if(header_image){
       data.append('header_image', header_image)

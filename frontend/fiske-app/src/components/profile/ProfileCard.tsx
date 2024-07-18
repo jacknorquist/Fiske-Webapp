@@ -15,7 +15,7 @@ function ProfileCard({ profileIsUser, profileUser, updateProfileUser, toggleCrea
   function toggleEditProfile(){
     setIsEditProfileOpen(!isEditProfileOpen)
   }
-
+  console.log(profileUser)
 
     return (
         <div  >

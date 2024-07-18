@@ -7,6 +7,7 @@ import GroupListItem from "../groups/GroupListItem.tsx";
 import Group from "../groups/Group.tsx";
 import { Button } from "reactstrap";
 import { Link } from "react-router-dom";
+import { v4 as uuidv4 } from 'uuid';
 
 function UserAdminGroupsContainer({toggleCreateGroup, userAdminGroups, profileIsUser}): ReactNode {
 
@@ -46,7 +47,7 @@ function UserAdminGroupsContainer({toggleCreateGroup, userAdminGroups, profileIs
             {profileIsUser ?  <p className={styles.addIcon} onClick={toggleCreateGroup}>+</p>:""}
             {isGroupsOpen? <i className="bi bi-arrow-up"></i> : <i className="bi bi-arrow-down"></i>}
             </div>
-            {isGroupsOpen ? <div className={styles.groups}> {userAdminGroups.length > 0 ? userAdminGroups.map(g => <GroupListItem group={g} />): ""}</div>:""}
+            {isGroupsOpen ? <div className={styles.groups}> {userAdminGroups.length > 0 ? userAdminGroups.map(g => <GroupListItem key={uuidv4()} group={g} />): ""}</div>: <p>You haven't created any groups yet.</p>}
         </div>
     );
 }

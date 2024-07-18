@@ -5,7 +5,7 @@ class GroupsController < ApplicationController
       groups = Group.all.map do |group|
         group_json(group)
       end
-      render json: {groups}, status: :ok
+      render json:groups, status: :ok
     end
 
     def show

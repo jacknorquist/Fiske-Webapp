@@ -7,10 +7,12 @@ import { Button } from "reactstrap";
 import styles from './css/GroupListItem.module.css'
 import { useEffect } from "react";
 import FiskeAPI from "../../api.ts";
+import { useMessage } from "../../context/MessageContext.tsx";
 
 function GroupListItem({group}): ReactNode {
 
     const {user} = useUser();
+    const {setMessage} = useMessage()
     const [isUserMember, setIsUserMemeber] = useState(false)
 
 
@@ -39,14 +41,23 @@ function GroupListItem({group}): ReactNode {
 
    async function leaveGroup(e){
     e.preventDefault();
+    try{
     await FiskeAPI.leaveGroup(localStorage.getItem('fiske-token'), group.id);
-    setIsUserMemeber(false)
+    setIsUserMemeber(false);
+    }catch(err){
+      setMessage('Failed to Leave Group', 'error')
+    }
+
  }
  async function joinGroup(e){
 
   e.preventDefault();
+  try{
   await FiskeAPI.joinGroup(localStorage.getItem('fiske-token'), group.id);
   setIsUserMemeber(true)
+  }catch(err){
+    setMessage('Failed to Join Group', 'error')
+  }
 }
 
 

@@ -2,6 +2,7 @@
 import React, { createContext, useContext, useState, ReactNode, Dispatch, SetStateAction, useEffect } from 'react';
 import { User } from '../types';
 import FiskeAPI from '../api.ts';
+import { useMessage } from './MessageContext.tsx';
 
 interface UserContextType {
   user: User | null;
@@ -15,6 +16,7 @@ interface UserProviderProps {
 }
 
 export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
+  const{setMessage} = useMessage()
   const [user, setUser] = useState<User | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
@@ -27,6 +29,7 @@ export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
           const user = await FiskeAPI.profile(token);
           setUser(user);
         } catch (err) {
+          setMessage('An error occurred', 'error')
         } finally {
           setIsLoading(false); // Set loading state back to false after fetching user data
         }

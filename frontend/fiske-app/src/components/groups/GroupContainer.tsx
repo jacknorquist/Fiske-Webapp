@@ -9,7 +9,7 @@ import { Button } from "reactstrap";
 import PostListItem from "../posts/PostListItem.tsx";
 import CreatePostContainer from "../posts/CreatePostContainer.tsx";
 import styles from './css/GroupContainer.module.css';
-import { useError } from "../../context/ErrorContext.tsx";
+import { useMessage } from "../../context/MessageContext.tsx";
 import { useNavigate } from "react-router-dom";
 import PostsContainer from "../posts/PostsContainer.tsx";
 import EditGroupContainer from "./EditGroupContainer.tsx";
@@ -18,7 +18,7 @@ import FishboardContainer from "../Fishboard/FishboardContainer.tsx";
 //consider making forms that are open a state at the app level?
 function GroupContainer(): ReactNode {
     const {user} = useUser();
-    const {setError} = useError();
+    const {setMessage} = useMessage();
     const navigate = useNavigate()
     const [group, setGroup] = useState(null)
     const [posts, setPosts] = useState([])
@@ -52,13 +52,21 @@ function GroupContainer(): ReactNode {
      }, [userMember]);
 
 
-     async function leaveGroup(){
+    async function leaveGroup(){
+      try{
         await FiskeAPI.leaveGroup(localStorage.getItem('fiske-token'), id);
-        setUserMember(false)
+        setUserMember(false);
+      }catch(err){
+        setMessage('Failed to Leave Group', 'error')
+      }
      }
      async function joinGroup(){
+      try{
       await FiskeAPI.joinGroup(localStorage.getItem('fiske-token'), id);
       setUserMember(true)
+      }catch(err){
+        setMessage('Failed to Join Group', 'error')
+      }
    }
 
    function toggleCreatePost (){
@@ -84,10 +92,9 @@ function GroupContainer(): ReactNode {
         await FiskeAPI.deleteGroup( localStorage['fiske-token'], group.group.id);
         navigate('/')
        }catch (err){
-         setError(err.message)
+         setMessage(err.message, 'error')
        }
 }
-  console.log(group)
 
     return (
       <div className={styles.container}>

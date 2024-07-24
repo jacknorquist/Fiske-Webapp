@@ -6,10 +6,12 @@ import FiskeAPI from "../../api.ts";
 import GroupListItem from "../groups/GroupListItem.tsx";
 import styles from './css/UserGroupsContainer.module.css';
 import { v4 as uuidv4 } from 'uuid';
+import { useMessage } from "../../context/MessageContext.tsx";
 
 function UserGroupsContainer({profileUser}): ReactNode {
 
     const {user} = useUser();
+    const {setMessage} = useMessage();
     const [userGroups,  setUserGroups] = useState([]);
     const [isGroupsOpen, setIsGroupsOpen] = useState(false)
 
@@ -21,6 +23,7 @@ function UserGroupsContainer({profileUser}): ReactNode {
              const groups = await FiskeAPI.getUserGroups( token, profileUser.user.id);
              setUserGroups(groups)
            } catch (err) {
+            setMessage('An error occurred', 'error')
            } finally {
            }
          }

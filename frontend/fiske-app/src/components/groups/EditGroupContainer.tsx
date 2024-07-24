@@ -1,6 +1,6 @@
 import React from "react";
 import { ReactNode, useState } from "react";
-import { useError } from "../../context/ErrorContext.tsx";
+import { useMessage } from "../../context/MessageContext.tsx";
 import FiskeAPI from "../../api.ts";
 import { useLoggedIn } from "../../context/LoggedInContext.tsx";
 import { useUser } from "../../context/UserContext.tsx";
@@ -14,7 +14,7 @@ import { useParams } from "react-router-dom";
 function EditGroupContainer({toggleEditGroup,updateGroup, group}): ReactNode {
 
 
-    const { setError } = useError();
+    const { setMessage } = useMessage();
     const groupId = useParams().id
 
   async function editGroup(formData){
@@ -22,8 +22,9 @@ function EditGroupContainer({toggleEditGroup,updateGroup, group}): ReactNode {
        await FiskeAPI.editGroup( localStorage['fiske-token'], formData, groupId);
        updateGroup();
         toggleEditGroup();
+        setMessage('Group Updated', 'success')
       }catch (err){
-        setError(err.message)
+        setMessage(err.message, 'error')
       }
 
   }

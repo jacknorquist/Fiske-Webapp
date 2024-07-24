@@ -11,6 +11,7 @@ import GroupListItem from "./GroupListItem.tsx";
 import styles from './css/GroupsContainer.module.css'
 import SearchGroupsContainer from "./SearchGroupsContainer.tsx";
 import { v4 as uuidv4 } from 'uuid';
+import { useMessage } from "../../context/MessageContext.tsx";
 
 function GroupsContainer(): ReactNode {
     const {user} = useUser()
@@ -18,6 +19,7 @@ function GroupsContainer(): ReactNode {
     const [exploreGroups, setExploreGroups] = useState([])
     const [exploreGroupsContainerOpen, setExploreGroupsContainer] = useState(false)
     const currentUserId = user.id;
+    const {setMessage} = useMessage()
 
     function openExploreGroups(){
         if (exploreGroupsContainerOpen) return
@@ -39,6 +41,8 @@ function GroupsContainer(): ReactNode {
              setUserGroups(userGroups)
              setExploreGroups(exploreGroups)
            } catch (err) {
+            setMessage('An Error Occurred', 'error')
+
            } finally {
            }
          }

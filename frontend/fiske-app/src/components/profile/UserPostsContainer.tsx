@@ -6,11 +6,13 @@ import FiskeAPI from "../../api.ts";
 import PostListItem from "../posts/PostListItem.tsx";
 import styles from './css/UserPostsContainer.module.css';
 import { v4 as uuidv4 } from 'uuid';
+import { useMessage } from "../../context/MessageContext.tsx";
 
 
 function UserPostsContainer({profileUser}): ReactNode {
 
     const {user} = useUser();
+    const {setMessage}= useMessage()
     const [userPosts,  setUserPosts] = useState([])
     const currentUserId = user.id
 
@@ -22,6 +24,7 @@ function UserPostsContainer({profileUser}): ReactNode {
              const posts = await FiskeAPI.getUserPosts(profileUser.user.id, token );
              setUserPosts(posts)
            } catch (err) {
+            setMessage('An error occured', 'error')
            } finally {
            }
          }
@@ -38,6 +41,7 @@ function UserPostsContainer({profileUser}): ReactNode {
             const posts = await FiskeAPI.getUserPosts(profileUser.user.id, token );
             setUserPosts(posts)
           } catch (err) {
+            setMessage('An error occured', 'error')
           } finally {
           }
         }

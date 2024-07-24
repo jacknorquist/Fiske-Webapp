@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { useUser } from './UserContext.tsx';
-import { useError } from './ErrorContext.tsx';
+import { useMessage } from './MessageContext.tsx';
 import FiskeAPI from '../api.ts';
 
 
@@ -22,7 +22,7 @@ interface LoggedInProviderProps {
 export const LoggedInProvider: React.FC<LoggedInProviderProps> = ({ children }) => {
     const [loggedIn, setLoggedIn] = useState<boolean>(localStorage['fiske-token']?true:false);
     const {setUser} = useUser()
-    const {setError} = useError()
+    const {setError} = useMessage()
     // Check login status on component mount
     // useEffect(() => {
     //     const checkLoginStatus = async () => {

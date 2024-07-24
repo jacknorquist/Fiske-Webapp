@@ -6,17 +6,17 @@ import { LoggedInProvider } from './context/LoggedInContext.tsx';
 import './index.css';
 import App from './components/main/App.tsx';
 import reportWebVitals from './reportWebVitals.js';
-import { ErrorProvider } from './context/ErrorContext.tsx';
+import { MessageProvider } from './context/MessageContext.tsx';
 import { UserProvider } from './context/UserContext.tsx';
 
 
 const rootElement = document.getElementById('root');
 createRoot(rootElement).render(
-  <UserProvider>
-    <ErrorProvider>
+    <MessageProvider>
+      <UserProvider>
             <App />
-    </ErrorProvider>
-  </UserProvider>
+      </UserProvider>
+    </MessageProvider>
 );
 
 // If you want to start measuring performance in your app, pass a function

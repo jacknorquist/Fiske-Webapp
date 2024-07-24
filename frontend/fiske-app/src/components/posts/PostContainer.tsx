@@ -7,9 +7,11 @@ import Post from "../posts/PostContainer.tsx";
 import FiskeAPI from "../../api.ts";
 import CommentsContainer from "../comments/CommentsContainer.tsx";
 import { Button } from "reactstrap";
+import { useMessage } from "../../context/MessageContext.tsx";
 
 function PostContainer(): ReactNode {
     const {user} = useUser();
+    const {setMessage} = useMessage()
     const [post, setPost] = useState(null)
     const {id } = useParams();
     const currentUserId = user.id
@@ -24,6 +26,7 @@ function PostContainer(): ReactNode {
 
              setPost(post)
            } catch (err) {
+            setMessage('An error occurred', 'error')
            } finally {
            }
          }

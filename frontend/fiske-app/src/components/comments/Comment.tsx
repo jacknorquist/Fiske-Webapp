@@ -5,20 +5,20 @@ import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { Button } from "reactstrap";
 import FiskeAPI from "../../api.ts";
-import { useError } from "../../context/ErrorContext.tsx";
+import { useMessage } from "../../context/MessageContext.tsx";
 import styles from './css/Comment.module.css'
 
 function Comment({comment, updatePost}): ReactNode {
 
     const {user} = useUser();
-    const {setError} = useError()
+    const {setMessage} = useMessage()
 
     async function deleteComment(){
         try{
          await FiskeAPI.deleteComment( localStorage['fiske-token'], comment.group_id, comment.post_id, comment.id);
-         updatePost()
+         updatePost();
         }catch (err){
-          setError(err.message)
+          setMessage(err.message, 'error')
         }
 
     }

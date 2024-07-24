@@ -10,11 +10,13 @@ import GroupListItem from "./GroupListItem.tsx";
 import SearchGroupsForm from "./SearchGroupsForm.tsx";
 import styles from './css/SearchGroupsContainer.module.css'
 import { v4 as uuidv4 } from 'uuid';
+import { useMessage } from "../../context/MessageContext.tsx";
 
 function SearchGroupsContainer(): ReactNode {
 
     const {user} = useUser()
-    const [groups, setGroups] = useState([])
+    const [groups, setGroups] = useState([]);
+    const {setMessage} = useMessage()
 
     const[isButtonsOpen, setIsButtonsOpen] = useState(false)
     function toggleButtons(e){
@@ -30,6 +32,7 @@ function SearchGroupsContainer(): ReactNode {
              const groups = await FiskeAPI.getExploreGroups(token);
              setGroups(groups)
            } catch (err) {
+              setMessage('An Error Occurred', 'error')
            } finally {
            }
          }
@@ -43,9 +46,10 @@ function SearchGroupsContainer(): ReactNode {
         if (token) {
           try {
             const groups = await FiskeAPI.searchGroups(token, formData);
-            console.log(groups, 'groups at search')
-            setGroups(groups)
+            setGroups(groups);
+            setMessage('Group Updated', "success")
           } catch (err) {
+            setMessage(err.message, 'error')
           } finally {
           }
         }

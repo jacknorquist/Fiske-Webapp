@@ -7,14 +7,14 @@ import { Button } from "reactstrap";
 import CommentsContainer from "../comments/CommentsContainer.tsx";
 import CreateCommentForm from "../comments/CreateCommentForm.tsx";
 import FiskeAPI from "../../api.ts";
-import { useError } from "../../context/ErrorContext.tsx";
+import { useMessage } from "../../context/MessageContext.tsx";
 import styles from './css/PostListItem.module.css'
 import PostImageGallery from "./PostImageGallery.tsx";
 import timeAgo from "../../helpers/timgeAgo.ts";
 
 function PostListItem({post, updatePosts}): ReactNode {
     const {user} = useUser()
-    const {setError} = useError();
+    const {setMessage} = useMessage();
     const[postState, setPostState] = useState(post);
     const [isCommentsOpen, setIsCommentsOpen] = useState(false);
     const[isButtonsOpen, setIsButtonsOpen] = useState(false)
@@ -29,7 +29,7 @@ function PostListItem({post, updatePosts}): ReactNode {
             const updatedPost = await FiskeAPI.getPost( localStorage['fiske-token'], post.id);
             setPostState(updatedPost)
            }catch (err){
-             setError(err.message)
+             setMessage(err.message, 'error')
            }
     }
 
@@ -37,7 +37,7 @@ function PostListItem({post, updatePosts}): ReactNode {
         try{
          await FiskeAPI.createComment( localStorage['fiske-token'], post.group_id, post.id, formData);
         }catch (err){
-          setError(err.message)
+          setMessage('An error occurred', 'error')
         }
 
     }
@@ -47,7 +47,7 @@ function PostListItem({post, updatePosts}): ReactNode {
             await FiskeAPI.deletePost( localStorage['fiske-token'], post.group_id, post.id);
             updatePosts()
            }catch (err){
-             setError(err.message)
+             setMessage(err.message, 'error')
            }
     }
 

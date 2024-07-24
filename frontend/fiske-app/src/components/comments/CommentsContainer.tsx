@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import { Button } from "reactstrap";
 import Comment from "./Comment.tsx";
 import FiskeAPI from "../../api.ts";
-import { useError } from "../../context/ErrorContext.tsx";
+import { useMessage } from "../../context/MessageContext.tsx";
 import styles from './css/CommentsContainer.module.css'
 import CreateCommentForm from "./CreateCommentForm.tsx";
 

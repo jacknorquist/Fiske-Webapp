@@ -1,6 +1,6 @@
 import React from "react";
 import { ReactNode, useState } from "react";
-import { useError } from "../../context/ErrorContext.tsx";
+import { useMessage } from "../../context/MessageContext.tsx";
 import FiskeAPI from "../../api.ts";
 import { useLoggedIn } from "../../context/LoggedInContext.tsx";
 import { useUser } from "../../context/UserContext.tsx";
@@ -14,15 +14,16 @@ function CreateGroupContainer({toggleCreateGroup, updateUserAdminGroups}): React
   const {user} = useUser()
 
 
-    const { setError } = useError();
+    const { setMessage } = useMessage();
 
   async function createGroup(formData){
       try{
        await FiskeAPI.createGroup( localStorage['fiske-token'], formData);
        updateUserAdminGroups()
         toggleCreateGroup();
+        setMessage('Group Created Successfully', 'success')
       }catch (err){
-        setError(err.message)
+        setMessage(err.message, 'error')
       }
 
   }

@@ -5,9 +5,11 @@ import ExplorePostsContainer from "./ExplorePostsContainer.tsx";
 import FiskeAPI from "../../api.ts";
 import Post from "./PostContainer.tsx";
 import PostListItem from "./PostListItem.tsx";
+import { useMessage } from "../../context/MessageContext.tsx";
 
 function UserFeedContainer(): ReactNode {
     const {user} = useUser();
+    const {setMessage} = useMessage();
     const currentUserId = user.id;
     const [posts, setPosts] = useState([])
 
@@ -18,10 +20,11 @@ function UserFeedContainer(): ReactNode {
       const token = localStorage.getItem('fiske-token');
       if (token) {
         try {
-          
+
           const posts = await FiskeAPI.getFeed(currentUserId, token );
           setPosts(posts)
         } catch (err) {
+          setMessage('An error occurred', 'error')
         } finally {
         }
       }

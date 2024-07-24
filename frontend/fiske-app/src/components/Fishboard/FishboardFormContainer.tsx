@@ -8,17 +8,19 @@ import Fish from "./Fish.tsx";
 import FiskeAPI from "../../api.ts";
 import FishboardForm from "./FishboardForm.tsx";
 import style from './css/FishboardFormContainer.module.css'
+import { useMessage } from "../../context/MessageContext.tsx";
 
 function FishboardFormContainer({fishboard, fishBoardType, toggleCreateFish, updateFishboard}): ReactNode {
 
     const {user} = useUser()
+    const {setMessage} = useMessage()
 
     async function createFish(formData){
         try{
             await FiskeAPI.createFish(localStorage['fiske-token'], fishboard.id, fishBoardType, user.id,  formData);
-            updateFishboard()
+            updateFishboard();
         }catch(err){
-
+            setMessage(err.message, 'error')
         }
     }
 

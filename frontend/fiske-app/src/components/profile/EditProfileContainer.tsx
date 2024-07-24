@@ -1,6 +1,6 @@
 import React from "react";
 import { ReactNode, useState } from "react";
-import { useError } from "../../context/ErrorContext.tsx";
+import { useMessage } from "../../context/MessageContext.tsx";
 import FiskeAPI from "../../api.ts";
 import { useLoggedIn } from "../../context/LoggedInContext.tsx";
 import { useUser } from "../../context/UserContext.tsx";
@@ -12,7 +12,7 @@ import { Button } from "reactstrap";
 
 function EditProfileContainer({toggleEditProfileForm, updateProfileUser}): ReactNode {
 
-    const { setError } = useError();
+    const { setMessage } = useMessage();
     const {user, setUser} = useUser()
     const currentUserId = user.id;
 
@@ -22,9 +22,10 @@ function EditProfileContainer({toggleEditProfileForm, updateProfileUser}): React
         const {user} = await FiskeAPI.editUser(formData, currentUserId , localStorage['fiske-token']);
         updateProfileUser()
         setUser(user)
-        toggleEditProfileForm()
+        toggleEditProfileForm();
+        setMessage('Profile Updated', 'success')
       }catch (err){
-        setError(err.message)
+        setMessage(err.message, 'error')
       }
 
   }

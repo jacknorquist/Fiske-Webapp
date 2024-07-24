@@ -4,9 +4,11 @@ import { useUser } from "../../context/UserContext.tsx";
 import FiskeAPI from "../../api.ts";
 import Post from "./PostContainer.tsx";
 import PostListItem from "./PostListItem.tsx";
+import { useMessage } from "../../context/MessageContext.tsx";
 
 function ExplorePostsContainer(): ReactNode {
     const {user} = useUser()
+    const {setMessage} = useMessage()
     const [posts, setPosts] = useState([]);
     const currentUserId = user!.id;
 
@@ -18,6 +20,7 @@ function ExplorePostsContainer(): ReactNode {
              const posts = await FiskeAPI.getExplorePosts( token );
              setPosts(posts)
            } catch (err) {
+              setMessage('An error occurred', 'error')
            } finally {
            }
          }

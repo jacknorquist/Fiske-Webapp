@@ -13,6 +13,7 @@ import CreateGroupContainer from "../groups/CreateGroupContainer.tsx";
 import UserGroupsContainer from "./UserGroupsContainer.tsx";
 import { useParams } from "react-router-dom";
 import FishboardContainer from "../Fishboard/FishboardContainer.tsx";
+import { useMessage } from "../../context/MessageContext.tsx";
 
 
 function ProfileContainer(): ReactNode {
@@ -20,6 +21,7 @@ function ProfileContainer(): ReactNode {
     const [profileUser, setProfileUser] = useState();
     const { id } = useParams();
     const {user} = useUser();
+    const {setMessage} = useMessage()
     const [userAdminGroups, setUserAdminGroups] = useState([])
     const currentUserId = user.id
 
@@ -38,6 +40,7 @@ function ProfileContainer(): ReactNode {
              setUserAdminGroups(groups);
              setProfileUser(user)
            } catch (err) {
+            setMessage('An error occurred', 'error')
            } finally {
            }
          }
@@ -55,6 +58,7 @@ function ProfileContainer(): ReactNode {
             const user = await FiskeAPI.getUser(token, id )
             setProfileUser(user)
           } catch (err) {
+            setMessage('An error occurred', 'error')
           } finally {
           }
         }
@@ -72,6 +76,7 @@ function ProfileContainer(): ReactNode {
             const groups = await FiskeAPI.getUserAdminGroups(token, id);
             setUserAdminGroups(groups)
           } catch (err) {
+            setMessage('An error occurred', 'error')
           } finally {
           }
         }

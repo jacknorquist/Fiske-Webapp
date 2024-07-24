@@ -1,6 +1,6 @@
 import React from "react";
 import { ReactNode, useState } from "react";
-import { useError } from "../../context/ErrorContext.tsx";
+import { useMessage } from "../../context/MessageContext.tsx";
 import FiskeAPI from "../../api.ts";
 import { useLoggedIn } from "../../context/LoggedInContext.tsx";
 import { useUser } from "../../context/UserContext.tsx";
@@ -12,7 +12,7 @@ import styles from './css/CreatePostContainer.module.css'
 function CreatePostContainer({group, toggleCreatePost, updatePosts}): ReactNode {
 
 
-    const { setError } = useError();
+    const { setMessage } = useMessage();
 
   async function createPost(formData){
       try{
@@ -20,7 +20,7 @@ function CreatePostContainer({group, toggleCreatePost, updatePosts}): ReactNode 
         updatePosts();
         toggleCreatePost();
       }catch (err){
-        setError(err.message)
+        setMessage(err.message, 'error')
       }
 
   }

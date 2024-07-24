@@ -5,7 +5,7 @@ import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { Button } from "reactstrap";
 import FiskeAPI from "../../api.ts";
-import { useError } from "../../context/ErrorContext.tsx";
+import { useMessage } from "../../context/MessageContext.tsx";
 import styles from './css/PostImageGallery.module.css'
 
 function PostImageGallery({images}): ReactNode {

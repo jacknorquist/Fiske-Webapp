@@ -37,7 +37,6 @@ function CreateCommentForm({createComment, updatePost}): ReactNode {
         createComment(formData);
         setFormData(initialState);
         updatePost()
-
     }
 
 

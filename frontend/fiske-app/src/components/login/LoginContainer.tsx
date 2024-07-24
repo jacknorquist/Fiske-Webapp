@@ -1,7 +1,7 @@
 import React from "react";
 import { ReactNode } from "react";
 import LoginForm from "./LoginForm.tsx";
-import { useError } from "../../context/ErrorContext.tsx";
+import { useMessage } from "../../context/MessageContext.tsx";
 import FiskeAPI from "../../api.ts";
 import { useUser } from "../../context/UserContext.tsx";
 import styles from './css/LoginContainer.module.css'
@@ -11,7 +11,7 @@ import { useNavigate } from "react-router-dom";
 
 function LoginContainer(): ReactNode {
 
-    const { setError } = useError();
+    const { setMessage} = useMessage();
     const {setUser} = useUser();
     const navigate = useNavigate();
 
@@ -22,9 +22,9 @@ function LoginContainer(): ReactNode {
         const {user, token} = await FiskeAPI.login(formData)
         setUser(user);
         localStorage['fiske-token'] =token;
-        // navigate('/')
+        setMessage('Login Success', 'success')
       }catch (err){
-        setError(err.message)
+        setMessage(err.message, 'error')
       }
 
   }

@@ -1,0 +1,19 @@
+.messageContainer{
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  margin: auto;
+  width: 50%;
+  text-align: center;
+}
+
+@media (max-width: 480px){
+  .messageContainer{
+    position: fixed;
+    top: 0;
+    width: 100%;
+    text-align: center;
+  }
+
+}

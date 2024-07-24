@@ -12,14 +12,15 @@ import { useEffect } from "react";
 import PostListItem from "../posts/PostListItem.tsx";
 import { useUser } from "../../context/UserContext.tsx";
 import SearchGroupsContainer from "../groups/SearchGroupsContainer.tsx";
+import { useMessage } from "../../context/MessageContext.tsx";
 
 function Homepage(): ReactNode {
 
     const [typeOfPosts, setTypeOfPosts] = useState('userFeed');
     const [posts, setPosts] = useState([])
     const {user} = useUser();
+    const {setMessage} = useMessage()
 
-    console.log('user at homepage', user)
 
 
 
@@ -48,7 +49,7 @@ function Homepage(): ReactNode {
                     setPosts(fetchedPosts);
                     }
                 } catch (err) {
-                    console.error('Error fetching posts:', err.message);
+                    setMessage('An error occurred', 'error')
                 }
             }
         }
@@ -81,7 +82,7 @@ function Homepage(): ReactNode {
                     setPosts(fetchedPosts);
                     }
                 } catch (err) {
-                    console.error('Error fetching posts:', err.message);
+                    setMessage('An error occurred', 'error')
                 }
             }
         }

@@ -8,6 +8,7 @@ import { useUser } from "../../context/UserContext.tsx";
 
 
 
+
 function ProfileCard({ profileIsUser, profileUser, updateProfileUser, toggleCreateGroup}): ReactNode {
   const {user, setUser} = useUser()
   const [isEditProfileOpen, setIsEditProfileOpen] = useState(false)
@@ -15,7 +16,6 @@ function ProfileCard({ profileIsUser, profileUser, updateProfileUser, toggleCrea
   function toggleEditProfile(){
     setIsEditProfileOpen(!isEditProfileOpen)
   }
-  console.log(profileUser)
 
     return (
         <div  >

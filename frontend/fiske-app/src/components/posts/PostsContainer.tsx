@@ -8,9 +8,11 @@ import styles from './css/PostsContainer.module.css';
 import FiskeAPI from "../../api.ts";
 import { useEffect } from "react";
 import PostListItem from "./PostListItem.tsx";
+import { useMessage } from "../../context/MessageContext.tsx";
 
 function PostsContainer({ typeOfPosts }): React.ReactElement {
     const { user } = useUser();
+    const {setMessage} = useMessage()
     const [posts, setPosts] = useState([]);
     const [apiCall, setApiCall] = useState('');
 
@@ -38,7 +40,7 @@ function PostsContainer({ typeOfPosts }): React.ReactElement {
                     setPosts(fetchedPosts);
                     }
                 } catch (err) {
-                    console.error('Error fetching posts:', err.message);
+                    setMessage('An error occurred', 'error')
                 }
             }
         }

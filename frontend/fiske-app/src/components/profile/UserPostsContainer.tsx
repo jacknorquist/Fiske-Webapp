@@ -1,22 +1,47 @@
 import React from "react";
 import { ReactNode, useEffect, useState} from "react";
 import { useUser } from "../../context/UserContext.tsx";
-import Post from "../posts/PostContainer.tsx";
 import FiskeAPI from "../../api.ts";
 import PostListItem from "../posts/PostListItem.tsx";
-import styles from './css/UserPostsContainer.module.css';
 import { v4 as uuidv4 } from 'uuid';
 import { useMessage } from "../../context/MessageContext.tsx";
 
-
+/**UserPostsContainerr: renders PostListItems for posts that the user has created
+ *
+ *Props:
+  * - profileUser (obj): object containing data of the user thats profile is being viewed like...
+ *    {
+ *      user:
+ *          {
+ *           header_image_url:'link.com',
+ *           profile_image_url:'link.com',
+ *           first_name:'bob',
+ *           last_name:'jerry',
+ *           bio:'I like to fish',
+ *           username: 'walleyeguy',
+ *           fishboardboard_points:5,
+ *           id: 5
+ *           }
+ *    fishboard:{
+ *            fish:[fish(obj), fish(obj)],
+ *            id: 2,
+ *                }
+ *    }
+ *
+ *State:
+ * - userPosts (array): array containing objects of posts that the user has created
+ *
+ * RoutesList -> ProfileContainer -> UserPostsContainer -> PostListItem
+ */
 function UserPostsContainer({profileUser}): ReactNode {
 
-    const {user} = useUser();
-    const {setMessage}= useMessage()
-    const [userPosts,  setUserPosts] = useState([])
-    const currentUserId = user.id
+  const [userPosts,  setUserPosts] = useState([])
+  const {user} = useUser();
+  const {setMessage}= useMessage()
+  const currentUserId = user.id
 
     useEffect(() => {
+      //get posts that user has created
         async function getPosts() {
          const token = localStorage.getItem('fiske-token');
          if (token) {
@@ -33,6 +58,8 @@ function UserPostsContainer({profileUser}): ReactNode {
        getPosts();
      }, [profileUser]);
 
+
+    //update posts
     function updatePosts(){
       async function getPosts() {
         const token = localStorage.getItem('fiske-token');

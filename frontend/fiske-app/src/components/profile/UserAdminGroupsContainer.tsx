@@ -9,47 +9,53 @@ import { Button } from "reactstrap";
 import { Link } from "react-router-dom";
 import { v4 as uuidv4 } from 'uuid';
 
+
+
+/**UserAdminGroupsContainer: renders GroupListItems for groups that user has created
+ *
+ *Props:
+ * - toogleCreateGroup (function): toggles CreateGroupContainer visibility
+ * - userAdminGroups (array): array containing objects of groups that the user has created
+ * - profileIsUser (boolean) : if true, allow user to create group
+ *
+ *State:
+ * - isGroupsOpen (boolean): if true, renders GroupListItems
+ *
+ * RoutesList -> ProfileContainer -> UserAdminGroupsContainer -> GroupListItem
+ */
 function UserAdminGroupsContainer({toggleCreateGroup, userAdminGroups, profileIsUser}): ReactNode {
 
     const[isGroupsOpen ,setIsGroupsOpen] = useState(false)
 
     const {user} = useUser();
-    // const [userAdminGroups,  setUserAdminGroups] = useState([])
-    const currentUserId = user!.id
 
-    // useEffect(() => {
-    //     async function getGroups() {
-    //      const token = localStorage.getItem('fiske-token');
-    //      if (token) {
-    //        try {
-    //          const groups = await FiskeAPI.getUserAdminGroups(token, currentUserId);
-    //          setUserAdminGroups(groups)
-    //        } catch (err) {
-    //        } finally {
-    //        }
-    //      }
-    //    };
-
-    //    getGroups();
-    //  }, []);
-
-
+    //toggles isGroupsOpen
     function toggleGroupsOpen(){
         setIsGroupsOpen(!isGroupsOpen)
     }
 
 
     return (
-
         <div onClick={toggleGroupsOpen} className={styles.container}>
             <div onClick={toggleGroupsOpen}  className={styles.header}>
-            <h6>Admin Groups</h6>
-            {profileIsUser ?  <p className={styles.addIcon} onClick={toggleCreateGroup}>+</p>:""}
-            {isGroupsOpen? <i className="bi bi-arrow-up"></i> : <i className="bi bi-arrow-down"></i>}
+                <h6>Admin Groups</h6>
+                {profileIsUser ?
+                <p className={styles.addIcon} onClick={toggleCreateGroup}>+</p>
+                :""}
+                {isGroupsOpen?
+                <i className="bi bi-arrow-up"></i>
+                :
+                <i className="bi bi-arrow-down"></i>}
             </div>
             {isGroupsOpen ?
-            <div className={styles.groups}> {userAdminGroups.length > 0 ? userAdminGroups.map(g => <GroupListItem key={uuidv4()} group={g} />):<p>You haven't created any groups yet.</p>}
-            </div>:""}
+            <div className={styles.groups}>
+                {userAdminGroups.length > 0 ?
+                userAdminGroups.map(g => <GroupListItem key={uuidv4()} group={g} />)
+                :
+                <p>No groups created yet...</p>}
+            </div>
+            :
+            ""}
         </div>
     );
 }

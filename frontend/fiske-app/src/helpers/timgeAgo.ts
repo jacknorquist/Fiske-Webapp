@@ -1,3 +1,11 @@
+
+
+
+/**
+ *timeAgo:
+ * - params: timestamp (string) like ("2024-07-18T17:21:16.929Z")
+ * - returns: string like '7 days ago'
+ */
 function timeAgo (timestamp) {
   const date = new Date(timestamp);
   const now = new Date();

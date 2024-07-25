@@ -12,6 +12,17 @@ import {
     Button
   } from 'reactstrap';
 
+/**Signupform: renders form to signup
+ *
+ *Props:
+ * - handleSignup (function): handles signing up user
+ *
+ *State:
+ * - formData (obj): data for the form
+ *
+ * App -> RoutesList -> SignupContainer -> SignupForm
+ */
+
 function SignupForm({handleSignup}): ReactNode {
 
     const initialState = {
@@ -26,7 +37,7 @@ function SignupForm({handleSignup}): ReactNode {
     };
     const [formData, setFormData] = useState(initialState);
 
-
+    //handle form change
     function handleChange(evt) {
       const { name, value, type, files } = evt.target;
       if (type === "file") {
@@ -42,7 +53,7 @@ function SignupForm({handleSignup}): ReactNode {
       }
   }
 
-
+    //handle form submit
     function handleSave(evt) {
         evt.preventDefault();
         handleSignup(formData);

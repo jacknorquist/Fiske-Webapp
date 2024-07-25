@@ -8,12 +8,22 @@ import styles from './css/SignupContainer.module.css';
 import { Button } from "reactstrap";
 
 
+/**SignupContainer: renders SignupForm and handles signup functionality
+ *
+ *Props:
+ * - none
+ *
+ *State:
+ * - none
+ *
+ * App -> RoutesList -> SignupContainer -> SignupForm
+ */
 function SignupContainer(): ReactNode {
 
     const { setMessage } = useMessage();
     const {setUser} = useUser()
 
-
+  //handle signup for user
   async function handleSignup(formData){
 
       try{

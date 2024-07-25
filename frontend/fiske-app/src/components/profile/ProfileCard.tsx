@@ -8,7 +8,7 @@ import EditProfileContainer from "./EditProfileContainer.tsx";
 /**ProfileCard: renders profile information
  *
  *Props:
- * - profileIsUser (boolean) : if true, allow user to edit profile
+ * - profileIsUser (boolean) : if true, allow user to edit profile and create group
  * - profileUser (obj): object containing data of the user thats profile is being viewed like...
  *    {
  *      user:

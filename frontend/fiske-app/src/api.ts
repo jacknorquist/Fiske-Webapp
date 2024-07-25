@@ -1,4 +1,3 @@
-import { Form } from "reactstrap";
 
 class FiskeAPI {
   static base_api_url = "https://fiske-backend.onrender.com";

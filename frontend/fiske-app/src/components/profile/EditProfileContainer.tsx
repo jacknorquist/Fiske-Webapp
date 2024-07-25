@@ -10,12 +10,24 @@ import { Button } from "reactstrap";
 
 
 
+/**EditProfileContainer: renders EditProfileForm and handles editing profile
+ *
+ *Props:
+ * - toggleEditProfileForm (function): toogles visibility of EditProfileContainer
+ * - updateProfileUser (function): updates profile page
+ *
+ *State:
+ * -none
+ *
+ * ProfileContainer -> EditProfileContainer -> EditProfileForm
+ */
 function EditProfileContainer({toggleEditProfileForm, updateProfileUser}): ReactNode {
 
     const { setMessage } = useMessage();
     const {user, setUser} = useUser()
     const currentUserId = user.id;
 
+  //handle edit profile
   async function handleEdit(formData){
 
       try{

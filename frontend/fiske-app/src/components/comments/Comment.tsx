@@ -12,7 +12,8 @@ import styles from './css/Comment.module.css'
 /**Comment: Renders individual comment.
  *
  *Props:
- * - comment (string):
+ * - comment (obj): object containing comment data like...
+ *   {content:'hello', user_id:5, username:'bob', user_profile_image:'link.com'}
  * - updatePost (function): function to update the PostListItem state
  *
  *State:

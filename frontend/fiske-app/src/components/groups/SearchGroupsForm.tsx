@@ -15,6 +15,17 @@ import {
     CloseButton
   } from 'reactstrap';
 
+
+/**SearchGroupsForm: Renders form to to search for fish
+ *
+ *Props:
+ * - updateGroups (function): function to update groups rendered in SeachGroupsContainer
+ *
+ *State:
+ * - formData: data for the form
+ *
+ * Homepage & GroupsContainer -> SearchGroupsContainer -> SearchGroupsForm
+ */
 function SearchGroupsForm({updateGroups}): ReactNode {
 
 
@@ -23,7 +34,7 @@ function SearchGroupsForm({updateGroups}): ReactNode {
     };
     const [formData, setFormData] = useState(initialState);
 
-
+    //handle form change and update groups in SearchGroupsContainer
     function handleChange(evt) {
       const { name, value } = evt.target;
           setFormData(fData => ({

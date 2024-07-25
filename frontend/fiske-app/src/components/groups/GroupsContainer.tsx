@@ -1,12 +1,7 @@
 import React from "react";
 import { ReactNode, useState, useEffect } from "react";
 import { useUser } from "../../context/UserContext.tsx";
-import ExploreGroupsContainer from "./ExploreGroupsContainer.tsx";
-import UserGroupsContainer from "./UserGroupsContainer.tsx";
-import { Button } from "reactstrap";
-import { Link } from "react-router-dom";
 import FiskeAPI from "../../api.ts";
-import Group from "./Group.tsx";
 import GroupListItem from "./GroupListItem.tsx";
 import styles from './css/GroupsContainer.module.css'
 import SearchGroupsContainer from "./SearchGroupsContainer.tsx";
@@ -14,15 +9,18 @@ import { v4 as uuidv4 } from 'uuid';
 import { useMessage } from "../../context/MessageContext.tsx";
 
 
-/**GroupsContainer: renders GroupListItem's for groups
+/**GroupsContainer: renders GroupListItems for groups
  *
  *Props:
  * * - group (obj): holds group data like...
  *    {name:'group', fish_species:'walleye', area:'Minnesota', description:'group for walleyes', id:5, user_id:1 }
  *
  *State:
- * - userIsMember (boolean): if true, user is a member of the group
- * - isButtonsOpen (boolean): if true, utility box is displayed
+ * - userGroups ([{group}]): array of groups that the user has joined
+ * - exploreGroups ([{group}]): array of of all groups in db
+ * - exploreGroupsContainerOpen (boolean): if true, exploreGroups are rendered. Else, userGroups are rendered
+ *
+ * RoutesList -> GroupsContainer -> SearchGroupsContainer
  */
 function GroupsContainer(): ReactNode {
     const {user} = useUser()
@@ -32,17 +30,20 @@ function GroupsContainer(): ReactNode {
     const currentUserId = user.id;
     const {setMessage} = useMessage()
 
+
+    //set exploreGroupsOpen true to show exploreGroups
     function openExploreGroups(){
         if (exploreGroupsContainerOpen) return
         setExploreGroupsContainer(true)
     }
-
+    //set exploreGroupsOpen false to show userGroups
     function openUserGroups(){
         if (!exploreGroupsContainerOpen) return
         setExploreGroupsContainer(false)
     }
 
     useEffect(() => {
+      //get userGroups and exploreGroups
         async function getPosts() {
          const token = localStorage.getItem('fiske-token');
          if (token) {
@@ -61,8 +62,6 @@ function GroupsContainer(): ReactNode {
 
        getPosts();
      }, []);
-
-
 
 
     return (

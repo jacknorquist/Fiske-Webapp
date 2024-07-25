@@ -1,15 +1,23 @@
 import React from "react";
 import { ReactNode, useState } from "react";
 import { useUser } from "../../context/UserContext.tsx";
-import ExplorePostsContainer from "./ExplorePostsContainer.tsx";
-import UserPostsContainer from "./UserPostsContainer.tsx";
-import { Button } from "reactstrap";
 import styles from './css/PostsContainer.module.css';
 import FiskeAPI from "../../api.ts";
 import { useEffect } from "react";
 import PostListItem from "./PostListItem.tsx";
 import { useMessage } from "../../context/MessageContext.tsx";
 
+//TODO: I don't think this is being used
+/**PostsContainer: homepage for logged in user that renders posts and SearchGroupsContainer
+ *
+ *Props:
+ * - none
+ *
+ *State:
+ * - typeOfPosts (string): determines the type of posts to fetch
+ *
+ * App -> RoutesList -> Homepage -> PostListItem & SearchGroupsContainer
+ */
 function PostsContainer({ typeOfPosts }): React.ReactElement {
     const { user } = useUser();
     const {setMessage} = useMessage()

@@ -4,22 +4,25 @@ import NavBar from './NavBar.tsx';
 import { BrowserRouter , Link} from "react-router-dom";
 import RoutesList from '../routes/RoutesList.tsx';
 import { Button } from 'reactstrap';
-import FiskeAPI from '../../api.ts'
-import GlobalError from './GlobalMessage.tsx';
-import { LoggedInProvider } from '../../context/LoggedInContext.tsx';
-import { useLoggedIn } from '../../context/LoggedInContext.tsx';
+import GlobalMessage from './GlobalMessage.tsx';
 import { useUser } from '../../context/UserContext.tsx';
 import { useMessage } from '../../context/MessageContext.tsx';
-import { UserProvider } from '../../context/UserContext.tsx';
 import { MessageProvider } from '../../context/MessageContext.tsx';
 import styles from './css/App.module.css'
 
-
+/**App: renders NavBar, RoutesList and GlobalMessage
+ *
+ *Props:
+ * - none
+ *
+ *State:
+ * - none
+ *
+ * Index -> App -> RoutesList & GloablMessage & NavBar
+ */
 function App(): ReactNode{
   const {user} = useUser();
   const {setMessage} = useMessage();
-
-
 
   return (
     <div >
@@ -29,7 +32,7 @@ function App(): ReactNode{
           <main>
           {user && <NavBar/>}
           <RoutesList />
-          <GlobalError />
+          <GlobalMessage />
           </main>
       </div>
         </BrowserRouter>

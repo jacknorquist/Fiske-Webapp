@@ -3,6 +3,17 @@ import { Alert } from 'reactstrap';
 import { useMessage } from '../../context/MessageContext.tsx';
 import styles from './css/GlobalMessage.module.css'
 
+
+/**GlobalMessage: renders message available throughout entire app
+ *
+ *Props:
+ * - none
+ *
+ *State:
+ * - none
+ *
+ * Index -> App -> GloablMessage
+ */
 const GlobalMessage: React.FC = () => {
   const { message, messageType, clearMessage } = useMessage();
 

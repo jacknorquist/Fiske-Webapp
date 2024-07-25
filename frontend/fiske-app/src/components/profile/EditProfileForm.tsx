@@ -14,6 +14,17 @@ import {
     CloseButton
   } from 'reactstrap';
 
+/**EditProfileForm: renders form to edit profile
+ *
+ *Props:
+ * - handleEdit (function): handles editing profile
+ * - toggleEditProfileForm (function): toogles visibility of EditProfileContainer
+ *
+ *State:
+ * -formData: data for the form
+ *
+ * ProfileContainer -> EditProfileContainer-> EditProfileForm
+ */
 function EditProfileForm({handleEdit, toggleEditProfileForm, user}): ReactNode {
 
     const initialState = {
@@ -26,7 +37,7 @@ function EditProfileForm({handleEdit, toggleEditProfileForm, user}): ReactNode {
     };
     const [formData, setFormData] = useState(initialState);
 
-
+    //hadle form change
     function handleChange(evt) {
       const { name, value, type, files } = evt.target;
       if (type === "file") {
@@ -42,7 +53,7 @@ function EditProfileForm({handleEdit, toggleEditProfileForm, user}): ReactNode {
       }
   }
 
-
+    //jandle form submit
     function handleSave(evt) {
         evt.preventDefault();
         handleEdit(formData);

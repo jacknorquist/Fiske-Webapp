@@ -2,9 +2,21 @@ import React from "react";
 import { ReactNode, useEffect, useState } from "react";
 import { useUser } from "../../context/UserContext.tsx";
 import FiskeAPI from "../../api.ts";
-import Post from "./PostContainer.tsx";
 import PostListItem from "./PostListItem.tsx";
 import { useMessage } from "../../context/MessageContext.tsx";
+
+//TODO: I don't think this is being used
+/**CreatePostForm: renders form to create a post
+ *
+ *Props:
+ * - createPost (function): creates post
+ * - toggleCreatePost (function): toogles visibility of CreatePostContainer
+ *
+ *State:
+ * - formData (obj): data for the form
+ * - images (array): handles the amount of images available to add to a post
+ * ProfileContainer -> CreateGroupContainer -> CreateGroupForm
+ */
 
 function ExplorePostsContainer(): ReactNode {
     const {user} = useUser()

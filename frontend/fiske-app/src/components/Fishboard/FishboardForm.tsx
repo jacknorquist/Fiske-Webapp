@@ -20,11 +20,11 @@ import {
  *Props:
  * - createFish (function): function to create a fish and add to Fishboard
  * - toggleCreateFish (function): function to toggle the state of showing the FishboardForm
- * 
+ *
  *State:
  * - formData: data for the form
  *
- * Fishboard -> FishboardFormContainer -> Fishboard
+ * Fishboard -> FishboardFormContainer -> Fishboardform
  */
 function FishboardForm({createFish, toggleCreateFish}): ReactNode {
 

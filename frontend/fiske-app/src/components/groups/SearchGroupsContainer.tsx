@@ -12,19 +12,24 @@ import styles from './css/SearchGroupsContainer.module.css'
 import { v4 as uuidv4 } from 'uuid';
 import { useMessage } from "../../context/MessageContext.tsx";
 
+
+/**SearchGroupsContainer: renders container to search for groups, handles updating groups when searched
+ *
+ *Props:
+ *  - none
+ *
+ *State:
+ * - groups (array) : array of groups like ...
+ *    [{name:'group', fish_species:'walleye', area:'Minnesota', description:'group for walleyes', id:5, user_id:1 }]
+ *
+ * Homepage & GroupsContainer -> SearchGroupsContainer
+ */
 function SearchGroupsContainer(): ReactNode {
-
-    const {user} = useUser()
     const [groups, setGroups] = useState([]);
-    const {setMessage} = useMessage()
-
-    const[isButtonsOpen, setIsButtonsOpen] = useState(false)
-    function toggleButtons(e){
-        e.preventDefault();
-        setIsButtonsOpen(!isButtonsOpen)
-    }
+    const {setMessage} = useMessage();
 
     useEffect(() => {
+      //get inital groups (all groups in db)
         async function getGroups() {
          const token = localStorage.getItem('fiske-token');
          if (token) {
@@ -41,6 +46,7 @@ function SearchGroupsContainer(): ReactNode {
        getGroups();
      }, []);
 
+     //update groups based on serach term
      async function updateGroups(formData){
         const token = localStorage.getItem('fiske-token');
         if (token) {

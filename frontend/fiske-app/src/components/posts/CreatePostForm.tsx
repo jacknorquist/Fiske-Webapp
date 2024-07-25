@@ -14,6 +14,17 @@ import {
     CloseButton
   } from 'reactstrap';
 
+/**CreatePostForm: renders form to create a post
+ *
+ *Props:
+ * - createPost (function): creates post
+ * - toggleCreatePost (function): toogles visibility of CreatePostContainer
+ *
+ *State:
+ * - formData (obj): data for the form
+ * - images (array): handles the amount of images available to add to a post
+ * ProfileContainer -> CreateGroupContainer -> CreateGroupForm
+ */
 function CreatePostForm({createPost, toggleCreatePost}): ReactNode {
    const {user} = useUser()
     const [images, setImages] = useState([])
@@ -24,7 +35,7 @@ function CreatePostForm({createPost, toggleCreatePost}): ReactNode {
     };
     const [formData, setFormData] = useState(initialState);
 
-
+    //handle form change
     function handleChange(evt) {
       const { name, value, type, files } = evt.target;
       if (type === "file") {
@@ -40,14 +51,14 @@ function CreatePostForm({createPost, toggleCreatePost}): ReactNode {
       }
   }
 
-
+    //handle form submit
     function handleSave(evt) {
         evt.preventDefault();
         createPost(formData);
         setFormData(initialState);
 
     }
-
+    //handle adding image to post
     const handleAddImage = () => {
         if (images.length < 5) {
           setImages([...images, null]);

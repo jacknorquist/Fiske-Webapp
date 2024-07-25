@@ -13,6 +13,17 @@ import {
     Button
   } from 'reactstrap';
 
+
+/**LoginForm: renders form to login
+ *
+ *Props:
+ * - handleLogin (function): handles loging in user
+ *
+ *State:
+ * - formData (obj): data for the form
+ *
+ * App -> RoutesList -> LoginContainer -> LoginForm
+ */
 function LoginForm({handleLogin}): ReactNode {
 
     const initialState = {
@@ -22,7 +33,7 @@ function LoginForm({handleLogin}): ReactNode {
 
     const [formData, setFormData] = useState(initialState);
 
-
+    //handle form change
     function handleChange(evt) {
       const { name, value } = evt.target;
       setFormData(fData => ({
@@ -31,15 +42,12 @@ function LoginForm({handleLogin}): ReactNode {
       }));
   }
 
-
-    async function handleSave(evt) {
+  //handle form submit
+  async function handleSave(evt) {
       evt.preventDefault();
       await handleLogin(formData)
       setFormData(initialState);
   }
-
-
-
     return (
         <Form onSubmit={handleSave} className={`${styles.form} border border-primary rounded`}>
           <h1>Login</h1>

@@ -24,7 +24,7 @@ import { useMessage } from "../../context/MessageContext.tsx";
  *State:
  * -none
  *
- * Fishboard -> FishboardFormContainer -> Fishboard
+ * Fishboard -> FishboardFormContainer -> Fishboardform
  */
 function FishboardFormContainer({fishboard, fishBoardType, toggleCreateFish, updateFishboard}): ReactNode {
 

@@ -6,12 +6,23 @@ import { Link } from "react-router-dom";
 import { Button } from "reactstrap";
 import FiskeAPI from "../../api.ts";
 import { useMessage } from "../../context/MessageContext.tsx";
-import styles from './css/PostImageGallery.module.css'
+import styles from './css/PostImageGallery.module.css';
 
+/**PostImageGallery: renders image for a posts and handles rotation of images
+ *
+ *Props:
+ * - images (array): array containing image urls like... ['image.com', 'image2.com']
+ *
+ *State:
+ * - imagesState (number): holds index for image to display in PostImageGallery
+ *
+ * PostListItem -> PostImageGallery
+ */
 function PostImageGallery({images}): ReactNode {
 
     const [imagesState, setImages] = useState(0)
 
+    //increment index of images to show or reset to 0
     function moveImageRight(){
         if(imagesState+1 >= images.length){
             setImages(0)
@@ -20,6 +31,7 @@ function PostImageGallery({images}): ReactNode {
         }
     }
 
+    //decrement index of images to show or set to the end of images
     function moveImageLeft(){
         console.log(imagesState)
         if(imagesState === 0){
@@ -28,10 +40,6 @@ function PostImageGallery({images}): ReactNode {
             setImages(imagesState-1)
         }
     }
-
-
-
-
 
     return (
         <div className={styles.container}>

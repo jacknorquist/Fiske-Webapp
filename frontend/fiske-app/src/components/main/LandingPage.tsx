@@ -4,6 +4,18 @@ import { Button } from "reactstrap";
 import styles from './css/LandingPage.module.css'
 import { Link } from "react-router-dom";
 
+
+
+/**LandingPage: renders signup link and login link for logged out user
+ *
+ *Props:
+ * - none
+ *
+ *State:
+ * - none
+ *
+ * App -> RoutesList -> LandingPage
+ */
 function LandingPage(): ReactNode {
     return (
         <div className={styles.container}>

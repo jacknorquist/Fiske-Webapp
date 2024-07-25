@@ -8,14 +8,21 @@ import styles from './css/LoginContainer.module.css'
 import { Button } from "reactstrap";
 import { useNavigate } from "react-router-dom";
 
-
+/**LoginContainer: renders LoginForm and handles login functionality
+ *
+ *Props:
+ * - none
+ *
+ *State:
+ * - none
+ *
+ * App -> RoutesList -> LoginContainer -> LoginForm
+ */
 function LoginContainer(): ReactNode {
-
     const { setMessage} = useMessage();
     const {setUser} = useUser();
-    const navigate = useNavigate();
 
-
+  //login user
   async function handleLogin(formData){
 
       try{
@@ -28,7 +35,6 @@ function LoginContainer(): ReactNode {
       }
 
   }
-
 
     return (
       <div className={styles.container}>

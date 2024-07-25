@@ -42,7 +42,7 @@ function FishboardContainer({fishboard, fishBoardType, profileIsUser}): ReactNod
 
 
 
-    //togglesisCreateFishOpen to display FishboardFormContainer
+    //toggle isCreateFishOpen to display FishboardFormContainer
     function toggleCreateFish(){
         setIsCreateFishOpen(!isCreateFishOpen);
     }

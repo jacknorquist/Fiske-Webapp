@@ -25,7 +25,7 @@ class CommentsController < ApplicationController
           render json: @comment.errors, status: :unprocessable_entity
         end
       else
-        render json: { errors: "Not Authorized" }, status: :unauthorized
+        render json: { "Not Authorized" }, status: :unauthorized
       end
     end
 
@@ -34,13 +34,13 @@ class CommentsController < ApplicationController
     def set_post
       @post = Post.find(params[:post_id])
     rescue ActiveRecord::RecordNotFound
-      render json: { error: "Post not found" }, status: :not_found
+      render json: {"Post not found" }, status: :not_found
     end
 
     def set_comment
       @comment = @post.comments.find(params[:id])
     rescue ActiveRecord::RecordNotFound
-      render json: { error: "Comment not found" }, status: :not_found
+      render json: {"Comment not found" }, status: :not_found
     end
 
     def comment_params

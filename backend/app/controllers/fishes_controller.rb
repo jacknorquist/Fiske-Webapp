@@ -25,7 +25,7 @@ class FishesController < ApplicationController
             @fish.save
             render json: fish_json_with_image_url(@fish), status: :created
           else
-            render json: { error: 'Fish not created: another fish of the same species is longer or equal.' }, status: :unprocessable_entity
+            render json: {'Fish not added: another fish of the same species is longer or equal.' }, status: :unprocessable_entity
           end
         else
           if @fish.save

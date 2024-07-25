@@ -9,10 +9,12 @@ import FishboardFormContainer from "./FishboardFormContainer.tsx";
 import style from './css/FishBoardContainer.module.css'
 import { v4 as uuidv4 } from 'uuid';
 import FiskeAPI from "../../api.ts";
+import { useMessage } from "../../context/MessageContext.tsx";
 
 function FishboardContainer({fishboard, fishBoardType, profileIsUser}): ReactNode {
     const[isCreateFishOpen, setIsCreateFishOpen] = useState(false);
     const[isExpanded, setIsExpanded] = useState(false);
+    const {setMessage} = useMessage()
     const [fishboardState, setFishboardState] = useState(fishboard)
 
     function toggleCreateFish(){
@@ -30,14 +32,14 @@ function FishboardContainer({fishboard, fishBoardType, profileIsUser}): ReactNod
                 const boardResponse = await FiskeAPI.getUserFishboard(localStorage['fiske-token'], fishboardState.id);
                 setFishboardState(boardResponse)
             }catch(err){
-
+                setMessage(err.message, 'error')
             }
         }else{
             try{
                 const boardResponse = await FiskeAPI.getGroupFishboard(localStorage['fiske-token'], fishboardState.id);
                 setFishboardState(boardResponse)
             }catch(err){
-
+                setMessage(err.message, 'error')
             }
 
         }

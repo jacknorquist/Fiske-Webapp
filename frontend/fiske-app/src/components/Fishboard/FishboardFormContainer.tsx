@@ -20,10 +20,10 @@ function FishboardFormContainer({fishboard, fishBoardType, toggleCreateFish, upd
             await FiskeAPI.createFish(localStorage['fiske-token'], fishboard.id, fishBoardType, user.id,  formData);
             updateFishboard();
         }catch(err){
+            console.log(err.message)
             setMessage(err.message, 'error')
         }
     }
-
 
     return (
         <div className={style.container}>

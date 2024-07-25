@@ -13,6 +13,17 @@ import SearchGroupsContainer from "./SearchGroupsContainer.tsx";
 import { v4 as uuidv4 } from 'uuid';
 import { useMessage } from "../../context/MessageContext.tsx";
 
+
+/**GroupsContainer: renders GroupListItem's for groups
+ *
+ *Props:
+ * * - group (obj): holds group data like...
+ *    {name:'group', fish_species:'walleye', area:'Minnesota', description:'group for walleyes', id:5, user_id:1 }
+ *
+ *State:
+ * - userIsMember (boolean): if true, user is a member of the group
+ * - isButtonsOpen (boolean): if true, utility box is displayed
+ */
 function GroupsContainer(): ReactNode {
     const {user} = useUser()
     const [userGroups, setUserGroups] =useState([])

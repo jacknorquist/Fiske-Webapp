@@ -9,20 +9,33 @@ import { useEffect } from "react";
 import FiskeAPI from "../../api.ts";
 import { useMessage } from "../../context/MessageContext.tsx";
 
+//TODO: Toggle isButtonsOpen to off (window event listener?). & . Efficient way to determine if user is a member
+
+/**GroupListItem: renders group in list format
+ *
+ *Props:
+ * * - group (obj): holds group data like...
+ *    {name:'group', fish_species:'walleye', area:'Minnesota', description:'group for walleyes', id:5, user_id:1 }
+ *
+ *State:
+ * - userIsMember (boolean): if true, user is a member of the group
+ * - isButtonsOpen (boolean): if true, utility box is displayed
+ */
 function GroupListItem({group}): ReactNode {
 
     const {user} = useUser();
     const {setMessage} = useMessage()
     const [isUserMember, setIsUserMemeber] = useState(false)
-
-
     const[isButtonsOpen, setIsButtonsOpen] = useState(false)
+
+    //toggle isButtonsOpen to show utility box with buttons
     function toggleButtons(e){
         e.preventDefault();
         setIsButtonsOpen(!isButtonsOpen)
     }
 
     useEffect(() => {
+      //determines if user is a member of the group
       async function getGroups() {
        const token = localStorage.getItem('fiske-token');
        if (token) {
@@ -38,7 +51,7 @@ function GroupListItem({group}): ReactNode {
      getGroups();
    }, []);
 
-
+   //user leave group
    async function leaveGroup(e){
     e.preventDefault();
     try{
@@ -48,17 +61,19 @@ function GroupListItem({group}): ReactNode {
       setMessage('Failed to Leave Group', 'error')
     }
 
- }
- async function joinGroup(e){
-
-  e.preventDefault();
-  try{
-  await FiskeAPI.joinGroup(localStorage.getItem('fiske-token'), group.id);
-  setIsUserMemeber(true)
-  }catch(err){
-    setMessage('Failed to Join Group', 'error')
   }
-}
+
+  //user join group
+  async function joinGroup(e){
+
+    e.preventDefault();
+    try{
+    await FiskeAPI.joinGroup(localStorage.getItem('fiske-token'), group.id);
+    setIsUserMemeber(true)
+    }catch(err){
+      setMessage('Failed to Join Group', 'error')
+    }
+  }
 
 
 

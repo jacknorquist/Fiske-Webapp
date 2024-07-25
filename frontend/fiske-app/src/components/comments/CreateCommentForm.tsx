@@ -32,7 +32,7 @@ function CreateCommentForm({updatePost, createComment}): ReactNode {
     };
     const [formData, setFormData] = useState(initialState);
 
-
+    //handle form change
     function handleChange(evt) {
       const { name, value, type, files } = evt.target;
           setFormData(fData => ({
@@ -41,7 +41,7 @@ function CreateCommentForm({updatePost, createComment}): ReactNode {
           }));
   }
 
-
+    //handle form submit
     function handleSave(evt) {
         evt.preventDefault();
         createComment(formData);

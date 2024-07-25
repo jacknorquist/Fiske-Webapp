@@ -161,7 +161,6 @@ function EditGroupForm({editGroup, toggleEditGroup, group}): ReactNode {
       </Button>
 
       </Form>
-      <Button onClick={handleAddImage}>+</Button>
       </div>
 
     );

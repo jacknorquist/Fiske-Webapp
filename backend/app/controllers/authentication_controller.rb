@@ -10,7 +10,7 @@ class AuthenticationController < ApplicationController
         token = generate_token(user.id)
         render json: {user: user_json(user), token: token}, status: :ok
       else
-        render json: {'Invalid username or password'}, status: :unauthorized
+        render json: { error: 'Invalid useranem or password' }, status: :unauthorized
       end
     end
 

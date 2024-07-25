@@ -13,6 +13,17 @@ import {
     CloseButton
   } from 'reactstrap';
 
+/**CreateGroupForm: renders form to create a group
+ *
+ *Props:
+ * - createGroup (function): creates group
+ * - toggleCreateGroup (function): toogles visibility of CreateGroupContainer
+ *
+ *State:
+ * -formData: data for the form
+ *
+ * ProfileContainer -> CreateGroupContainer -> CreateGroupForm
+ */
 function CreateGroupForm({createGroup, toggleCreateGroup}): ReactNode {
 
 
@@ -25,7 +36,7 @@ function CreateGroupForm({createGroup, toggleCreateGroup}): ReactNode {
     };
     const [formData, setFormData] = useState(initialState);
 
-
+    //handle form change
     function handleChange(evt) {
       const { name, value, type, files } = evt.target;
       if (type === "file") {
@@ -42,7 +53,7 @@ function CreateGroupForm({createGroup, toggleCreateGroup}): ReactNode {
   }
 
 
-
+  //handle form submit
     function handleSave(evt) {
         evt.preventDefault();
         createGroup(formData);

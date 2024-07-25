@@ -11,21 +11,48 @@ import { v4 as uuidv4 } from 'uuid';
 import FiskeAPI from "../../api.ts";
 import { useMessage } from "../../context/MessageContext.tsx";
 
-function FishboardContainer({fishboard, fishBoardType, profileIsUser}): ReactNode {
-    const[isCreateFishOpen, setIsCreateFishOpen] = useState(false);
-    const[isExpanded, setIsExpanded] = useState(false);
-    const {setMessage} = useMessage()
-    const [fishboardState, setFishboardState] = useState(fishboard)
 
+
+
+/**FishBoard Container: Renders all Fish in a fishboard and FishboardFormContainer.
+ *
+ *Props:
+ * - fishboard(obj): object containing fishboard data like...
+ *    {fish:[fish(obj), fish(obj), fish(obj)]}
+ * - fishboardType (string): string that is either GroupFishboard or UserFishboard.
+ * - profileIsUser (boolean): used to determine if user can add to UserFishBord type
+ *
+ *State:
+ * - isExpanded(boolean): if true FishboardContainer expands to show fish and add a
+ *    FishboardFormContainer button
+ * - fishboardState (obj): object containing fishboard data like...
+ *    {fish:[fish(obj), fish(obj), fish(obj)]} used to provide fishboard info.
+ * - isCreateFishOpen (boolean): if true, FishboardFormContainer is visible
+ *
+ * Fisboard -> Fish & FishboardFormContainer
+ */
+
+function FishboardContainer({fishboard, fishBoardType, profileIsUser}): ReactNode {
+
+
+    const[isCreateFishOpen, setIsCreateFishOpen] = useState(false);
+    const[fishboardState, setFishboardState] = useState(fishboard)
+    const[isExpanded, setIsExpanded] = useState(false);
+    const {setMessage} = useMessage();
+
+
+
+    //togglesisCreateFishOpen to display FishboardFormContainer
     function toggleCreateFish(){
         setIsCreateFishOpen(!isCreateFishOpen);
     }
 
+    //toggle isExpanded to display Fishboaard contents
     function toggleIsExpanded(){
         setIsExpanded(!isExpanded)
     }
 
-
+    //update fishboardState
     async function updateFishboard(){
         if(fishBoardType === 'UserFishboard'){
             try{

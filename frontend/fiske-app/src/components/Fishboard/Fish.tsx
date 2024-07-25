@@ -6,14 +6,30 @@ import { Link } from "react-router-dom";
 import { Button } from "reactstrap";
 import styles from './css/Fish.module.css';
 import FiskeAPI from "../../api.ts";
+
+//TODO: Send username with fish in backend. Eliminate additional call at line 30.
+
+/**Fish: Renders individual fish.
+ *
+ *Props:
+ * - fish (obj): object containing individual fish data like...
+ *  {fish_image_url:'walleye.com', fish_user_id:2, fish_species:'Walleye', fish_length:10}
+ * - fishboardType (string): string that is either GroupFishboard or UserFishboard.
+ *   GroupFishboard adds the username to the fish, UserFishboard does not.
+ *
+ *State:
+ * -none
+ *
+ * Fisboard -> Fish
+ */
 function Fish({fish, fishBoardType}): ReactNode {
 
-    const [username, setUsername] = useState(false)
+    let username = null;
 
     if(fishBoardType === 'GroupFishboard'){
         async function getUsername(){
         const user = await FiskeAPI.getUser(localStorage['fiske-token'], fish.user_id );
-        setUsername(user.user.username)
+        username = (user.user.username)
         }
         getUsername()
     }

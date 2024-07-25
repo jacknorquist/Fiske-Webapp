@@ -2,20 +2,29 @@ import React from "react";
 import { ReactNode, useState } from "react";
 import { useMessage } from "../../context/MessageContext.tsx";
 import FiskeAPI from "../../api.ts";
-import { useLoggedIn } from "../../context/LoggedInContext.tsx";
-import { useUser } from "../../context/UserContext.tsx";
-import CreatePostForm from "./CreateGroupForm.tsx";
-import { Button } from "reactstrap";
 import styles from './css/CreateGroupContainer.module.css';
+import CreateGroupForm from "./CreateGroupForm.tsx";
 
-//posts = posts used to have useEffect from GroupContainer reload posts after one is made
+
+
+/**CreateGroupContainer: Handles createGroup functionality and renders container that
+ * holds CreateGroupForm.
+ *
+ *Props:
+ * - toggleCreateGroup (function): toogles visibility of CreateGroupContainer
+ * - updateUserAdminGroups (function): updates userAdminGroups
+ *
+ *State:
+ * -none
+ *
+ * ProfileContainer -> CreateGroupContainer
+ */
 function CreateGroupContainer({toggleCreateGroup, updateUserAdminGroups}): ReactNode {
 
-  const {user} = useUser()
+  const { setMessage } = useMessage();
 
 
-    const { setMessage } = useMessage();
-
+  //create group
   async function createGroup(formData){
       try{
        await FiskeAPI.createGroup( localStorage['fiske-token'], formData);
@@ -29,7 +38,7 @@ function CreateGroupContainer({toggleCreateGroup, updateUserAdminGroups}): React
   }
     return (
         <div className={styles.creategroupcontainer}>
-        <CreatePostForm  createGroup={createGroup}  toggleCreateGroup={toggleCreateGroup}/>
+        <CreateGroupForm  createGroup={createGroup}  toggleCreateGroup={toggleCreateGroup}/>
         </div>
     );
 }

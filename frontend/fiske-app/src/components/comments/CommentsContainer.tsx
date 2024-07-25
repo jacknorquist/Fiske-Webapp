@@ -10,7 +10,17 @@ import { useMessage } from "../../context/MessageContext.tsx";
 import styles from './css/CommentsContainer.module.css'
 import CreateCommentForm from "./CreateCommentForm.tsx";
 
-
+/**CommentsContainer: Renders all comments for a post.
+ *
+ *Props:
+ * - comments (array): array of comments
+ * - updatePost (function): function to update the PostListItem state
+ * - createComment (function): function to create a comment
+ *State:
+ * -none
+ *
+ * PostListItem -> CommentsContainer -> Comment
+ */
 function CommentsContainer({comments, updatePost, createComment}): ReactNode {
 
 

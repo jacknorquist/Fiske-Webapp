@@ -8,6 +8,18 @@ import FiskeAPI from "../../api.ts";
 import { useMessage } from "../../context/MessageContext.tsx";
 import styles from './css/Comment.module.css'
 
+
+/**Comment: Renders individual comment.
+ *
+ *Props:
+ * - comment (string):
+ * - updatePost (function): function to update the PostListItem state
+ *
+ *State:
+ * -none
+ *
+ * PostListItem -> CommentsContainer -> Comment
+ */
 function Comment({comment, updatePost}): ReactNode {
 
     const {user} = useUser();

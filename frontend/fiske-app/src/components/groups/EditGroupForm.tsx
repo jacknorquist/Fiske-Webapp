@@ -13,20 +13,32 @@ import {
     CloseButton
   } from 'reactstrap';
 
+/**EditGroupForm: renders form to edit group
+ *
+ *Props:
+ * - editGroup (function): edits group
+ * - toggleEditGroup (function): toogles visibility of EditGroupContainer
+ * - group (obj): holds group data like...
+ *    {name:'group', fish_species:'walleye', area:'Minnesota', description:'group for walleyes', id:5, user_id:1 }
+ *
+ *State:
+ * -formData: data for the form
+ *
+ * ProfileContainer -> EditeGroupContainer -> EditGroupForm
+ */
+
 function EditGroupForm({editGroup, toggleEditGroup, group}): ReactNode {
-  console.log(group, 'group at edit')
-    const [images, setImages] = useState([])
+  const initialState = {
+    name:group.group.name,
+    fish_species: group.group.fish_species,
+    area:group.group.area,
+    description:group?.group.description,
+    header_image_url:group?.group?.header_image_url || null
+  };
 
-
-    const initialState = {
-        name:group.group.name,
-        fish_species: group.group.fish_species,
-        area:group.group.area,
-        description:group?.group.description,
-    };
     const [formData, setFormData] = useState(initialState);
 
-
+    //handle form change
     function handleChange(evt) {
       const { name, value, type, files } = evt.target;
       if (type === "file") {
@@ -42,19 +54,13 @@ function EditGroupForm({editGroup, toggleEditGroup, group}): ReactNode {
       }
   }
 
-
+    //handle for submit
     function handleSave(evt) {
         evt.preventDefault();
         editGroup(formData);
         setFormData(initialState);
 
     }
-
-    const handleAddImage = () => {
-        if (images.length < 5) {
-          setImages([...images, null]);
-        }
-      };
 
     return (
         <div>
@@ -133,26 +139,22 @@ function EditGroupForm({editGroup, toggleEditGroup, group}): ReactNode {
             />
           </Col>
         </FormGroup>
-        {images.map((image, index) => (
-        <div key={index}>
-          <FormGroup row>
+        <FormGroup row>
           <Label
-            for={`image_${index+1}`}
+            for="header_image"
             sm={2}
           >
-            Image
+            Header Image
           </Label>
           <Col sm={10}>
             <Input
-              id={`image_${index+1}`}
-              name={`image_${index+1}`}
+              id="header_image"
+              name="header_image"
               type="file"
               onChange={handleChange}
             />
           </Col>
         </FormGroup>
-        </div>
-      ))}
 
         <Button>
         Submit

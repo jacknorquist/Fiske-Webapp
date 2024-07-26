@@ -28,7 +28,7 @@ import {
  *
  * PostListItem -> CommentsContainer -> Comment
  */
-function CreateCommentForm({updatePost, createComment}: {updatePost: ()=>void, createComment(formData:FormData)=> void}): ReactNode {
+function CreateCommentForm({updatePost, createComment}: {updatePost: ()=>void, createComment:(formData:FormData)=> void}): ReactNode {
 
 
     const initialState:FormData = {

@@ -18,9 +18,9 @@ import styles from './css/PostImageGallery.module.css';
  *
  * PostListItem -> PostImageGallery
  */
-function PostImageGallery({images}): ReactNode {
+function PostImageGallery({images}:{images:string[]}): ReactNode {
 
-    const [imagesState, setImages] = useState(0)
+    const [imagesState, setImages] = useState<number>(0)
 
     //increment index of images to show or reset to 0
     function moveImageRight(){

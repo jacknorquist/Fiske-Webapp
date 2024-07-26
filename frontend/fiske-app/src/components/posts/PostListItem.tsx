@@ -11,6 +11,12 @@ import { useMessage } from "../../context/MessageContext.tsx";
 import styles from './css/PostListItem.module.css'
 import PostImageGallery from "./PostImageGallery.tsx";
 import timeAgo from "../../helpers/timgeAgo.ts";
+import { PostType, UserType } from "../../types.ts";
+
+type FormData ={
+    content:string;
+  }
+
 
 
 
@@ -36,13 +42,13 @@ import timeAgo from "../../helpers/timgeAgo.ts";
  *
  * Homepage & GroupContainer & PostsContainer and UserPostsContainer -> PostListItem -> PostImageGallery & CommentsContainer
  */
-function PostListItem({post, updatePosts}): ReactNode {
-    const {user} = useUser()
+function PostListItem({post, updatePosts}:{post:PostType, updatePosts:()=> void}): ReactNode {
+    const {user}:{user:UserType} = useUser()
     const {setMessage} = useMessage();
-    const[postState, setPostState] = useState(post);
-    const [isCommentsOpen, setIsCommentsOpen] = useState(false);
-    const[isButtonsOpen, setIsButtonsOpen] = useState(false)
-    const [isExpanded, setIsExpanded] = useState(false);
+    const[postState, setPostState] = useState<PostType>(post);
+    const [isCommentsOpen, setIsCommentsOpen] = useState<boolean>(false);
+    const[isButtonsOpen, setIsButtonsOpen] = useState<boolean>(false)
+    const [isExpanded, setIsExpanded] = useState<boolean>(false);
 
     //toggle isCommentsOpen to render CommentsContainer
     function toggleComments(){
@@ -54,17 +60,25 @@ function PostListItem({post, updatePosts}): ReactNode {
         try{
             const updatedPost = await FiskeAPI.getPost( localStorage['fiske-token'], post.id);
             setPostState(updatedPost)
-           }catch (err){
-             setMessage(err.message, 'error')
-           }
+        }catch(err:unknown){
+            if (err instanceof Error) {
+                setMessage(err.message, 'error');
+              }else{
+                setMessage('An Unknown Error Occurred', 'error')
+              }
+        }
     }
 
     //create comment
-    async function createComment(formData){
+    async function createComment(formData:FormData){
         try{
          await FiskeAPI.createComment( localStorage['fiske-token'], post.group_id, post.id, formData);
-        }catch (err){
-          setMessage('An error occurred', 'error')
+        }catch(err:unknown){
+            if (err instanceof Error) {
+                setMessage(err.message, 'error');
+              }else{
+                setMessage('An Unknown Error Occurred', 'error')
+              }
         }
 
     }
@@ -74,9 +88,13 @@ function PostListItem({post, updatePosts}): ReactNode {
         try{
             await FiskeAPI.deletePost( localStorage['fiske-token'], post.group_id, post.id);
             updatePosts()
-           }catch (err){
-             setMessage(err.message, 'error')
-           }
+        }catch(err:unknown){
+            if (err instanceof Error) {
+                setMessage(err.message, 'error');
+              }else{
+                setMessage('An Unknown Error Occurred', 'error')
+              }
+        }
     }
 
     //toggle isButtonsOpen to render utility box

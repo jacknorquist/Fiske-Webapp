@@ -32,7 +32,7 @@ import {
  */
 function CreatePostForm({createPost, toggleCreatePost}: {createPost: (formData:FormData)=> void, toggleCreatePost:()=> void}): ReactNode {
    const {user}:{user:UserType} = useUser()
-    const [images, setImages] = useState<string | null[]>([])
+    const [images, setImages] = useState<string[] | null[]>([])
 
 
     const initialState:FormData = {
@@ -96,7 +96,7 @@ function CreatePostForm({createPost, toggleCreatePost}: {createPost: (formData:F
         <div className={styles.iconContainer}>
         <i className={`${styles.icon} bi bi-images`} onClick={handleAddImage}></i>
         </div>
-        {images.map((image, index) => (
+        {images.map((image, index:number) => (
           <div key={index} className={styles.imageInput}>
           <FormGroup row>
           <Col sm={10}>

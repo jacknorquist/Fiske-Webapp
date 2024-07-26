@@ -14,6 +14,10 @@ import {
     CloseButton
   } from 'reactstrap';
 
+  type FormData ={
+    content:string;
+  }
+
 /**CreateCommentForm: Renders form to create a comment.
  *
  *Props:
@@ -24,13 +28,13 @@ import {
  *
  * PostListItem -> CommentsContainer -> Comment
  */
-function CreateCommentForm({updatePost, createComment}): ReactNode {
+function CreateCommentForm({updatePost, createComment}: {updatePost: ()=>void, createComment(formData:FormData)=> void}): ReactNode {
 
 
-    const initialState = {
+    const initialState:FormData = {
         content: ""
     };
-    const [formData, setFormData] = useState(initialState);
+    const [formData, setFormData] = useState<FormData>(initialState);
 
     //handle form change
     function handleChange(evt) {

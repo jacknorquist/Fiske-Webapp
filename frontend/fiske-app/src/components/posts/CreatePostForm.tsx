@@ -2,17 +2,22 @@ import React from "react";
 import { ReactNode, useState } from "react";
 import styles from './css/CreatePostForm.module.css'
 import { useUser } from "../../context/UserContext.tsx";
+import { UserType } from "../../types.ts";
 
 import {
     Form,
     FormGroup,
-    Label,
     Col,
     Input,
-    FormText,
     Button,
     CloseButton
   } from 'reactstrap';
+
+  type FormData = {
+    content: string;
+  };
+
+//TODO: Adding Images visuals
 
 /**CreatePostForm: renders form to create a post
  *
@@ -25,24 +30,26 @@ import {
  * - images (array): handles the amount of images available to add to a post
  * ProfileContainer -> CreateGroupContainer -> CreateGroupForm
  */
-function CreatePostForm({createPost, toggleCreatePost}): ReactNode {
-   const {user} = useUser()
-    const [images, setImages] = useState([])
+function CreatePostForm({createPost, toggleCreatePost}: {createPost: (formData:FormData)=> void, toggleCreatePost:()=> void}): ReactNode {
+   const {user}:{user:UserType} = useUser()
+    const [images, setImages] = useState<string | null[]>([])
 
 
-    const initialState = {
+    const initialState:FormData = {
         content: ""
     };
-    const [formData, setFormData] = useState(initialState);
+    const [formData, setFormData] = useState<FormData>(initialState);
 
     //handle form change
-    function handleChange(evt) {
+    function handleChange(evt: React.ChangeEvent<HTMLInputElement>) {
       const { name, value, type, files } = evt.target;
       if (type === "file") {
+        if(files && files.length>0){
           setFormData(fData => ({
               ...fData,
               [name]: files[0]
           }));
+        }
       } else {
           setFormData(fData => ({
               ...fData,
@@ -52,7 +59,7 @@ function CreatePostForm({createPost, toggleCreatePost}): ReactNode {
   }
 
     //handle form submit
-    function handleSave(evt) {
+    function handleSave(evt: React.FormEvent<HTMLFormElement>) {
         evt.preventDefault();
         createPost(formData);
         setFormData(initialState);

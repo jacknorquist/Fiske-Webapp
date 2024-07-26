@@ -11,6 +11,12 @@ import SearchGroupsForm from "./SearchGroupsForm.tsx";
 import styles from './css/SearchGroupsContainer.module.css'
 import { v4 as uuidv4 } from 'uuid';
 import { useMessage } from "../../context/MessageContext.tsx";
+import { GroupType } from "../../types.ts";
+
+type FormData = {
+  search: string;
+};
+
 
 
 /**SearchGroupsContainer: renders container to search for groups, handles updating groups when searched
@@ -25,21 +31,24 @@ import { useMessage } from "../../context/MessageContext.tsx";
  * Homepage & GroupsContainer -> SearchGroupsContainer
  */
 function SearchGroupsContainer(): ReactNode {
-    const [groups, setGroups] = useState([]);
+    const [groups, setGroups] = useState<GroupType[]>([]);
     const {setMessage} = useMessage();
 
     useEffect(() => {
       //get inital groups (all groups in db)
         async function getGroups() {
-         const token = localStorage.getItem('fiske-token');
+         const token:string | null = localStorage.getItem('fiske-token');
          if (token) {
            try {
-             const groups = await FiskeAPI.getExploreGroups(token);
+             const groups:GroupType[] = await FiskeAPI.getExploreGroups(token);
              setGroups(groups)
-           } catch (err) {
-              setMessage('An Error Occurred', 'error')
-           } finally {
-           }
+            }catch(err:unknown){
+              if (err instanceof Error) {
+                  setMessage(err.message, 'error');
+                }else{
+                  setMessage('An Unknown Error Occurred', 'error')
+                }
+              }
          }
        };
 
@@ -47,17 +56,20 @@ function SearchGroupsContainer(): ReactNode {
      }, []);
 
      //update groups based on serach term
-     async function updateGroups(formData){
+     async function updateGroups(formData: FormData){
         const token = localStorage.getItem('fiske-token');
         if (token) {
           try {
             const groups = await FiskeAPI.searchGroups(token, formData);
             setGroups(groups);
             setMessage('Group Updated', "success")
-          } catch (err) {
-            setMessage(err.message, 'error')
-          } finally {
-          }
+          }catch(err:unknown){
+            if (err instanceof Error) {
+                setMessage(err.message, 'error');
+              }else{
+                setMessage('An Unknown Error Occurred', 'error')
+              }
+            }
         }
      }
 

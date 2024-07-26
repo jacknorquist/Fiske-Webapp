@@ -18,9 +18,7 @@ import { Link } from 'react-router-dom';
 import {Button} from 'reactstrap';
 import { useUser } from '../../context/UserContext.tsx';
 import styles from './css/NavBar.module.css'
-
-
-//TODO: don't need to check for user if navbar is only rendered if there is a user??
+import { UserType } from '../../types.ts';
 
 /**NavBar: renders navigation for logged in user
  *
@@ -33,10 +31,7 @@ import styles from './css/NavBar.module.css'
  * App -> NavBar
  */
 function NavBar(): React.ReactNode {
-  const {user} = useUser()
-
-  const toggle = () => setIsOpen(!isOpen);
-
+  const {user}:{user:UserType} = useUser()
 
   return (
 
@@ -62,8 +57,8 @@ function NavBar(): React.ReactNode {
                   className={styles.profileImage}
                 />
               </NavLink>
-      </Navbar>:""
-}
+      </Navbar>
+      :""}
   </div>
 );
 }

@@ -17,7 +17,7 @@ import styles from './css/GlobalMessage.module.css'
 const GlobalMessage: React.FC = () => {
   const { message, messageType, clearMessage } = useMessage();
 
-  const messageColor =  messageType === 'success'? 'success' : 'danger'
+  const messageColor:string =  messageType === 'success'? 'success' : 'danger'
 
   return (
     <div className={styles.messageContainer} >

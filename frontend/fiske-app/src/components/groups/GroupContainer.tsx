@@ -12,6 +12,8 @@ import { useNavigate } from "react-router-dom";
 import EditGroupContainer from "./EditGroupContainer.tsx";
 import FishboardContainer from "../Fishboard/FishboardContainer.tsx";
 
+import { PostType, GroupTypeWithFishboard, UserType, GroupType} from "../../types.ts";
+
 //TODO: change useEffect to listen to groupState (updateposts and updategroup)
 
 /**GroupContainer: renders group
@@ -30,34 +32,38 @@ import FishboardContainer from "../Fishboard/FishboardContainer.tsx";
  */
 function GroupContainer(): ReactNode {
 
-  const {user} = useUser();
+  const {user}:{user:UserType} = useUser();
   const {setMessage} = useMessage();
   const navigate = useNavigate()
-  const [group, setGroup] = useState(null)
-  const [posts, setPosts] = useState([])
+  const [group, setGroup] = useState<GroupTypeWithFishboard | null>(null)
+  const [posts, setPosts] = useState<PostType[]>([])
   const {id} = useParams();
-  const currentUserId = user!.id
-  const [userMember, setUserMember] = useState(false)
-  const [isCreatePostOpen, setIsCreatePostOpen] = useState(false);
-  const [isEditGroupOpen, setIsEditGroupOpen] = useState(false);
+  const currentUserId:number = user!.id
+  const [userMember, setUserMember] = useState<boolean>(false)
+  const [isCreatePostOpen, setIsCreatePostOpen] = useState<boolean>(false);
+  const [isEditGroupOpen, setIsEditGroupOpen] = useState<boolean>(false);
 
 
 
   useEffect(() => {
     //get posts for group
       async function getPosts() {
-        const token = localStorage.getItem('fiske-token');
+        const token:string | null = localStorage.getItem('fiske-token');
         if (token) {
           try {
-            const posts = await FiskeAPI.getGroupPosts( token, id);
-            const group = await FiskeAPI.getGroup(token, id);
-            const userGroups = await FiskeAPI.getUserGroups(token, currentUserId )
-            setUserMember(userGroups.find(g=> g.id == id) ? true : false)
+            const posts:PostType[] = await FiskeAPI.getGroupPosts( token, id);
+            const group: GroupTypeWithFishboard = await FiskeAPI.getGroup(token, id);
+            const userGroups: GroupType[] = await FiskeAPI.getUserGroups(token, currentUserId )
+            setUserMember(userGroups.find(g=> g.id === Number(id)) ? true : false)
             setGroup(group)
             setPosts(posts)
-          } catch (err) {
-          } finally {
-          }
+          }catch(err:unknown){
+            if (err instanceof Error) {
+                setMessage(err.message, 'error');
+              }else{
+                setMessage('An Unknown Error Occurred', 'error')
+              }
+        }
         }
       };
 
@@ -69,18 +75,43 @@ function GroupContainer(): ReactNode {
     try{
       await FiskeAPI.leaveGroup(localStorage.getItem('fiske-token'), id);
       setUserMember(false);
-    }catch(err){
-      setMessage('Failed to Leave Group', 'error')
+    }catch(err:unknown){
+      if (err instanceof Error) {
+          setMessage(err.message, 'error');
+        }else{
+          setMessage('An Unknown Error Occurred', 'error')
+        }
+  }
     }
-    }
+
   //user leave group
   async function joinGroup(){
     try{
     await FiskeAPI.joinGroup(localStorage.getItem('fiske-token'), id);
     setUserMember(true)
-    }catch(err){
-      setMessage('Failed to Join Group', 'error')
+  }catch(err:unknown){
+    if (err instanceof Error) {
+        setMessage(err.message, 'error');
+      }else{
+        setMessage('An Unknown Error Occurred', 'error')
+      }
     }
+  }
+
+  //delete group
+  async function deleteGroup(){
+    if(group){
+    try{
+        await FiskeAPI.deleteGroup( localStorage['fiske-token'], group.group.id);
+        navigate('/')
+      }catch(err:unknown){
+        if (err instanceof Error) {
+            setMessage(err.message, 'error');
+          }else{
+            setMessage('An Unknown Error Occurred', 'error')
+          }
+    }
+  }
   }
   //toggle isCreatePostOpen to show CreatePostContainer
   function toggleCreatePost (){
@@ -101,41 +132,44 @@ function GroupContainer(): ReactNode {
     setUserMember(!userMember)
   }
 
-  //delete group
-  async function deleteGroup(){
-    try{
-        await FiskeAPI.deleteGroup( localStorage['fiske-token'], group.group.id);
-        navigate('/')
-      }catch (err){
-        setMessage(err.message, 'error')
-      }
-  }
 
     return (
       <div className={styles.container}>
-           {isEditGroupOpen && <EditGroupContainer group={group} toggleEditGroup={toggleEditGroup} updateGroup={updateGroup}/>}
+           {isEditGroupOpen && group ?
+           <EditGroupContainer group={group} toggleEditGroup={toggleEditGroup} updateGroup={updateGroup}/>
+           : ""}
         <div className={styles.leftContainer}>
            {group ?
            <div className={styles.header}>
-            <img src={group!.group!.header_image_url || `${process.env.PUBLIC_URL}/DefaultHeader.jpg`} className={styles.headerImage} alt="" />
-            <div className={styles.content}>
-            <div style={{display:'flex', alignContent:'center'}}>
-            <h3>{group?.group.name}</h3>
-           {group.group!.admin_id === user.id ? <i className={`${styles.icon} bi bi-trash`} onClick={deleteGroup}></i>:""}
-           {user!.id === group.group!.admin_id ? <i  className={`${styles.icon} bi bi-pen`}onClick={toggleEditGroup}></i>:""}
-           {userMember ? <Button style={{right:'0'}} className={styles.leaveButton} onClick={leaveGroup}>Leave</Button>:<Button className={styles.joinButton} style={{right:'0'}}  onClick={joinGroup}>Join</Button>}
-            </div>
-            <div style={{display:'flex'}}>
-            <p style={{margin:'0'}}><b>Area: </b>{group.group!.area}</p>
-            </div>
-            <div style={{display:'flex'}}>
-            <p style={{margin:'0'}}><b>Target Species: </b>{group.group!.fish_species}</p>
-            </div>
-            <p style={{margin:'0'}}>{group.group!.description}</p>
-            {(userMember  || group?.group?.admin_id === user.id)&& !isCreatePostOpen  ? <div className={styles.createPostButton}onClick={toggleCreatePost}>Make a Post</div>:""}
-            </div>
-             {isCreatePostOpen && <CreatePostContainer group={id} toggleCreatePost={toggleCreatePost} updatePosts={updatePosts}/>}
-           </div>:""}
+              <img src={group!.group!.header_image_url || `${process.env.PUBLIC_URL}/DefaultHeader.jpg`} className={styles.headerImage} alt="" />
+              <div className={styles.content}>
+                <div style={{display:'flex', alignContent:'center'}}>
+                  <h3>{group?.group.name}</h3>
+                  {group.group!.admin_id === user.id ?
+                  <i className={`${styles.icon} bi bi-trash`} onClick={deleteGroup}></i>
+                  :""}
+                  {user!.id === group.group!.admin_id ?
+                   <i  className={`${styles.icon} bi bi-pen`}onClick={toggleEditGroup}></i>
+                   :""}
+                  {userMember ?
+                  <Button style={{right:'0'}} className={styles.leaveButton} onClick={leaveGroup}>Leave</Button>
+                  :
+                  <Button className={styles.joinButton} style={{right:'0'}}  onClick={joinGroup}>Join</Button>}
+                </div>
+                <div style={{display:'flex'}}>
+                  <p style={{margin:'0'}}><b>Area: </b>{group.group!.area}</p>
+                </div>
+                <div style={{display:'flex'}}>
+                  <p style={{margin:'0'}}><b>Target Species: </b>{group.group!.fish_species}</p>
+                </div>
+                <p style={{margin:'0'}}>{group.group!.description}</p>
+                {(userMember  || group?.group?.admin_id === user.id)&& !isCreatePostOpen  ?
+                 <div className={styles.createPostButton}onClick={toggleCreatePost}>Make a Post</div>
+                 :""}
+              </div>
+              {isCreatePostOpen && <CreatePostContainer groupId={id} toggleCreatePost={toggleCreatePost} updatePosts={updatePosts}/>}
+           </div>
+           :""}
            <div className={styles.fishboardContainer}>
             {group ?
             <FishboardContainer fishboard={group.fishboard} fishBoardType={'GroupFishboard'} profileIsUser={false}/>

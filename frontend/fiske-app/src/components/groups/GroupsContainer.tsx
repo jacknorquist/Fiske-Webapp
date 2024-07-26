@@ -7,6 +7,7 @@ import styles from './css/GroupsContainer.module.css'
 import SearchGroupsContainer from "./SearchGroupsContainer.tsx";
 import { v4 as uuidv4 } from 'uuid';
 import { useMessage } from "../../context/MessageContext.tsx";
+import { GroupType, UserType } from "../../types.ts";
 
 
 /**GroupsContainer: renders GroupListItems for groups
@@ -23,11 +24,11 @@ import { useMessage } from "../../context/MessageContext.tsx";
  * RoutesList -> GroupsContainer -> SearchGroupsContainer
  */
 function GroupsContainer(): ReactNode {
-    const {user} = useUser()
-    const [userGroups, setUserGroups] =useState([])
-    const [exploreGroups, setExploreGroups] = useState([])
-    const [exploreGroupsContainerOpen, setExploreGroupsContainer] = useState(false)
-    const currentUserId = user.id;
+    const {user}:{user: UserType} = useUser()
+    const [userGroups, setUserGroups] =useState<GroupType[]>([])
+    const [exploreGroups, setExploreGroups] = useState<GroupType[]>([])
+    const [exploreGroupsContainerOpen, setExploreGroupsContainer] = useState<boolean>(false)
+    const currentUserId:number = user.id;
     const {setMessage} = useMessage()
 
 
@@ -52,11 +53,14 @@ function GroupsContainer(): ReactNode {
              const exploreGroups = await FiskeAPI.getExploreGroups(token);
              setUserGroups(userGroups)
              setExploreGroups(exploreGroups)
-           } catch (err) {
-            setMessage('An Error Occurred', 'error')
+            }catch(err:unknown){
+              if (err instanceof Error) {
+                  setMessage(err.message, 'error');
+                }else{
+                  setMessage('An Unknown Error Occurred', 'error')
+                }
+              }
 
-           } finally {
-           }
          }
        };
 

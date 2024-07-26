@@ -1,11 +1,6 @@
 import React from "react";
 import { ReactNode } from "react";
-import { Link } from "react-router-dom";
-import GroupsContainer from "../groups/GroupsContainer.tsx";
-import PostsContainer from "../posts/PostsContainer.tsx";
-import Post from "./Post.tsx";
 import { useState } from "react";
-import { Button } from "reactstrap";
 import styles from './css/Homepage.module.css';
 import FiskeAPI from "../../api.ts";
 import { useEffect } from "react";
@@ -13,8 +8,9 @@ import PostListItem from "../posts/PostListItem.tsx";
 import { useUser } from "../../context/UserContext.tsx";
 import SearchGroupsContainer from "../groups/SearchGroupsContainer.tsx";
 import { useMessage } from "../../context/MessageContext.tsx";
+import { PostType, UserType } from "../../types.ts";
 
-
+//TODO refactor determineApiCall
 /**Homepage: homepage for logged in user that renders posts and SearchGroupsContainer
  *
  *Props:
@@ -26,9 +22,9 @@ import { useMessage } from "../../context/MessageContext.tsx";
  * App -> RoutesList -> Homepage -> PostListItem & SearchGroupsContainer
  */
 function Homepage(): ReactNode {
-    const [typeOfPosts, setTypeOfPosts] = useState('userFeed');
-    const [posts, setPosts] = useState([])
-    const {user} = useUser();
+    const [typeOfPosts, setTypeOfPosts] = useState<string>('userFeed');
+    const [posts, setPosts] = useState<PostType[]>([])
+    const {user}:{user:UserType} = useUser();
     const {setMessage} = useMessage()
 
     useEffect(() => {
@@ -38,25 +34,22 @@ function Homepage(): ReactNode {
                 return 'getFeed';
             } else if (typeOfPosts === 'explore') {
                 return 'getExplorePosts';
-            } else if (typeOfPosts === 'group') {
-                return 'getGroupPosts';
             }
         }
         //fetch posts
         async function fetchPosts() {
-            const token = localStorage.getItem('fiske-token');
-            if (token) {
+            const token:string | null = localStorage.getItem('fiske-token');
+            const selectedApiCall = determineApiCall();
+            if (token && selectedApiCall) {
                 try {
-                    const selectedApiCall = determineApiCall();
-                    if(selectedApiCall === "getGroupPosts"){
-                        const fetchedPosts = await FiskeAPI[selectedApiCall](token, typeOfPosts.groupId.id);
-                        setPosts(fetchedPosts);
-                    }else{
-                    const fetchedPosts = await FiskeAPI[selectedApiCall](user.id, token);
+                    const fetchedPosts:PostType[] = await FiskeAPI[selectedApiCall](user.id, token);
                     setPosts(fetchedPosts);
-                    }
-                } catch (err) {
-                    setMessage('An error occurred', 'error')
+                }catch(err:unknown){
+                    if (err instanceof Error) {
+                        setMessage(err.message, 'error');
+                      }else{
+                        setMessage('An Unknown Error Occurred', 'error')
+                      }
                 }
             }
         }
@@ -74,25 +67,23 @@ function Homepage(): ReactNode {
                 return 'getFeed';
             } else if (typeOfPosts === 'explore') {
                 return 'getExplorePosts';
-            } else if (typeOfPosts === 'group') {
-                return 'getGroupPosts';
             }
         }
         //fetch posts
         async function fetchPosts() {
             const token = localStorage.getItem('fiske-token');
-            if (token) {
+            const selectedApiCall = determineApiCall();
+            if (token && selectedApiCall) {
                 try {
-                    const selectedApiCall = determineApiCall();
-                    if(selectedApiCall === "getGroupPosts"){
-                        const fetchedPosts = await FiskeAPI[selectedApiCall](token, typeOfPosts.groupId.id);
-                        setPosts(fetchedPosts);
-                    }else{
                     const fetchedPosts = await FiskeAPI[selectedApiCall](user.id, token);
                     setPosts(fetchedPosts);
-                    }
-                } catch (err) {
-                    setMessage('An error occurred', 'error')
+
+                }catch(err:unknown){
+                    if (err instanceof Error) {
+                        setMessage(err.message, 'error');
+                      }else{
+                        setMessage('An Unknown Error Occurred', 'error')
+                      }
                 }
             }
         }

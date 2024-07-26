@@ -9,6 +9,7 @@ import { useUser } from '../../context/UserContext.tsx';
 import { useMessage } from '../../context/MessageContext.tsx';
 import { MessageProvider } from '../../context/MessageContext.tsx';
 import styles from './css/App.module.css'
+import { UserType } from '../../types.ts';
 
 /**App: renders NavBar, RoutesList and GlobalMessage
  *
@@ -21,7 +22,7 @@ import styles from './css/App.module.css'
  * Index -> App -> RoutesList & GloablMessage & NavBar
  */
 function App(): ReactNode{
-  const {user} = useUser();
+  const {user}:{user:UserType} = useUser();
   const {setMessage} = useMessage();
 
   return (

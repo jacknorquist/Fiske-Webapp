@@ -1,9 +1,7 @@
 import React, { useState } from "react";
 import { ReactNode, useEffect } from "react";
 import { useUser } from "../../context/UserContext.tsx";
-import ExplorePostsContainer from "./ExplorePostsContainer.tsx";
 import FiskeAPI from "../../api.ts";
-import Post from "./PostContainer.tsx";
 import PostListItem from "./PostListItem.tsx";
 import { useMessage } from "../../context/MessageContext.tsx";
 

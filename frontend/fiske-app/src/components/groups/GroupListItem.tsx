@@ -34,7 +34,6 @@ function GroupListItem({group}:{group:GroupType}): ReactNode {
         e.preventDefault();
         setIsButtonsOpen(!isButtonsOpen)
     }
-     console.log(group, 'group')
 
     useEffect(() => {
       //determines if user is a member of the group

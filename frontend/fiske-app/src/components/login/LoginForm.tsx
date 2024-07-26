@@ -13,6 +13,11 @@ import {
     Button
   } from 'reactstrap';
 
+  type FormData = {
+    username: string;
+    password:string;
+  };
+
 
 /**LoginForm: renders form to login
  *
@@ -24,26 +29,27 @@ import {
  *
  * App -> RoutesList -> LoginContainer -> LoginForm
  */
-function LoginForm({handleLogin}): ReactNode {
+function LoginForm({handleLogin}:{handleLogin: (formData: FormData)=> void}): ReactNode {
 
-    const initialState = {
+    const initialState:FormData = {
       username: "",
       password:"",
     };
 
-    const [formData, setFormData] = useState(initialState);
+    const [formData, setFormData] = useState<FormData>(initialState);
 
     //handle form change
-    function handleChange(evt) {
+    function handleChange(evt: React.ChangeEvent<HTMLInputElement>) {
       const { name, value } = evt.target;
-      setFormData(fData => ({
-          ...fData,
-          [name]: value,
-      }));
+          setFormData(fData => ({
+              ...fData,
+              [name]: value
+          }));
   }
 
+
   //handle form submit
-  async function handleSave(evt) {
+  async function handleSave(evt: React.FormEvent<HTMLFormElement>) {
       evt.preventDefault();
       await handleLogin(formData)
       setFormData(initialState);

@@ -5,8 +5,13 @@ import { useMessage } from "../../context/MessageContext.tsx";
 import FiskeAPI from "../../api.ts";
 import { useUser } from "../../context/UserContext.tsx";
 import styles from './css/LoginContainer.module.css'
-import { Button } from "reactstrap";
+import { Button, Form } from "reactstrap";
 import { useNavigate } from "react-router-dom";
+
+type FormData = {
+  username: string;
+  password:string;
+};
 
 /**LoginContainer: renders LoginForm and handles login functionality
  *
@@ -23,16 +28,20 @@ function LoginContainer(): ReactNode {
     const {setUser} = useUser();
 
   //login user
-  async function handleLogin(formData){
+  async function handleLogin(formData: FormData){
 
       try{
         const {user, token} = await FiskeAPI.login(formData)
         setUser(user);
         localStorage['fiske-token'] =token;
         setMessage('Login Success', 'success')
-      }catch (err){
-        setMessage(err.message, 'error')
-      }
+      }catch(err:unknown){
+        if (err instanceof Error) {
+            setMessage(err.message, 'error');
+          }else{
+            setMessage('An Unknown Error Occurred', 'error')
+          }
+        }
 
   }
 

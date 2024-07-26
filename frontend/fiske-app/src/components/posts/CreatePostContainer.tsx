@@ -3,8 +3,12 @@ import { ReactNode, useState } from "react";
 import { useMessage } from "../../context/MessageContext.tsx";
 import FiskeAPI from "../../api.ts";
 import CreatePostForm from "./CreatePostForm.tsx";
-import { Button } from "reactstrap";
-import styles from './css/CreatePostContainer.module.css'
+import styles from './css/CreatePostContainer.module.css';
+
+type FormData = {
+  content: string;
+};
+
 
 /**CreatePostContainer: renders CreatePostForm and handles create post functionality
  *
@@ -19,19 +23,24 @@ import styles from './css/CreatePostContainer.module.css'
  *
  *  RoutesList -> GroupContainer -> CreatePostContainer
  */
-function CreatePostContainer({group, toggleCreatePost, updatePosts}): ReactNode {
+function CreatePostContainer({groupId, toggleCreatePost, updatePosts}: {groupId:string | undefined, toggleCreatePost: ()=> void, updatePosts: ()=> void}): ReactNode {
 
   const { setMessage } = useMessage();
+  console.log(groupId, 'groupId')
 
   //create post
-  async function createPost(formData){
+  async function createPost(formData:FormData){
       try{
-       await FiskeAPI.createPost( localStorage['fiske-token'], group, formData);
+       await FiskeAPI.createPost( localStorage['fiske-token'], groupId, formData);
         updatePosts();
         toggleCreatePost();
-      }catch (err){
-        setMessage(err.message, 'error')
-      }
+      }catch(err:unknown){
+        if (err instanceof Error) {
+            setMessage(err.message, 'error');
+          }else{
+            setMessage('An Unknown Error Occurred', 'error')
+          }
+        }
 
   }
     return (

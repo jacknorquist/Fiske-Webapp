@@ -9,7 +9,6 @@ import LoggedInProtection from './LoggedInProtection.tsx';
 import ProfileContainer from '../profile/ProfileContainer.tsx';
 import GroupsContainer from '../groups/GroupsContainer.tsx';
 import GroupContainer from '../groups/GroupContainer.tsx';
-import PostContainer from '../posts/PostContainer.tsx';
 import Homepage from '../main/Homepage.tsx'
 import LandingPage from '../main/LandingPage.tsx'
 import NotFound from '../main/NotFound.tsx'
@@ -34,7 +33,6 @@ function RoutesList(){
             <Route path="/profile/:id" element={<LoggedOutProtection><ProfileContainer /></LoggedOutProtection>}/>
             <Route path="/groups" element={<LoggedOutProtection><GroupsContainer /></LoggedOutProtection>} />
             <Route path="/groups/:id" element={<LoggedOutProtection><GroupContainer /></LoggedOutProtection>} />
-            <Route path="/posts/:id" element={<LoggedOutProtection><PostContainer /></LoggedOutProtection>} />
             <Route path="/" element={<LoggedOutProtection><Homepage /></LoggedOutProtection>} />
             <Route path="*" element={<NotFound />} />
         </Routes>

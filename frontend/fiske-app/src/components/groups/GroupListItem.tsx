@@ -8,6 +8,7 @@ import styles from './css/GroupListItem.module.css'
 import { useEffect } from "react";
 import FiskeAPI from "../../api.ts";
 import { useMessage } from "../../context/MessageContext.tsx";
+import { GroupType } from "../../types.ts";
 
 //TODO: Toggle isButtonsOpen to off (window event listener?). & . Efficient way to determine if user is a member
 
@@ -21,30 +22,35 @@ import { useMessage } from "../../context/MessageContext.tsx";
  * - userIsMember (boolean): if true, user is a member of the group
  * - isButtonsOpen (boolean): if true, utility box is displayed
  */
-function GroupListItem({group}): ReactNode {
+function GroupListItem({group}:{group:GroupType}): ReactNode {
 
     const {user} = useUser();
     const {setMessage} = useMessage()
-    const [isUserMember, setIsUserMemeber] = useState(false)
-    const[isButtonsOpen, setIsButtonsOpen] = useState(false)
+    const [isUserMember, setIsUserMemeber] = useState<boolean>(false)
+    const[isButtonsOpen, setIsButtonsOpen] = useState<boolean>(false)
 
     //toggle isButtonsOpen to show utility box with buttons
-    function toggleButtons(e){
+    function toggleButtons(e: React.MouseEvent){
         e.preventDefault();
         setIsButtonsOpen(!isButtonsOpen)
     }
+     console.log(group, 'group')
 
     useEffect(() => {
       //determines if user is a member of the group
       async function getGroups() {
-       const token = localStorage.getItem('fiske-token');
+       const token:string | null = localStorage.getItem('fiske-token');
        if (token) {
          try {
-           const groups = await FiskeAPI.getUserGroups( token, user.id);
+           const groups:GroupType[] = await FiskeAPI.getUserGroups( token, user.id);
            setIsUserMemeber(groups.find(g=> g.id == group.id) ? true : false)
-         } catch (err) {
-         } finally {
-         }
+          }catch(err:unknown){
+            if (err instanceof Error) {
+                setMessage(err.message, 'error');
+              }else{
+                setMessage('An Unknown Error Occurred', 'error')
+              }
+        }
        }
      };
 
@@ -52,26 +58,34 @@ function GroupListItem({group}): ReactNode {
    }, []);
 
    //user leave group
-   async function leaveGroup(e){
-    e.preventDefault();
-    try{
-    await FiskeAPI.leaveGroup(localStorage.getItem('fiske-token'), group.id);
-    setIsUserMemeber(false);
-    }catch(err){
-      setMessage('Failed to Leave Group', 'error')
-    }
+   async function leaveGroup(e: React.MouseEvent){
+      e.preventDefault();
+      try{
+      await FiskeAPI.leaveGroup(localStorage.getItem('fiske-token'), group.id);
+      setIsUserMemeber(false);
+      }catch(err:unknown){
+      if (err instanceof Error) {
+          setMessage(err.message, 'error');
+        }else{
+          setMessage('An Unknown Error Occurred', 'error')
+        }
+      }
 
   }
 
   //user join group
-  async function joinGroup(e){
-
+  async function joinGroup(e: React.MouseEvent){
     e.preventDefault();
+
     try{
     await FiskeAPI.joinGroup(localStorage.getItem('fiske-token'), group.id);
     setIsUserMemeber(true)
-    }catch(err){
-      setMessage('Failed to Join Group', 'error')
+    }catch(err:unknown){
+    if (err instanceof Error) {
+        setMessage(err.message, 'error');
+      }else{
+        setMessage('An Unknown Error Occurred', 'error')
+      }
     }
   }
 

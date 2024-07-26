@@ -4,16 +4,20 @@ import { ReactNode, useState } from "react";
 import styles from './css/FishboardForm.module.css'
 
 import {
-    Form,
-    FormGroup,
-    Label,
-    Col,
-    Input,
-    FormText,
-    Button,
-    CloseButton
-  } from 'reactstrap';
+  Form,
+  FormGroup,
+  Label,
+  Col,
+  Input,
+  Button,
+  CloseButton
+} from 'reactstrap';
 
+type FormData = {
+  species: string;
+  length: number;
+  image?: File;
+};
 
 /**FishboardForm: Renders form to add a fish to Fishboard.
  *
@@ -26,32 +30,34 @@ import {
  *
  * Fishboard -> FishboardFormContainer -> Fishboardform
  */
-function FishboardForm({createFish, toggleCreateFish}): ReactNode {
+function FishboardForm({createFish, toggleCreateFish}:{createFish: (formData: FormData) => void, toggleCreateFish: ()=>void }): ReactNode {
 
   const initialState = {
       species:"",
-      length: "",
+      length: 0,
   };
-  const [formData, setFormData] = useState(initialState);
+  const [formData, setFormData] = useState<FormData>(initialState);
 
   //handles form change
-  function handleChange(evt) {
+  function handleChange(evt: React.ChangeEvent<HTMLInputElement>) {
     const { name, value, type, files } = evt.target;
     if (type === "file") {
+      if(files && files.length>0){
         setFormData(fData => ({
             ...fData,
             [name]: files[0]
-        }));
+        }))
+      }
     } else {
         setFormData(fData => ({
             ...fData,
             [name]: value
-        }));
+        }))
     }
   }
 
   //handle adding a fish
-  function handleSave(evt) {
+  function handleSave(evt: React.FormEvent<HTMLFormElement>) {
       evt.preventDefault();
       createFish(formData);
       toggleCreateFish()

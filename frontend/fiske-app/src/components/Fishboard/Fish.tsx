@@ -1,11 +1,13 @@
 import React from "react";
 import { ReactNode , useState} from "react";
-import { useUser } from "../../context/UserContext.tsx";
-import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
-import { Button } from "reactstrap";
 import styles from './css/Fish.module.css';
 import FiskeAPI from "../../api.ts";
+import { FishType } from "../../types.ts";
+import { useEffect } from "react";
+import { useMessage } from "../../context/MessageContext.tsx";
+
+type FishboardTypeProp = 'GroupFishboard' | 'UserFishboard';
 
 //TODO: Send username with fish in backend. Eliminate additional call at line 30.
 
@@ -18,22 +20,33 @@ import FiskeAPI from "../../api.ts";
  *   GroupFishboard adds the username to the fish, UserFishboard does not.
  *
  *State:
- * -none
+ * -userName (string): fish creator's username. only displayed if Groupfishboard
  *
- * Fisboard -> Fish
+ * GroupContainer & ProfileContainer -> Fisboard -> Fish
  */
-function Fish({fish, fishBoardType}): ReactNode {
+function Fish({fish, fishBoardType}: {fish:FishType , fishBoardType:FishboardTypeProp}): ReactNode {
 
-    let username = null;
+    const [username, setUsername] = useState<string | null>(null);
+    const {setMessage} = useMessage();
 
-    if(fishBoardType === 'GroupFishboard'){
+    useEffect(()=>{
+        //get username for fish
         async function getUsername(){
-        const user = await FiskeAPI.getUser(localStorage['fiske-token'], fish.user_id );
-        username = (user.user.username)
+        if(fishBoardType === 'GroupFishboard'){
+            try{
+            const user = await FiskeAPI.getUser(localStorage['fiske-token'], fish.user_id );
+            setUsername(user.user.username)
+        }catch(err:unknown){
+            if (err instanceof Error) {
+                setMessage(err.message, 'error');
+              }else{
+                setMessage('An Unknown Error Occurred', 'error')
+              }
+            }
         }
-        getUsername()
     }
-
+        getUsername()
+    },[])
 
 
     return (

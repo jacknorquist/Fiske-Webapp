@@ -9,6 +9,15 @@ import FiskeAPI from "../../api.ts";
 import FishboardForm from "./FishboardForm.tsx";
 import style from './css/FishboardFormContainer.module.css'
 import { useMessage } from "../../context/MessageContext.tsx";
+import { FishboardType } from "../../types.ts";
+
+type FishboardTypeProp = 'GroupFishboard' | 'UserFishboard';
+type FormData = {
+    species: string;
+    length: number;
+    image?: File;
+  };
+
 
 
 
@@ -26,19 +35,24 @@ import { useMessage } from "../../context/MessageContext.tsx";
  *
  * Fishboard -> FishboardFormContainer -> Fishboardform
  */
-function FishboardFormContainer({fishboard, fishBoardType, toggleCreateFish, updateFishboard}): ReactNode {
+function FishboardFormContainer({fishboard, fishBoardType, toggleCreateFish, updateFishboard}:{fishboard:FishboardType, fishBoardType:FishboardTypeProp, toggleCreateFish:()=>void,  updateFishboard:()=>void}): ReactNode {
 
     const {user} = useUser()
     const {setMessage} = useMessage()
 
     //create fish
-    async function createFish(formData){
+    async function createFish(formData:FormData){
         try{
             await FiskeAPI.createFish(localStorage['fiske-token'], fishboard.id, fishBoardType, user.id,  formData);
             updateFishboard();
-        }catch(err){
-            setMessage(err.message, 'error')
+        }catch(err:unknown){
+            if (err instanceof Error) {
+                setMessage(err.message, 'error');
+              }else{
+                setMessage('An Unknown Error Occurred', 'error')
+              }
         }
+
     }
 
     return (

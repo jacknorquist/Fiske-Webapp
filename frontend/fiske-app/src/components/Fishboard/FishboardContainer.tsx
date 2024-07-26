@@ -1,15 +1,15 @@
 import React from "react";
 import { ReactNode , useState} from "react";
-import { useUser } from "../../context/UserContext.tsx";
-import { useParams } from "react-router-dom";
-import { Link } from "react-router-dom";
-import { Button } from "reactstrap";
 import Fish from "./Fish.tsx";
 import FishboardFormContainer from "./FishboardFormContainer.tsx";
 import style from './css/FishBoardContainer.module.css'
 import { v4 as uuidv4 } from 'uuid';
 import FiskeAPI from "../../api.ts";
 import { useMessage } from "../../context/MessageContext.tsx";
+import { FishboardType } from "../../types.ts";
+
+type FishboardTypeString = 'GroupFishboard' | 'UserFishboard';
+
 
 
 
@@ -32,12 +32,12 @@ import { useMessage } from "../../context/MessageContext.tsx";
  * Fisboard -> Fish & FishboardFormContainer
  */
 
-function FishboardContainer({fishboard, fishBoardType, profileIsUser}): ReactNode {
+function FishboardContainer({fishboard, fishBoardType, profileIsUser}:{fishboard:FishboardType, fishBoardType:FishboardTypeString, profileIsUser:boolean}): ReactNode {
 
 
-    const[isCreateFishOpen, setIsCreateFishOpen] = useState(false);
-    const[fishboardState, setFishboardState] = useState(fishboard)
-    const[isExpanded, setIsExpanded] = useState(false);
+    const[isCreateFishOpen, setIsCreateFishOpen] = useState<boolean>(false);
+    const[fishboardState, setFishboardState] = useState<FishboardType>(fishboard)
+    const[isExpanded, setIsExpanded] = useState<boolean>(false);
     const {setMessage} = useMessage();
 
 
@@ -56,17 +56,25 @@ function FishboardContainer({fishboard, fishBoardType, profileIsUser}): ReactNod
     async function updateFishboard(){
         if(fishBoardType === 'UserFishboard'){
             try{
-                const boardResponse = await FiskeAPI.getUserFishboard(localStorage['fiske-token'], fishboardState.id);
+                const boardResponse: FishboardType = await FiskeAPI.getUserFishboard(localStorage['fiske-token'], fishboardState.id);
                 setFishboardState(boardResponse)
-            }catch(err){
-                setMessage(err.message, 'error')
+            }catch(err:unknown){
+                if (err instanceof Error) {
+                    setMessage(err.message, 'error');
+                  }else{
+                    setMessage('An Unknown Error Occurred', 'error')
+                  }
             }
         }else{
             try{
-                const boardResponse = await FiskeAPI.getGroupFishboard(localStorage['fiske-token'], fishboardState.id);
+                const boardResponse: FishboardType = await FiskeAPI.getGroupFishboard(localStorage['fiske-token'], fishboardState.id);
                 setFishboardState(boardResponse)
-            }catch(err){
-                setMessage(err.message, 'error')
+            }catch(err:unknown){
+                if (err instanceof Error) {
+                    setMessage(err.message, 'error');
+                  }else{
+                    setMessage('An Unknown Error Occurred', 'error')
+                  }
             }
 
         }

@@ -50,8 +50,9 @@ function ProfileContainer(): ReactNode {
     const [userAdminGroups, setUserAdminGroups] = useState([])
     const { id } = useParams();
     const {user} = useUser();
-    const {setMessage} = useMessage()
-    const currentUserId = user.id
+    const {setMessage} = useMessage();
+    const currentUserId = user.id;
+
 
     //toggle isCreateGroupOpen
     function toggleCreateGroup(){

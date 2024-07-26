@@ -12,6 +12,16 @@ import {
     Button,
     CloseButton
   } from 'reactstrap';
+import { GroupTypeWithFishboard } from "../../types";
+
+
+  type FormData = {
+    name: string;
+    fish_species: string;
+    area: string;
+    description:string;
+    header_image_url?: string;
+  };
 
 /**EditGroupForm: renders form to edit group
  *
@@ -27,25 +37,27 @@ import {
  * ProfileContainer -> EditeGroupContainer -> EditGroupForm
  */
 
-function EditGroupForm({editGroup, toggleEditGroup, group}): ReactNode {
-  const initialState = {
+function EditGroupForm({editGroup, toggleEditGroup, group}:{editGroup: (FormData:FormData)=> void, toggleEditGroup: ()=> void, group:GroupTypeWithFishboard}): ReactNode {
+  const initialState:FormData = {
     name:group.group.name,
     fish_species: group.group.fish_species,
     area:group.group.area,
     description:group?.group.description,
-    header_image_url:group?.group?.header_image_url || null
+    header_image_url:group?.group?.header_image_url || undefined
   };
 
     const [formData, setFormData] = useState(initialState);
 
     //handle form change
-    function handleChange(evt) {
+    function handleChange(evt: React.ChangeEvent<HTMLInputElement>) {
       const { name, value, type, files } = evt.target;
       if (type === "file") {
+        if(files && files.length>0){
           setFormData(fData => ({
               ...fData,
               [name]: files[0]
           }));
+        }
       } else {
           setFormData(fData => ({
               ...fData,
@@ -55,7 +67,7 @@ function EditGroupForm({editGroup, toggleEditGroup, group}): ReactNode {
   }
 
     //handle for submit
-    function handleSave(evt) {
+    function handleSave(evt: React.FormEvent<HTMLFormElement>) {
         evt.preventDefault();
         editGroup(formData);
         setFormData(initialState);

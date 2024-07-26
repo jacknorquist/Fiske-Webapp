@@ -8,10 +8,17 @@ import {
     Label,
     Col,
     Input,
-    FormText,
     Button,
     CloseButton
   } from 'reactstrap';
+
+  type FormData = {
+    name: string;
+    fish_species: string;
+    area: string;
+    description:string;
+    header_image?: File;
+  };
 
 /**CreateGroupForm: renders form to create a group
  *
@@ -24,26 +31,28 @@ import {
  *
  * ProfileContainer -> CreateGroupContainer -> CreateGroupForm
  */
-function CreateGroupForm({createGroup, toggleCreateGroup}): ReactNode {
+function CreateGroupForm({createGroup, toggleCreateGroup}:{createGroup: (formData:FormData)=>void, toggleCreateGroup:()=>void}): ReactNode {
 
 
-    const initialState = {
+    const initialState:FormData = {
         name:"",
         fish_species: "",
         area:"",
         description:"",
-        header_image:null
+        header_image:undefined
     };
-    const [formData, setFormData] = useState(initialState);
+    const [formData, setFormData] = useState<FormData>(initialState);
 
     //handle form change
-    function handleChange(evt) {
+    function handleChange(evt: React.ChangeEvent<HTMLInputElement>) {
       const { name, value, type, files } = evt.target;
       if (type === "file") {
+        if(files && files.length>0){
           setFormData(fData => ({
               ...fData,
               [name]: files[0]
           }));
+        }
       } else {
           setFormData(fData => ({
               ...fData,
@@ -54,7 +63,7 @@ function CreateGroupForm({createGroup, toggleCreateGroup}): ReactNode {
 
 
   //handle form submit
-    function handleSave(evt) {
+    function handleSave(evt: React.FormEvent<HTMLFormElement>) {
         evt.preventDefault();
         createGroup(formData);
         setFormData(initialState);

@@ -35,10 +35,12 @@ import { useMessage } from "../../context/MessageContext.tsx";
  */
 function UserPostsContainer({profileUser}): ReactNode {
 
+
+
   const [userPosts,  setUserPosts] = useState([])
   const {user} = useUser();
   const {setMessage}= useMessage()
-  const currentUserId = user.id
+
 
     useEffect(() => {
       //get posts that user has created

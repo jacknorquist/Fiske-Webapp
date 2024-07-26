@@ -5,6 +5,14 @@ import FiskeAPI from "../../api.ts";
 import styles from './css/CreateGroupContainer.module.css';
 import CreateGroupForm from "./CreateGroupForm.tsx";
 
+type FormData = {
+  name: string;
+  fish_species: string;
+  area: string;
+  description:string;
+  header_image?: File;
+};
+
 
 
 /**CreateGroupContainer: Handles createGroup functionality and renders container that
@@ -19,21 +27,25 @@ import CreateGroupForm from "./CreateGroupForm.tsx";
  *
  * ProfileContainer -> CreateGroupContainer
  */
-function CreateGroupContainer({toggleCreateGroup, updateUserAdminGroups}): ReactNode {
+function CreateGroupContainer({toggleCreateGroup, updateUserAdminGroups}:{toggleCreateGroup:()=> void, updateUserAdminGroups:()=>void}): ReactNode {
 
   const { setMessage } = useMessage();
 
 
   //create group
-  async function createGroup(formData){
+  async function createGroup(formData:FormData){
       try{
        await FiskeAPI.createGroup( localStorage['fiske-token'], formData);
        updateUserAdminGroups()
         toggleCreateGroup();
         setMessage('Group Created Successfully', 'success')
-      }catch (err){
-        setMessage(err.message, 'error')
-      }
+      }catch(err:unknown){
+        if (err instanceof Error) {
+            setMessage(err.message, 'error');
+          }else{
+            setMessage('An Unknown Error Occurred', 'error')
+          }
+    }
 
   }
     return (

@@ -23,8 +23,10 @@ import {
  *
  * PostListItem -> CommentsContainer -> Comment
  */
-function CreateCommentForm({updatePost, createComment}: CreateCommentFormPropsType): ReactNode {
-
+function CreateCommentForm({
+                            updatePost,
+                            createComment
+                           }:CreateCommentFormPropsType): ReactNode {
 
     const initialState:CommentFormDataType = {
         content: ""
@@ -37,41 +39,38 @@ function CreateCommentForm({updatePost, createComment}: CreateCommentFormPropsTy
           setFormData(fData => ({
               ...fData,
               [name]: value
-          }));
-  }
+          }))
+    };
 
     //handle form submit
     function handleSave(evt: React.FormEvent<HTMLFormElement>) {
         evt.preventDefault();
         createComment(formData);
         setFormData(initialState);
-        updatePost()
-    }
+        updatePost();
+    };
 
 
     return (
         <div className={styles.container}>
-        <Form onSubmit={handleSave} className={styles.form} >
-        <FormGroup row style={{width:'100%'}}>
-          <Col sm={10} style={{width:'100%'}}>
-            <Input
-              id="content"
-              name="content"
-              value={formData.content}
-              type="text"
-              placeholder="add a comment"
-              onChange={handleChange}
-            />
-          </Col>
-        </FormGroup>
-        <Button>
-        Post
-      </Button>
-
-
-      </Form>
-      </div>
-
+          <Form onSubmit={handleSave} className={styles.form} >
+          <FormGroup row style={{width:'100%'}}>
+            <Col sm={10} style={{width:'100%'}}>
+              <Input
+                id="content"
+                name="content"
+                value={formData.content}
+                type="text"
+                placeholder="add a comment"
+                onChange={handleChange}
+                />
+              </Col>
+            </FormGroup>
+            <Button>
+            Post
+          </Button>
+          </Form>
+        </div>
     );
 }
 

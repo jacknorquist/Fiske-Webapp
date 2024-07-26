@@ -63,7 +63,7 @@ function GroupContainer(): ReactNode {
               }else{
                 setMessage('An Unknown Error Occurred', 'error')
               }
-        }
+          }
         }
       };
 
@@ -136,47 +136,75 @@ function GroupContainer(): ReactNode {
     return (
       <div className={styles.container}>
            {isEditGroupOpen && group ?
-           <EditGroupContainer group={group} toggleEditGroup={toggleEditGroup} updateGroup={updateGroup}/>
+           <EditGroupContainer
+           group={group} toggleEditGroup={toggleEditGroup} updateGroup={updateGroup}
+           />
            : ""}
         <div className={styles.leftContainer}>
            {group && user ?
-           <div className={styles.header}>
-              <img src={group!.group!.header_image_url || `${process.env.PUBLIC_URL}/DefaultHeader.jpg`} className={styles.headerImage} alt="" />
-              <div className={styles.content}>
-                <div style={{display:'flex', alignContent:'center'}}>
-                  <h3>{group?.group.name}</h3>
-                  {group.group!.admin_id === user.id ?
-                  <i className={`${styles.icon} bi bi-trash`} onClick={deleteGroup}></i>
+            <div className={styles.header}>
+                <img
+                  src={group!.group!.header_image_url ||
+                  `${process.env.PUBLIC_URL}/DefaultHeader.jpg`}
+                  className={styles.headerImage} alt="" />
+                <div className={styles.content}>
+                  <div style={{display:'flex', alignContent:'center'}}>
+                    <h3>{group?.group.name}</h3>
+                    {group.group!.admin_id === user.id ?
+                    <i className={`${styles.icon} bi bi-trash`} onClick={deleteGroup}></i>
+                    :""}
+                    {user!.id === group.group!.admin_id ?
+                    <i  className={`${styles.icon} bi bi-pen`}onClick={toggleEditGroup}></i>
+                    :""}
+                    {userMember ?
+                    <Button
+                      style={{right:'0'}}
+                      className={styles.leaveButton}
+                      onClick={leaveGroup}>
+                      Leave
+                    </Button>
+                    :
+                    <Button
+                      className={styles.joinButton}
+                      style={{right:'0'}}
+                      onClick={joinGroup}>
+                      Join
+                    </Button>}
+                  </div>
+                  <div style={{display:'flex'}}>
+                    <p style={{margin:'0'}}><b>Area: </b>{group.group!.area}</p>
+                  </div>
+                  <div style={{display:'flex'}}>
+                    <p style={{margin:'0'}}><b>Target Species: </b>{group.group!.fish_species}</p>
+                  </div>
+                  <p style={{margin:'0'}}>{group.group!.description}</p>
+                  {(userMember  || group?.group?.admin_id === user.id)&& !isCreatePostOpen
+                    ?
+                    <div className={styles.createPostButton}onClick={toggleCreatePost}>Make a Post</div>
                   :""}
-                  {user!.id === group.group!.admin_id ?
-                   <i  className={`${styles.icon} bi bi-pen`}onClick={toggleEditGroup}></i>
-                   :""}
-                  {userMember ?
-                  <Button style={{right:'0'}} className={styles.leaveButton} onClick={leaveGroup}>Leave</Button>
-                  :
-                  <Button className={styles.joinButton} style={{right:'0'}}  onClick={joinGroup}>Join</Button>}
                 </div>
-                <div style={{display:'flex'}}>
-                  <p style={{margin:'0'}}><b>Area: </b>{group.group!.area}</p>
-                </div>
-                <div style={{display:'flex'}}>
-                  <p style={{margin:'0'}}><b>Target Species: </b>{group.group!.fish_species}</p>
-                </div>
-                <p style={{margin:'0'}}>{group.group!.description}</p>
-                {(userMember  || group?.group?.admin_id === user.id)&& !isCreatePostOpen  ?
-                 <div className={styles.createPostButton}onClick={toggleCreatePost}>Make a Post</div>
-                 :""}
-              </div>
-              {isCreatePostOpen && <CreatePostContainer groupId={id} toggleCreatePost={toggleCreatePost} updatePosts={updatePosts}/>}
-           </div>
+                {isCreatePostOpen
+                  &&
+                <CreatePostContainer groupId={id} toggleCreatePost={toggleCreatePost} updatePosts={updatePosts}/>}
+            </div>
            :""}
            <div className={styles.fishboardContainer}>
             {group ?
-            <FishboardContainer fishboard={group.fishboard} fishBoardType={'GroupFishboard'} profileIsUser={false}/>
+              <FishboardContainer
+              fishboard={group.fishboard}
+              fishBoardType={'GroupFishboard'}
+              profileIsUser={false}/>
             :""}
            </div>
            <div className={styles.postContainer}>
-           {posts.length>0 ? posts.map(p=><PostListItem key={p!.id} post={p} updatePosts={updatePosts}/>): <p>No Posts Yet..</p>}
+           {posts.length>0 ?
+              posts.map(p=>
+              <PostListItem
+              key={p!.id}
+              post={p}
+              updatePosts={updatePosts}/>)
+              :
+              <p>No Posts Yet..</p>}
            </div>
         </div>
       </div>

@@ -1,11 +1,13 @@
 import React from "react";
-import { ReactNode, useState } from "react";
+import { ReactNode} from "react";
 import { useMessage } from "../../context/MessageContext.tsx";
 import FiskeAPI from "../../api.ts";
 import styles from './css/EditGroupContainer.module.css'
 import EditGroupForm from "./EditGroupForm.tsx";
 import { useParams } from "react-router-dom";
-import { EditGroupContainerPropsType, GroupFormDataType } from "../../types.ts";
+import { EditGroupContainerPropsType,
+        GroupFormDataType }
+        from "../../types.ts";
 
 /**EditGroupContainer: handles editGroup functionality and renders EditGroupForm
  *
@@ -18,7 +20,11 @@ import { EditGroupContainerPropsType, GroupFormDataType } from "../../types.ts";
  *
  * ProfileContainer -> EditeGroupContainer -> GroupForm
  */
-function EditGroupContainer({toggleEditGroup,updateGroup, group}:EditGroupContainerPropsType): ReactNode {
+function EditGroupContainer({
+                             toggleEditGroup,
+                             updateGroup,
+                             group
+                            }:EditGroupContainerPropsType): ReactNode {
 
   const { setMessage } = useMessage();
   const groupId:String | undefined = useParams().id
@@ -36,12 +42,12 @@ function EditGroupContainer({toggleEditGroup,updateGroup, group}:EditGroupContai
           }else{
             setMessage('An Unknown Error Occurred', 'error')
           }
-    }
+      }
 
   }
     return (
         <div className={styles.editgroupcontainer}>
-        <EditGroupForm group={group} editGroup={editGroup}  toggleEditGroup={toggleEditGroup}/>
+        <EditGroupForm group={group} editGroup={editGroup} toggleEditGroup={toggleEditGroup}/>
         </div>
     );
 }

@@ -27,6 +27,10 @@ export interface CommentType {
   created_at: string;
   group_id: number;
 }
+export interface CommentPropsType{
+  comment:CommentType;
+  updatePost: ()=> void;
+}
 export interface CommentFormDataType{
   content:string;
 }

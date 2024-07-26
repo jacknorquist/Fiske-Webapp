@@ -2,7 +2,6 @@ import React from "react";
 import { ReactNode, useState } from "react";
 import styles from './css/CreateGroupForm.module.css'
 import { EditGroupFormPropsType, GroupFormDataType } from "../../types";
-
 import {
     Form,
     FormGroup,
@@ -29,7 +28,12 @@ import {
  * ProfileContainer -> EditeGroupContainer -> EditGroupForm
  */
 
-function EditGroupForm({editGroup, toggleEditGroup, group}:EditGroupFormPropsType): ReactNode {
+function EditGroupForm({
+                        editGroup,
+                        toggleEditGroup,
+                        group
+                       }:EditGroupFormPropsType): ReactNode {
+
   const initialState:GroupFormDataType = {
     name:group.group.name,
     fish_species: group.group.fish_species,

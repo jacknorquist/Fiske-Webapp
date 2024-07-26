@@ -33,15 +33,16 @@ import { FishboardContainerPropsType, FishboardType } from "../../types.ts";
  * Fisboard -> Fish & FishboardFormContainer
  */
 
-function FishboardContainer({fishboard, fishBoardType, profileIsUser}:FishboardContainerPropsType): ReactNode {
-
+function FishboardContainer({
+                             fishboard,
+                             fishBoardType,
+                             profileIsUser
+                            }:FishboardContainerPropsType): ReactNode {
 
     const[isCreateFishOpen, setIsCreateFishOpen] = useState<boolean>(false);
     const[fishboardState, setFishboardState] = useState<FishboardType>(fishboard)
     const[isExpanded, setIsExpanded] = useState<boolean>(false);
     const {setMessage} = useMessage();
-
-
 
     //toggle isCreateFishOpen to display FishboardFormContainer
     function toggleCreateFish(){
@@ -50,14 +51,17 @@ function FishboardContainer({fishboard, fishBoardType, profileIsUser}:FishboardC
 
     //toggle isExpanded to display Fishboaard contents
     function toggleIsExpanded(){
-        setIsExpanded(!isExpanded)
+        setIsExpanded(!isExpanded);
     }
 
     //update fishboardState
     async function updateFishboard(){
         if(fishBoardType === 'UserFishboard'){
             try{
-                const boardResponse: FishboardType = await FiskeAPI.getUserFishboard(localStorage['fiske-token'], fishboardState.id);
+                const boardResponse: FishboardType =
+                await FiskeAPI.getUserFishboard(
+                                                localStorage['fiske-token'],
+                                                fishboardState.id);
                 setFishboardState(boardResponse)
             }catch(err:unknown){
                 if (err instanceof Error) {
@@ -68,7 +72,10 @@ function FishboardContainer({fishboard, fishBoardType, profileIsUser}:FishboardC
             }
         }else{
             try{
-                const boardResponse: FishboardType = await FiskeAPI.getGroupFishboard(localStorage['fiske-token'], fishboardState.id);
+                const boardResponse: FishboardType =
+                await FiskeAPI.getGroupFishboard(
+                                                 localStorage['fiske-token'],
+                                                 fishboardState.id);
                 setFishboardState(boardResponse)
             }catch(err:unknown){
                 if (err instanceof Error) {
@@ -79,26 +86,34 @@ function FishboardContainer({fishboard, fishBoardType, profileIsUser}:FishboardC
             }
 
         }
-
     }
     return (
         <div className={style.container}>
             <div onClick={toggleIsExpanded}className={style.header}>
                 <h5 >Fishboard</h5>
-                {isExpanded ? <i className="bi bi-arrow-up"></i> : <i className="bi bi-arrow-down"></i>}
+                {isExpanded ?
+                <i className="bi bi-arrow-up"></i>
+                :
+                <i className="bi bi-arrow-down"></i>}
             </div>
             {isExpanded ?
-            <div>
-            <div className={style.fishContainer}>
-            {fishboardState?.fish.length > 0?  fishboardState?.fish.map(f => <Fish key={uuidv4()} fishBoardType={fishBoardType}fish={f}/>): <p style={{marginLeft:'.5rem'}}>No Fish Yet...</p>}
-            </div>
-            {((profileIsUser && fishBoardType==='UserFishboard') || fishBoardType==='GroupFishboard') && !isCreateFishOpen
-            ? <div className={style.addAFishButton} onClick={toggleCreateFish}>Add A Fish</div>
-            :""}
-            {isCreateFishOpen ?
-            <FishboardFormContainer fishboard={fishboardState} fishBoardType={fishBoardType} toggleCreateFish={toggleCreateFish} updateFishboard={updateFishboard}/>
-            :""}
-            </div>
+                <div>
+                    <div className={style.fishContainer}>
+                    {fishboardState?.fish.length > 0?
+                    fishboardState?.fish.map(f => <Fish key={uuidv4()} fishBoardType={fishBoardType}fish={f}/>)
+                    :
+                    <p style={{marginLeft:'.5rem'}}>No Fish Yet...</p>}
+                    </div>
+                {((profileIsUser && fishBoardType==='UserFishboard')|| fishBoardType==='GroupFishboard')
+                    && !isCreateFishOpen
+                    ?
+                    <div className={style.addAFishButton} onClick={toggleCreateFish}>Add A Fish</div>
+                :""}
+                {isCreateFishOpen ?
+                    <FishboardFormContainer fishboard={fishboardState} fishBoardType={fishBoardType}
+                     toggleCreateFish={toggleCreateFish} updateFishboard={updateFishboard}/>
+                :""}
+                </div>
             :""}
 
 

@@ -2,7 +2,6 @@ import React from "react";
 import { ReactNode, useState } from "react";
 import styles from './css/CreateGroupForm.module.css';
 import { CreateGroupFormPropsType, GroupFormDataType } from "../../types";
-
 import {
     Form,
     FormGroup,
@@ -12,6 +11,7 @@ import {
     Button,
     CloseButton
   } from 'reactstrap';
+
 
 /**CreateGroupForm: renders form to create a group
  *
@@ -24,7 +24,10 @@ import {
  *
  * ProfileContainer -> CreateGroupContainer -> CreateGroupForm
  */
-function CreateGroupForm({createGroup, toggleCreateGroup}:CreateGroupFormPropsType): ReactNode {
+function CreateGroupForm({
+                          createGroup,
+                          toggleCreateGroup
+                        }:CreateGroupFormPropsType): ReactNode {
 
 
     const initialState:GroupFormDataType = {

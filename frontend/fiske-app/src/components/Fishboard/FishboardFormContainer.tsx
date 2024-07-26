@@ -1,23 +1,13 @@
 import React from "react";
-import { ReactNode , useState} from "react";
+import { ReactNode} from "react";
 import { useUser } from "../../context/UserContext.tsx";
-import { useParams } from "react-router-dom";
-import { Link } from "react-router-dom";
-import { Button } from "reactstrap";
-import Fish from "./Fish.tsx";
 import FiskeAPI from "../../api.ts";
 import FishboardForm from "./FishboardForm.tsx";
 import style from './css/FishboardFormContainer.module.css'
 import { useMessage } from "../../context/MessageContext.tsx";
-import { FishboardType, FishboardFormContainerPropsType, FishboardFormDataType } from "../../types.ts";
-
-type FormData = {
-    species: string;
-    length: number;
-    image?: File;
-  };
-
-
+import {FishboardFormContainerPropsType,
+         FishboardFormDataType }
+         from "../../types.ts";
 
 
 /**FishboardFormContainer: handles createFish functionality and renders FishboardForm
@@ -34,15 +24,25 @@ type FormData = {
  *
  * Fishboard -> FishboardFormContainer -> Fishboardform
  */
-function FishboardFormContainer({fishboard, fishBoardType, toggleCreateFish, updateFishboard}:FishboardFormContainerPropsType): ReactNode {
+function FishboardFormContainer({
+                                fishboard,
+                                fishBoardType,
+                                toggleCreateFish,
+                                updateFishboard
+                                }:FishboardFormContainerPropsType): ReactNode {
 
-    const {user} = useUser()
-    const {setMessage} = useMessage()
+    const {user} = useUser();
+    const {setMessage} = useMessage();
 
     //create fish
     async function createFish(formData:FishboardFormDataType){
         try{
-            await FiskeAPI.createFish(localStorage['fiske-token'], fishboard.id, fishBoardType, user!.id,  formData);
+            await FiskeAPI.createFish(
+                                      localStorage['fiske-token'],
+                                      fishboard.id,
+                                      fishBoardType,
+                                      user!.id,
+                                      formData);
             updateFishboard();
         }catch(err:unknown){
             if (err instanceof Error) {

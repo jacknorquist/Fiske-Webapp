@@ -4,7 +4,9 @@ import { useMessage } from "../../context/MessageContext.tsx";
 import FiskeAPI from "../../api.ts";
 import styles from './css/CreateGroupContainer.module.css';
 import CreateGroupForm from "./CreateGroupForm.tsx";
-import { GroupFormDataType, CreateGroupContainerPropsType } from "../../types.ts";
+import { GroupFormDataType,
+         CreateGroupContainerPropsType }
+         from "../../types.ts";
 
 
 /**CreateGroupContainer: Handles createGroup functionality and renders container that
@@ -19,10 +21,12 @@ import { GroupFormDataType, CreateGroupContainerPropsType } from "../../types.ts
  *
  * ProfileContainer -> CreateGroupContainer
  */
-function CreateGroupContainer({toggleCreateGroup, updateUserAdminGroups}:CreateGroupContainerPropsType): ReactNode {
+function CreateGroupContainer({
+                               toggleCreateGroup,
+                               updateUserAdminGroups
+                              }:CreateGroupContainerPropsType): ReactNode {
 
   const { setMessage } = useMessage();
-
 
   //create group
   async function createGroup(formData:GroupFormDataType){
@@ -42,7 +46,7 @@ function CreateGroupContainer({toggleCreateGroup, updateUserAdminGroups}:CreateG
   }
     return (
         <div className={styles.creategroupcontainer}>
-        <CreateGroupForm  createGroup={createGroup}  toggleCreateGroup={toggleCreateGroup}/>
+        <CreateGroupForm createGroup={createGroup} toggleCreateGroup={toggleCreateGroup}/>
         </div>
     );
 }

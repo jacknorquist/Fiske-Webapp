@@ -5,13 +5,7 @@ import { Link } from "react-router-dom";
 import FiskeAPI from "../../api.ts";
 import { useMessage } from "../../context/MessageContext.tsx";
 import styles from './css/Comment.module.css';
-import { CommentType } from "../../types.ts";
-import { UserType } from "../../types.ts";
-
-type CommentProps={
-    comment:CommentType;
-    updatePost: ()=> void
-}
+import {UserType, CommentPropsType } from "../../types.ts";
 
 /**Comment: Renders individual comment.
  *
@@ -25,11 +19,12 @@ type CommentProps={
  *
  * PostListItem -> CommentsContainer -> Comment
  */
-function Comment({comment, updatePost}: CommentProps): ReactNode {
+function Comment({comment, updatePost}: CommentPropsType): ReactNode {
 
     const {user}:{user:UserType | null} = useUser();
-    const {setMessage} = useMessage()
+    const {setMessage} = useMessage();
 
+    //delete comment
     async function deleteComment(){
         try{
          await FiskeAPI.deleteComment(
@@ -44,13 +39,9 @@ function Comment({comment, updatePost}: CommentProps): ReactNode {
                 setMessage(err.message, 'error');
               }else{
                 setMessage('An Unknown Error Occurred', 'error')
-              }
-        }
-
-    }
-
-
-
+        };
+        };
+    };
 
     return (
         <div className={styles.comment}>

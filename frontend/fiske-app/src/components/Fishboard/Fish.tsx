@@ -25,7 +25,7 @@ import { FishPropsType } from "../../types.ts";
  * GroupContainer & ProfileContainer -> Fisboard -> Fish
  */
 function Fish({fish, fishBoardType}: FishPropsType): ReactNode {
-
+    
     const [username, setUsername] = useState<string | null>(null);
     const {setMessage} = useMessage();
 
@@ -39,21 +39,23 @@ function Fish({fish, fishBoardType}: FishPropsType): ReactNode {
         }catch(err:unknown){
             if (err instanceof Error) {
                 setMessage(err.message, 'error');
-              }else{
+                }else{
                 setMessage('An Unknown Error Occurred', 'error')
-              }
+                }
             }
         }
-    }
+        }
         getUsername()
-    },[])
+    },[]);
 
 
     return (
         <div className={styles.container}>
             <img className={styles.img} src={fish.image_url} />
             <div className={styles.fishStats}>
-            {username ? <Link className={styles.username}to={`/profile/${fish.user_id}`}>{username}</Link>:""}
+            {username ?
+            <Link className={styles.username}to={`/profile/${fish.user_id}`}>{username}</Link>
+            :""}
                 <h6>{fish.species}</h6>
                 <i>{fish.length} inches long</i>
             </div>

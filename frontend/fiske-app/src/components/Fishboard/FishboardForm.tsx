@@ -26,7 +26,10 @@ import {
  *
  * Fishboard -> FishboardFormContainer -> Fishboardform
  */
-function FishboardForm({createFish, toggleCreateFish}:FishboardFormPropsType): ReactNode {
+function FishboardForm({
+                        createFish,
+                        toggleCreateFish
+                      }:FishboardFormPropsType): ReactNode {
 
   const initialState = {
       species:"",
@@ -56,7 +59,7 @@ function FishboardForm({createFish, toggleCreateFish}:FishboardFormPropsType): R
   function handleSave(evt: React.FormEvent<HTMLFormElement>) {
       evt.preventDefault();
       createFish(formData);
-      toggleCreateFish()
+      toggleCreateFish();
       setFormData(initialState);
   }
 

@@ -3,17 +3,8 @@ import { ReactNode} from "react";
 import Comment from "./Comment.tsx";
 import styles from './css/CommentsContainer.module.css'
 import CreateCommentForm from "./CreateCommentForm.tsx";
-import { CommentType } from "../../types.ts";
+import { CommentType, CommentFormDataType, CommentsContainerPropsType } from "../../types.ts"
 
-type FormData ={
-    content:string;
-  }
-
-type CommentsContainerProps = {
-    comments: CommentType[];
-    updatePost:()=>void;
-    createComment:(formData:FormData) => void
-}
 
 /**CommentsContainer: Renders all comments for a post.
  *
@@ -26,7 +17,7 @@ type CommentsContainerProps = {
  *
  * PostListItem -> CommentsContainer -> Comment
  */
-function CommentsContainer({comments, updatePost, createComment}: CommentsContainerProps): ReactNode {
+function CommentsContainer({comments, updatePost, createComment}: CommentsContainerPropsType): ReactNode {
 
     return (
         <div className={styles.container}>

@@ -2,25 +2,16 @@
 
 import React from "react";
 import { ReactNode, useState } from "react";
-import styles from './css/LoginForm.module.css'
+import styles from './css/LoginForm.module.css';
+import { LoginFormDataType, LoginFormPropsType } from "../../types";
 import {
     Form,
     FormGroup,
     Label,
     Col,
     Input,
-    FormText,
     Button
   } from 'reactstrap';
-
-  type FormData = {
-    username: string;
-    password:string;
-  };
-  type LoginFormProps = {
-    handleLogin: (formData: FormData)=> void;
-  }
-
 
 /**LoginForm: renders form to login
  *
@@ -32,14 +23,14 @@ import {
  *
  * App -> RoutesList -> LoginContainer -> LoginForm
  */
-function LoginForm({handleLogin}:LoginFormProps): ReactNode {
+function LoginForm({handleLogin}:LoginFormPropsType): ReactNode {
 
-    const initialState:FormData = {
+    const initialState:LoginFormDataType = {
       username: "",
       password:"",
     };
 
-    const [formData, setFormData] = useState<FormData>(initialState);
+    const [formData, setFormData] = useState<LoginFormDataType>(initialState);
 
     //handle form change
     function handleChange(evt: React.ChangeEvent<HTMLInputElement>) {

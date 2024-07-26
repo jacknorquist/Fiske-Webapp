@@ -1,6 +1,7 @@
 import React from "react";
 import { ReactNode, useState } from "react";
-import styles from './css/CreateGroupForm.module.css'
+import styles from './css/CreateGroupForm.module.css';
+import { CreateGroupFormPropsType, GroupFormDataType } from "../../types";
 
 import {
     Form,
@@ -11,19 +12,6 @@ import {
     Button,
     CloseButton
   } from 'reactstrap';
-
-  type FormData = {
-    name: string;
-    fish_species: string;
-    area: string;
-    description:string;
-    header_image?: File;
-  };
-
-  type CreateGroupFormProps={
-    createGroup: (formData:FormData)=>void;
-    toggleCreateGroup:()=>void;
-  }
 
 /**CreateGroupForm: renders form to create a group
  *
@@ -36,17 +24,17 @@ import {
  *
  * ProfileContainer -> CreateGroupContainer -> CreateGroupForm
  */
-function CreateGroupForm({createGroup, toggleCreateGroup}:CreateGroupFormProps): ReactNode {
+function CreateGroupForm({createGroup, toggleCreateGroup}:CreateGroupFormPropsType): ReactNode {
 
 
-    const initialState:FormData = {
+    const initialState:GroupFormDataType = {
         name:"",
         fish_species: "",
         area:"",
         description:"",
         header_image:undefined
     };
-    const [formData, setFormData] = useState<FormData>(initialState);
+    const [formData, setFormData] = useState<GroupFormDataType>(initialState);
 
     //handle form change
     function handleChange(evt: React.ChangeEvent<HTMLInputElement>) {

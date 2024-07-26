@@ -32,7 +32,7 @@ import { PostType, GroupTypeWithFishboard, UserType, GroupType} from "../../type
  */
 function GroupContainer(): ReactNode {
 
-  const {user}:{user:UserType} = useUser();
+  const {user}:{user:UserType | null} = useUser();
   const {setMessage} = useMessage();
   const navigate = useNavigate()
   const [group, setGroup] = useState<GroupTypeWithFishboard | null>(null)
@@ -139,7 +139,7 @@ function GroupContainer(): ReactNode {
            <EditGroupContainer group={group} toggleEditGroup={toggleEditGroup} updateGroup={updateGroup}/>
            : ""}
         <div className={styles.leftContainer}>
-           {group ?
+           {group && user ?
            <div className={styles.header}>
               <img src={group!.group!.header_image_url || `${process.env.PUBLIC_URL}/DefaultHeader.jpg`} className={styles.headerImage} alt="" />
               <div className={styles.content}>

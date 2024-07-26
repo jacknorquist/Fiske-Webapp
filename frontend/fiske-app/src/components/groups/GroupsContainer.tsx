@@ -24,11 +24,11 @@ import { GroupType, UserType } from "../../types.ts";
  * RoutesList -> GroupsContainer -> SearchGroupsContainer
  */
 function GroupsContainer(): ReactNode {
-    const {user}:{user: UserType} = useUser()
+    const {user}:{user: UserType | null} = useUser()
     const [userGroups, setUserGroups] =useState<GroupType[]>([])
     const [exploreGroups, setExploreGroups] = useState<GroupType[]>([])
     const [exploreGroupsContainerOpen, setExploreGroupsContainer] = useState<boolean>(false)
-    const currentUserId:number = user.id;
+    const currentUserId:number = user!.id
     const {setMessage} = useMessage()
 
 

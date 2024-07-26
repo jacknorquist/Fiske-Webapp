@@ -9,20 +9,13 @@ import FiskeAPI from "../../api.ts";
 import FishboardForm from "./FishboardForm.tsx";
 import style from './css/FishboardFormContainer.module.css'
 import { useMessage } from "../../context/MessageContext.tsx";
-import { FishboardType } from "../../types.ts";
+import { FishboardType, FishboardFormContainerPropsType, FishboardFormDataType } from "../../types.ts";
 
-type FishboardTypeProp = 'GroupFishboard' | 'UserFishboard';
 type FormData = {
     species: string;
     length: number;
     image?: File;
   };
-type FishboardFormContainerProps = {
-    fishboard:FishboardType;
-    fishBoardType:FishboardTypeProp;
-    toggleCreateFish:()=>void;
-    updateFishboard:()=>void;
-  }
 
 
 
@@ -41,15 +34,15 @@ type FishboardFormContainerProps = {
  *
  * Fishboard -> FishboardFormContainer -> Fishboardform
  */
-function FishboardFormContainer({fishboard, fishBoardType, toggleCreateFish, updateFishboard}:FishboardFormContainerProps): ReactNode {
+function FishboardFormContainer({fishboard, fishBoardType, toggleCreateFish, updateFishboard}:FishboardFormContainerPropsType): ReactNode {
 
     const {user} = useUser()
     const {setMessage} = useMessage()
 
     //create fish
-    async function createFish(formData:FormData){
+    async function createFish(formData:FishboardFormDataType){
         try{
-            await FiskeAPI.createFish(localStorage['fiske-token'], fishboard.id, fishBoardType, user.id,  formData);
+            await FiskeAPI.createFish(localStorage['fiske-token'], fishboard.id, fishBoardType, user!.id,  formData);
             updateFishboard();
         }catch(err:unknown){
             if (err instanceof Error) {

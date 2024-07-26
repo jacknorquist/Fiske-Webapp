@@ -1,16 +1,12 @@
 // ErrorContext.tsx
-import React, { createContext, useState, useContext } from 'react';
+import React, { createContext, useState, useContext, ReactNode} from 'react';
+import { MessageContextType } from '../types';
 
-interface MessageContextType {
-  message: string;
-  messageType: 'success' | 'error' | '';
-  setMessage: (msg: string, type: 'success' | 'error' | '') => void;
-  clearMessage: () => void;
-}
 
 const MessageContext = createContext<MessageContextType | undefined>(undefined);
 
-export const useMessage = () => {
+
+export function useMessage(){
   const context = useContext(MessageContext);
   if (!context) {
     throw new Error('useMessage must be used within a MessageProvider');
@@ -18,7 +14,10 @@ export const useMessage = () => {
   return context;
 };
 
-export const MessageProvider: React.FC = ({ children }) => {
+
+
+// Provides message
+export function MessageProvider({children}:{children:ReactNode}):ReactNode{
   const [messageState, setMessageState] = useState<{ message: string; messageType: 'success' | 'error' | '' }>({
     message: '',
     messageType: ''
@@ -37,4 +36,5 @@ export const MessageProvider: React.FC = ({ children }) => {
       {children}
     </MessageContext.Provider>
   );
+
 };

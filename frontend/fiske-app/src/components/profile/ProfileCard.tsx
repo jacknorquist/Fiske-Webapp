@@ -3,22 +3,8 @@ import { ReactNode, useState } from "react";
 import { CardImg, CardBody, CardTitle, CardText,Card, Button } from "reactstrap";
 import styles from './css/ProfileCard.module.css';
 import EditProfileContainer from "./EditProfileContainer.tsx";
-import { ProfileUserType } from "../../types.ts";
+import { ProfileCardPropsType } from "../../types.ts";
 
-type FormData ={
-  username:string;
-  first_name:string;
-  last_name:string;
-  bio: string;
-  profile_image?: File;
-  header_image?: File
-}
-type ProfileCardProps = {
-  profileIsUser:boolean;
-  profileUser: ProfileUserType;
-  updateProfileUser:() =>void;
-  toggleCreateGroup:()=>void;
-};
 
 
 /**ProfileCard: renders profile information
@@ -50,7 +36,7 @@ type ProfileCardProps = {
  *
  * ProfileContainer -> ProfileCard-> EditProfileContainer
  */
-function ProfileCard({ profileIsUser, profileUser, updateProfileUser, toggleCreateGroup}:ProfileCardProps): ReactNode {
+function ProfileCard({ profileIsUser, profileUser, updateProfileUser, toggleCreateGroup}:ProfileCardPropsType): ReactNode {
   const [isEditProfileOpen, setIsEditProfileOpen] = useState<boolean>(false)
 
   //toggle isEditProfileOpen

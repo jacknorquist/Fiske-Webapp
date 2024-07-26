@@ -4,13 +4,7 @@ import { useUser } from "../../context/UserContext.tsx";
 import styles from './css/UserAdminGroupsContainer.module.css'
 import GroupListItem from "../groups/GroupListItem.tsx";
 import { v4 as uuidv4 } from 'uuid';
-import { GroupType } from "../../types.ts";
-
-type UserAdminGroupsContainerProps = {
-    toggleCreateGroup: ()=>void;
-    userAdminGroups:GroupType[];
-    profileIsUser:boolean;
-};
+import {UserAdminGroupsContainerPropsType } from "../../types.ts";
 
 
 /**UserAdminGroupsContainer: renders GroupListItems for groups that user has created
@@ -25,7 +19,7 @@ type UserAdminGroupsContainerProps = {
  *
  * RoutesList -> ProfileContainer -> UserAdminGroupsContainer -> GroupListItem
  */
-function UserAdminGroupsContainer({toggleCreateGroup, userAdminGroups, profileIsUser}:UserAdminGroupsContainerProps): ReactNode {
+function UserAdminGroupsContainer({toggleCreateGroup, userAdminGroups, profileIsUser}:UserAdminGroupsContainerPropsType): ReactNode {
 
     const[isGroupsOpen ,setIsGroupsOpen] = useState<boolean>(false);
 

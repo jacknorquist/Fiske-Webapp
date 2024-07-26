@@ -2,7 +2,7 @@ import React from "react";
 import { ReactNode, useState } from "react";
 import styles from './css/CreatePostForm.module.css'
 import { useUser } from "../../context/UserContext.tsx";
-import { UserType } from "../../types.ts";
+import { UserType, PostFormDataType, CreatePostFormPropsType } from "../../types.ts";
 
 import {
     Form,
@@ -12,14 +12,6 @@ import {
     Button,
     CloseButton
   } from 'reactstrap';
-
-  type FormData = {
-    content: string;
-  };
-  type CreatePostFormProps = {
-    createPost: (formData:FormData)=> void;
-    toggleCreatePost:()=> void;
-  }
 
 //TODO: Adding Images visuals
 
@@ -34,15 +26,15 @@ import {
  * - images (array): handles the amount of images available to add to a post
  * ProfileContainer -> CreateGroupContainer -> CreateGroupForm
  */
-function CreatePostForm({createPost, toggleCreatePost}: CreatePostFormProps): ReactNode {
-   const {user}:{user:UserType} = useUser()
+function CreatePostForm({createPost, toggleCreatePost}: CreatePostFormPropsType): ReactNode {
+   const {user}:{user:UserType | null} = useUser()
     const [images, setImages] = useState<(string| null)[]>([])
 
 
-    const initialState:FormData = {
+    const initialState:PostFormDataType = {
         content: ""
     };
-    const [formData, setFormData] = useState<FormData>(initialState);
+    const [formData, setFormData] = useState<PostFormDataType>(initialState);
 
     //handle form change
     function handleChange(evt: React.ChangeEvent<HTMLInputElement>) {

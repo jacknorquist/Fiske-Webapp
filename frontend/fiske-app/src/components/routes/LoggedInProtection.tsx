@@ -14,7 +14,7 @@ import { UserType } from "../../types.ts";
  * App -> RoutesList -> LoggedInProtection -> children
  */
 function LoggedInProtection({children }:{children:ReactNode}):ReactNode {
-    const {user}:{user:UserType} = useUser()
+    const {user}:{user:UserType | null} = useUser()
     if (user) {
       return <Navigate to="/" replace />;
     }

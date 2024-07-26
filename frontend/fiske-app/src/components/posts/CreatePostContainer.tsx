@@ -4,15 +4,7 @@ import { useMessage } from "../../context/MessageContext.tsx";
 import FiskeAPI from "../../api.ts";
 import CreatePostForm from "./CreatePostForm.tsx";
 import styles from './css/CreatePostContainer.module.css';
-
-type FormData = {
-  content: string;
-};
-type CreatePostContainerProps = {
-  groupId:string | undefined;
-  toggleCreatePost: ()=> void;
-  updatePosts: ()=> void;
-}
+import { PostFormDataType, CreatePostContainerPropsType } from "../../types.ts";
 
 
 /**CreatePostContainer: renders CreatePostForm and handles create post functionality
@@ -28,12 +20,12 @@ type CreatePostContainerProps = {
  *
  *  RoutesList -> GroupContainer -> CreatePostContainer
  */
-function CreatePostContainer({groupId, toggleCreatePost, updatePosts}: CreatePostContainerProps): ReactNode {
+function CreatePostContainer({groupId, toggleCreatePost, updatePosts}: CreatePostContainerPropsType): ReactNode {
 
   const { setMessage } = useMessage();
 
   //create post
-  async function createPost(formData:FormData){
+  async function createPost(formData:PostFormDataType){
       try{
        await FiskeAPI.createPost( localStorage['fiske-token'], groupId, formData);
         updatePosts();

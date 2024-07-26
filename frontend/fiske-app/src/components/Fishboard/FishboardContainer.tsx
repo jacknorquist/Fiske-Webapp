@@ -6,14 +6,10 @@ import style from './css/FishBoardContainer.module.css'
 import { v4 as uuidv4 } from 'uuid';
 import FiskeAPI from "../../api.ts";
 import { useMessage } from "../../context/MessageContext.tsx";
-import { FishboardType } from "../../types.ts";
+import { FishboardContainerPropsType, FishboardType } from "../../types.ts";
 
-type FishboardTypeString = 'GroupFishboard' | 'UserFishboard';
-type FishboardContainerProps = {
-    fishboard:FishboardType;
-    fishBoardType:FishboardTypeString;
-    profileIsUser:boolean;
-}
+
+
 
 
 
@@ -37,7 +33,7 @@ type FishboardContainerProps = {
  * Fisboard -> Fish & FishboardFormContainer
  */
 
-function FishboardContainer({fishboard, fishBoardType, profileIsUser}:FishboardContainerProps): ReactNode {
+function FishboardContainer({fishboard, fishBoardType, profileIsUser}:FishboardContainerPropsType): ReactNode {
 
 
     const[isCreateFishOpen, setIsCreateFishOpen] = useState<boolean>(false);

@@ -15,7 +15,7 @@ import { UserType } from "../../types.ts";
  * App -> RoutesList -> LoggedOutProtection -> children
  */
 function LoggedOutProtection({ children }: { children: ReactNode }): ReactNode {
-    const {user}:{user:UserType} = useUser();
+    const {user}:{user:UserType | null} = useUser();
     if (!user) {
       return <Navigate to="/landing" replace />;
     }

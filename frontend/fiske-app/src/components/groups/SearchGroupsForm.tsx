@@ -1,6 +1,7 @@
 import React from "react";
 import { ReactNode, useState } from "react";
-import styles from './css/SearchGroupsForm.module.css'
+import styles from './css/SearchGroupsForm.module.css';
+import { SearchGroupFormDataType, SearchGroupFormPropsType } from "../../types";
 
 
 
@@ -17,14 +18,6 @@ import {
   } from 'reactstrap';
 
 
-  type FormData = {
-    search: string;
-  };
-  type SearchGroupsFormProps = {
-    updateGroups: (formData:FormData) => void;
-  }
-
-
 /**SearchGroupsForm: Renders form to to search for fish
  *
  *Props:
@@ -35,13 +28,13 @@ import {
  *
  * Homepage & GroupsContainer -> SearchGroupsContainer -> SearchGroupsForm
  */
-function SearchGroupsForm({updateGroups}:SearchGroupsFormProps): ReactNode {
+function SearchGroupsForm({updateGroups}:SearchGroupFormPropsType): ReactNode {
 
 
-    const initialState:FormData = {
+    const initialState:SearchGroupFormDataType = {
         search: ""
     };
-    const [formData, setFormData] = useState<FormData>(initialState);
+    const [formData, setFormData] = useState<SearchGroupFormDataType>(initialState);
 
     //handle form change and update groups in SearchGroupsContainer
     function handleChange(evt: React.ChangeEvent<HTMLInputElement>) {

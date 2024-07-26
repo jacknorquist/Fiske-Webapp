@@ -1,7 +1,8 @@
 
 import React from "react";
 import { ReactNode, useState } from "react";
-import styles from './css/FishboardForm.module.css'
+import styles from './css/FishboardForm.module.css';
+import { FishboardFormDataType, FishboardFormPropsType } from "../../types";
 
 import {
   Form,
@@ -13,16 +14,6 @@ import {
   CloseButton
 } from 'reactstrap';
 
-type FormData = {
-  species: string;
-  length: number;
-  image?: File;
-};
-
-type FishboardFormProps = {
-  createFish: (formData: FormData) => void;
-  toggleCreateFish: ()=>void;
-}
 
 /**FishboardForm: Renders form to add a fish to Fishboard.
  *
@@ -35,13 +26,13 @@ type FishboardFormProps = {
  *
  * Fishboard -> FishboardFormContainer -> Fishboardform
  */
-function FishboardForm({createFish, toggleCreateFish}:FishboardFormProps): ReactNode {
+function FishboardForm({createFish, toggleCreateFish}:FishboardFormPropsType): ReactNode {
 
   const initialState = {
       species:"",
       length: 0,
   };
-  const [formData, setFormData] = useState<FormData>(initialState);
+  const [formData, setFormData] = useState<FishboardFormDataType>(initialState);
 
   //handles form change
   function handleChange(evt: React.ChangeEvent<HTMLInputElement>) {

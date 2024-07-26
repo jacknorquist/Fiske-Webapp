@@ -22,8 +22,7 @@ import { UserType } from '../../types.ts';
  * Index -> App -> RoutesList & GloablMessage & NavBar
  */
 function App(): ReactNode{
-  const {user}:{user:UserType} = useUser();
-  const {setMessage} = useMessage();
+  const {user}:{user:UserType | null} = useUser();
 
   return (
     <div >

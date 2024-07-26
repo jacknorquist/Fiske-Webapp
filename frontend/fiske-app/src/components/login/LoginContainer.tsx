@@ -5,13 +5,9 @@ import { useMessage } from "../../context/MessageContext.tsx";
 import FiskeAPI from "../../api.ts";
 import { useUser } from "../../context/UserContext.tsx";
 import styles from './css/LoginContainer.module.css'
-import { Button, Form } from "reactstrap";
-import { useNavigate } from "react-router-dom";
+import { Button} from "reactstrap";
+import { LoginFormDataType } from "../../types.ts";
 
-type FormData = {
-  username: string;
-  password:string;
-};
 
 /**LoginContainer: renders LoginForm and handles login functionality
  *
@@ -28,7 +24,7 @@ function LoginContainer(): ReactNode {
     const {setUser} = useUser();
 
   //login user
-  async function handleLogin(formData: FormData){
+  async function handleLogin(formData: LoginFormDataType){
 
       try{
         const {user, token} = await FiskeAPI.login(formData)

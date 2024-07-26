@@ -1,6 +1,7 @@
 import React from "react";
 import { ReactNode, useState } from "react";
-import styles from './css/CreateCommentForm.module.css'
+import styles from './css/CreateCommentForm.module.css';
+import { CommentFormDataType, CreateCommentFormPropsType} from "../../types";
 
 
 import {
@@ -11,14 +12,6 @@ import {
     Button,
   } from 'reactstrap';
 
-  type FormData ={
-    content:string;
-  }
-
-  type CreateCommentFormProps ={
-    updatePost: ()=>void;
-    createComment:(formData:FormData)=> void
-  }
 
 /**CreateCommentForm: Renders form to create a comment.
  *
@@ -30,13 +23,13 @@ import {
  *
  * PostListItem -> CommentsContainer -> Comment
  */
-function CreateCommentForm({updatePost, createComment}: CreateCommentFormProps): ReactNode {
+function CreateCommentForm({updatePost, createComment}: CreateCommentFormPropsType): ReactNode {
 
 
-    const initialState:FormData = {
+    const initialState:CommentFormDataType = {
         content: ""
     };
-    const [formData, setFormData] = useState<FormData>(initialState);
+    const [formData, setFormData] = useState<CommentFormDataType>(initialState);
 
     //handle form change
     function handleChange(evt: React.ChangeEvent<HTMLInputElement>) {

@@ -24,7 +24,7 @@ import { PostType, UserType } from "../../types.ts";
 function Homepage(): ReactNode {
     const [typeOfPosts, setTypeOfPosts] = useState<string>('userFeed');
     const [posts, setPosts] = useState<PostType[]>([])
-    const {user}:{user:UserType} = useUser();
+    const {user}:{user:UserType | null} = useUser();
     const {setMessage} = useMessage()
 
     useEffect(() => {
@@ -40,7 +40,7 @@ function Homepage(): ReactNode {
         async function fetchPosts() {
             const token:string | null = localStorage.getItem('fiske-token');
             const selectedApiCall = determineApiCall();
-            if (token && selectedApiCall) {
+            if (token && selectedApiCall && user) {
                 try {
                     const fetchedPosts:PostType[] = await FiskeAPI[selectedApiCall](user.id, token);
                     setPosts(fetchedPosts);
@@ -73,7 +73,7 @@ function Homepage(): ReactNode {
         async function fetchPosts() {
             const token = localStorage.getItem('fiske-token');
             const selectedApiCall = determineApiCall();
-            if (token && selectedApiCall) {
+            if (token && selectedApiCall && user) {
                 try {
                     const fetchedPosts = await FiskeAPI[selectedApiCall](user.id, token);
                     setPosts(fetchedPosts);

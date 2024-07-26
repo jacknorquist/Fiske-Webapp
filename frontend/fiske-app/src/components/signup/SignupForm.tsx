@@ -1,7 +1,8 @@
 
 import React from "react";
 import { ReactNode, useState } from "react";
-import styles from './css/SignupForm.module.css'
+import styles from './css/SignupForm.module.css';
+import { SignupFormDataType, SignupFormPropsType } from "../../types";
 import {
     Form,
     FormGroup,
@@ -10,20 +11,6 @@ import {
     Input,
     Button
   } from 'reactstrap';
-
-  type FormData ={
-    username:string;
-    email:string;
-    password:string;
-    first_name:string;
-    last_name:string;
-    bio:string;
-    profile_image?: File;
-    header_image?: File;
-  };
-  type SignupFormProps = {
-    handleSignup:(formData:FormData)=> void
-  }
 
 /**Signupform: renders form to signup
  *
@@ -36,9 +23,9 @@ import {
  * App -> RoutesList -> SignupContainer -> SignupForm
  */
 
-function SignupForm({handleSignup}:SignupFormProps): ReactNode {
+function SignupForm({handleSignup}:SignupFormPropsType): ReactNode {
 
-    const initialState: FormData = {
+    const initialState: SignupFormDataType = {
         username: "",
         email: "",
         password:"",
@@ -48,7 +35,7 @@ function SignupForm({handleSignup}:SignupFormProps): ReactNode {
         profile_image: undefined,
         header_image:undefined
     };
-    const [formData, setFormData] = useState<FormData>(initialState);
+    const [formData, setFormData] = useState<SignupFormDataType>(initialState);
 
     //handle form change
     function handleChange(evt: React.ChangeEvent<HTMLInputElement>) {

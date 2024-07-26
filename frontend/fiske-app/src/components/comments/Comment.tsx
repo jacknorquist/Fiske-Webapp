@@ -27,12 +27,17 @@ type CommentProps={
  */
 function Comment({comment, updatePost}: CommentProps): ReactNode {
 
-    const {user}:{user:UserType} = useUser();
+    const {user}:{user:UserType | null} = useUser();
     const {setMessage} = useMessage()
 
     async function deleteComment(){
         try{
-         await FiskeAPI.deleteComment( localStorage['fiske-token'], comment.group_id, comment.post_id, comment.id);
+         await FiskeAPI.deleteComment(
+            localStorage['fiske-token'],
+            comment.group_id,
+            comment.post_id,
+            comment.id
+        );
          updatePost();
         }catch(err:unknown){
             if (err instanceof Error) {
@@ -50,14 +55,19 @@ function Comment({comment, updatePost}: CommentProps): ReactNode {
     return (
         <div className={styles.comment}>
             <Link to={`/profile/${comment.user_id}`}>
-                <img src={comment.user_profile_image || `${process.env.PUBLIC_URL}/DefaultHeader.jpg`} alt="" className={styles.profileImage} />
+                <img src={
+                    comment.user_profile_image ||
+                    `${process.env.PUBLIC_URL}/DefaultHeader.jpg`}
+                    alt="" className={styles.profileImage} />
             </Link>
             <div className={styles.grayBackGround}>
             <Link to={`/profile/${comment.user_id}`}>
                 <i className={styles.username}>{comment.username}</i>
             </Link>
                 <p className={styles.content}>{comment.content}</p>
-                {user.id === comment.user_id ? <span onClick={deleteComment} className={`${styles.trashIcon} bi bi-trash`}></span>:""}
+                {user!.id === comment.user_id ?
+                <span onClick={deleteComment} className={`${styles.trashIcon} bi bi-trash`}></span>
+                :""}
             </div>
         </div>
     );

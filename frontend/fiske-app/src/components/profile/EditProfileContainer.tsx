@@ -5,22 +5,7 @@ import FiskeAPI from "../../api.ts";
 import { useUser } from "../../context/UserContext.tsx";
 import styles from './css/EditProfileContainer.module.css'
 import EditProfileForm from "./EditProfileForm.tsx";
-import { UserType } from "../../types.ts";
-
-type FormData ={
-  username:string;
-  first_name:string;
-  last_name:string;
-  bio: string;
-  profile_image?: File;
-  header_image?: File
-}
-type EditProfileContainerProps = {
-  toggleEditProfileForm:()=> void;
-  updateProfileUser:()=>void;
-}
-
-
+import { UserType, EditProfileFormDataType, EditProfileContainerPropsType } from "../../types.ts";
 
 /**EditProfileContainer: renders EditProfileForm and handles editing profile
  *
@@ -33,14 +18,14 @@ type EditProfileContainerProps = {
  *
  * ProfileContainer -> EditProfileContainer -> EditProfileForm
  */
-function EditProfileContainer({toggleEditProfileForm, updateProfileUser}:EditProfileContainerProps): ReactNode {
+function EditProfileContainer({toggleEditProfileForm, updateProfileUser}:EditProfileContainerPropsType): ReactNode {
 
     const { setMessage } = useMessage();
-    const {user, setUser}:{user:UserType, setUser:(arg0: UserType)=> void} = useUser()
-    const currentUserId = user.id;
+    const {user, setUser}:{user:UserType | null, setUser:(arg0: UserType)=> void} = useUser()
+    const currentUserId = user!.id;
 
   //handle edit profile
-  async function handleEdit(formData:FormData){
+  async function handleEdit(formData:EditProfileFormDataType){
 
       try{
         const {user} = await FiskeAPI.editUser(formData, currentUserId , localStorage['fiske-token']);
@@ -60,7 +45,7 @@ function EditProfileContainer({toggleEditProfileForm, updateProfileUser}:EditPro
 
     return (
         <div className={styles.editprofilecontainer}>
-        <EditProfileForm  handleEdit={handleEdit} toggleEditProfileForm={toggleEditProfileForm}user={user}/>
+          {user && <EditProfileForm  handleEdit={handleEdit} toggleEditProfileForm={toggleEditProfileForm} user={user}/> }
         </div>
     );
 }

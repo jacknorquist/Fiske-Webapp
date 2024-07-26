@@ -31,7 +31,7 @@ import { UserType } from '../../types.ts';
  * App -> NavBar
  */
 function NavBar(): React.ReactNode {
-  const {user}:{user:UserType} = useUser()
+  const {user}:{user:UserType | null} = useUser()
 
   return (
 

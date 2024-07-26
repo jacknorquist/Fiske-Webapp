@@ -6,17 +6,7 @@ import FiskeAPI from "../../api.ts";
 import { useUser } from "../../context/UserContext.tsx";
 import styles from './css/SignupContainer.module.css';
 import { Button } from "reactstrap";
-
-type FormData ={
-  username:string;
-  email:string;
-  password:string;
-  first_name:string;
-  last_name:string;
-  bio:string;
-  profile_image?: File;
-  header_image?: File;
-}
+import { SignupFormDataType } from "../../types.ts";
 
 
 /**SignupContainer: renders SignupForm and handles signup functionality
@@ -35,7 +25,7 @@ function SignupContainer(): ReactNode {
     const {setUser} = useUser()
 
   //handle signup for user
-  async function handleSignup(formData:FormData){
+  async function handleSignup(formData:SignupFormDataType){
 
       try{
         const {user, token} = await FiskeAPI.signup(formData)

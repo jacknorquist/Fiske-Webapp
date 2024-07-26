@@ -1,6 +1,7 @@
 import React from "react";
 import { ReactNode, useState } from "react";
 import styles from './css/CreateGroupForm.module.css'
+import { EditGroupFormPropsType, GroupFormDataType } from "../../types";
 
 import {
     Form,
@@ -12,21 +13,7 @@ import {
     Button,
     CloseButton
   } from 'reactstrap';
-import { GroupTypeWithFishboard } from "../../types";
 
-
-  type FormData = {
-    name: string;
-    fish_species: string;
-    area: string;
-    description:string;
-    header_image_url?: string;
-  };
-  type EditGroupFormProps = {
-    editGroup: (FormData:FormData)=> void;
-    toggleEditGroup: ()=> void;
-    group:GroupTypeWithFishboard;
-  }
 
 /**EditGroupForm: renders form to edit group
  *
@@ -42,16 +29,15 @@ import { GroupTypeWithFishboard } from "../../types";
  * ProfileContainer -> EditeGroupContainer -> EditGroupForm
  */
 
-function EditGroupForm({editGroup, toggleEditGroup, group}:EditGroupFormProps): ReactNode {
-  const initialState:FormData = {
+function EditGroupForm({editGroup, toggleEditGroup, group}:EditGroupFormPropsType): ReactNode {
+  const initialState:GroupFormDataType = {
     name:group.group.name,
     fish_species: group.group.fish_species,
     area:group.group.area,
     description:group?.group.description,
-    header_image_url:group?.group?.header_image_url || undefined
   };
 
-    const [formData, setFormData] = useState(initialState);
+    const [formData, setFormData] = useState<GroupFormDataType>(initialState);
 
     //handle form change
     function handleChange(evt: React.ChangeEvent<HTMLInputElement>) {

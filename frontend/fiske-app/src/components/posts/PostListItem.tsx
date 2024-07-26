@@ -1,26 +1,14 @@
 import React from "react";
 import { ReactNode , useState, useRef} from "react";
 import { useUser } from "../../context/UserContext.tsx";
-import { useParams } from "react-router-dom";
 import { Link} from "react-router-dom";
-import { Button } from "reactstrap";
 import CommentsContainer from "../comments/CommentsContainer.tsx";
-import CreateCommentForm from "../comments/CreateCommentForm.tsx";
 import FiskeAPI from "../../api.ts";
 import { useMessage } from "../../context/MessageContext.tsx";
 import styles from './css/PostListItem.module.css'
 import PostImageGallery from "./PostImageGallery.tsx";
 import timeAgo from "../../helpers/timgeAgo.ts";
-import { PostType, UserType } from "../../types.ts";
-
-type FormData ={
-    content:string;
-  };
-type PostListItemProps = {
-    post:PostType, updatePosts:()=> void;
-}
-
-
+import {  PostType, UserType, PostFormDataType, PostListItemPropsType } from "../../types.ts";
 
 
 /**PostListItem: renders individual post
@@ -44,8 +32,8 @@ type PostListItemProps = {
  *
  * Homepage & GroupContainer & PostsContainer and UserPostsContainer -> PostListItem -> PostImageGallery & CommentsContainer
  */
-function PostListItem({post, updatePosts}:PostListItemProps): ReactNode {
-    const {user}:{user:UserType} = useUser()
+function PostListItem({post, updatePosts}:PostListItemPropsType): ReactNode {
+    const {user}:{user:UserType | null} = useUser()
     const {setMessage} = useMessage();
     const[postState, setPostState] = useState<PostType>(post);
     const [isCommentsOpen, setIsCommentsOpen] = useState<boolean>(false);
@@ -60,7 +48,7 @@ function PostListItem({post, updatePosts}:PostListItemProps): ReactNode {
     //update post
     async function updatePost(){
         try{
-            const updatedPost = await FiskeAPI.getPost( localStorage['fiske-token'], post.id);
+            const updatedPost:PostType = await FiskeAPI.getPost( localStorage['fiske-token'], post.id);
             setPostState(updatedPost)
         }catch(err:unknown){
             if (err instanceof Error) {
@@ -72,7 +60,7 @@ function PostListItem({post, updatePosts}:PostListItemProps): ReactNode {
     }
 
     //create comment
-    async function createComment(formData:FormData){
+    async function createComment(formData:PostFormDataType){
         try{
          await FiskeAPI.createComment( localStorage['fiske-token'], post.group_id, post.id, formData);
         }catch(err:unknown){
@@ -127,7 +115,7 @@ function PostListItem({post, updatePosts}:PostListItemProps): ReactNode {
             <span onClick={toggleButtons}className={`${styles.openButtonsIcon} bi bi-three-dots-vertical`}></span>
             {isButtonsOpen ?
              <div className={styles.buttonscontainer}>
-                {post.user_id === user.id ? <span onClick={deletePost} className={`${styles.icon} bi bi-trash icon`}></span>:"" }
+                {post.user_id === user!.id ? <span onClick={deletePost} className={`${styles.icon} bi bi-trash icon`}></span>:"" }
              </div> : ""
              }
             <div className={styles.content}>

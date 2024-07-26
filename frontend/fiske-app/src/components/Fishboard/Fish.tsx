@@ -6,14 +6,8 @@ import FiskeAPI from "../../api.ts";
 import { FishType } from "../../types.ts";
 import { useEffect } from "react";
 import { useMessage } from "../../context/MessageContext.tsx";
+import { FishPropsType } from "../../types.ts";
 
-type FishboardTypeProp = 'GroupFishboard' | 'UserFishboard';
-
-type FishProps ={
-    fish:FishType;
-    fishBoardType:FishboardTypeProp;
-
-}
 
 //TODO: Send username with fish in backend. Eliminate additional call at line 30.
 
@@ -30,7 +24,7 @@ type FishProps ={
  *
  * GroupContainer & ProfileContainer -> Fisboard -> Fish
  */
-function Fish({fish, fishBoardType}: FishProps): ReactNode {
+function Fish({fish, fishBoardType}: FishPropsType): ReactNode {
 
     const [username, setUsername] = useState<string | null>(null);
     const {setMessage} = useMessage();

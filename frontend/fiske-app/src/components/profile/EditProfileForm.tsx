@@ -1,33 +1,17 @@
 
 import React from "react";
 import { ReactNode, useState } from "react";
-import styles from './css/EditProfileForm.module.css'
-
+import styles from './css/EditProfileForm.module.css';
+import { EditProfileFormDataType, EditProfileFormPropsType } from "../../types";
 import {
     Form,
     FormGroup,
     Label,
     Col,
     Input,
-    FormText,
     Button,
     CloseButton
   } from 'reactstrap';
-import { UserType } from "../../types";
-
-  type FormData ={
-    username:string;
-    first_name:string;
-    last_name:string;
-    bio: string;
-    profile_image?: File;
-    header_image?: File
-  };
-  type EditProfileFormProps = {
-    handleEdit:(formData:FormData)=> void;
-    toggleEditProfileForm:()=>void;
-    user:UserType;
-  };
 
 /**EditProfileForm: renders form to edit profile
  *
@@ -40,9 +24,9 @@ import { UserType } from "../../types";
  *
  * ProfileContainer -> EditProfileContainer-> EditProfileForm
  */
-function EditProfileForm({handleEdit, toggleEditProfileForm, user}:EditProfileFormProps): ReactNode {
+function EditProfileForm({handleEdit, toggleEditProfileForm, user}:EditProfileFormPropsType): ReactNode {
 
-    const initialState:FormData = {
+    const initialState:EditProfileFormDataType = {
         username: user.username,
         first_name: user.first_name,
         last_name: user.last_name,
@@ -50,7 +34,7 @@ function EditProfileForm({handleEdit, toggleEditProfileForm, user}:EditProfileFo
         profile_image: undefined,
         header_image: undefined
     };
-    const [formData, setFormData] = useState<FormData>(initialState);
+    const [formData, setFormData] = useState<EditProfileFormDataType>(initialState);
 
     //hadle form change
     function handleChange(evt: React.ChangeEvent<HTMLInputElement>) {
@@ -71,7 +55,7 @@ function EditProfileForm({handleEdit, toggleEditProfileForm, user}:EditProfileFo
   }
 
 
-    //jandle form submit
+    //handle form submit
     function handleSave(evt: React.FormEvent<HTMLFormElement>) {
         evt.preventDefault();
         handleEdit(formData);

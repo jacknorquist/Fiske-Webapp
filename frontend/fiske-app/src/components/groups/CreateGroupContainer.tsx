@@ -4,19 +4,7 @@ import { useMessage } from "../../context/MessageContext.tsx";
 import FiskeAPI from "../../api.ts";
 import styles from './css/CreateGroupContainer.module.css';
 import CreateGroupForm from "./CreateGroupForm.tsx";
-
-type FormData = {
-  name: string;
-  fish_species: string;
-  area: string;
-  description:string;
-  header_image?: File;
-};
-type CreateGroupContainerProps = {
-  toggleCreateGroup:()=> void;
-  updateUserAdminGroups:()=>void;
-}
-
+import { GroupFormDataType, CreateGroupContainerPropsType } from "../../types.ts";
 
 
 /**CreateGroupContainer: Handles createGroup functionality and renders container that
@@ -31,13 +19,13 @@ type CreateGroupContainerProps = {
  *
  * ProfileContainer -> CreateGroupContainer
  */
-function CreateGroupContainer({toggleCreateGroup, updateUserAdminGroups}:CreateGroupContainerProps): ReactNode {
+function CreateGroupContainer({toggleCreateGroup, updateUserAdminGroups}:CreateGroupContainerPropsType): ReactNode {
 
   const { setMessage } = useMessage();
 
 
   //create group
-  async function createGroup(formData:FormData){
+  async function createGroup(formData:GroupFormDataType){
       try{
        await FiskeAPI.createGroup( localStorage['fiske-token'], formData);
        updateUserAdminGroups()

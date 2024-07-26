@@ -11,12 +11,7 @@ import SearchGroupsForm from "./SearchGroupsForm.tsx";
 import styles from './css/SearchGroupsContainer.module.css'
 import { v4 as uuidv4 } from 'uuid';
 import { useMessage } from "../../context/MessageContext.tsx";
-import { GroupType } from "../../types.ts";
-
-type FormData = {
-  search: string;
-};
-
+import { GroupType, SearchGroupFormDataType } from "../../types.ts";
 
 
 /**SearchGroupsContainer: renders container to search for groups, handles updating groups when searched
@@ -56,7 +51,7 @@ function SearchGroupsContainer(): ReactNode {
      }, []);
 
      //update groups based on serach term
-     async function updateGroups(formData: FormData){
+     async function updateGroups(formData: SearchGroupFormDataType){
         const token = localStorage.getItem('fiske-token');
         if (token) {
           try {

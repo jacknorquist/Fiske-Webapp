@@ -5,21 +5,7 @@ import FiskeAPI from "../../api.ts";
 import styles from './css/EditGroupContainer.module.css'
 import EditGroupForm from "./EditGroupForm.tsx";
 import { useParams } from "react-router-dom";
-import { GroupType, GroupTypeWithFishboard } from "../../types.ts";
-
-type FormData = {
-  name: string;
-  fish_species: string;
-  area: string;
-  description:string;
-  header_image?: File;
-};
-type EditGroupContainerProps = {
-  toggleEditGroup: ()=> void;
-  updateGroup:()=>void;
-  group:GroupTypeWithFishboard
-}
-
+import { EditGroupContainerPropsType, GroupFormDataType } from "../../types.ts";
 
 /**EditGroupContainer: handles editGroup functionality and renders EditGroupForm
  *
@@ -32,13 +18,13 @@ type EditGroupContainerProps = {
  *
  * ProfileContainer -> EditeGroupContainer -> GroupForm
  */
-function EditGroupContainer({toggleEditGroup,updateGroup, group}:EditGroupContainerProps): ReactNode {
+function EditGroupContainer({toggleEditGroup,updateGroup, group}:EditGroupContainerPropsType): ReactNode {
 
   const { setMessage } = useMessage();
   const groupId:String | undefined = useParams().id
 
   //edit group
-  async function editGroup(formData:FormData){
+  async function editGroup(formData:GroupFormDataType){
       try{
        await FiskeAPI.editGroup( localStorage['fiske-token'], formData, groupId);
        updateGroup();

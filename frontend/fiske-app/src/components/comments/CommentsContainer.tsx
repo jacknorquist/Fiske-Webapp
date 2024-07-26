@@ -1,14 +1,19 @@
 import React from "react";
-import { ReactNode , useState} from "react";
-import { useUser } from "../../context/UserContext.tsx";
-import { useParams } from "react-router-dom";
-import { Link } from "react-router-dom";
-import { Button } from "reactstrap";
+import { ReactNode} from "react";
 import Comment from "./Comment.tsx";
-import FiskeAPI from "../../api.ts";
-import { useMessage } from "../../context/MessageContext.tsx";
 import styles from './css/CommentsContainer.module.css'
 import CreateCommentForm from "./CreateCommentForm.tsx";
+import { CommentType } from "../../types.ts";
+
+type FormData ={
+    content:string;
+  }
+
+type CommentsContainerProps = {
+    comments: CommentType[];
+    updatePost:()=>void;
+    createComment:(formData:FormData) => void
+}
 
 /**CommentsContainer: Renders all comments for a post.
  *
@@ -21,11 +26,7 @@ import CreateCommentForm from "./CreateCommentForm.tsx";
  *
  * PostListItem -> CommentsContainer -> Comment
  */
-function CommentsContainer({comments, updatePost, createComment}): ReactNode {
-
-
-
-
+function CommentsContainer({comments, updatePost, createComment}: CommentsContainerProps): ReactNode {
 
     return (
         <div className={styles.container}>

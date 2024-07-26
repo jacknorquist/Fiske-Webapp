@@ -17,6 +17,12 @@ type FormData = {
     length: number;
     image?: File;
   };
+type FishboardFormContainerProps = {
+    fishboard:FishboardType;
+    fishBoardType:FishboardTypeProp;
+    toggleCreateFish:()=>void;
+    updateFishboard:()=>void;
+  }
 
 
 
@@ -35,7 +41,7 @@ type FormData = {
  *
  * Fishboard -> FishboardFormContainer -> Fishboardform
  */
-function FishboardFormContainer({fishboard, fishBoardType, toggleCreateFish, updateFishboard}:{fishboard:FishboardType, fishBoardType:FishboardTypeProp, toggleCreateFish:()=>void,  updateFishboard:()=>void}): ReactNode {
+function FishboardFormContainer({fishboard, fishBoardType, toggleCreateFish, updateFishboard}:FishboardFormContainerProps): ReactNode {
 
     const {user} = useUser()
     const {setMessage} = useMessage()

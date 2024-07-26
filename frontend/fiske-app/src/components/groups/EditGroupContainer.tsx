@@ -14,6 +14,11 @@ type FormData = {
   description:string;
   header_image?: File;
 };
+type EditGroupContainerProps = {
+  toggleEditGroup: ()=> void;
+  updateGroup:()=>void;
+  group:GroupTypeWithFishboard
+}
 
 
 /**EditGroupContainer: handles editGroup functionality and renders EditGroupForm
@@ -27,7 +32,7 @@ type FormData = {
  *
  * ProfileContainer -> EditeGroupContainer -> GroupForm
  */
-function EditGroupContainer({toggleEditGroup,updateGroup, group}:{toggleEditGroup: ()=> void, updateGroup:()=>void, group:GroupTypeWithFishboard }): ReactNode {
+function EditGroupContainer({toggleEditGroup,updateGroup, group}:EditGroupContainerProps): ReactNode {
 
   const { setMessage } = useMessage();
   const groupId:String | undefined = useParams().id

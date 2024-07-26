@@ -17,6 +17,9 @@ import {
     username: string;
     password:string;
   };
+  type LoginFormProps = {
+    handleLogin: (formData: FormData)=> void;
+  }
 
 
 /**LoginForm: renders form to login
@@ -29,7 +32,7 @@ import {
  *
  * App -> RoutesList -> LoginContainer -> LoginForm
  */
-function LoginForm({handleLogin}:{handleLogin: (formData: FormData)=> void}): ReactNode {
+function LoginForm({handleLogin}:LoginFormProps): ReactNode {
 
     const initialState:FormData = {
       username: "",

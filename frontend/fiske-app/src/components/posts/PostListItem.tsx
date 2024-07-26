@@ -15,8 +15,10 @@ import { PostType, UserType } from "../../types.ts";
 
 type FormData ={
     content:string;
-  }
-
+  };
+type PostListItemProps = {
+    post:PostType, updatePosts:()=> void;
+}
 
 
 
@@ -42,7 +44,7 @@ type FormData ={
  *
  * Homepage & GroupContainer & PostsContainer and UserPostsContainer -> PostListItem -> PostImageGallery & CommentsContainer
  */
-function PostListItem({post, updatePosts}:{post:PostType, updatePosts:()=> void}): ReactNode {
+function PostListItem({post, updatePosts}:PostListItemProps): ReactNode {
     const {user}:{user:UserType} = useUser()
     const {setMessage} = useMessage();
     const[postState, setPostState] = useState<PostType>(post);

@@ -9,6 +9,11 @@ import { useMessage } from "../../context/MessageContext.tsx";
 import { FishboardType } from "../../types.ts";
 
 type FishboardTypeString = 'GroupFishboard' | 'UserFishboard';
+type FishboardContainerProps = {
+    fishboard:FishboardType;
+    fishBoardType:FishboardTypeString;
+    profileIsUser:boolean;
+}
 
 
 
@@ -32,7 +37,7 @@ type FishboardTypeString = 'GroupFishboard' | 'UserFishboard';
  * Fisboard -> Fish & FishboardFormContainer
  */
 
-function FishboardContainer({fishboard, fishBoardType, profileIsUser}:{fishboard:FishboardType, fishBoardType:FishboardTypeString, profileIsUser:boolean}): ReactNode {
+function FishboardContainer({fishboard, fishBoardType, profileIsUser}:FishboardContainerProps): ReactNode {
 
 
     const[isCreateFishOpen, setIsCreateFishOpen] = useState<boolean>(false);

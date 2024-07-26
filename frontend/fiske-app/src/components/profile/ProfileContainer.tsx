@@ -11,6 +11,7 @@ import UserGroupsContainer from "./UserGroupsContainer.tsx";
 import { useParams } from "react-router-dom";
 import FishboardContainer from "../Fishboard/FishboardContainer.tsx";
 import { useMessage } from "../../context/MessageContext.tsx";
+import { ProfileUserType, GroupType, UserType } from "../../types.ts";
 
 //TODO: UserAdmin groups and usergroups are handled differently, also function name in useEffect
 
@@ -45,13 +46,13 @@ import { useMessage } from "../../context/MessageContext.tsx";
  * RoutesList -> ProfileContainer -> ProfileCard & FishboardContainer & UserPostsContainer & UserAdminGroupsContainer & UserGroupsContainer
  */
 function ProfileContainer(): ReactNode {
-    const [isCreateGroupOpen, setIsCreateGroupOpen] = useState(false);
-    const [profileUser, setProfileUser] = useState();
-    const [userAdminGroups, setUserAdminGroups] = useState([])
-    const { id } = useParams();
-    const {user} = useUser();
+    const [isCreateGroupOpen, setIsCreateGroupOpen] = useState<boolean>(false);
+    const [profileUser, setProfileUser] = useState<ProfileUserType>();
+    const [userAdminGroups, setUserAdminGroups] = useState<GroupType[]>([])
+    const { id }= useParams<string>();
+    const {user}:{user:UserType} = useUser();
     const {setMessage} = useMessage();
-    const currentUserId = user.id;
+    const currentUserId:number = user.id;
 
 
     //toggle isCreateGroupOpen
@@ -62,17 +63,20 @@ function ProfileContainer(): ReactNode {
     useEffect(() => {
       //get user and groups that user has created
         async function getGroups() {
-         const token = localStorage.getItem('fiske-token');
+         const token: string | null = localStorage.getItem('fiske-token');
          if (token) {
            try {
              const groups = await FiskeAPI.getUserAdminGroups(token, id);
              const user = await FiskeAPI.getUser(token, id )
              setUserAdminGroups(groups);
              setProfileUser(user)
-           } catch (err) {
-            setMessage('An error occurred', 'error')
-           } finally {
-           }
+            }catch(err:unknown){
+              if (err instanceof Error) {
+                  setMessage(err.message, 'error');
+                }else{
+                  setMessage('An Unknown Error Occurred', 'error')
+                }
+              }
          }
        };
 
@@ -82,15 +86,18 @@ function ProfileContainer(): ReactNode {
      //update the profileUser
      function updateProfileUser(){
       async function getUser() {
-        const token = localStorage.getItem('fiske-token');
+        const token:string | null = localStorage.getItem('fiske-token');
         if (token) {
           try {
             const user = await FiskeAPI.getUser(token, id )
             setProfileUser(user)
-          } catch (err) {
-            setMessage('An error occurred', 'error')
-          } finally {
-          }
+          }catch(err:unknown){
+            if (err instanceof Error) {
+                setMessage(err.message, 'error');
+              }else{
+                setMessage('An Unknown Error Occurred', 'error')
+              }
+            }
         }
       };
 
@@ -100,15 +107,18 @@ function ProfileContainer(): ReactNode {
      //update groups that user has created
      function updateUserAdminGroups(){
       async function getGroups() {
-        const token = localStorage.getItem('fiske-token');
+        const token: string | null = localStorage.getItem('fiske-token');
         if (token) {
           try {
             const groups = await FiskeAPI.getUserAdminGroups(token, id);
             setUserAdminGroups(groups)
-          } catch (err) {
-            setMessage('An error occurred', 'error')
-          } finally {
-          }
+          }catch(err:unknown){
+            if (err instanceof Error) {
+                setMessage(err.message, 'error');
+              }else{
+                setMessage('An Unknown Error Occurred', 'error')
+              }
+            }
         }
       };
 

@@ -1,4 +1,4 @@
-import React, { useContext, ReactNode} from 'react';
+import React, {ReactNode} from 'react';
 import { Alert } from 'reactstrap';
 import { useMessage } from '../../context/MessageContext.tsx';
 import styles from './css/GlobalMessage.module.css'
@@ -14,7 +14,9 @@ import styles from './css/GlobalMessage.module.css'
  *
  * Index -> App -> GloablMessage
  */
-const GlobalMessage: React.FC = () => {
+
+function GlobalMessage():ReactNode{
+
   const { message, messageType, clearMessage } = useMessage();
 
   const messageColor:string =  messageType === 'success'? 'success' : 'danger'
@@ -27,5 +29,6 @@ const GlobalMessage: React.FC = () => {
     </div>
   );
 };
+
 
 export default GlobalMessage;

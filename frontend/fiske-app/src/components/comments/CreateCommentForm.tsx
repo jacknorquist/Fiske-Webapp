@@ -6,16 +6,18 @@ import styles from './css/CreateCommentForm.module.css'
 import {
     Form,
     FormGroup,
-    Label,
     Col,
     Input,
-    FormText,
     Button,
-    CloseButton
   } from 'reactstrap';
 
   type FormData ={
     content:string;
+  }
+
+  type CreateCommentFormProps ={
+    updatePost: ()=>void;
+    createComment:(formData:FormData)=> void
   }
 
 /**CreateCommentForm: Renders form to create a comment.
@@ -28,7 +30,7 @@ import {
  *
  * PostListItem -> CommentsContainer -> Comment
  */
-function CreateCommentForm({updatePost, createComment}: {updatePost: ()=>void, createComment:(formData:FormData)=> void}): ReactNode {
+function CreateCommentForm({updatePost, createComment}: CreateCommentFormProps): ReactNode {
 
 
     const initialState:FormData = {
@@ -37,8 +39,8 @@ function CreateCommentForm({updatePost, createComment}: {updatePost: ()=>void, c
     const [formData, setFormData] = useState<FormData>(initialState);
 
     //handle form change
-    function handleChange(evt) {
-      const { name, value, type, files } = evt.target;
+    function handleChange(evt: React.ChangeEvent<HTMLInputElement>) {
+      const { name, value } = evt.target;
           setFormData(fData => ({
               ...fData,
               [name]: value
@@ -46,7 +48,7 @@ function CreateCommentForm({updatePost, createComment}: {updatePost: ()=>void, c
   }
 
     //handle form submit
-    function handleSave(evt) {
+    function handleSave(evt: React.FormEvent<HTMLFormElement>) {
         evt.preventDefault();
         createComment(formData);
         setFormData(initialState);

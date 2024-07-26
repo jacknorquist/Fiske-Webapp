@@ -20,6 +20,11 @@ import {
     header_image?: File;
   };
 
+  type CreateGroupFormProps={
+    createGroup: (formData:FormData)=>void;
+    toggleCreateGroup:()=>void;
+  }
+
 /**CreateGroupForm: renders form to create a group
  *
  *Props:
@@ -31,7 +36,7 @@ import {
  *
  * ProfileContainer -> CreateGroupContainer -> CreateGroupForm
  */
-function CreateGroupForm({createGroup, toggleCreateGroup}:{createGroup: (formData:FormData)=>void, toggleCreateGroup:()=>void}): ReactNode {
+function CreateGroupForm({createGroup, toggleCreateGroup}:CreateGroupFormProps): ReactNode {
 
 
     const initialState:FormData = {

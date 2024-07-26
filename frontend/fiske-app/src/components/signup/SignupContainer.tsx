@@ -7,6 +7,17 @@ import { useUser } from "../../context/UserContext.tsx";
 import styles from './css/SignupContainer.module.css';
 import { Button } from "reactstrap";
 
+type FormData ={
+  username:string;
+  email:string;
+  password:string;
+  first_name:string;
+  last_name:string;
+  bio:string;
+  profile_image?: File;
+  header_image?: File;
+}
+
 
 /**SignupContainer: renders SignupForm and handles signup functionality
  *
@@ -24,15 +35,19 @@ function SignupContainer(): ReactNode {
     const {setUser} = useUser()
 
   //handle signup for user
-  async function handleSignup(formData){
+  async function handleSignup(formData:FormData){
 
       try{
         const {user, token} = await FiskeAPI.signup(formData)
         setUser(user)
         localStorage['fiske-token'] =token
-      }catch (err){
-        setMessage(err.message, 'error')
-      }
+      }catch(err:unknown){
+        if (err instanceof Error) {
+            setMessage(err.message, 'error');
+          }else{
+            setMessage('An Unknown Error Occurred', 'error')
+          }
+        }
 
   }
 

@@ -11,8 +11,8 @@ import { useMessage } from "../../context/MessageContext.tsx";
 import { useNavigate } from "react-router-dom";
 import EditGroupContainer from "./EditGroupContainer.tsx";
 import FishboardContainer from "../Fishboard/FishboardContainer.tsx";
-
 import { PostType, GroupTypeWithFishboard, UserType, GroupType} from "../../types.ts";
+
 
 //TODO: change useEffect to listen to groupState (updateposts and updategroup)
 

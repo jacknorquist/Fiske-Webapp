@@ -13,6 +13,21 @@ import {
     Button,
     CloseButton
   } from 'reactstrap';
+import { UserType } from "../../types";
+
+  type FormData ={
+    username:string;
+    first_name:string;
+    last_name:string;
+    bio: string;
+    profile_image?: File;
+    header_image?: File
+  };
+  type EditProfileFormProps = {
+    handleEdit:(formData:FormData)=> void;
+    toggleEditProfileForm:()=>void;
+    user:UserType;
+  };
 
 /**EditProfileForm: renders form to edit profile
  *
@@ -25,26 +40,28 @@ import {
  *
  * ProfileContainer -> EditProfileContainer-> EditProfileForm
  */
-function EditProfileForm({handleEdit, toggleEditProfileForm, user}): ReactNode {
+function EditProfileForm({handleEdit, toggleEditProfileForm, user}:EditProfileFormProps): ReactNode {
 
-    const initialState = {
+    const initialState:FormData = {
         username: user.username,
         first_name: user.first_name,
         last_name: user.last_name,
         bio: user.bio,
-        profile_image: null,
-        header_image: null
+        profile_image: undefined,
+        header_image: undefined
     };
-    const [formData, setFormData] = useState(initialState);
+    const [formData, setFormData] = useState<FormData>(initialState);
 
     //hadle form change
-    function handleChange(evt) {
+    function handleChange(evt: React.ChangeEvent<HTMLInputElement>) {
       const { name, value, type, files } = evt.target;
       if (type === "file") {
+        if(files && files.length>0){
           setFormData(fData => ({
               ...fData,
               [name]: files[0]
           }));
+        }
       } else {
           setFormData(fData => ({
               ...fData,
@@ -53,8 +70,9 @@ function EditProfileForm({handleEdit, toggleEditProfileForm, user}): ReactNode {
       }
   }
 
+
     //jandle form submit
-    function handleSave(evt) {
+    function handleSave(evt: React.FormEvent<HTMLFormElement>) {
         evt.preventDefault();
         handleEdit(formData);
         setFormData(initialState);

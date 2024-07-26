@@ -1,13 +1,17 @@
 import React from "react";
-import { ReactNode , useState} from "react";
+import { ReactNode} from "react";
 import { useUser } from "../../context/UserContext.tsx";
-import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
-import { Button } from "reactstrap";
 import FiskeAPI from "../../api.ts";
 import { useMessage } from "../../context/MessageContext.tsx";
-import styles from './css/Comment.module.css'
+import styles from './css/Comment.module.css';
+import { CommentType } from "../../types.ts";
+import { UserType } from "../../types.ts";
 
+type CommentProps={
+    comment:CommentType;
+    updatePost: ()=> void
+}
 
 /**Comment: Renders individual comment.
  *
@@ -21,17 +25,21 @@ import styles from './css/Comment.module.css'
  *
  * PostListItem -> CommentsContainer -> Comment
  */
-function Comment({comment, updatePost}): ReactNode {
+function Comment({comment, updatePost}: CommentProps): ReactNode {
 
-    const {user} = useUser();
+    const {user}:{user:UserType} = useUser();
     const {setMessage} = useMessage()
 
     async function deleteComment(){
         try{
          await FiskeAPI.deleteComment( localStorage['fiske-token'], comment.group_id, comment.post_id, comment.id);
          updatePost();
-        }catch (err){
-          setMessage(err.message, 'error')
+        }catch(err:unknown){
+            if (err instanceof Error) {
+                setMessage(err.message, 'error');
+              }else{
+                setMessage('An Unknown Error Occurred', 'error')
+              }
         }
 
     }

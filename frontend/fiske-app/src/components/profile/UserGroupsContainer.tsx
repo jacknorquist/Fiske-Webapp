@@ -1,12 +1,11 @@
 import React from "react";
 import { ReactNode, useEffect, useState} from "react";
-import { useUser } from "../../context/UserContext.tsx";
-import Post from "../posts/PostContainer.tsx";
 import FiskeAPI from "../../api.ts";
 import GroupListItem from "../groups/GroupListItem.tsx";
 import styles from './css/UserGroupsContainer.module.css';
-import { v4 as uuidv4 } from 'uuid';
+import { v4 as uuidv4} from 'uuid';
 import { useMessage } from "../../context/MessageContext.tsx";
+import { GroupType, ProfileUserType } from "../../types.ts";
 
 
 
@@ -38,24 +37,27 @@ import { useMessage } from "../../context/MessageContext.tsx";
  *
  * RoutesList -> ProfileContainer -> UserGroupsContainer -> GroupListItem
  */
-function UserGroupsContainer({profileUser}): ReactNode {
+function UserGroupsContainer({profileUser}:{profileUser: ProfileUserType}): ReactNode {
 
-  const [userGroups,  setUserGroups] = useState([]);
-  const [isGroupsOpen, setIsGroupsOpen] = useState(false)
+  const [userGroups,  setUserGroups] = useState<GroupType[]>([]);
+  const [isGroupsOpen, setIsGroupsOpen] = useState<boolean>(false)
   const {setMessage} = useMessage();
 
     useEffect(() => {
       //get groups that user has joined
         async function getGroups() {
-         const token = localStorage.getItem('fiske-token');
+         const token: string | null = localStorage.getItem('fiske-token');
          if (token) {
            try {
-             const groups = await FiskeAPI.getUserGroups( token, profileUser.user.id);
+             const groups: GroupType[] = await FiskeAPI.getUserGroups( token, profileUser.user.id);
              setUserGroups(groups)
-           } catch (err) {
-            setMessage('An error occurred', 'error')
-           } finally {
-           }
+            }catch(err:unknown){
+              if (err instanceof Error) {
+                  setMessage(err.message, 'error');
+                }else{
+                  setMessage('An Unknown Error Occurred', 'error')
+                }
+              }
          }
        };
 

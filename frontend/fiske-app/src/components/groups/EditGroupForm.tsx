@@ -22,6 +22,11 @@ import { GroupTypeWithFishboard } from "../../types";
     description:string;
     header_image_url?: string;
   };
+  type EditGroupFormProps = {
+    editGroup: (FormData:FormData)=> void;
+    toggleEditGroup: ()=> void;
+    group:GroupTypeWithFishboard;
+  }
 
 /**EditGroupForm: renders form to edit group
  *
@@ -37,7 +42,7 @@ import { GroupTypeWithFishboard } from "../../types";
  * ProfileContainer -> EditeGroupContainer -> EditGroupForm
  */
 
-function EditGroupForm({editGroup, toggleEditGroup, group}:{editGroup: (FormData:FormData)=> void, toggleEditGroup: ()=> void, group:GroupTypeWithFishboard}): ReactNode {
+function EditGroupForm({editGroup, toggleEditGroup, group}:EditGroupFormProps): ReactNode {
   const initialState:FormData = {
     name:group.group.name,
     fish_species: group.group.fish_species,

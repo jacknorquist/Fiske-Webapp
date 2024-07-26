@@ -12,6 +12,10 @@ type FormData = {
   description:string;
   header_image?: File;
 };
+type CreateGroupContainerProps = {
+  toggleCreateGroup:()=> void;
+  updateUserAdminGroups:()=>void;
+}
 
 
 
@@ -27,7 +31,7 @@ type FormData = {
  *
  * ProfileContainer -> CreateGroupContainer
  */
-function CreateGroupContainer({toggleCreateGroup, updateUserAdminGroups}:{toggleCreateGroup:()=> void, updateUserAdminGroups:()=>void}): ReactNode {
+function CreateGroupContainer({toggleCreateGroup, updateUserAdminGroups}:CreateGroupContainerProps): ReactNode {
 
   const { setMessage } = useMessage();
 

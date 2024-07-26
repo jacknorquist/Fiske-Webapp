@@ -6,12 +6,12 @@
  * - params: timestamp (string) like ("2024-07-18T17:21:16.929Z")
  * - returns: string like '7 days ago'
  */
-function timeAgo (timestamp) {
-  const date = new Date(timestamp);
-  const now = new Date();
-  const seconds = Math.floor((now - date) / 1000);
+function timeAgo (timestamp:string):string {
+  const date:Date = new Date(timestamp);
+  const now:Date = new Date();
+  const seconds:number = Math.floor((Number(now)- Number(date)) / 1000);
 
-  let interval = Math.floor(seconds / 31536000);
+  let interval: number = Math.floor(seconds / 31536000);
 
   if (interval >= 1) {
       return interval + " year" + (interval === 1 ? "" : "s") + " ago";

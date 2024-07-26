@@ -19,6 +19,11 @@ type FormData = {
   image?: File;
 };
 
+type FishboardFormProps = {
+  createFish: (formData: FormData) => void;
+  toggleCreateFish: ()=>void;
+}
+
 /**FishboardForm: Renders form to add a fish to Fishboard.
  *
  *Props:
@@ -30,7 +35,7 @@ type FormData = {
  *
  * Fishboard -> FishboardFormContainer -> Fishboardform
  */
-function FishboardForm({createFish, toggleCreateFish}:{createFish: (formData: FormData) => void, toggleCreateFish: ()=>void }): ReactNode {
+function FishboardForm({createFish, toggleCreateFish}:FishboardFormProps): ReactNode {
 
   const initialState = {
       species:"",

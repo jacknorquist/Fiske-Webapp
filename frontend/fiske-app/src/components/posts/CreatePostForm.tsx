@@ -16,6 +16,10 @@ import {
   type FormData = {
     content: string;
   };
+  type CreatePostFormProps = {
+    createPost: (formData:FormData)=> void;
+    toggleCreatePost:()=> void;
+  }
 
 //TODO: Adding Images visuals
 
@@ -30,9 +34,9 @@ import {
  * - images (array): handles the amount of images available to add to a post
  * ProfileContainer -> CreateGroupContainer -> CreateGroupForm
  */
-function CreatePostForm({createPost, toggleCreatePost}: {createPost: (formData:FormData)=> void, toggleCreatePost:()=> void}): ReactNode {
+function CreatePostForm({createPost, toggleCreatePost}: CreatePostFormProps): ReactNode {
    const {user}:{user:UserType} = useUser()
-    const [images, setImages] = useState<string[] | null[]>([])
+    const [images, setImages] = useState<(string| null)[]>([])
 
 
     const initialState:FormData = {

@@ -5,6 +5,7 @@ import FiskeAPI from "../../api.ts";
 import PostListItem from "../posts/PostListItem.tsx";
 import { v4 as uuidv4 } from 'uuid';
 import { useMessage } from "../../context/MessageContext.tsx";
+import { PostType, ProfileUserType } from "../../types.ts";
 
 /**UserPostsContainerr: renders PostListItems for posts that the user has created
  *
@@ -33,27 +34,26 @@ import { useMessage } from "../../context/MessageContext.tsx";
  *
  * RoutesList -> ProfileContainer -> UserPostsContainer -> PostListItem
  */
-function UserPostsContainer({profileUser}): ReactNode {
-
-
-
-  const [userPosts,  setUserPosts] = useState([])
-  const {user} = useUser();
+function UserPostsContainer({profileUser}:{profileUser:ProfileUserType}): ReactNode {
+  const [userPosts,  setUserPosts] = useState<PostType[]>([])
   const {setMessage}= useMessage()
 
 
     useEffect(() => {
       //get posts that user has created
         async function getPosts() {
-         const token = localStorage.getItem('fiske-token');
+         const token:string | null = localStorage.getItem('fiske-token');
          if (token) {
            try {
              const posts = await FiskeAPI.getUserPosts(profileUser.user.id, token );
              setUserPosts(posts)
-           } catch (err) {
-            setMessage('An error occured', 'error')
-           } finally {
-           }
+            }catch(err:unknown){
+              if (err instanceof Error) {
+                  setMessage(err.message, 'error');
+                }else{
+                  setMessage('An Unknown Error Occurred', 'error')
+                }
+              }
          }
        };
 

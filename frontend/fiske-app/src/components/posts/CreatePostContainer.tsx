@@ -8,6 +8,11 @@ import styles from './css/CreatePostContainer.module.css';
 type FormData = {
   content: string;
 };
+type CreatePostContainerProps = {
+  groupId:string | undefined;
+  toggleCreatePost: ()=> void;
+  updatePosts: ()=> void;
+}
 
 
 /**CreatePostContainer: renders CreatePostForm and handles create post functionality
@@ -23,10 +28,9 @@ type FormData = {
  *
  *  RoutesList -> GroupContainer -> CreatePostContainer
  */
-function CreatePostContainer({groupId, toggleCreatePost, updatePosts}: {groupId:string | undefined, toggleCreatePost: ()=> void, updatePosts: ()=> void}): ReactNode {
+function CreatePostContainer({groupId, toggleCreatePost, updatePosts}: CreatePostContainerProps): ReactNode {
 
   const { setMessage } = useMessage();
-  console.log(groupId, 'groupId')
 
   //create post
   async function createPost(formData:FormData){

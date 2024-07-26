@@ -1,12 +1,24 @@
 import React from "react";
-import { ReactNode, useState } from "react";
+import { ReactNode } from "react";
 import { useMessage } from "../../context/MessageContext.tsx";
 import FiskeAPI from "../../api.ts";
-import { useLoggedIn } from "../../context/LoggedInContext.tsx";
 import { useUser } from "../../context/UserContext.tsx";
 import styles from './css/EditProfileContainer.module.css'
 import EditProfileForm from "./EditProfileForm.tsx";
-import { Button } from "reactstrap";
+import { UserType } from "../../types.ts";
+
+type FormData ={
+  username:string;
+  first_name:string;
+  last_name:string;
+  bio: string;
+  profile_image?: File;
+  header_image?: File
+}
+type EditProfileContainerProps = {
+  toggleEditProfileForm:()=> void;
+  updateProfileUser:()=>void;
+}
 
 
 
@@ -21,14 +33,14 @@ import { Button } from "reactstrap";
  *
  * ProfileContainer -> EditProfileContainer -> EditProfileForm
  */
-function EditProfileContainer({toggleEditProfileForm, updateProfileUser}): ReactNode {
+function EditProfileContainer({toggleEditProfileForm, updateProfileUser}:EditProfileContainerProps): ReactNode {
 
     const { setMessage } = useMessage();
-    const {user, setUser} = useUser()
+    const {user, setUser}:{user:UserType, setUser:(arg0: UserType)=> void} = useUser()
     const currentUserId = user.id;
 
   //handle edit profile
-  async function handleEdit(formData){
+  async function handleEdit(formData:FormData){
 
       try{
         const {user} = await FiskeAPI.editUser(formData, currentUserId , localStorage['fiske-token']);
@@ -36,9 +48,13 @@ function EditProfileContainer({toggleEditProfileForm, updateProfileUser}): React
         setUser(user)
         toggleEditProfileForm();
         setMessage('Profile Updated', 'success')
-      }catch (err){
-        setMessage(err.message, 'error')
-      }
+      }catch(err:unknown){
+        if (err instanceof Error) {
+            setMessage(err.message, 'error');
+          }else{
+            setMessage('An Unknown Error Occurred', 'error')
+          }
+        }
 
   }
 

@@ -1,14 +1,16 @@
 import React from "react";
-import { ReactNode, useState, useEffect } from "react";
+import { ReactNode, useState } from "react";
 import { useUser } from "../../context/UserContext.tsx";
 import styles from './css/UserAdminGroupsContainer.module.css'
-import FiskeAPI from "../../api.ts";
 import GroupListItem from "../groups/GroupListItem.tsx";
-import Group from "../groups/Group.tsx";
-import { Button } from "reactstrap";
-import { Link } from "react-router-dom";
 import { v4 as uuidv4 } from 'uuid';
+import { GroupType } from "../../types.ts";
 
+type UserAdminGroupsContainerProps = {
+    toggleCreateGroup: ()=>void;
+    userAdminGroups:GroupType[];
+    profileIsUser:boolean;
+};
 
 
 /**UserAdminGroupsContainer: renders GroupListItems for groups that user has created
@@ -23,11 +25,9 @@ import { v4 as uuidv4 } from 'uuid';
  *
  * RoutesList -> ProfileContainer -> UserAdminGroupsContainer -> GroupListItem
  */
-function UserAdminGroupsContainer({toggleCreateGroup, userAdminGroups, profileIsUser}): ReactNode {
+function UserAdminGroupsContainer({toggleCreateGroup, userAdminGroups, profileIsUser}:UserAdminGroupsContainerProps): ReactNode {
 
-    const[isGroupsOpen ,setIsGroupsOpen] = useState(false)
-
-    const {user} = useUser();
+    const[isGroupsOpen ,setIsGroupsOpen] = useState<boolean>(false);
 
     //toggles isGroupsOpen
     function toggleGroupsOpen(){

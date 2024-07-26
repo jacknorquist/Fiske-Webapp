@@ -8,9 +8,22 @@ import {
     Label,
     Col,
     Input,
-    FormText,
     Button
   } from 'reactstrap';
+
+  type FormData ={
+    username:string;
+    email:string;
+    password:string;
+    first_name:string;
+    last_name:string;
+    bio:string;
+    profile_image?: File;
+    header_image?: File;
+  };
+  type SignupFormProps = {
+    handleSignup:(formData:FormData)=> void
+  }
 
 /**Signupform: renders form to signup
  *
@@ -23,28 +36,30 @@ import {
  * App -> RoutesList -> SignupContainer -> SignupForm
  */
 
-function SignupForm({handleSignup}): ReactNode {
+function SignupForm({handleSignup}:SignupFormProps): ReactNode {
 
-    const initialState = {
+    const initialState: FormData = {
         username: "",
         email: "",
         password:"",
         first_name: "",
         last_name: "",
-        bio_:"",
-        profile_image: null,
-        header_image:null
+        bio:"",
+        profile_image: undefined,
+        header_image:undefined
     };
-    const [formData, setFormData] = useState(initialState);
+    const [formData, setFormData] = useState<FormData>(initialState);
 
     //handle form change
-    function handleChange(evt) {
+    function handleChange(evt: React.ChangeEvent<HTMLInputElement>) {
       const { name, value, type, files } = evt.target;
       if (type === "file") {
+        if(files && files.length>0){
           setFormData(fData => ({
               ...fData,
               [name]: files[0]
           }));
+        }
       } else {
           setFormData(fData => ({
               ...fData,
@@ -54,7 +69,7 @@ function SignupForm({handleSignup}): ReactNode {
   }
 
     //handle form submit
-    function handleSave(evt) {
+    function handleSave(evt: React.FormEvent<HTMLFormElement>) {
         evt.preventDefault();
         handleSignup(formData);
         setFormData(initialState);

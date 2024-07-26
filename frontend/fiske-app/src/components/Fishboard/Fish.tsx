@@ -9,6 +9,12 @@ import { useMessage } from "../../context/MessageContext.tsx";
 
 type FishboardTypeProp = 'GroupFishboard' | 'UserFishboard';
 
+type FishProps ={
+    fish:FishType;
+    fishBoardType:FishboardTypeProp;
+
+}
+
 //TODO: Send username with fish in backend. Eliminate additional call at line 30.
 
 /**Fish: Renders individual fish.
@@ -24,7 +30,7 @@ type FishboardTypeProp = 'GroupFishboard' | 'UserFishboard';
  *
  * GroupContainer & ProfileContainer -> Fisboard -> Fish
  */
-function Fish({fish, fishBoardType}: {fish:FishType , fishBoardType:FishboardTypeProp}): ReactNode {
+function Fish({fish, fishBoardType}: FishProps): ReactNode {
 
     const [username, setUsername] = useState<string | null>(null);
     const {setMessage} = useMessage();

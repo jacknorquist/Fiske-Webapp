@@ -20,6 +20,9 @@ import {
   type FormData = {
     search: string;
   };
+  type SearchGroupsFormProps = {
+    updateGroups: (formData:FormData) => void;
+  }
 
 
 /**SearchGroupsForm: Renders form to to search for fish
@@ -32,7 +35,7 @@ import {
  *
  * Homepage & GroupsContainer -> SearchGroupsContainer -> SearchGroupsForm
  */
-function SearchGroupsForm({updateGroups}:{updateGroups: (formData:FormData) => void}): ReactNode {
+function SearchGroupsForm({updateGroups}:SearchGroupsFormProps): ReactNode {
 
 
     const initialState:FormData = {

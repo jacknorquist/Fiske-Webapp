@@ -56,7 +56,9 @@ function FishboardFormContainer({
 
     return (
         <div className={style.container}>
-            <FishboardForm  createFish={createFish} toggleCreateFish={toggleCreateFish}/>
+            <FishboardForm
+            createFish={createFish}
+            toggleCreateFish={toggleCreateFish}/>
         </div>
     );
 }

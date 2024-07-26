@@ -100,7 +100,10 @@ function FishboardContainer({
                 <div>
                     <div className={style.fishContainer}>
                     {fishboardState?.fish.length > 0?
-                    fishboardState?.fish.map(f => <Fish key={uuidv4()} fishBoardType={fishBoardType}fish={f}/>)
+                    fishboardState?.fish.map(f => <Fish
+                                                   key={uuidv4()}
+                                                   fishBoardType={fishBoardType}
+                                                   fish={f}/>)
                     :
                     <p style={{marginLeft:'.5rem'}}>No Fish Yet...</p>}
                     </div>
@@ -115,8 +118,6 @@ function FishboardContainer({
                 :""}
                 </div>
             :""}
-
-
         </div>
     );
 }

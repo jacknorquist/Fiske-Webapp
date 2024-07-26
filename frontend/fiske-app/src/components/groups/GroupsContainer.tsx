@@ -24,12 +24,12 @@ import { GroupType, UserType } from "../../types.ts";
  * RoutesList -> GroupsContainer -> SearchGroupsContainer
  */
 function GroupsContainer(): ReactNode {
-    const {user}:{user: UserType | null} = useUser()
-    const [userGroups, setUserGroups] =useState<GroupType[]>([])
-    const [exploreGroups, setExploreGroups] = useState<GroupType[]>([])
-    const [exploreGroupsContainerOpen, setExploreGroupsContainer] = useState<boolean>(false)
-    const currentUserId:number = user!.id
-    const {setMessage} = useMessage()
+    const {user}:{user: UserType | null} = useUser();
+    const [userGroups, setUserGroups] =useState<GroupType[]>([]);
+    const [exploreGroups, setExploreGroups] = useState<GroupType[]>([]);
+    const [exploreGroupsContainerOpen, setExploreGroupsContainer] = useState<boolean>(false);
+    const currentUserId:number = user!.id;
+    const {setMessage} = useMessage();
 
 
     //set exploreGroupsOpen true to show exploreGroups
@@ -49,7 +49,7 @@ function GroupsContainer(): ReactNode {
          const token = localStorage.getItem('fiske-token');
          if (token) {
            try {
-             const userGroups = await FiskeAPI.getUserGroups(token, currentUserId ) ;
+             const userGroups = await FiskeAPI.getUserGroups(token, currentUserId );
              const exploreGroups = await FiskeAPI.getExploreGroups(token);
              setUserGroups(userGroups)
              setExploreGroups(exploreGroups)
@@ -73,10 +73,22 @@ function GroupsContainer(): ReactNode {
         <div className={styles.nav}>
                 <div className={styles.buttons}>
                     <div className={styles.buttonBox} onClick={openUserGroups}>
-                        <p className={!exploreGroupsContainerOpen ? `${styles.activeButton} ${styles.button}`:styles.button} style={{margin:'1rem'}} >My Groups</p>
+                        <p className={!exploreGroupsContainerOpen ?
+                                     `${styles.activeButton} ${styles.button}`
+                                     :
+                                     styles.button}
+                                     style={{margin:'1rem'}}>
+                                     My Groups
+                        </p>
                     </div>
                     <div className={styles.buttonBox} onClick={openExploreGroups}>
-                        <p className={exploreGroupsContainerOpen ? styles.button : `${styles.activeButton} ${styles.button}`} style={{margin:'1rem'}}>Explore</p>
+                        <p className={exploreGroupsContainerOpen ?
+                                      styles.button
+                                      :
+                                      `${styles.activeButton} ${styles.button}`}
+                                      style={{margin:'1rem'}}>
+                                      Explore
+                        </p>
                     </div>
                 </div>
             </div>
@@ -85,9 +97,19 @@ function GroupsContainer(): ReactNode {
               <SearchGroupsContainer />
             </div >
             <div className={styles.groupsContainer}>
-            {exploreGroupsContainerOpen? exploreGroups!.map(g=><GroupListItem key={uuidv4()} group={g}/>):""}
-            {!exploreGroupsContainerOpen && userGroups.length <=0 ? <p>You haven't joined any groups yet.</p>:"" }
-            {!exploreGroupsContainerOpen && userGroups.length > 0 ? userGroups!.map(g=><GroupListItem key={uuidv4()} group={g}/>):"" }
+            {exploreGroupsContainerOpen?
+              exploreGroups!.map(g=><GroupListItem
+                                    key={uuidv4()}
+                                    group={g}/>)
+            :""}
+            {!exploreGroupsContainerOpen && userGroups.length <=0 ?
+              <p>You haven't joined any groups yet.</p>
+            :"" }
+            {!exploreGroupsContainerOpen && userGroups.length > 0 ?
+              userGroups!.map(g=><GroupListItem
+                                  key={uuidv4()}
+                                  group={g}/>)
+            :"" }
             </div>
         </div>
       </div>

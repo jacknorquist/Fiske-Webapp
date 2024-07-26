@@ -1,9 +1,5 @@
 import React from "react";
 import { ReactNode , useState} from "react";
-import { useUser } from "../../context/UserContext.tsx";
-import { useParams } from "react-router-dom";
-import { NavLink } from "react-router-dom";
-import { Button } from "reactstrap";
 import { useEffect } from "react";
 import FiskeAPI from "../../api.ts";
 import GroupListItem from "./GroupListItem.tsx";
@@ -76,7 +72,12 @@ function SearchGroupsContainer(): ReactNode {
           <div className={styles.sticky}>
             <SearchGroupsForm updateGroups={updateGroups}/>
           </div>
-            {groups.length>0 ? groups.map(g=> <GroupListItem key={uuidv4()} group={g}/>):<p>No Groups Found</p>}
+            {groups.length>0 ?
+              groups.map(g=> <GroupListItem
+                              key={uuidv4()}
+                              group={g}/>)
+            :
+              <p>No Groups Found</p>}
         </div>
 
       );

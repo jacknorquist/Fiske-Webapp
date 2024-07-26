@@ -53,7 +53,10 @@ function GroupContainer(): ReactNode {
           try {
             const posts:PostType[] = await FiskeAPI.getGroupPosts( token, id);
             const group: GroupTypeWithFishboard = await FiskeAPI.getGroup(token, id);
-            const userGroups: GroupType[] = await FiskeAPI.getUserGroups(token, currentUserId )
+            const userGroups: GroupType[] =
+            await FiskeAPI.getUserGroups(
+                                         token,
+                                         currentUserId )
             setUserMember(userGroups.find(g=> g.id === Number(id)) ? true : false)
             setGroup(group)
             setPosts(posts)
@@ -137,7 +140,9 @@ function GroupContainer(): ReactNode {
       <div className={styles.container}>
            {isEditGroupOpen && group ?
            <EditGroupContainer
-           group={group} toggleEditGroup={toggleEditGroup} updateGroup={updateGroup}
+           group={group}
+           toggleEditGroup={toggleEditGroup}
+           updateGroup={updateGroup}
            />
            : ""}
         <div className={styles.leftContainer}>
@@ -151,10 +156,16 @@ function GroupContainer(): ReactNode {
                   <div style={{display:'flex', alignContent:'center'}}>
                     <h3>{group?.group.name}</h3>
                     {group.group!.admin_id === user.id ?
-                    <i className={`${styles.icon} bi bi-trash`} onClick={deleteGroup}></i>
+                    <i
+                    className={`${styles.icon} bi bi-trash`}
+                    onClick={deleteGroup}>
+                    </i>
                     :""}
                     {user!.id === group.group!.admin_id ?
-                    <i  className={`${styles.icon} bi bi-pen`}onClick={toggleEditGroup}></i>
+                    <i
+                    className={`${styles.icon} bi bi-pen`}
+                    onClick={toggleEditGroup}>
+                    </i>
                     :""}
                     {userMember ?
                     <Button
@@ -172,20 +183,35 @@ function GroupContainer(): ReactNode {
                     </Button>}
                   </div>
                   <div style={{display:'flex'}}>
-                    <p style={{margin:'0'}}><b>Area: </b>{group.group!.area}</p>
+                    <p
+                    style={{margin:'0'}}>
+                    <b>Area: </b>
+                    {group.group!.area}
+                    </p>
                   </div>
                   <div style={{display:'flex'}}>
-                    <p style={{margin:'0'}}><b>Target Species: </b>{group.group!.fish_species}</p>
+                    <p
+                    style={{margin:'0'}}>
+                    <b>Target Species: </b>
+                    {group.group!.fish_species}
+                    </p>
                   </div>
                   <p style={{margin:'0'}}>{group.group!.description}</p>
                   {(userMember  || group?.group?.admin_id === user.id)&& !isCreatePostOpen
                     ?
-                    <div className={styles.createPostButton}onClick={toggleCreatePost}>Make a Post</div>
+                    <div
+                    className={styles.createPostButton}
+                    onClick={toggleCreatePost}>
+                    Make a Post
+                    </div>
                   :""}
                 </div>
                 {isCreatePostOpen
                   &&
-                <CreatePostContainer groupId={id} toggleCreatePost={toggleCreatePost} updatePosts={updatePosts}/>}
+                <CreatePostContainer
+                groupId={id}
+                toggleCreatePost={toggleCreatePost}
+                updatePosts={updatePosts}/>}
             </div>
            :""}
            <div className={styles.fishboardContainer}>

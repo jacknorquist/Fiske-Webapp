@@ -28,7 +28,9 @@ import {
  *
  * Homepage & GroupsContainer -> SearchGroupsContainer -> SearchGroupsForm
  */
-function SearchGroupsForm({updateGroups}:SearchGroupFormPropsType): ReactNode {
+function SearchGroupsForm({
+                           updateGroups
+                          }:SearchGroupFormPropsType): ReactNode {
 
 
     const initialState:SearchGroupFormDataType = {
@@ -48,22 +50,22 @@ function SearchGroupsForm({updateGroups}:SearchGroupFormPropsType): ReactNode {
 
 
     return (
-        <div className={styles.formContainer}>
+      <div className={styles.formContainer}>
         <Form className={styles.form}>
-        <FormGroup row style={{margin:'auto'}}>
-          <Col sm={10} style={{width:'100%'}}>
-            <Input
-              style={{textAlign:'center'}}
-              id="search"
-              name="search"
-              value={formData.search}
-              type="text"
-              placeholder="Search For Groups"
-              onChange={handleChange}
-            />
-          </Col>
-        </FormGroup>
-      </Form>
+          <FormGroup row style={{margin:'auto'}}>
+            <Col sm={10} style={{width:'100%'}}>
+              <Input
+                style={{textAlign:'center'}}
+                id="search"
+                name="search"
+                value={formData.search}
+                type="text"
+                placeholder="Search For Groups"
+                onChange={handleChange}
+              />
+            </Col>
+          </FormGroup>
+        </Form>
       </div>
 
     );

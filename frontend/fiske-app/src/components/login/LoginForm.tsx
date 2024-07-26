@@ -49,7 +49,9 @@ function LoginForm({handleLogin}:LoginFormPropsType): ReactNode {
       setFormData(initialState);
   }
     return (
-        <Form onSubmit={handleSave} className={`${styles.form} border border-primary rounded`}>
+        <Form
+        onSubmit={handleSave}
+        className={`${styles.form} border border-primary rounded`}>
           <h1>Login</h1>
         <FormGroup row>
           <Label

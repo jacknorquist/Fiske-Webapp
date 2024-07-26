@@ -25,9 +25,13 @@ function  CommentsContainer({
 
     return (
         <div className={styles.container}>
-            <CreateCommentForm createComment={createComment} updatePost={updatePost}/>
+            <CreateCommentForm
+            createComment={createComment}
+            updatePost={updatePost}/>
             {comments.length > 0 ?
-            comments.map(c=> <Comment comment={c} updatePost={updatePost}/>)
+            comments.map(c=> <Comment
+                              comment={c}
+                              updatePost={updatePost}/>)
             :
             <i style={{ marginLeft: '.5rem' }}>No comments yet.</i>}
         </div>

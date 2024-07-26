@@ -23,7 +23,10 @@ function GlobalMessage():ReactNode{
 
   return (
     <div className={styles.messageContainer} >
-    <Alert color={`${messageColor}`} isOpen={!!message} toggle={clearMessage}>
+    <Alert
+    color={`${messageColor}`}
+    isOpen={!!message}
+    toggle={clearMessage}>
       {message}
     </Alert>
     </div>

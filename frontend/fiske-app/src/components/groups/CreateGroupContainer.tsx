@@ -46,7 +46,9 @@ function CreateGroupContainer({
   }
     return (
         <div className={styles.creategroupcontainer}>
-        <CreateGroupForm createGroup={createGroup} toggleCreateGroup={toggleCreateGroup}/>
+        <CreateGroupForm
+        createGroup={createGroup}
+        toggleCreateGroup={toggleCreateGroup}/>
         </div>
     );
 }

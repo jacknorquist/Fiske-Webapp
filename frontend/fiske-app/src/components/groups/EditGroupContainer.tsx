@@ -34,8 +34,8 @@ function EditGroupContainer({
       try{
        await FiskeAPI.editGroup( localStorage['fiske-token'], formData, groupId);
        updateGroup();
-        toggleEditGroup();
-        setMessage('Group Updated', 'success')
+       toggleEditGroup();
+       setMessage('Group Updated', 'success')
       }catch(err:unknown){
         if (err instanceof Error) {
             setMessage(err.message, 'error');
@@ -47,7 +47,10 @@ function EditGroupContainer({
   }
     return (
         <div className={styles.editgroupcontainer}>
-        <EditGroupForm group={group} editGroup={editGroup} toggleEditGroup={toggleEditGroup}/>
+        <EditGroupForm
+        group={group}
+        editGroup={editGroup}
+        toggleEditGroup={toggleEditGroup}/>
         </div>
     );
 }

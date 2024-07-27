@@ -70,11 +70,11 @@ class GroupsController < ApplicationController
         end
       end
 
-    def search
-      @query = params[:query] # Retrieve search query from params
-      @groups = Group.where("name LIKE ? OR area LIKE ? OR fish_species LIKE ?", "%#{@query}%", "%#{@query}%", "%#{@query}%").limit(10)
-      render json:  @groups, status: :ok
-    end
+      def search
+        @query = params[:query].downcase # Convert the query to lowercase
+        @groups = Group.where("name ILIKE ? OR area ILIKE ? OR fish_species ILIKE ?", "%#{@query}%", "%#{@query}%", "%#{@query}%").limit(10)
+        render json: @groups, status: :ok
+      end
 
     private
 

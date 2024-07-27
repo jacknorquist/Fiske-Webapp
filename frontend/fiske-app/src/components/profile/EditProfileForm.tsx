@@ -24,7 +24,11 @@ import {
  *
  * ProfileContainer -> EditProfileContainer-> EditProfileForm
  */
-function EditProfileForm({handleEdit, toggleEditProfileForm, user}:EditProfileFormPropsType): ReactNode {
+function EditProfileForm({
+                          handleEdit,
+                          toggleEditProfileForm,
+                          user
+                        }:EditProfileFormPropsType): ReactNode {
 
     const initialState:EditProfileFormDataType = {
         username: user.username,

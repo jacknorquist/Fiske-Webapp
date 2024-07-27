@@ -1,6 +1,6 @@
 import React from "react";
 import { ReactNode, useState } from "react";
-import { CardImg, CardBody, CardTitle, CardText,Card, Button } from "reactstrap";
+import { CardImg, CardBody, CardTitle, CardText,Card} from "reactstrap";
 import styles from './css/ProfileCard.module.css';
 import EditProfileContainer from "./EditProfileContainer.tsx";
 import { ProfileCardPropsType } from "../../types.ts";
@@ -36,8 +36,13 @@ import { ProfileCardPropsType } from "../../types.ts";
  *
  * ProfileContainer -> ProfileCard-> EditProfileContainer
  */
-function ProfileCard({ profileIsUser, profileUser, updateProfileUser, toggleCreateGroup}:ProfileCardPropsType): ReactNode {
-  const [isEditProfileOpen, setIsEditProfileOpen] = useState<boolean>(false)
+function ProfileCard({
+                      profileIsUser,
+                      profileUser,
+                      updateProfileUser,
+                      toggleCreateGroup
+                    }:ProfileCardPropsType): ReactNode {
+  const [isEditProfileOpen, setIsEditProfileOpen] = useState<boolean>(false);
 
   //toggle isEditProfileOpen
   function toggleEditProfile(){
@@ -49,15 +54,19 @@ function ProfileCard({ profileIsUser, profileUser, updateProfileUser, toggleCrea
           <Card className={styles.profileCard}>
             <CardImg
               alt="Card image cap"
-              src={profileUser.user!.header_image_url || `${process.env.PUBLIC_URL}/DefaultHeader.jpg`}
+              src={profileUser.user!.header_image_url ||
+                  `${process.env.PUBLIC_URL}/DefaultHeader.jpg`}
               style={{
                 height: 180
               }}
               className={styles.headerImage}
               top
-              width="100%"
-            />
-            <img src={profileUser.user!.profile_image_url || `${process.env.PUBLIC_URL}/DefaultHeader.jpg`} className={styles.profileImage} alt="" />
+              width="100%"/>
+            <img
+              src={profileUser.user!.profile_image_url ||
+                  `${process.env.PUBLIC_URL}/DefaultHeader.jpg`}
+              className={styles.profileImage}
+              alt="" />
             <CardBody className={styles.cardBody}>
               <CardTitle tag="h5">
                 <div>
@@ -66,12 +75,25 @@ function ProfileCard({ profileIsUser, profileUser, updateProfileUser, toggleCrea
                     <i>{`${profileUser.user!.username}`}</i>
                   </span>
                   <span className={styles.fishboardPoints}>
-                    <i className='fas fa-fish'><i style={{marginLeft:'.5rem'}}>{profileUser.user.fishboard_points}</i></i>
+                    <i
+                    className='fas fa-fish'>
+                      <i
+                      style={{marginLeft:'.5rem'}}>
+                      {profileUser.user.fishboard_points}
+                      </i>
+                    </i>
                   </span>
                   {profileIsUser ?
                   <span className={styles.userProfileButtons}>
-                    <i onClick={toggleCreateGroup} className={styles.createGroupButton}>+ Group</i>
-                    <i onClick={toggleEditProfile} className={`${styles.editButton} bi bi-pen`}></i>
+                    <i
+                     onClick={toggleCreateGroup}
+                     className={styles.createGroupButton}>
+                      + Group
+                    </i>
+                    <i
+                     onClick={toggleEditProfile}
+                     className={`${styles.editButton} bi bi-pen`}>
+                    </i>
                   </span>
                   :""}
                 </div>
@@ -81,7 +103,11 @@ function ProfileCard({ profileIsUser, profileUser, updateProfileUser, toggleCrea
               </CardText>
             </CardBody>
           </Card>
-          {isEditProfileOpen ? <EditProfileContainer updateProfileUser={updateProfileUser}  toggleEditProfileForm={toggleEditProfile}/> :""}
+          {isEditProfileOpen ?
+           <EditProfileContainer
+           updateProfileUser={updateProfileUser}
+           toggleEditProfileForm={toggleEditProfile}/>
+           :""}
         </div>
     );
 }

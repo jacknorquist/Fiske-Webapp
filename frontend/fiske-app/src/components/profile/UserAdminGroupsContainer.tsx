@@ -19,13 +19,17 @@ import {UserAdminGroupsContainerPropsType } from "../../types.ts";
  *
  * RoutesList -> ProfileContainer -> UserAdminGroupsContainer -> GroupListItem
  */
-function UserAdminGroupsContainer({toggleCreateGroup, userAdminGroups, profileIsUser}:UserAdminGroupsContainerPropsType): ReactNode {
+function UserAdminGroupsContainer({
+                                   toggleCreateGroup,
+                                   userAdminGroups,
+                                   profileIsUser
+                                  }:UserAdminGroupsContainerPropsType): ReactNode {
 
     const[isGroupsOpen ,setIsGroupsOpen] = useState<boolean>(false);
 
     //toggles isGroupsOpen
     function toggleGroupsOpen(){
-        setIsGroupsOpen(!isGroupsOpen)
+        setIsGroupsOpen(!isGroupsOpen);
     }
 
 
@@ -44,7 +48,7 @@ function UserAdminGroupsContainer({toggleCreateGroup, userAdminGroups, profileIs
             {isGroupsOpen ?
             <div className={styles.groups}>
                 {userAdminGroups.length > 0 ?
-                userAdminGroups.map(g => <GroupListItem key={uuidv4()} group={g} />)
+                 userAdminGroups.map(g => <GroupListItem key={uuidv4()} group={g} />)
                 :
                 <p>No groups created yet...</p>}
             </div>

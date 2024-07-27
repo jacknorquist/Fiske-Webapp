@@ -1,5 +1,5 @@
 import React from "react";
-import { ReactNode , useState, useRef} from "react";
+import { ReactNode , useState} from "react";
 import { useUser } from "../../context/UserContext.tsx";
 import { Link} from "react-router-dom";
 import CommentsContainer from "../comments/CommentsContainer.tsx";
@@ -33,12 +33,13 @@ import {  PostType, UserType, PostFormDataType, PostListItemPropsType } from "..
  * Homepage & GroupContainer & PostsContainer and UserPostsContainer -> PostListItem -> PostImageGallery & CommentsContainer
  */
 function PostListItem({post, updatePosts}:PostListItemPropsType): ReactNode {
-    const {user}:{user:UserType | null} = useUser()
-    const {setMessage} = useMessage();
+
     const[postState, setPostState] = useState<PostType>(post);
     const [isCommentsOpen, setIsCommentsOpen] = useState<boolean>(false);
-    const[isButtonsOpen, setIsButtonsOpen] = useState<boolean>(false)
+    const[isButtonsOpen, setIsButtonsOpen] = useState<boolean>(false);
     const [isExpanded, setIsExpanded] = useState<boolean>(false);
+    const {user}:{user:UserType | null} = useUser();
+    const {setMessage} = useMessage();
 
     //toggle isCommentsOpen to render CommentsContainer
     function toggleComments(){
@@ -48,7 +49,11 @@ function PostListItem({post, updatePosts}:PostListItemPropsType): ReactNode {
     //update post
     async function updatePost(){
         try{
-            const updatedPost:PostType = await FiskeAPI.getPost( localStorage['fiske-token'], post.id);
+            const updatedPost:PostType =
+            await FiskeAPI.getPost(
+                                    localStorage['fiske-token'],
+                                    post.id
+                                  );
             setPostState(updatedPost)
         }catch(err:unknown){
             if (err instanceof Error) {
@@ -62,7 +67,12 @@ function PostListItem({post, updatePosts}:PostListItemPropsType): ReactNode {
     //create comment
     async function createComment(formData:PostFormDataType){
         try{
-         await FiskeAPI.createComment( localStorage['fiske-token'], post.group_id, post.id, formData);
+         await FiskeAPI.createComment(
+                                      localStorage['fiske-token'],
+                                      post.group_id,
+                                      post.id,
+                                      formData
+                                     );
         }catch(err:unknown){
             if (err instanceof Error) {
                 setMessage(err.message, 'error');
@@ -76,7 +86,10 @@ function PostListItem({post, updatePosts}:PostListItemPropsType): ReactNode {
     //delete post
     async function deletePost(){
         try{
-            await FiskeAPI.deletePost( localStorage['fiske-token'], post.group_id, post.id);
+            await FiskeAPI.deletePost(
+                                      localStorage['fiske-token'],
+                                      post.group_id,
+                                      post.id);
             updatePosts()
         }catch(err:unknown){
             if (err instanceof Error) {
@@ -102,31 +115,77 @@ function PostListItem({post, updatePosts}:PostListItemPropsType): ReactNode {
         <div className={styles.container}>
             <div className={styles.header}>
                 <Link to={`/profile/${postState.user_id}`} >
-                    <img src={postState.user_profile_image || `${process.env.PUBLIC_URL}/DefaultHeader.jpg`} alt="" className={styles.profileImage}/>
+                    <img
+                    src={postState.user_profile_image ||
+                    `${process.env.PUBLIC_URL}/DefaultHeader.jpg`}
+                    alt=""
+                    className={styles.profileImage}/>
                 </Link>
                 <div className={styles.groupUser}>
-                        <Link to={`/groups/${postState.group_id}`} className={styles.grouplink}><h6>{postState.group_name}</h6></Link>
+                        <Link
+                        to={`/groups/${postState.group_id}`}
+                        className={styles.grouplink}>
+                            <h6>{postState.group_name}</h6>
+                        </Link>
                         <Link to={`/profile/${postState.user_id}`}>
                             <i className={styles.username}>{postState.username}</i>
                         </Link>
-                        <i style={{color:'gray'}}> posted {timeAgo(postState.created_at)}</i>
+                        <i
+                        style={{color:'gray'}}>
+                        posted {timeAgo(postState.created_at)}
+                        </i>
                 </div>
             </div>
-            <span onClick={toggleButtons}className={`${styles.openButtonsIcon} bi bi-three-dots-vertical`}></span>
+            <span
+            onClick={toggleButtons}
+            className={`${styles.openButtonsIcon} bi bi-three-dots-vertical`}>
+            </span>
             {isButtonsOpen ?
              <div className={styles.buttonscontainer}>
-                {post.user_id === user!.id ? <span onClick={deletePost} className={`${styles.icon} bi bi-trash icon`}></span>:"" }
-             </div> : ""
-             }
+                {post.user_id === user!.id ?
+                <span onClick={deletePost}
+                className={`${styles.icon} bi bi-trash icon`}>
+                </span>
+                :"" }
+             </div>
+            :""}
             <div className={styles.content}>
-                {isExpanded? <div className={styles.contentTextExpanded}><p>{postState.content}</p></div>: <div className={styles.contentText}><p>{postState.content}</p></div>}
-                {!isExpanded ? <i style={{cursor:'pointer'}}onClick={toggleExpand}>Read More</i>:""}
+                {isExpanded?
+                 <div
+                 className={styles.contentTextExpanded}>
+                    <p>{postState.content}</p>
+                 </div>
+                 :
+                 <div
+                 className={styles.contentText}>
+                    <p>{postState.content}</p>
+                </div>}
+                {!isExpanded ?
+                <i
+                style={{cursor:'pointer'}}
+                onClick={toggleExpand}>
+                    Read More
+                </i>
+                :""}
             </div>
-            {postState.images.length > 0 ? <PostImageGallery  images={postState.images}/>:""}
+            {postState.images.length > 0 ?
+             <PostImageGallery  images={postState.images}/>
+            :""}
             <div className={styles.socialContainer}>
-                {!isCommentsOpen ? <p onClick={toggleComments} className={styles.icon}>Comments</p>: ""}
+                {!isCommentsOpen ?
+                 <p
+                 onClick={toggleComments}
+                 className={styles.icon}>
+                 Comments
+                 </p>
+                : ""}
             </div>
-            {isCommentsOpen ? <CommentsContainer comments={postState.comments} updatePost={updatePost} createComment={createComment}/>:""}
+            {isCommentsOpen ?
+             <CommentsContainer
+             comments={postState.comments}
+             updatePost={updatePost}
+             createComment={createComment}/>
+            :""}
         </div>
     );
 }

@@ -25,7 +25,7 @@ import { FishPropsType } from "../../types.ts";
  * GroupContainer & ProfileContainer -> Fisboard -> Fish
  */
 function Fish({fish, fishBoardType}: FishPropsType): ReactNode {
-    
+
     const [username, setUsername] = useState<string | null>(null);
     const {setMessage} = useMessage();
 
@@ -34,7 +34,7 @@ function Fish({fish, fishBoardType}: FishPropsType): ReactNode {
         async function getUsername(){
         if(fishBoardType === 'GroupFishboard'){
             try{
-            const user = await FiskeAPI.getUser(localStorage['fiske-token'], fish.user_id );
+            const user = await FiskeAPI.getUser(localStorage['fiske-token'], fish.user_id);
             setUsername(user.user.username)
         }catch(err:unknown){
             if (err instanceof Error) {

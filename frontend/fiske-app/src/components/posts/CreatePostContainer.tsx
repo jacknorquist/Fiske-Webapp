@@ -20,14 +20,18 @@ import { PostFormDataType, CreatePostContainerPropsType } from "../../types.ts";
  *
  *  RoutesList -> GroupContainer -> CreatePostContainer
  */
-function CreatePostContainer({groupId, toggleCreatePost, updatePosts}: CreatePostContainerPropsType): ReactNode {
+function CreatePostContainer({
+                              groupId,
+                              toggleCreatePost,
+                              updatePosts
+                            }: CreatePostContainerPropsType): ReactNode {
 
   const { setMessage } = useMessage();
 
   //create post
   async function createPost(formData:PostFormDataType){
       try{
-       await FiskeAPI.createPost( localStorage['fiske-token'], groupId, formData);
+       await FiskeAPI.createPost( localStorage['fiske-token'], Number(groupId), formData);
         updatePosts();
         toggleCreatePost();
       }catch(err:unknown){
@@ -41,7 +45,9 @@ function CreatePostContainer({groupId, toggleCreatePost, updatePosts}: CreatePos
   }
     return (
         <div className={styles.createpostcontainer}>
-        <CreatePostForm  createPost={createPost}  toggleCreatePost={toggleCreatePost}/>
+          <CreatePostForm
+          createPost={createPost}
+          toggleCreatePost={toggleCreatePost}/>
         </div>
     );
 }

@@ -32,7 +32,7 @@ function EditGroupContainer({
   //edit group
   async function editGroup(formData:GroupFormDataType){
       try{
-       await FiskeAPI.editGroup( localStorage['fiske-token'], formData, groupId);
+       await FiskeAPI.editGroup( localStorage['fiske-token'], formData, Number(groupId));
        updateGroup();
        toggleEditGroup();
        setMessage('Group Updated', 'success')

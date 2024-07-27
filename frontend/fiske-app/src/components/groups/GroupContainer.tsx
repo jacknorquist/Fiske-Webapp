@@ -51,8 +51,8 @@ function GroupContainer(): ReactNode {
         const token:string | null = localStorage.getItem('fiske-token');
         if (token) {
           try {
-            const posts:PostType[] = await FiskeAPI.getGroupPosts( token, id);
-            const group: GroupTypeWithFishboard = await FiskeAPI.getGroup(token, id);
+            const posts:PostType[] = await FiskeAPI.getGroupPosts( token, Number(id));
+            const group: GroupTypeWithFishboard = await FiskeAPI.getGroup(token, Number(id));
             const userGroups: GroupType[] =
             await FiskeAPI.getUserGroups(
                                          token,
@@ -75,22 +75,27 @@ function GroupContainer(): ReactNode {
 
   //user join group
   async function leaveGroup(){
-    try{
-      await FiskeAPI.leaveGroup(localStorage.getItem('fiske-token'), id);
-      setUserMember(false);
-    }catch(err:unknown){
-      if (err instanceof Error) {
-          setMessage(err.message, 'error');
-        }else{
-          setMessage('An Unknown Error Occurred', 'error')
-        }
-  }
+    const token = localStorage.getItem('fiske-token');
+    if(token){
+      try{
+        await FiskeAPI.leaveGroup(token, Number(id));
+        setUserMember(false);
+      }catch(err:unknown){
+        if (err instanceof Error) {
+            setMessage(err.message, 'error');
+          }else{
+            setMessage('An Unknown Error Occurred', 'error')
+          }
+      }
     }
+  }
 
   //user leave group
   async function joinGroup(){
+    const token = localStorage.getItem('fiske-token');
+    if(token){
     try{
-    await FiskeAPI.joinGroup(localStorage.getItem('fiske-token'), id);
+    await FiskeAPI.joinGroup(token, Number(id));
     setUserMember(true)
   }catch(err:unknown){
     if (err instanceof Error) {
@@ -100,6 +105,7 @@ function GroupContainer(): ReactNode {
       }
     }
   }
+ }
 
   //delete group
   async function deleteGroup(){

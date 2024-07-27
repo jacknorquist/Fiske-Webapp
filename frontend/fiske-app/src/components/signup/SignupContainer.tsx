@@ -22,15 +22,15 @@ import { SignupFormDataType } from "../../types.ts";
 function SignupContainer(): ReactNode {
 
     const { setMessage } = useMessage();
-    const {setUser} = useUser()
+    const {setUser} = useUser();
 
   //handle signup for user
   async function handleSignup(formData:SignupFormDataType){
 
       try{
-        const {user, token} = await FiskeAPI.signup(formData)
-        setUser(user)
-        localStorage['fiske-token'] =token
+        const {user, token} = await FiskeAPI.signup(formData);
+        setUser(user);
+        localStorage['fiske-token'] =token;
       }catch(err:unknown){
         if (err instanceof Error) {
             setMessage(err.message, 'error');

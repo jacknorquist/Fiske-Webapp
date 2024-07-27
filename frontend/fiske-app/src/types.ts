@@ -160,6 +160,11 @@ export interface PostType {
 }
 export interface PostFormDataType{
   content: string;
+  poast_image_1?:File;
+  poast_image_2?:File;
+  poast_image_3?:File;
+  poast_image_4?:File;
+  poast_image_5?:File;
 }
 export interface CreatePostContainerPropsType{
   groupId:string | undefined;

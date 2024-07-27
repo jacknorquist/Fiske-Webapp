@@ -60,8 +60,10 @@ function GroupListItem({group}:{group:GroupType}): ReactNode {
    //user leave group
    async function leaveGroup(e: React.MouseEvent){
       e.preventDefault();
+      const token = localStorage.getItem('fiske-token');
+      if(token){
       try{
-      await FiskeAPI.leaveGroup(localStorage.getItem('fiske-token'), group.id);
+      await FiskeAPI.leaveGroup(token, group.id);
       setIsUserMemeber(false);
       }catch(err:unknown){
       if (err instanceof Error) {
@@ -70,21 +72,24 @@ function GroupListItem({group}:{group:GroupType}): ReactNode {
           setMessage('An Unknown Error Occurred', 'error')
         }
       }
+    }
 
   }
 
   //user join group
   async function joinGroup(e: React.MouseEvent){
     e.preventDefault();
-
-    try{
-    await FiskeAPI.joinGroup(localStorage.getItem('fiske-token'), group.id);
-    setIsUserMemeber(true)
-    }catch(err:unknown){
-    if (err instanceof Error) {
-        setMessage(err.message, 'error');
-      }else{
-        setMessage('An Unknown Error Occurred', 'error')
+    const token = localStorage.getItem('fiske-token');
+    if(token){
+      try{
+      await FiskeAPI.joinGroup(token, group.id);
+      setIsUserMemeber(true)
+      }catch(err:unknown){
+      if (err instanceof Error) {
+          setMessage(err.message, 'error');
+        }else{
+          setMessage('An Unknown Error Occurred', 'error')
+        }
       }
     }
   }

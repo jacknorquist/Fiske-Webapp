@@ -46,14 +46,16 @@ import { ProfileUserType, GroupType, UserType } from "../../types.ts";
  * RoutesList -> ProfileContainer -> ProfileCard & FishboardContainer & UserPostsContainer & UserAdminGroupsContainer & UserGroupsContainer
  */
 function ProfileContainer(): ReactNode {
-    const [isCreateGroupOpen, setIsCreateGroupOpen] = useState<boolean>(false);
-    const [profileUser, setProfileUser] = useState<ProfileUserType>();
-    const [userAdminGroups, setUserAdminGroups] = useState<GroupType[]>([])
-    const { id }= useParams<string>();
-    const {user}:{user:UserType} = useUser();
-    const {setMessage} = useMessage();
-    const currentUserId:number = user.id;
 
+  const [isCreateGroupOpen, setIsCreateGroupOpen] = useState<boolean>(false);
+  const [profileUser, setProfileUser] = useState<ProfileUserType>();
+  const [userAdminGroups, setUserAdminGroups] = useState<GroupType[]>([]);
+  const { id }= useParams<string>();
+  const {user}:{user:UserType | null} = useUser();
+  const {setMessage} = useMessage();
+  const currentUserId:number = user!.id;
+  //is the user that is being viewed the same as the one logged in
+  let profileIsUser = currentUserId === Number(useParams().id)
 
     //toggle isCreateGroupOpen
     function toggleCreateGroup(){
@@ -64,12 +66,12 @@ function ProfileContainer(): ReactNode {
       //get user and groups that user has created
         async function getGroups() {
          const token: string | null = localStorage.getItem('fiske-token');
-         if (token) {
+         if (token && id && user) {
            try {
-             const groups = await FiskeAPI.getUserAdminGroups(token, id);
-             const user = await FiskeAPI.getUser(token, id )
+             const groups = await FiskeAPI.getUserAdminGroups(token, Number(id));
+             const user:ProfileUserType = await FiskeAPI.getUser(token, Number(id) )
              setUserAdminGroups(groups);
-             setProfileUser(user)
+             setProfileUser(user);
             }catch(err:unknown){
               if (err instanceof Error) {
                   setMessage(err.message, 'error');
@@ -89,7 +91,7 @@ function ProfileContainer(): ReactNode {
         const token:string | null = localStorage.getItem('fiske-token');
         if (token) {
           try {
-            const user = await FiskeAPI.getUser(token, id )
+            const user = await FiskeAPI.getUser(token, Number(id))
             setProfileUser(user)
           }catch(err:unknown){
             if (err instanceof Error) {
@@ -110,7 +112,7 @@ function ProfileContainer(): ReactNode {
         const token: string | null = localStorage.getItem('fiske-token');
         if (token) {
           try {
-            const groups = await FiskeAPI.getUserAdminGroups(token, id);
+            const groups = await FiskeAPI.getUserAdminGroups(token, Number(id));
             setUserAdminGroups(groups)
           }catch(err:unknown){
             if (err instanceof Error) {
@@ -125,29 +127,42 @@ function ProfileContainer(): ReactNode {
       getGroups();
      }
 
-    //is the user that is being viewed the same as the one logged in
-    let profileIsUser = currentUserId === Number(useParams().id)
     return (
         <div className={styles.profileContainer}>
-          {isCreateGroupOpen && <CreateGroupContainer toggleCreateGroup={toggleCreateGroup} updateUserAdminGroups={updateUserAdminGroups}/>}
-          <div className={`${styles.gridcontainer} ${ isCreateGroupOpen ? styles.overlay : ''}`}>
+          {isCreateGroupOpen && <CreateGroupContainer
+                                 toggleCreateGroup={toggleCreateGroup}
+                                 updateUserAdminGroups={updateUserAdminGroups}/>}
+          <div
+           className={`${styles.gridcontainer} ${ isCreateGroupOpen ?
+                     styles.overlay
+                     : ''}`}>
             {profileUser ?
             <div className={styles.leftContainer}>
-              <ProfileCard  updateProfileUser= {updateProfileUser} profileIsUser={profileIsUser} profileUser={profileUser} toggleCreateGroup={toggleCreateGroup}/>
+              <ProfileCard
+              updateProfileUser= {updateProfileUser}
+              profileIsUser={profileIsUser}
+              profileUser={profileUser}
+              toggleCreateGroup={toggleCreateGroup}/>
               <div className={styles.fishboardContainer}>
-                <FishboardContainer fishboard={profileUser.fishboard}  fishBoardType={'UserFishboard'} profileIsUser={profileIsUser}/>
+                <FishboardContainer
+                 fishboard={profileUser.fishboard}
+                 fishBoardType={'UserFishboard'}
+                 profileIsUser={profileIsUser}/>
               </div>
-              <UserPostsContainer  profileUser={profileUser} />
+              <UserPostsContainer profileUser={profileUser} />
             </div> :""
             }
-            {
-            profileUser ?
+            {profileUser ?
             <div className={styles.rightContainer}>
-              {userAdminGroups ? <UserAdminGroupsContainer  toggleCreateGroup={toggleCreateGroup} userAdminGroups={userAdminGroups} profileIsUser={profileIsUser}/> :""}
+              {userAdminGroups ?
+               <UserAdminGroupsContainer
+               toggleCreateGroup={toggleCreateGroup}
+               userAdminGroups={userAdminGroups}
+               profileIsUser={profileIsUser}/>
+               :""}
               <UserGroupsContainer profileUser={profileUser} />
             </div>
-            :""
-            }
+            :""}
           </div >
         </div>
     );

@@ -37,7 +37,8 @@ import { GroupType, ProfileUserType } from "../../types.ts";
  *
  * RoutesList -> ProfileContainer -> UserGroupsContainer -> GroupListItem
  */
-function UserGroupsContainer({profileUser}:{profileUser: ProfileUserType}): ReactNode {
+function UserGroupsContainer({profileUser}:
+                             {profileUser: ProfileUserType}): ReactNode {
 
   const [userGroups,  setUserGroups] = useState<GroupType[]>([]);
   const [isGroupsOpen, setIsGroupsOpen] = useState<boolean>(false)
@@ -49,8 +50,12 @@ function UserGroupsContainer({profileUser}:{profileUser: ProfileUserType}): Reac
          const token: string | null = localStorage.getItem('fiske-token');
          if (token) {
            try {
-             const groups: GroupType[] = await FiskeAPI.getUserGroups( token, profileUser.user.id);
-             setUserGroups(groups)
+             const groups: GroupType[] =
+             await FiskeAPI.getUserGroups(
+                                          token,
+                                          profileUser.user.id
+                                         );
+             setUserGroups(groups);
             }catch(err:unknown){
               if (err instanceof Error) {
                   setMessage(err.message, 'error');

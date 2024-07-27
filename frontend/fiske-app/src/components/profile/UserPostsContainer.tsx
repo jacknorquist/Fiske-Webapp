@@ -34,9 +34,11 @@ import { PostType, ProfileUserType } from "../../types.ts";
  *
  * RoutesList -> ProfileContainer -> UserPostsContainer -> PostListItem
  */
-function UserPostsContainer({profileUser}:{profileUser:ProfileUserType}): ReactNode {
-  const [userPosts,  setUserPosts] = useState<PostType[]>([])
-  const {setMessage}= useMessage()
+function UserPostsContainer({profileUser}:
+                            {profileUser:ProfileUserType}): ReactNode {
+
+  const [userPosts,  setUserPosts] = useState<PostType[]>([]);
+  const {setMessage}= useMessage();
 
 
     useEffect(() => {
@@ -45,8 +47,12 @@ function UserPostsContainer({profileUser}:{profileUser:ProfileUserType}): ReactN
          const token:string | null = localStorage.getItem('fiske-token');
          if (token) {
            try {
-             const posts = await FiskeAPI.getUserPosts(profileUser.user.id, token );
-             setUserPosts(posts)
+             const posts =
+             await FiskeAPI.getUserPosts(
+                                         profileUser.user.id,
+                                         token
+                                        );
+             setUserPosts(posts);
             }catch(err:unknown){
               if (err instanceof Error) {
                   setMessage(err.message, 'error');
@@ -67,7 +73,11 @@ function UserPostsContainer({profileUser}:{profileUser:ProfileUserType}): ReactN
         const token = localStorage.getItem('fiske-token');
         if (token) {
           try {
-            const posts = await FiskeAPI.getUserPosts(profileUser.user.id, token );
+            const posts =
+            await FiskeAPI.getUserPosts(
+                                        profileUser.user.id,
+                                        token
+                                       );
             setUserPosts(posts)
           } catch (err) {
             setMessage('An error occured', 'error')
@@ -81,7 +91,14 @@ function UserPostsContainer({profileUser}:{profileUser:ProfileUserType}): ReactN
 
     return (
         <div>
-            {userPosts.length>0? userPosts.map(p=> <PostListItem key={uuidv4()} post={p} updatePosts={updatePosts}/>): <p>No posts yet..</p>}
+            {userPosts.length>0 ?
+             userPosts.map(p=>
+             <PostListItem
+             key={uuidv4()}
+             post={p}
+             updatePosts={updatePosts}/>)
+             :
+             <p>No posts yet..</p>}
         </div>
     );
 }

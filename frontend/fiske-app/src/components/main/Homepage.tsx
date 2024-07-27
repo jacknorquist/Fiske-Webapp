@@ -23,7 +23,7 @@ import { PostType, UserType } from "../../types.ts";
  */
 function Homepage(): ReactNode {
     const [typeOfPosts, setTypeOfPosts] = useState<string>('userFeed');
-    const [posts, setPosts] = useState<PostType[]>([])
+    const [posts, setPosts] = useState<PostType[]>([]);
     const {user}:{user:UserType | null} = useUser();
     const {setMessage} = useMessage()
 
@@ -42,7 +42,11 @@ function Homepage(): ReactNode {
             const selectedApiCall = determineApiCall();
             if (token && selectedApiCall && user) {
                 try {
-                    const fetchedPosts:PostType[] = await FiskeAPI[selectedApiCall](user.id, token);
+                    const fetchedPosts:PostType[] =
+                    await FiskeAPI[selectedApiCall](
+                                                    user.id,
+                                                    token
+                                                    );
                     setPosts(fetchedPosts);
                 }catch(err:unknown){
                     if (err instanceof Error) {
@@ -75,9 +79,12 @@ function Homepage(): ReactNode {
             const selectedApiCall = determineApiCall();
             if (token && selectedApiCall && user) {
                 try {
-                    const fetchedPosts = await FiskeAPI[selectedApiCall](user.id, token);
+                    const fetchedPosts =
+                    await FiskeAPI[selectedApiCall](
+                                                    user.id,
+                                                    token
+                                                    );
                     setPosts(fetchedPosts);
-
                 }catch(err:unknown){
                     if (err instanceof Error) {
                         setMessage(err.message, 'error');
@@ -103,11 +110,27 @@ function Homepage(): ReactNode {
         <div>
             <div className={styles.nav}>
                     <div className={styles.buttons}>
-                        <div className={styles.buttonBox} onClick={setPostsToUserFeed}>
-                            <p className={typeOfPosts === 'userFeed' ? `${styles.activeButton} ${styles.button}`:styles.button} style={{margin:'1rem'}} >My Posts</p>
+                        <div className={styles.buttonBox}
+                             onClick={setPostsToUserFeed}>
+                            <p
+                              className={typeOfPosts === 'userFeed' ?
+                                       `${styles.activeButton} ${styles.button}`
+                                       :
+                                       styles.button}
+                            style={{margin:'1rem'}}>
+                            My Posts
+                            </p>
                         </div>
-                        <div className={styles.buttonBox} onClick={setPostsToExplore}>
-                            <p className={typeOfPosts === 'userFeed' ? styles.button : `${styles.activeButton} ${styles.button}`} style={{margin:'1rem'}}>Explore</p>
+                        <div className={styles.buttonBox}
+                             onClick={setPostsToExplore}>
+                            <p
+                              className={typeOfPosts === 'userFeed' ?
+                                         styles.button
+                                         :
+                                         `${styles.activeButton} ${styles.button}`}
+                              style={{margin:'1rem'}}>
+                                Explore
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -116,7 +139,14 @@ function Homepage(): ReactNode {
                     <SearchGroupsContainer />
                 </div>
                 <div className={styles.postContainer}>
-                {posts.length>0 ? posts.map(p=><PostListItem key={p!.id} post={p} updatePosts={updatePosts}/>): <p>Hmm. no posts yet. Join a group to get started!</p>}
+                {posts.length>0 ?
+                    posts.map(p=><PostListItem
+                                  key={p!.id}
+                                  post={p}
+                                  updatePosts={updatePosts}/>)
+                :
+                <p>Hmm. no posts yet. Join a group to get started!</p>
+                }
                 </div>
             </div>
         </div>

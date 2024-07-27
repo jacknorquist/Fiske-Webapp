@@ -6,7 +6,7 @@ import { useMessage } from './MessageContext.tsx';
 
 interface UserContextType {
   user: UserType | null;
-  setUser: Dispatch<SetStateAction<UserType | null>>;
+  setUser: (user: UserType | null) => void;
 }
 
 const UserContext = createContext<UserContextType | undefined>(undefined);

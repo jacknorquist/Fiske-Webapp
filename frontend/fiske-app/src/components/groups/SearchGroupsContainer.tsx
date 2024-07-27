@@ -53,7 +53,6 @@ function SearchGroupsContainer(): ReactNode {
           try {
             const groups = await FiskeAPI.searchGroups(token, formData);
             setGroups(groups);
-            setMessage('Group Updated', "success")
           }catch(err:unknown){
             if (err instanceof Error) {
                 setMessage(err.message, 'error');

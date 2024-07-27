@@ -1,24 +1,13 @@
-import React, { useState } from 'react';
-import {
-  Collapse,
-  Navbar,
-  NavbarToggler,
-  NavbarBrand,
-  Nav,
-  NavItem,
-  NavLink,
-  UncontrolledDropdown,
-  DropdownToggle,
-  DropdownMenu,
-  DropdownItem,
-  NavbarText,
-  NavbarProps,
-} from 'reactstrap';
+import React from 'react';
 import { Link } from 'react-router-dom';
-import {Button} from 'reactstrap';
 import { useUser } from '../../context/UserContext.tsx';
 import styles from './css/NavBar.module.css'
 import { UserType } from '../../types.ts';
+import {
+  Navbar,
+  NavbarBrand,
+  NavLink,
+} from 'reactstrap';
 
 /**NavBar: renders navigation for logged in user
  *

@@ -43,9 +43,17 @@ function PostImageGallery({images}:{images:string[]}): ReactNode {
 
     return (
         <div className={styles.container}>
-            <img className={styles.postImage}src={images[imagesState]} alt="" />
-            <span onClick={moveImageRight}className={`${styles.rightArrow} bi bi-arrow-right`}></span>
-            <span onClick={moveImageLeft}className={`${styles.leftArrow} bi bi-arrow-left`}></span>
+            <img
+            className={styles.postImage}
+            src={images[imagesState]} alt="" />
+            <span
+            onClick={moveImageRight}
+            className={`${styles.rightArrow} bi bi-arrow-right`}>
+            </span>
+            <span
+            onClick={moveImageLeft}
+            className={`${styles.leftArrow} bi bi-arrow-left`}>
+            </span>
         </div>
     );
 }

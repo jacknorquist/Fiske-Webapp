@@ -1,7 +1,7 @@
 .gridcontainer {
   display: grid;
   grid-template-rows: auto;
-  grid-template-columns: repeat(9, 1fr);
+  grid-template-columns: repeat(16, 1fr);
   gap: 10px;
   position: relative;
   border-radius: 10px;
@@ -90,7 +90,7 @@
 
 .leftContainer{
   height: 100%;
-  grid-column: 1/7;
+  grid-column: 4/14;
 }
 
 @media (max-width: 480px) {
@@ -119,7 +119,7 @@
   background-color: white;
 }
 .rightContainer{
-  grid-column: 7/9;
+  grid-column: 14/17;
 }
 
 

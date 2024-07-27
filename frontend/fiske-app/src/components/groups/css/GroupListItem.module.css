@@ -12,6 +12,7 @@
   transition: height 0.3s ease;
   font-size: 1rem;
   overflow: hidden;
+  container-type: inline-size;
 }
 
 .container:hover{
@@ -27,6 +28,7 @@
   display: grid;
   transition: height 0.3s ease;
   font-size: 1rem;
+  container-type: inline-size;
 }
 
 /* .grouplink{
@@ -52,21 +54,56 @@
   width: 100%;
   grid-template-columns: repeat(8, 1fr);
   grid-template-rows: auto;
+  container-type: size;
 }
+
+
 .name{
   text-align: left;
   grid-column: 2/6;
   grid-row: 1/2;
-  font-size: 1.2rem;
+  font-size: 1.2em;
   padding-top: .2rem;
 }
 .name:hover{
   grid-column: 2/6;
   grid-row: 1/2;
-  font-size: 1.2rem;
+  font-size: 1.2em;
   padding-top: .2rem;
   color: blue;
 }
+
+
+
+@container(max-width: 450px) {
+  .name{
+    text-align: left;
+    grid-column: 2/6;
+    grid-row: 1/2;
+    font-size: .9em;
+    padding-top: .8em;
+    text-wrap: nowrap;
+  }
+  .name:hover{
+    grid-column: 2/6;
+    grid-row: 1/2;
+    font-size: .9em;
+    padding-top: .8em;
+    color: blue;
+  }
+  .header{
+    grid-column: 1/8;
+    grid-row: 1/2;
+    display: grid;
+    width: 100%;
+    grid-template-columns: repeat(8, 1fr);
+    grid-template-rows: auto;
+    container-type: size;
+    padding-bottom: 2.5rem;
+  }
+
+}
+
 
 .headerImage{
   border-radius: 50%;
@@ -131,3 +168,5 @@ margin-bottom: .5rem;
   color: #787879;
   margin: 0;
 }
+
+

@@ -75,7 +75,6 @@
 
 .buttonscontainer{
   grid-column: 8/9;
-  grid-row: 1/6;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
   text-align: center;
   z-index: 2;

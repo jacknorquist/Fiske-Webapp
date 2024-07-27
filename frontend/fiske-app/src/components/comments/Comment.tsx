@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import FiskeAPI from "../../api.ts";
 import { useMessage } from "../../context/MessageContext.tsx";
 import styles from './css/Comment.module.css';
-import {UserType, CommentPropsType } from "../../types.ts";
+import {UserType, CommentPropsType, MessageContextType } from "../../types.ts";
 
 /**Comment: Renders individual comment.
  *

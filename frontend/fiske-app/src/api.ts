@@ -216,6 +216,7 @@ static async editUser(
     }
     return await response.json()
   }
+
   /**getGroup: get GroupTypeWithFishboard for individual group
    *  - params: token, groupId
    *  - returns: error or GroupTypeWithFishboard
@@ -253,6 +254,7 @@ static async editUser(
     }
     return await response.json()
   }
+
   /**leaveGroup: user leave group
    *  - params: token, groupId
    *  - returns: message of success or failure
@@ -290,6 +292,7 @@ static async editUser(
     }
     return await response.json()
   }
+
   /**getUserGroups: get groups that user has joined
    *  - params: token, userId
    *  - returns: error or array of GroupType
@@ -335,9 +338,7 @@ static async editUser(
   static async searchGroups(token:string, formData:SearchGroupFormDataType){
     const {search} = formData
     const response =
-    await fetch(
-      `https://fiske-backend.onrender.com/groups/search?query=
-      ${encodeURIComponent(search)}`, {
+    await fetch(`https://fiske-backend.onrender.com/groups/search?query=${encodeURIComponent(search)}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',

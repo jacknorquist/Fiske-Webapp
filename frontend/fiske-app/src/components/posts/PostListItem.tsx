@@ -132,7 +132,7 @@ function PostListItem({post, updatePosts}:PostListItemPropsType): ReactNode {
                         </Link>
                         <i
                         style={{color:'gray'}}>
-                        posted {timeAgo(postState.created_at)}
+                         {' posted' + timeAgo(postState.created_at)}
                         </i>
                 </div>
             </div>

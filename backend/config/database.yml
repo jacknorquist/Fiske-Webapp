@@ -33,3 +33,4 @@ production:
   password: <%= ENV['prod_key'] %>
   host: bubble.db.elephantsql.com
   database: ztxaldlq
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 10 } %>

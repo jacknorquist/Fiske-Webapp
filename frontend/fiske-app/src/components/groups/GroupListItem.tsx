@@ -13,8 +13,12 @@ import { GroupType } from "../../types.ts";
 
 /**GroupListItem: renders group in list format
  *
- * * - group (obj): holds group data like...
- *    {name:'group', fish_species:'walleye', area:'Minnesota', description:'group for walleyes', id:5, user_id:1 }
+ * * - group (obj): containes group data like...
+ *    {name:'group',
+ *     fish_species:'walleye',
+ *     area:'Minnesota',
+ *     description:'group for walleyes',
+ *     id:5, user_id:1 }
  *
  *State:
  * - userIsMember (boolean): if true, user is a member of the group

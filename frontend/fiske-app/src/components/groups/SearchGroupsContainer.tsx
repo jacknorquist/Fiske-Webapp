@@ -64,7 +64,6 @@ function SearchGroupsContainer(): ReactNode {
      }
 
 
-
     return (
 
         <div className={styles.container}>

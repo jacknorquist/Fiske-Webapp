@@ -64,6 +64,7 @@
   grid-row: 1/2;
   font-size: 1.2em;
   padding-top: .2rem;
+  text-wrap: nowrap;
 }
 .name:hover{
   grid-column: 2/6;
@@ -71,6 +72,7 @@
   font-size: 1.2em;
   padding-top: .2rem;
   color: blue;
+  text-wrap: nowrap;
 }
 
 
@@ -141,28 +143,20 @@ margin-bottom: .5rem;
 
 .buttonscontainer{
   grid-column: 6/8;
-  grid-row: 2/6;
+  grid-row: 2/4;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
   text-align: center;
   z-index: 3;
   background-color: white;
 }
 
-
-.postImage{
+.socialContainer{
+  display: flex;
   grid-column: 1/8;
-  grid-row: 4/7;
-  width: 100%;
-  object-fit: cover;
-  }
+  grid-row: 7/8;
+  border-top: .2px solid black;
 
-  .socialContainer{
-    display: flex;
-    grid-column: 1/8;
-    grid-row: 7/8;
-    border-top: .2px solid black;
-
-  }
+}
 .icon{
   cursor: pointer;
   color: #787879;

@@ -2,19 +2,12 @@ import React from "react";
 import { ReactNode, useState } from "react";
 import styles from './css/SearchGroupsForm.module.css';
 import { SearchGroupFormDataType, SearchGroupFormPropsType } from "../../types";
-
-
-
-
 import {
     Form,
     FormGroup,
     Label,
     Col,
     Input,
-    FormText,
-    Button,
-    CloseButton
   } from 'reactstrap';
 
 

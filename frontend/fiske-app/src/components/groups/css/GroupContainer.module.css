@@ -14,7 +14,7 @@
 
 .leftContainer{
   height: 100%;
-  grid-column: 1/7;
+  grid-column: 3/8;
 }
 
 @media (max-width: 480px) {

@@ -61,7 +61,8 @@ function FishboardContainer({
                 const boardResponse: FishboardType =
                 await FiskeAPI.getUserFishboard(
                                                 localStorage['fiske-token'],
-                                                fishboardState.id);
+                                                fishboardState.id
+                                                );
                 setFishboardState(boardResponse)
             }catch(err:unknown){
                 if (err instanceof Error) {
@@ -75,7 +76,8 @@ function FishboardContainer({
                 const boardResponse: FishboardType =
                 await FiskeAPI.getGroupFishboard(
                                                  localStorage['fiske-token'],
-                                                 fishboardState.id);
+                                                 fishboardState.id
+                                                );
                 setFishboardState(boardResponse)
             }catch(err:unknown){
                 if (err instanceof Error) {

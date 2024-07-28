@@ -31,7 +31,10 @@ function CreatePostContainer({
   //create post
   async function createPost(formData:PostFormDataType){
       try{
-       await FiskeAPI.createPost( localStorage['fiske-token'], Number(groupId), formData);
+       await FiskeAPI.createPost(
+                                 localStorage['fiske-token'],
+                                 Number(groupId),
+                                 formData);
         updatePosts();
         toggleCreatePost();
       }catch(err:unknown){

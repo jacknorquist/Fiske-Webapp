@@ -49,7 +49,10 @@ function GroupsContainer(): ReactNode {
          const token = localStorage.getItem('fiske-token');
          if (token) {
            try {
-             const userGroups = await FiskeAPI.getUserGroups(token, currentUserId );
+             const userGroups = await FiskeAPI.getUserGroups(
+                                                             token,
+                                                             currentUserId
+                                                            );
              const exploreGroups = await FiskeAPI.getExploreGroups(token);
              setUserGroups(userGroups)
              setExploreGroups(exploreGroups)

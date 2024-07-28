@@ -57,7 +57,10 @@ function Comment({comment, updatePost}: CommentPropsType): ReactNode {
             </Link>
                 <p className={styles.content}>{comment.content}</p>
                 {user!.id === comment.user_id ?
-                <span onClick={deleteComment} className={`${styles.trashIcon} bi bi-trash`}></span>
+                <span
+                 onClick={deleteComment}
+                 className={`${styles.trashIcon} bi bi-trash`}>
+                </span>
                 :""}
             </div>
         </div>

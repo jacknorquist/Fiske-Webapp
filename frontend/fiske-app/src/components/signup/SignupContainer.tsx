@@ -44,7 +44,11 @@ function SignupContainer(): ReactNode {
 
     return (
         <div className={styles.container}>
-          <Button href="/login" className={styles.button}>Go to login</Button>
+          <Button
+            href="/login"
+            className={styles.button}>
+            Go to login
+          </Button>
         <SignupForm handleSignup={handleSignup} />
         </div>
     );

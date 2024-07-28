@@ -99,7 +99,10 @@ function CreatePostForm({
               />
           </FormGroup>
           <div className={styles.iconContainer}>
-            <i className={`${styles.icon} bi bi-images`} onClick={handleAddImage}></i>
+            <i
+              className={`${styles.icon} bi bi-images`}
+              onClick={handleAddImage}>
+            </i>
           </div>
           {images.map((image, index:number) => (
             <div key={index} className={styles.imageInput}>

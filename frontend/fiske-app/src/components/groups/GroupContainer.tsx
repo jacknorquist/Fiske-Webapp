@@ -51,12 +51,19 @@ function GroupContainer(): ReactNode {
         const token:string | null = localStorage.getItem('fiske-token');
         if (token) {
           try {
-            const posts:PostType[] = await FiskeAPI.getGroupPosts( token, Number(id));
-            const group: GroupTypeWithFishboard = await FiskeAPI.getGroup(token, Number(id));
+            const posts:PostType[] = await FiskeAPI.getGroupPosts(
+                                                                  token,
+                                                                  Number(id)
+                                                                 );
+            const group: GroupTypeWithFishboard = await FiskeAPI.getGroup(
+                                                                          token,
+                                                                          Number(id)
+                                                                         );
             const userGroups: GroupType[] =
             await FiskeAPI.getUserGroups(
                                          token,
-                                         currentUserId )
+                                         currentUserId
+                                        );
             setUserMember(userGroups.find(g=> g.id === Number(id)) ? true : false)
             setGroup(group)
             setPosts(posts)

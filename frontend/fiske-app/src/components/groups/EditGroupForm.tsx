@@ -71,7 +71,9 @@ function EditGroupForm({
 
     return (
         <div>
-        <Form onSubmit={handleSave} className={`${styles.form} border border-primary rounded`} >
+        <Form
+          onSubmit={handleSave}
+          className={`${styles.form} border border-primary rounded`} >
           <CloseButton onClick={toggleEditGroup}/>
           <h1>Edit Group</h1>
         <FormGroup row>
